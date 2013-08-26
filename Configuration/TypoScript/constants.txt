@@ -1,0 +1,14 @@
+plugin.tx_placements {
+	view {
+		# cat=plugin.tx_placements/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:placements/Resources/Private/Templates/
+		# cat=plugin.tx_placements/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:placements/Resources/Private/Partials/
+		# cat=plugin.tx_placements/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:placements/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_placements//a; type=string; label=Default storage PID
+		storagePid =
+	}
+}

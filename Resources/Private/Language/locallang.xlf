@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-23T16:56:21Z" product-name="placements">
+		<header/>
+		<body>
+
+			<trans-unit id="tx_placements_domain_model_position">
+				<source>Position</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_position.organization">
+				<source>organization</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_position.client">
+				<source>client</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_placements_domain_model_application">
+				<source>Application</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_application.introduction">
+				<source>introduction</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_application.file">
+				<source>file</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_application.position">
+				<source>position</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_application.resume">
+				<source>resume</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_placements_domain_model_organization">
+				<source>Organization</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_placements_domain_model_resume">
+				<source>Resume</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_resume.sections">
+				<source>sections</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_placements_domain_model_section">
+				<source>Section</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_section.begin">
+				<source>begin</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_section.end">
+				<source>end</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_section.position">
+				<source>position</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_section.description">
+				<source>description</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_placements_domain_model_client">
+				<source>Client</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_placements_domain_model_user">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_user.person">
+				<source>person</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_user.resumes">
+				<source>resumes</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_user.applications">
+				<source>applications</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_placements_domain_model_profil">
+				<source>Profil</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_profil.user">
+				<source>user</source>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>

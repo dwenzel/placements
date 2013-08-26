@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-02T12:11:57Z" product-name="placements">
+		<header/>
+		<body>
+
+			<trans-unit id="person.description">
+				<source>person</source>
+			</trans-unit>
+			<trans-unit id="resumes.description">
+				<source>resumes</source>
+			</trans-unit>
+			<trans-unit id="applications.description">
+				<source>applications</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
