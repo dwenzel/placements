@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\Placements\Tests;
+namespace Webfox\Placements\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -27,7 +27,7 @@ namespace TYPO3\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class \TYPO3\Placements\Domain\Model\User.
+ * Test case for class \Webfox\Placements\Domain\Model\User.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -41,28 +41,18 @@ namespace TYPO3\Placements\Tests;
  */
 class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \TYPO3\Placements\Domain\Model\User
+	 * @var \Webfox\Placements\Domain\Model\User
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \TYPO3\Placements\Domain\Model\User();
+		$this->fixture = new \Webfox\Placements\Domain\Model\User();
 	}
 
 	public function tearDown() {
 		unset($this->fixture);
 	}
 
-	/**
-	 * @test
-	 */
-	public function getPersonReturnsInitialValueFor() { }
-
-	/**
-	 * @test
-	 */
-	public function setPersonForSetsPerson() { }
-	
 	/**
 	 * @test
 	 */

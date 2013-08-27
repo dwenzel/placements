@@ -38,14 +38,14 @@ class Profil extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * user
 	 *
-	 * @var \TYPO3\Placements\Domain\Model\User
+	 * @var \Webfox\Placements\Domain\Model\User
 	 */
 	protected $user;
 
 	/**
 	 * Returns the user
 	 *
-	 * @return \TYPO3\Placements\Domain\Model\User $user
+	 * @return \Webfox\Placements\Domain\Model\User user
 	 */
 	public function getUser() {
 		return $this->user;
@@ -54,10 +54,10 @@ class Profil extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the user
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\User $user
-	 * @return void
+	 * @param \Webfox\Placements\Domain\Model\User $user
+	 * @return \Webfox\Placements\Domain\Model\User user
 	 */
-	public function setUser(\TYPO3\Placements\Domain\Model\User $user) {
+	public function setUser(\Webfox\Placements\Domain\Model\User $user) {
 		$this->user = $user;
 	}
 

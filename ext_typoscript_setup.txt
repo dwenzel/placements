@@ -2,7 +2,13 @@ config.tx_extbase{
     persistence{
         classes{
 
-            TYPO3\Placements\Domain\Model\User {
+            TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+                subclasses {
+                    Tx_Placements_User = Webfox\Placements\Domain\Model\User
+					
+          		}
+            }
+            Webfox\Placements\Domain\Model\User {
                 mapping {
                     tableName = fe_users
                     recordType = Tx_Placements_User

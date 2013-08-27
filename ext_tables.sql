@@ -246,9 +246,10 @@ CREATE TABLE tx_placements_domain_model_client (
 #
 CREATE TABLE fe_users (
 
-	person int(11) unsigned DEFAULT '0',
 	resumes int(11) unsigned DEFAULT '0',
 	applications int(11) unsigned DEFAULT '0',
+
+	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
 
 );
 
@@ -291,3 +292,4 @@ CREATE TABLE tx_placements_domain_model_profil (
 	KEY language (l10n_parent,sys_language_uid)
 
 );
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

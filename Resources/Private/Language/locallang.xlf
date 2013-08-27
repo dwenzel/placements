@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-23T16:56:21Z" product-name="placements">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-27T10:18:54Z" product-name="placements">
 		<header/>
 		<body>
 
@@ -63,9 +63,6 @@
 			
 			<trans-unit id="tx_placements_domain_model_user">
 				<source>User</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_user.person">
-				<source>person</source>
 			</trans-unit>
 			<trans-unit id="tx_placements_domain_model_user.resumes">
 				<source>resumes</source>

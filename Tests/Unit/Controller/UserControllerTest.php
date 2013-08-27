@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Placements\Tests;
+namespace Webfox\Placements\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -45,7 +45,7 @@ class UserControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \TYPO3\Placements\Domain\Model\User();
+		$this->fixture = new \Webfox\Placements\Domain\Model\User();
 	}
 
 	public function tearDown() {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\Placements\Tests;
+namespace Webfox\Placements\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -27,7 +27,7 @@ namespace TYPO3\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class \TYPO3\Placements\Domain\Model\Client.
+ * Test case for class \Webfox\Placements\Domain\Model\Client.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -41,12 +41,12 @@ namespace TYPO3\Placements\Tests;
  */
 class ClientTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \TYPO3\Placements\Domain\Model\Client
+	 * @var \Webfox\Placements\Domain\Model\Client
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \TYPO3\Placements\Domain\Model\Client();
+		$this->fixture = new \Webfox\Placements\Domain\Model\Client();
 	}
 
 	public function tearDown() {

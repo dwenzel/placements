@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Placements\Controller;
+namespace Webfox\Placements\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -36,6 +36,14 @@ namespace TYPO3\Placements\Controller;
 class UserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
+	 * userRepository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\UserRepository
+	 * @inject
+	 */
+	protected $userRepository;
+
+	/**
 	 * action list
 	 *
 	 * @return void
@@ -48,31 +56,31 @@ class UserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * action show
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\User $user
+	 * @param \Webfox\Placements\Domain\Model\User $user
 	 * @return void
 	 */
-	public function showAction(\TYPO3\Placements\Domain\Model\User $user) {
+	public function showAction(\Webfox\Placements\Domain\Model\User $user) {
 		$this->view->assign('user', $user);
 	}
 
 	/**
 	 * action new
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\User $newUser
+	 * @param \Webfox\Placements\Domain\Model\User $newUser
 	 * @dontvalidate $newUser
 	 * @return void
 	 */
-	public function newAction(\TYPO3\Placements\Domain\Model\User $newUser = NULL) {
+	public function newAction(\Webfox\Placements\Domain\Model\User $newUser = NULL) {
 		$this->view->assign('newUser', $newUser);
 	}
 
 	/**
 	 * action create
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\User $newUser
+	 * @param \Webfox\Placements\Domain\Model\User $newUser
 	 * @return void
 	 */
-	public function createAction(\TYPO3\Placements\Domain\Model\User $newUser) {
+	public function createAction(\Webfox\Placements\Domain\Model\User $newUser) {
 		$this->userRepository->add($newUser);
 		$this->flashMessageContainer->add('Your new User was created.');
 		$this->redirect('list');
@@ -81,20 +89,20 @@ class UserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * action edit
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\User $user
+	 * @param \Webfox\Placements\Domain\Model\User $user
 	 * @return void
 	 */
-	public function editAction(\TYPO3\Placements\Domain\Model\User $user) {
+	public function editAction(\Webfox\Placements\Domain\Model\User $user) {
 		$this->view->assign('user', $user);
 	}
 
 	/**
 	 * action update
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\User $user
+	 * @param \Webfox\Placements\Domain\Model\User $user
 	 * @return void
 	 */
-	public function updateAction(\TYPO3\Placements\Domain\Model\User $user) {
+	public function updateAction(\Webfox\Placements\Domain\Model\User $user) {
 		$this->userRepository->update($user);
 		$this->flashMessageContainer->add('Your User was updated.');
 		$this->redirect('list');
@@ -103,10 +111,10 @@ class UserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	/**
 	 * action delete
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\User $user
+	 * @param \Webfox\Placements\Domain\Model\User $user
 	 * @return void
 	 */
-	public function deleteAction(\TYPO3\Placements\Domain\Model\User $user) {
+	public function deleteAction(\Webfox\Placements\Domain\Model\User $user) {
 		$this->userRepository->remove($user);
 		$this->flashMessageContainer->add('Your User was removed.');
 		$this->redirect('list');

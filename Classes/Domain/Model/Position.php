@@ -38,21 +38,21 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * organization
 	 *
-	 * @var \TYPO3\Placements\Domain\Model\Organization
+	 * @var \Webfox\Placements\Domain\Model\Organization
 	 */
 	protected $organization;
 
 	/**
 	 * client
 	 *
-	 * @var \TYPO3\Placements\Domain\Model\Client
+	 * @var \Webfox\Placements\Domain\Model\Client
 	 */
 	protected $client;
 
 	/**
 	 * Returns the organization
 	 *
-	 * @return \TYPO3\Placements\Domain\Model\Organization $organization
+	 * @return \Webfox\Placements\Domain\Model\Organization organization
 	 */
 	public function getOrganization() {
 		return $this->organization;
@@ -61,17 +61,17 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the organization
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\Organization $organization
-	 * @return void
+	 * @param \Webfox\Placements\Domain\Model\Organization $organization
+	 * @return \Webfox\Placements\Domain\Model\Organization organization
 	 */
-	public function setOrganization(\TYPO3\Placements\Domain\Model\Organization $organization) {
+	public function setOrganization(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$this->organization = $organization;
 	}
 
 	/**
 	 * Returns the client
 	 *
-	 * @return \TYPO3\Placements\Domain\Model\Client $client
+	 * @return \Webfox\Placements\Domain\Model\Client client
 	 */
 	public function getClient() {
 		return $this->client;
@@ -80,10 +80,10 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the client
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\Client $client
-	 * @return void
+	 * @param \Webfox\Placements\Domain\Model\Client $client
+	 * @return \Webfox\Placements\Domain\Model\Client client
 	 */
-	public function setClient(\TYPO3\Placements\Domain\Model\Client $client) {
+	public function setClient(\Webfox\Placements\Domain\Model\Client $client) {
 		$this->client = $client;
 	}
 

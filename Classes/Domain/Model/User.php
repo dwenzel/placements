@@ -33,33 +33,26 @@ namespace TYPO3\Placements\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	/**
-	 * person
-	 *
-	 * @var
-	 */
-	protected $person;
+class User extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 
 	/**
 	 * resumes
 	 *
-	 * @var \TYPO3\Placements\Domain\Model\Resume
+	 * @var \Webfox\Placements\Domain\Model\Resume
 	 */
 	protected $resumes;
 
 	/**
 	 * applications
 	 *
-	 * @var \TYPO3\Placements\Domain\Model\Application
+	 * @var \Webfox\Placements\Domain\Model\Application
 	 */
 	protected $applications;
 
 	/**
 	 * Returns the resumes
 	 *
-	 * @return \TYPO3\Placements\Domain\Model\Resume $resumes
+	 * @return \Webfox\Placements\Domain\Model\Resume resumes
 	 */
 	public function getResumes() {
 		return $this->resumes;
@@ -68,17 +61,17 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the resumes
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\Resume $resumes
-	 * @return void
+	 * @param \Webfox\Placements\Domain\Model\Resume $resumes
+	 * @return \Webfox\Placements\Domain\Model\Resume resumes
 	 */
-	public function setResumes(\TYPO3\Placements\Domain\Model\Resume $resumes) {
+	public function setResumes(\Webfox\Placements\Domain\Model\Resume $resumes) {
 		$this->resumes = $resumes;
 	}
 
 	/**
 	 * Returns the applications
 	 *
-	 * @return \TYPO3\Placements\Domain\Model\Application $applications
+	 * @return \Webfox\Placements\Domain\Model\Application applications
 	 */
 	public function getApplications() {
 		return $this->applications;
@@ -87,30 +80,11 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the applications
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\Application $applications
-	 * @return void
+	 * @param \Webfox\Placements\Domain\Model\Application $applications
+	 * @return \Webfox\Placements\Domain\Model\Application applications
 	 */
-	public function setApplications(\TYPO3\Placements\Domain\Model\Application $applications) {
+	public function setApplications(\Webfox\Placements\Domain\Model\Application $applications) {
 		$this->applications = $applications;
-	}
-
-	/**
-	 * Returns the person
-	 *
-	 * @return person
-	 */
-	public function getPerson() {
-		return $this->person;
-	}
-
-	/**
-	 * Sets the person
-	 *
-	 * @param $person
-	 * @return person
-	 */
-	public function setPerson($person) {
-		$this->person = $person;
 	}
 
 }

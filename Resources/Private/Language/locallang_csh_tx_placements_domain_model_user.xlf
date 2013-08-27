@@ -3,7 +3,16 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-02T12:11:57Z" product-name="placements">
 		<header/>
 		<body>
-
+			<trans-unit id="first_name.description">
+				<source>first name</source>
+			</trans-unit>
+			<trans-unit id="last_name.description">
+				<source>last name</source>
+			</trans-unit>
+			<trans-unit id="username.description">
+				<source>user name</source>
+			</trans-unit>
+			
 			<trans-unit id="person.description">
 				<source>person</source>
 			</trans-unit>

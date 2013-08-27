@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\Placements\Tests;
+namespace Webfox\Placements\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -27,7 +27,7 @@ namespace TYPO3\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class \TYPO3\Placements\Domain\Model\Section.
+ * Test case for class \Webfox\Placements\Domain\Model\Section.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -41,12 +41,12 @@ namespace TYPO3\Placements\Tests;
  */
 class SectionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \TYPO3\Placements\Domain\Model\Section
+	 * @var \Webfox\Placements\Domain\Model\Section
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \TYPO3\Placements\Domain\Model\Section();
+		$this->fixture = new \Webfox\Placements\Domain\Model\Section();
 	}
 
 	public function tearDown() {

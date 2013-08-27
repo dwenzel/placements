@@ -38,14 +38,14 @@ class Resume extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * sections
 	 *
-	 * @var \TYPO3\Placements\Domain\Model\Section
+	 * @var \Webfox\Placements\Domain\Model\Section
 	 */
 	protected $sections;
 
 	/**
 	 * Returns the sections
 	 *
-	 * @return \TYPO3\Placements\Domain\Model\Section $sections
+	 * @return \Webfox\Placements\Domain\Model\Section sections
 	 */
 	public function getSections() {
 		return $this->sections;
@@ -54,10 +54,10 @@ class Resume extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the sections
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\Section $sections
-	 * @return void
+	 * @param \Webfox\Placements\Domain\Model\Section $sections
+	 * @return \Webfox\Placements\Domain\Model\Section sections
 	 */
-	public function setSections(\TYPO3\Placements\Domain\Model\Section $sections) {
+	public function setSections(\Webfox\Placements\Domain\Model\Section $sections) {
 		$this->sections = $sections;
 	}
 

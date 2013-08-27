@@ -52,35 +52,16 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * position
 	 *
-	 * @var \TYPO3\Placements\Domain\Model\Position
+	 * @var \Webfox\Placements\Domain\Model\Position
 	 */
 	protected $position;
 
 	/**
 	 * resume
 	 *
-	 * @var \TYPO3\Placements\Domain\Model\Resume
+	 * @var \Webfox\Placements\Domain\Model\Resume
 	 */
 	protected $resume;
-
-	/**
-	 * Returns the position
-	 *
-	 * @return \TYPO3\Placements\Domain\Model\Position $position
-	 */
-	public function getPosition() {
-		return $this->position;
-	}
-
-	/**
-	 * Sets the position
-	 *
-	 * @param \TYPO3\Placements\Domain\Model\Position $position
-	 * @return void
-	 */
-	public function setPosition(\TYPO3\Placements\Domain\Model\Position $position) {
-		$this->position = $position;
-	}
 
 	/**
 	 * Returns the introduction
@@ -121,9 +102,28 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns the position
+	 *
+	 * @return \Webfox\Placements\Domain\Model\Position position
+	 */
+	public function getPosition() {
+		return $this->position;
+	}
+
+	/**
+	 * Sets the position
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Position $position
+	 * @return \Webfox\Placements\Domain\Model\Position position
+	 */
+	public function setPosition(\Webfox\Placements\Domain\Model\Position $position) {
+		$this->position = $position;
+	}
+
+	/**
 	 * Returns the resume
 	 *
-	 * @return \TYPO3\Placements\Domain\Model\Resume $resume
+	 * @return \Webfox\Placements\Domain\Model\Resume resume
 	 */
 	public function getResume() {
 		return $this->resume;
@@ -132,10 +132,10 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the resume
 	 *
-	 * @param \TYPO3\Placements\Domain\Model\Resume $resume
-	 * @return void
+	 * @param \Webfox\Placements\Domain\Model\Resume $resume
+	 * @return \Webfox\Placements\Domain\Model\Resume resume
 	 */
-	public function setResume(\TYPO3\Placements\Domain\Model\Resume $resume) {
+	public function setResume(\Webfox\Placements\Domain\Model\Resume $resume) {
 		$this->resume = $resume;
 	}
 
