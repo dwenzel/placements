@@ -148,6 +148,11 @@ $TCA['tx_placements_domain_model_application'] = array(
 				),
 			),
 		),
+		'user' => array(
+			'config' => array(
+				'type' => 'passthrough',
+			),
+		),
 	),
 );
 

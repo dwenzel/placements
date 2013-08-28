@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Placements\Domain\Repository;
+namespace Webfox\Placements\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice

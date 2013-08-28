@@ -99,8 +99,8 @@ $TCA['tx_placements_domain_model_resume'] = array(
 			'config' => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_placements_domain_model_section',
-				'minitems' => 0,
-				'maxitems' => 1,
+				'foreign_field' => 'resume',
+				'maxitems'      => 9999,
 				'appearance' => array(
 					'collapseAll' => 0,
 					'levelLinksPosition' => 'top',
@@ -108,6 +108,11 @@ $TCA['tx_placements_domain_model_resume'] = array(
 					'showPossibleLocalizationRecords' => 1,
 					'showAllLocalizationLink' => 1
 				),
+			),
+		),
+		'user' => array(
+			'config' => array(
+				'type' => 'passthrough',
 			),
 		),
 	),

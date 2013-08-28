@@ -7,7 +7,7 @@ if (!defined('TYPO3_MODE')) {
 	'Webfox.' . $_EXTKEY,
 	'User',
 	array(
-		'User' => 'list, show, new, edit',
+		'User' => 'list, show, new, create, edit, update, delete',
 		
 	),
 	// non-cacheable actions

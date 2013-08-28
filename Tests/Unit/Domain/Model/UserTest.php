@@ -56,22 +56,118 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getResumesReturnsInitialValueForResume() { }
+	public function getResumesReturnsInitialValueForResume() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getResumes()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setResumesForResumeSetsResumes() { }
+	public function setResumesForObjectStorageContainingResumeSetsResumes() { 
+		$resume = new \Webfox\Placements\Domain\Model\Resume();
+		$objectStorageHoldingExactlyOneResumes = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneResumes->attach($resume);
+		$this->fixture->setResumes($objectStorageHoldingExactlyOneResumes);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneResumes,
+			$this->fixture->getResumes()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function getApplicationsReturnsInitialValueForApplication() { }
+	public function addResumeToObjectStorageHoldingResumes() {
+		$resume = new \Webfox\Placements\Domain\Model\Resume();
+		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneResume->attach($resume);
+		$this->fixture->addResume($resume);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneResume,
+			$this->fixture->getResumes()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setApplicationsForApplicationSetsApplications() { }
+	public function removeResumeFromObjectStorageHoldingResumes() {
+		$resume = new \Webfox\Placements\Domain\Model\Resume();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage->attach($resume);
+		$localObjectStorage->detach($resume);
+		$this->fixture->addResume($resume);
+		$this->fixture->removeResume($resume);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getResumes()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getApplicationsReturnsInitialValueForApplication() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getApplications()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setApplicationsForObjectStorageContainingApplicationSetsApplications() { 
+		$application = new \Webfox\Placements\Domain\Model\Application();
+		$objectStorageHoldingExactlyOneApplications = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneApplications->attach($application);
+		$this->fixture->setApplications($objectStorageHoldingExactlyOneApplications);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneApplications,
+			$this->fixture->getApplications()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addApplicationToObjectStorageHoldingApplications() {
+		$application = new \Webfox\Placements\Domain\Model\Application();
+		$objectStorageHoldingExactlyOneApplication = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneApplication->attach($application);
+		$this->fixture->addApplication($application);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneApplication,
+			$this->fixture->getApplications()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeApplicationFromObjectStorageHoldingApplications() {
+		$application = new \Webfox\Placements\Domain\Model\Application();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage->attach($application);
+		$localObjectStorage->detach($application);
+		$this->fixture->addApplication($application);
+		$this->fixture->removeApplication($application);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getApplications()
+		);
+	}
 	
 }
 ?>

@@ -47,6 +47,8 @@ CREATE TABLE tx_placements_domain_model_application (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
+	user int(11) unsigned DEFAULT '0' NOT NULL,
+
 	introduction varchar(255) DEFAULT '' NOT NULL,
 	file text NOT NULL,
 	position int(11) unsigned DEFAULT '0',
@@ -128,7 +130,9 @@ CREATE TABLE tx_placements_domain_model_resume (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-	sections int(11) unsigned DEFAULT '0',
+	user int(11) unsigned DEFAULT '0' NOT NULL,
+
+	sections int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -167,6 +171,8 @@ CREATE TABLE tx_placements_domain_model_section (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
+
+	resume int(11) unsigned DEFAULT '0' NOT NULL,
 
 	begin int(11) DEFAULT '0' NOT NULL,
 	end varchar(255) DEFAULT '' NOT NULL,
@@ -246,8 +252,8 @@ CREATE TABLE tx_placements_domain_model_client (
 #
 CREATE TABLE fe_users (
 
-	resumes int(11) unsigned DEFAULT '0',
-	applications int(11) unsigned DEFAULT '0',
+	resumes int(11) unsigned DEFAULT '0' NOT NULL,
+	applications int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
 
@@ -290,6 +296,33 @@ CREATE TABLE tx_placements_domain_model_profil (
 	KEY parent (pid),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
+
+);
+
+#
+# Table structure for table 'tx_placements_domain_model_section'
+#
+CREATE TABLE tx_placements_domain_model_section (
+
+	resume  int(11) unsigned DEFAULT '0' NOT NULL,
+
+);
+
+#
+# Table structure for table 'tx_placements_domain_model_resume'
+#
+CREATE TABLE tx_placements_domain_model_resume (
+
+	user  int(11) unsigned DEFAULT '0' NOT NULL,
+
+);
+
+#
+# Table structure for table 'tx_placements_domain_model_application'
+#
+CREATE TABLE tx_placements_domain_model_application (
+
+	user  int(11) unsigned DEFAULT '0' NOT NULL,
 
 );
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

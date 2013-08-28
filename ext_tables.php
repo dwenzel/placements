@@ -205,8 +205,8 @@ $tmp_placements_columns = array(
 		'config' => array(
 			'type' => 'inline',
 			'foreign_table' => 'tx_placements_domain_model_resume',
-			'minitems' => 0,
-			'maxitems' => 1,
+			'foreign_field' => 'user',
+			'maxitems'      => 9999,
 			'appearance' => array(
 				'collapseAll' => 0,
 				'levelLinksPosition' => 'top',
@@ -222,8 +222,8 @@ $tmp_placements_columns = array(
 		'config' => array(
 			'type' => 'inline',
 			'foreign_table' => 'tx_placements_domain_model_application',
-			'minitems' => 0,
-			'maxitems' => 1,
+			'foreign_field' => 'user',
+			'maxitems'      => 9999,
 			'appearance' => array(
 				'collapseAll' => 0,
 				'levelLinksPosition' => 'top',
@@ -274,6 +274,7 @@ $TCA['tx_placements_domain_model_profil'] = array(
 
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 #$TCA['fe_users']['columns']['tx_extbase_type']['config']['items'][] = array('LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:fe_users.tx_extbase_type.Tx_Placements_User','Tx_Placements_User');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_placements_domain_model_user', 'EXT:placements/Resources/Private/Language/locallang_csh_tx_placements_domain_model_user.xlf');
 
 $TCA['fe_users']['types']['Tx_Placements_User'] = $TCA['fe_users']['types']['0'];
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= ',--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_user,';

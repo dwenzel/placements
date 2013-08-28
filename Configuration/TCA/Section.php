@@ -131,6 +131,11 @@ $TCA['tx_placements_domain_model_section'] = array(
 				'eval' => 'trim'
 			),
 		),
+		'resume' => array(
+			'config' => array(
+				'type' => 'passthrough',
+			),
+		),
 	),
 );
 

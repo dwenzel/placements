@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Placements\Domain\Model;
+namespace Webfox\Placements\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -38,21 +38,69 @@ class User extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 	/**
 	 * resumes
 	 *
-	 * @var \Webfox\Placements\Domain\Model\Resume
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Resume>
+	 * @lazy
 	 */
 	protected $resumes;
 
 	/**
 	 * applications
 	 *
-	 * @var \Webfox\Placements\Domain\Model\Application
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Application>
+	 * @lazy
 	 */
 	protected $applications;
 
 	/**
+	 * __construct
+	 *
+	 * @return User
+	 */
+	public function __construct() {
+		//Do not remove the next line: It would break the functionality
+		$this->initStorageObjects();
+	}
+
+	/**
+	 * Initializes all ObjectStorage properties.
+	 *
+	 * @return void
+	 */
+	protected function initStorageObjects() {
+		/**
+		 * Do not modify this method!
+		 * It will be rewritten on each save in the extension builder
+		 * You may modify the constructor of this class instead
+		 */
+		$this->resumes = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		
+		$this->applications = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Adds a Resume
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Resume $resume
+	 * @return void
+	 */
+	public function addResume(\Webfox\Placements\Domain\Model\Resume $resume) {
+		$this->resumes->attach($resume);
+	}
+
+	/**
+	 * Removes a Resume
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Resume $resumeToRemove The Resume to be removed
+	 * @return void
+	 */
+	public function removeResume(\Webfox\Placements\Domain\Model\Resume $resumeToRemove) {
+		$this->resumes->detach($resumeToRemove);
+	}
+
+	/**
 	 * Returns the resumes
 	 *
-	 * @return \Webfox\Placements\Domain\Model\Resume resumes
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Resume> $resumes
 	 */
 	public function getResumes() {
 		return $this->resumes;
@@ -61,17 +109,37 @@ class User extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 	/**
 	 * Sets the resumes
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Resume $resumes
-	 * @return \Webfox\Placements\Domain\Model\Resume resumes
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Resume> $resumes
+	 * @return void
 	 */
-	public function setResumes(\Webfox\Placements\Domain\Model\Resume $resumes) {
+	public function setResumes(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $resumes) {
 		$this->resumes = $resumes;
+	}
+
+	/**
+	 * Adds a Application
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Application $application
+	 * @return void
+	 */
+	public function addApplication(\Webfox\Placements\Domain\Model\Application $application) {
+		$this->applications->attach($application);
+	}
+
+	/**
+	 * Removes a Application
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Application $applicationToRemove The Application to be removed
+	 * @return void
+	 */
+	public function removeApplication(\Webfox\Placements\Domain\Model\Application $applicationToRemove) {
+		$this->applications->detach($applicationToRemove);
 	}
 
 	/**
 	 * Returns the applications
 	 *
-	 * @return \Webfox\Placements\Domain\Model\Application applications
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Application> $applications
 	 */
 	public function getApplications() {
 		return $this->applications;
@@ -80,10 +148,10 @@ class User extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 	/**
 	 * Sets the applications
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Application $applications
-	 * @return \Webfox\Placements\Domain\Model\Application applications
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Application> $applications
+	 * @return void
 	 */
-	public function setApplications(\Webfox\Placements\Domain\Model\Application $applications) {
+	public function setApplications(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $applications) {
 		$this->applications = $applications;
 	}
 

@@ -13,12 +13,12 @@ Extension Name
 
 :Extension name: Placement Service
 :Extension key: placements
-:Version: 0.0.1
+:Version: 0.0.2
 :Description: manuals covering TYPO3 extension "Placement Service"
 :Language: en
 :Author: Dirk Wenzel, Michael Kasten
-:Creation: 2013-08-27
-:Generation: 10:19
+:Creation: 2013-08-28
+:Generation: 12:36
 :Licence: Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
 
 The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Placements\Domain\Model;
+namespace Webfox\Placements\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -38,14 +38,59 @@ class Resume extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * sections
 	 *
-	 * @var \Webfox\Placements\Domain\Model\Section
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Section>
+	 * @lazy
 	 */
 	protected $sections;
 
 	/**
+	 * __construct
+	 *
+	 * @return Resume
+	 */
+	public function __construct() {
+		//Do not remove the next line: It would break the functionality
+		$this->initStorageObjects();
+	}
+
+	/**
+	 * Initializes all ObjectStorage properties.
+	 *
+	 * @return void
+	 */
+	protected function initStorageObjects() {
+		/**
+		 * Do not modify this method!
+		 * It will be rewritten on each save in the extension builder
+		 * You may modify the constructor of this class instead
+		 */
+		$this->sections = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Adds a Section
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Section $section
+	 * @return void
+	 */
+	public function addSection(\Webfox\Placements\Domain\Model\Section $section) {
+		$this->sections->attach($section);
+	}
+
+	/**
+	 * Removes a Section
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Section $sectionToRemove The Section to be removed
+	 * @return void
+	 */
+	public function removeSection(\Webfox\Placements\Domain\Model\Section $sectionToRemove) {
+		$this->sections->detach($sectionToRemove);
+	}
+
+	/**
 	 * Returns the sections
 	 *
-	 * @return \Webfox\Placements\Domain\Model\Section sections
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Section> $sections
 	 */
 	public function getSections() {
 		return $this->sections;
@@ -54,10 +99,10 @@ class Resume extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the sections
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Section $sections
-	 * @return \Webfox\Placements\Domain\Model\Section sections
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Section> $sections
+	 * @return void
 	 */
-	public function setSections(\Webfox\Placements\Domain\Model\Section $sections) {
+	public function setSections(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $sections) {
 		$this->sections = $sections;
 	}
 

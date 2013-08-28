@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Placements\Domain\Model;
+namespace Webfox\Placements\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -53,6 +53,7 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * position
 	 *
 	 * @var \Webfox\Placements\Domain\Model\Position
+	 * @lazy
 	 */
 	protected $position;
 

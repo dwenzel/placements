@@ -56,12 +56,60 @@ class ResumeTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getSectionsReturnsInitialValueForSection() { }
+	public function getSectionsReturnsInitialValueForSection() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getSections()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setSectionsForSectionSetsSections() { }
+	public function setSectionsForObjectStorageContainingSectionSetsSections() { 
+		$section = new \Webfox\Placements\Domain\Model\Section();
+		$objectStorageHoldingExactlyOneSections = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSections->attach($section);
+		$this->fixture->setSections($objectStorageHoldingExactlyOneSections);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneSections,
+			$this->fixture->getSections()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addSectionToObjectStorageHoldingSections() {
+		$section = new \Webfox\Placements\Domain\Model\Section();
+		$objectStorageHoldingExactlyOneSection = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSection->attach($section);
+		$this->fixture->addSection($section);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneSection,
+			$this->fixture->getSections()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeSectionFromObjectStorageHoldingSections() {
+		$section = new \Webfox\Placements\Domain\Model\Section();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage->attach($section);
+		$localObjectStorage->detach($section);
+		$this->fixture->addSection($section);
+		$this->fixture->removeSection($section);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getSections()
+		);
+	}
 	
 }
 ?>
