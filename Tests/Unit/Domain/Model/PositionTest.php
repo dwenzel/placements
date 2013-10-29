@@ -56,6 +56,74 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getTitleReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setTitleForStringSetsTitle() { 
+		$this->fixture->setTitle('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getTitle()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getIdentifierReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setIdentifierForStringSetsIdentifier() { 
+		$this->fixture->setIdentifier('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getIdentifier()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getSummaryReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setSummaryForStringSetsSummary() { 
+		$this->fixture->setSummary('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getSummary()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getDescriptionReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setDescriptionForStringSetsDescription() { 
+		$this->fixture->setDescription('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getDescription()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getOrganizationReturnsInitialValueForOrganization() { }
 
 	/**
@@ -72,6 +140,16 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function setClientForClientSetsClient() { }
+	
+	/**
+	 * @test
+	 */
+	public function getTypeReturnsInitialValueForPositionType() { }
+
+	/**
+	 * @test
+	 */
+	public function setTypeForPositionTypeSetsType() { }
 	
 }
 ?>

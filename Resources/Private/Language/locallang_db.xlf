@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-28T12:36:46Z" product-name="placements">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-10-29T20:31:05Z" product-name="placements">
 		<header/>
 		<body>
 
 			<trans-unit id="tx_placements_domain_model_position">
 				<source>Position</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_position.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_position.identifier">
+				<source>Identifier</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_position.summary">
+				<source>Summary</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_position.description">
+				<source>Description</source>
 			</trans-unit>
 			<trans-unit id="tx_placements_domain_model_position.organization">
 				<source>Organization</source>
@@ -13,12 +25,18 @@
 			<trans-unit id="tx_placements_domain_model_position.client">
 				<source>Client</source>
 			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_position.type">
+				<source>Type</source>
+			</trans-unit>
 
 			<trans-unit id="tx_placements_domain_model_application">
 				<source>Application</source>
 			</trans-unit>
 			<trans-unit id="tx_placements_domain_model_application.introduction">
 				<source>Introduction</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_application.text">
+				<source>Text</source>
 			</trans-unit>
 			<trans-unit id="tx_placements_domain_model_application.file">
 				<source>File</source>
@@ -33,9 +51,24 @@
 			<trans-unit id="tx_placements_domain_model_organization">
 				<source>Organization</source>
 			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_organization.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_organization.identifier">
+				<source>Identifier</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_organization.description">
+				<source>Description</source>
+			</trans-unit>
 
 			<trans-unit id="tx_placements_domain_model_resume">
 				<source>Resume</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_resume.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_resume.introduction">
+				<source>Introduction</source>
 			</trans-unit>
 			<trans-unit id="tx_placements_domain_model_resume.sections">
 				<source>Sections</source>
@@ -60,6 +93,15 @@
 			<trans-unit id="tx_placements_domain_model_client">
 				<source>Client</source>
 			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_client.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_client.identifier">
+				<source>Identifier</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_client.description">
+				<source>Description</source>
+			</trans-unit>
 
 			<trans-unit id="tx_placements_domain_model_user">
 				<source>User</source>
@@ -80,6 +122,16 @@
 			</trans-unit>
 			<trans-unit id="tx_placements_domain_model_profil.user">
 				<source>User</source>
+			</trans-unit>
+
+			<trans-unit id="tx_placements_domain_model_positiontype">
+				<source>Position Type</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_positiontype.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_positiontype.description">
+				<source>Description</source>
 			</trans-unit>
 
 		</body>

@@ -35,5 +35,84 @@ namespace Webfox\Placements\Domain\Model;
  */
 class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
+	/**
+	 * title
+	 *
+	 * @var \string
+	 * @validate NotEmpty
+	 */
+	protected $title;
+
+	/**
+	 * Unique external identifier
+	 *
+	 * @var \string
+	 */
+	protected $identifier;
+
+	/**
+	 * description
+	 *
+	 * @var \string
+	 */
+	protected $description;
+
+	/**
+	 * Returns the title
+	 *
+	 * @return \string $title
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * Sets the title
+	 *
+	 * @param \string $title
+	 * @return void
+	 */
+	public function setTitle($title) {
+		$this->title = $title;
+	}
+
+	/**
+	 * Returns the identifier
+	 *
+	 * @return \string $identifier
+	 */
+	public function getIdentifier() {
+		return $this->identifier;
+	}
+
+	/**
+	 * Sets the identifier
+	 *
+	 * @param \string $identifier
+	 * @return void
+	 */
+	public function setIdentifier($identifier) {
+		$this->identifier = $identifier;
+	}
+
+	/**
+	 * Returns the description
+	 *
+	 * @return \string $description
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
+
+	/**
+	 * Sets the description
+	 *
+	 * @param \string $description
+	 * @return void
+	 */
+	public function setDescription($description) {
+		$this->description = $description;
+	}
+
 }
 ?>

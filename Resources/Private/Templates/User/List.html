@@ -15,17 +15,15 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <h1>Listing for User</h1>
 
 <f:flashMessages />
-<f:debug title="users">{users}</f:debug>
+
 <table  class="tx_placements" >
 	<tr>
-		<th><f:translate key="tx_placements_domain_model_user.username" /></th>
 		<th> </th>
 		<th> </th>
 	</tr>
 
 	<f:for each="{users}" as="user">
 		<tr>
-			<td>{user.username}</td>
 			<td><f:link.action action="edit" arguments="{user : user}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{user : user}">Delete</f:link.action></td>
 		</tr>

@@ -18,12 +18,20 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <table  class="tx_placements" >
 	<tr>
+		<th><f:translate key="tx_placements_domain_model_position.title" /></th>
+		<th><f:translate key="tx_placements_domain_model_position.identifier" /></th>
+		<th><f:translate key="tx_placements_domain_model_position.summary" /></th>
+		<th><f:translate key="tx_placements_domain_model_position.description" /></th>
 		<th> </th>
 		<th> </th>
 	</tr>
 
 	<f:for each="{positions}" as="position">
 		<tr>
+			<td><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{position : position}"> {position.identifier}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{position : position}"> {position.summary}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{position : position}"> {position.description}</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{position : position}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{position : position}">Delete</f:link.action></td>
 		</tr>

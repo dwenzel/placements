@@ -45,7 +45,7 @@ class Profil extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the user
 	 *
-	 * @return \Webfox\Placements\Domain\Model\User user
+	 * @return \Webfox\Placements\Domain\Model\User $user
 	 */
 	public function getUser() {
 		return $this->user;
@@ -55,7 +55,7 @@ class Profil extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Sets the user
 	 *
 	 * @param \Webfox\Placements\Domain\Model\User $user
-	 * @return \Webfox\Placements\Domain\Model\User user
+	 * @return void
 	 */
 	public function setUser(\Webfox\Placements\Domain\Model\User $user) {
 		$this->user = $user;

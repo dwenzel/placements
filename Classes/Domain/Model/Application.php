@@ -43,6 +43,13 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $introduction;
 
 	/**
+	 * text
+	 *
+	 * @var \string
+	 */
+	protected $text;
+
+	/**
 	 * file
 	 *
 	 * @var \string
@@ -60,9 +67,33 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * resume
 	 *
-	 * @var \Webfox\Placements\Domain\Model\Resume
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Resume>
 	 */
 	protected $resume;
+
+	/**
+	 * __construct
+	 *
+	 * @return Application
+	 */
+	public function __construct() {
+		//Do not remove the next line: It would break the functionality
+		$this->initStorageObjects();
+	}
+
+	/**
+	 * Initializes all ObjectStorage properties.
+	 *
+	 * @return void
+	 */
+	protected function initStorageObjects() {
+		/**
+		 * Do not modify this method!
+		 * It will be rewritten on each save in the extension builder
+		 * You may modify the constructor of this class instead
+		 */
+		$this->resume = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
 
 	/**
 	 * Returns the introduction
@@ -81,6 +112,25 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setIntroduction($introduction) {
 		$this->introduction = $introduction;
+	}
+
+	/**
+	 * Returns the text
+	 *
+	 * @return \string $text
+	 */
+	public function getText() {
+		return $this->text;
+	}
+
+	/**
+	 * Sets the text
+	 *
+	 * @param \string $text
+	 * @return void
+	 */
+	public function setText($text) {
+		$this->text = $text;
 	}
 
 	/**
@@ -105,7 +155,7 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the position
 	 *
-	 * @return \Webfox\Placements\Domain\Model\Position position
+	 * @return \Webfox\Placements\Domain\Model\Position $position
 	 */
 	public function getPosition() {
 		return $this->position;
@@ -115,16 +165,36 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Sets the position
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Position $position
-	 * @return \Webfox\Placements\Domain\Model\Position position
+	 * @return void
 	 */
 	public function setPosition(\Webfox\Placements\Domain\Model\Position $position) {
 		$this->position = $position;
 	}
 
 	/**
+	 * Adds a Resume
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Resume $resume
+	 * @return void
+	 */
+	public function addResume(\Webfox\Placements\Domain\Model\Resume $resume) {
+		$this->resume->attach($resume);
+	}
+
+	/**
+	 * Removes a Resume
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Resume $resumeToRemove The Resume to be removed
+	 * @return void
+	 */
+	public function removeResume(\Webfox\Placements\Domain\Model\Resume $resumeToRemove) {
+		$this->resume->detach($resumeToRemove);
+	}
+
+	/**
 	 * Returns the resume
 	 *
-	 * @return \Webfox\Placements\Domain\Model\Resume resume
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Resume> $resume
 	 */
 	public function getResume() {
 		return $this->resume;
@@ -133,10 +203,10 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the resume
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Resume $resume
-	 * @return \Webfox\Placements\Domain\Model\Resume resume
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Resume> $resume
+	 * @return void
 	 */
-	public function setResume(\Webfox\Placements\Domain\Model\Resume $resume) {
+	public function setResume(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $resume) {
 		$this->resume = $resume;
 	}
 

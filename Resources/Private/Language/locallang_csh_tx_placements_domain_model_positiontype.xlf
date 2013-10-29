@@ -4,8 +4,11 @@
 		<header/>
 		<body>
 
-			<trans-unit id="user.description">
-				<source>user</source>
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="description.description">
+				<source>description</source>
 			</trans-unit>
 		</body>
 	</file>

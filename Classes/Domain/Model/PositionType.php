@@ -33,28 +33,15 @@ namespace Webfox\Placements\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Section extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class PositionType extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 	/**
-	 * begin
-	 *
-	 * @var \DateTime
-	 */
-	protected $begin;
-
-	/**
-	 * end
-	 *
-	 * @var \DateTime
-	 */
-	protected $end;
-
-	/**
-	 * position
+	 * title
 	 *
 	 * @var \string
+	 * @validate NotEmpty
 	 */
-	protected $position;
+	protected $title;
 
 	/**
 	 * description
@@ -64,60 +51,22 @@ class Section extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $description;
 
 	/**
-	 * Returns the begin
+	 * Returns the title
 	 *
-	 * @return \DateTime $begin
+	 * @return \string $title
 	 */
-	public function getBegin() {
-		return $this->begin;
+	public function getTitle() {
+		return $this->title;
 	}
 
 	/**
-	 * Sets the begin
+	 * Sets the title
 	 *
-	 * @param \DateTime $begin
+	 * @param \string $title
 	 * @return void
 	 */
-	public function setBegin($begin) {
-		$this->begin = $begin;
-	}
-
-	/**
-	 * Returns the end
-	 *
-	 * @return \DateTime $end
-	 */
-	public function getEnd() {
-		return $this->end;
-	}
-
-	/**
-	 * Sets the end
-	 *
-	 * @param \DateTime $end
-	 * @return void
-	 */
-	public function setEnd($end) {
-		$this->end = $end;
-	}
-
-	/**
-	 * Returns the position
-	 *
-	 * @return \string $position
-	 */
-	public function getPosition() {
-		return $this->position;
-	}
-
-	/**
-	 * Sets the position
-	 *
-	 * @param \string $position
-	 * @return void
-	 */
-	public function setPosition($position) {
-		$this->position = $position;
+	public function setTitle($title) {
+		$this->title = $title;
 	}
 
 	/**

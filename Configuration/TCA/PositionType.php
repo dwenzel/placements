@@ -3,13 +3,13 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_placements_domain_model_resume'] = array(
-	'ctrl' => $TCA['tx_placements_domain_model_resume']['ctrl'],
+$TCA['tx_placements_domain_model_positiontype'] = array(
+	'ctrl' => $TCA['tx_placements_domain_model_positiontype']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, introduction, sections',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, description',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, introduction, sections,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, description,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -37,8 +37,8 @@ $TCA['tx_placements_domain_model_resume'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_placements_domain_model_resume',
-				'foreign_table_where' => 'AND tx_placements_domain_model_resume.pid=###CURRENT_PID### AND tx_placements_domain_model_resume.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_placements_domain_model_positiontype',
+				'foreign_table_where' => 'AND tx_placements_domain_model_positiontype.pid=###CURRENT_PID### AND tx_placements_domain_model_positiontype.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -95,59 +95,21 @@ $TCA['tx_placements_domain_model_resume'] = array(
 		),
 		'title' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_resume.title',
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_positiontype.title',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim,required'
 			),
 		),
-		'introduction' => array(
+		'description' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_resume.introduction',
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_positiontype.description',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
 				'rows' => 15,
-				'eval' => 'trim',
-				'wizards' => array(
-					'RTE' => array(
-						'icon' => 'wizard_rte2.gif',
-						'notNewRecords'=> 1,
-						'RTEonly' => 1,
-						'script' => 'wizard_rte.php',
-						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
-						'type' => 'script'
-					)
-				)
-			),
-			'defaultExtras' => 'richtext:rte_transform[flag=rte_enabled|mode=ts]',
-		),
-		'sections' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_resume.sections',
-			'config' => array(
-				'type' => 'inline',
-				'foreign_table' => 'tx_placements_domain_model_section',
-				'foreign_field' => 'resume',
-				'maxitems'      => 9999,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
-			),
-		),
-		'application' => array(
-			'config' => array(
-				'type' => 'passthrough',
-			),
-		),
-		'user' => array(
-			'config' => array(
-				'type' => 'passthrough',
+				'eval' => 'trim'
 			),
 		),
 	),

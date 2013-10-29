@@ -27,7 +27,7 @@ namespace Webfox\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class \Webfox\Placements\Domain\Model\Client.
+ * Test case for class \Webfox\Placements\Domain\Model\PositionType.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -39,14 +39,14 @@ namespace Webfox\Placements\Tests;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class ClientTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class PositionTypeTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Webfox\Placements\Domain\Model\Client
+	 * @var \Webfox\Placements\Domain\Model\PositionType
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\Placements\Domain\Model\Client();
+		$this->fixture = new \Webfox\Placements\Domain\Model\PositionType();
 	}
 
 	public function tearDown() {
@@ -56,34 +56,17 @@ class ClientTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getNameReturnsInitialValueForString() { }
+	public function getTitleReturnsInitialValueForString() { }
 
 	/**
 	 * @test
 	 */
-	public function setNameForStringSetsName() { 
-		$this->fixture->setName('Conceived at T3CON10');
+	public function setTitleForStringSetsTitle() { 
+		$this->fixture->setTitle('Conceived at T3CON10');
 
 		$this->assertSame(
 			'Conceived at T3CON10',
-			$this->fixture->getName()
-		);
-	}
-	
-	/**
-	 * @test
-	 */
-	public function getIdentifierReturnsInitialValueForString() { }
-
-	/**
-	 * @test
-	 */
-	public function setIdentifierForStringSetsIdentifier() { 
-		$this->fixture->setIdentifier('Conceived at T3CON10');
-
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getIdentifier()
+			$this->fixture->getTitle()
 		);
 	}
 	

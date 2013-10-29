@@ -36,23 +36,138 @@ namespace Webfox\Placements\Domain\Model;
 class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * organization
+	 * title
+	 *
+	 * @var \string
+	 * @validate NotEmpty
+	 */
+	protected $title;
+
+	/**
+	 * Unique ID for position (external)
+	 *
+	 * @var \string
+	 */
+	protected $identifier;
+
+	/**
+	 * summary
+	 *
+	 * @var \string
+	 */
+	protected $summary;
+
+	/**
+	 * description
+	 *
+	 * @var \string
+	 */
+	protected $description;
+
+	/**
+	 * Organization offering this position
 	 *
 	 * @var \Webfox\Placements\Domain\Model\Organization
+	 * @lazy
 	 */
 	protected $organization;
 
 	/**
-	 * client
+	 * Client for whom this position is managed
 	 *
 	 * @var \Webfox\Placements\Domain\Model\Client
+	 * @lazy
 	 */
 	protected $client;
 
 	/**
+	 * Type of position
+	 *
+	 * @var \Webfox\Placements\Domain\Model\PositionType
+	 * @lazy
+	 */
+	protected $type;
+
+	/**
+	 * Returns the title
+	 *
+	 * @return \string $title
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * Sets the title
+	 *
+	 * @param \string $title
+	 * @return void
+	 */
+	public function setTitle($title) {
+		$this->title = $title;
+	}
+
+	/**
+	 * Returns the identifier
+	 *
+	 * @return \string $identifier
+	 */
+	public function getIdentifier() {
+		return $this->identifier;
+	}
+
+	/**
+	 * Sets the identifier
+	 *
+	 * @param \string $identifier
+	 * @return void
+	 */
+	public function setIdentifier($identifier) {
+		$this->identifier = $identifier;
+	}
+
+	/**
+	 * Returns the summary
+	 *
+	 * @return \string $summary
+	 */
+	public function getSummary() {
+		return $this->summary;
+	}
+
+	/**
+	 * Sets the summary
+	 *
+	 * @param \string $summary
+	 * @return void
+	 */
+	public function setSummary($summary) {
+		$this->summary = $summary;
+	}
+
+	/**
+	 * Returns the description
+	 *
+	 * @return \string $description
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
+
+	/**
+	 * Sets the description
+	 *
+	 * @param \string $description
+	 * @return void
+	 */
+	public function setDescription($description) {
+		$this->description = $description;
+	}
+
+	/**
 	 * Returns the organization
 	 *
-	 * @return \Webfox\Placements\Domain\Model\Organization organization
+	 * @return \Webfox\Placements\Domain\Model\Organization $organization
 	 */
 	public function getOrganization() {
 		return $this->organization;
@@ -62,7 +177,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Sets the organization
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Organization $organization
-	 * @return \Webfox\Placements\Domain\Model\Organization organization
+	 * @return void
 	 */
 	public function setOrganization(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$this->organization = $organization;
@@ -71,7 +186,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the client
 	 *
-	 * @return \Webfox\Placements\Domain\Model\Client client
+	 * @return \Webfox\Placements\Domain\Model\Client $client
 	 */
 	public function getClient() {
 		return $this->client;
@@ -81,10 +196,29 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Sets the client
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Client $client
-	 * @return \Webfox\Placements\Domain\Model\Client client
+	 * @return void
 	 */
 	public function setClient(\Webfox\Placements\Domain\Model\Client $client) {
 		$this->client = $client;
+	}
+
+	/**
+	 * Returns the type
+	 *
+	 * @return \Webfox\Placements\Domain\Model\PositionType $type
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
+	/**
+	 * Sets the type
+	 *
+	 * @param \Webfox\Placements\Domain\Model\PositionType $type
+	 * @return void
+	 */
+	public function setType(\Webfox\Placements\Domain\Model\PositionType $type) {
+		$this->type = $type;
 	}
 
 }

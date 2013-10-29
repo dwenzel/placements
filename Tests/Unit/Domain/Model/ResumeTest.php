@@ -56,6 +56,40 @@ class ResumeTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getTitleReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setTitleForStringSetsTitle() { 
+		$this->fixture->setTitle('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getTitle()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getIntroductionReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setIntroductionForStringSetsIntroduction() { 
+		$this->fixture->setIntroduction('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getIntroduction()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getSectionsReturnsInitialValueForSection() { 
 		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
 		$this->assertEquals(

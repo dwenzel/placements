@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-28T12:36:46Z" product-name="placements">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-10-29T20:31:05Z" product-name="placements">
 		<header/>
 		<body>
 
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="identifier.description">
+				<source>Unique ID for position (external)</source>
+			</trans-unit>
+			<trans-unit id="summary.description">
+				<source>summary</source>
+			</trans-unit>
+			<trans-unit id="description.description">
+				<source>description</source>
+			</trans-unit>
 			<trans-unit id="organization.description">
-				<source>organization</source>
+				<source>Organization offering this position</source>
 			</trans-unit>
 			<trans-unit id="client.description">
-				<source>client</source>
+				<source>Client for whom this position is managed</source>
+			</trans-unit>
+			<trans-unit id="type.description">
+				<source>Type of position</source>
 			</trans-unit>
 		</body>
 	</file>
