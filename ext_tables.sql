@@ -13,6 +13,7 @@ CREATE TABLE tx_placements_domain_model_position (
 	organization int(11) unsigned DEFAULT '0',
 	client int(11) unsigned DEFAULT '0',
 	type int(11) unsigned DEFAULT '0',
+	categories int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -358,6 +359,15 @@ CREATE TABLE tx_placements_domain_model_positiontype (
 );
 
 #
+# Table structure for table 'sys_category'
+#
+CREATE TABLE sys_category (
+
+	position  int(11) unsigned DEFAULT '0' NOT NULL,
+
+);
+
+#
 # Table structure for table 'tx_placements_domain_model_resume'
 #
 CREATE TABLE tx_placements_domain_model_resume (
@@ -392,3 +402,4 @@ CREATE TABLE tx_placements_domain_model_application (
 	user  int(11) unsigned DEFAULT '0' NOT NULL,
 
 );
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

@@ -17,8 +17,8 @@ Extension Name
 :Description: manuals covering TYPO3 extension "Placement Service"
 :Language: en
 :Author: Dirk Wenzel, Michael Kasten
-:Creation: 2013-10-29
-:Generation: 20:31
+:Creation: 2013-11-01
+:Generation: 15:09
 :Licence: Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
 
 The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org

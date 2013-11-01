@@ -46,7 +46,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'title,identifier,summary,description,organization,client,type,',
+		'searchFields' => 'title,identifier,summary,description,organization,client,type,categories,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Position.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_placements_domain_model_position.gif'
 	),
@@ -239,9 +239,6 @@ t3lib_extMgm::addTCAcolumns('fe_users',$tmp_placements_columns);
 
 $TCA['fe_users']['columns'][$TCA['fe_users']['ctrl']['type']]['config']['items'][] = array('LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:fe_users.tx_extbase_type.Tx_Placements_User','Tx_Placements_User');
 
-$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] = $TCA['fe_users']['types']['1']['showitem'];
-$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= ',--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_user,';
-$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applications';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_placements_domain_model_profil', 'EXT:placements/Resources/Private/Language/locallang_csh_tx_placements_domain_model_profil.xlf');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_placements_domain_model_profil');
@@ -301,4 +298,21 @@ $TCA['tx_placements_domain_model_positiontype'] = array(
 	),
 );
 
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
+//extend frontend user
+$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] = $TCA['fe_users']['types']['Tx_Extbase_Domain_Model_FrontendUser']['showitem'];
+$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= ',--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_user,';
+$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applications';
+
+
+// make positions categorizable
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
+	$_EXTKEY,
+	'tx_placements_domain_model_position',
+	$fieldName = 'categories',
+	$options = array(
+				
+			)
+ );
 ?>
+

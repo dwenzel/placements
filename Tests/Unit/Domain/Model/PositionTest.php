@@ -151,5 +151,63 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setTypeForPositionTypeSetsType() { }
 	
+	/**
+	 * @test
+	 */
+	public function getCategoriesReturnsInitialValueForCategory() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getCategories()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setCategoriesForObjectStorageContainingCategorySetsCategories() { 
+		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
+		$objectStorageHoldingExactlyOneCategories = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneCategories->attach($category);
+		$this->fixture->setCategories($objectStorageHoldingExactlyOneCategories);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneCategories,
+			$this->fixture->getCategories()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addCategoryToObjectStorageHoldingCategories() {
+		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
+		$objectStorageHoldingExactlyOneCategory = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneCategory->attach($category);
+		$this->fixture->addCategory($category);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneCategory,
+			$this->fixture->getCategories()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeCategoryFromObjectStorageHoldingCategories() {
+		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage->attach($category);
+		$localObjectStorage->detach($category);
+		$this->fixture->addCategory($category);
+		$this->fixture->removeCategory($category);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getCategories()
+		);
+	}
+	
 }
 ?>
