@@ -1,42 +1,44 @@
 <f:layout name="Default" />
 
-This Template is responsible for creating a table of domain objects.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        List.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+This Template creates a list of positions.
 
 <f:section name="main">
-<h1>Listing for Position</h1>
+<f:debug title="settings">{settings}</f:debug>
 
 <f:flashMessages />
 
-<table  class="tx_placements" >
+<table  class="tx_placements position-list" >
 	<tr>
-		<th><f:translate key="tx_placements_domain_model_position.title" /></th>
 		<th><f:translate key="tx_placements_domain_model_position.identifier" /></th>
+		<th><f:translate key="tx_placements_domain_model_position.title" /></th>
 		<th><f:translate key="tx_placements_domain_model_position.summary" /></th>
-		<th><f:translate key="tx_placements_domain_model_position.description" /></th>
-		<th> </th>
-		<th> </th>
+		<f:security.ifHasRole role="{settings.security.editorGroup}" >
+			<th> </th>
+		</f:security.ifHasRole>
 	</tr>
 
 	<f:for each="{positions}" as="position">
 		<tr>
-			<td><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{position : position}"> {position.identifier}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{position : position}"> {position.summary}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{position : position}"> {position.description}</f:link.action></td>
-			<td><f:link.action action="edit" arguments="{position : position}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{position : position}">Delete</f:link.action></td>
+			<td class="identifier">{position.identifier}</td>
+			<td class="title"><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></td>
+			<td class="summary"><f:format.crop maxCharacters="{settings.position.list.summary.crop}"> {position.summary}</f:format.crop></td>
+			<f:security.ifHasRole role="{settings.security.editorGroup}">
+				<td>
+					<f:link.action action="edit" arguments="{position : position}" class="button edit">
+						<f:translate key="tx_placements.general.edit">Edit</f:translate>
+					</f:link.action>
+					<f:link.action action="delete" arguments="{position : position}" class="button delete">
+						<f:translate key="tx_placements.general.delete">Delete</f:translate>
+					</f:link.action>
+				</td>
+			</f:security.ifHasRole>
 		</tr>
 	</f:for>
 </table>
 
-<f:link.action action="new">New Position</f:link.action>
+<f:security.ifHasRole role="{settings.security.editorGroup}">
+	<f:link.action action="new" class="button new">
+		<f:translate key="tx_placements.new_position" >New Position</f:translate>
+	</f:link.action>
+</f:security.ifHasRole>
 </f:section>
