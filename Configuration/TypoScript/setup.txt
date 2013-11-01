@@ -11,6 +11,15 @@ plugin.tx_placements {
 		# uncomment the following line to enable the new Property Mapper.
 		# rewrittenPropertyMapper = 1
 	}
+
+	settings {
+		security.editorGroup =
+		position {
+			list {
+				summary.crop = 35	
+			}
+		}
+	}
 }
 
 plugin.tx_placements._CSS_DEFAULT_STYLE (
