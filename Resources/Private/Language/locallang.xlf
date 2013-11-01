@@ -1,138 +1,142 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-01T15:09:04Z" product-name="placements">
-		<header/>
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-01T17:08:17Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
 		<body>
-
-			<trans-unit id="tx_placements_domain_model_position">
-				<source>Offer describing a position.</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_position.title">
-				<source>title</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_position.identifier">
-				<source>Unique ID for position (external)</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_position.summary">
-				<source>summary</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_position.description">
-				<source>description</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_position.organization">
-				<source>Organization offering this position</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_position.client">
-				<source>Client for whom this position is managed</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_position.type">
-				<source>Type of position</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_position.categories">
-				<source>Categories</source>
-			</trans-unit>
-			
-			<trans-unit id="tx_placements_domain_model_application">
-				<source>Application</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_application.introduction">
-				<source>introduction</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_application.text">
-				<source>text</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_application.file">
-				<source>file</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_application.position">
-				<source>position</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_application.resume">
-				<source>resume</source>
-			</trans-unit>
-			
-			<trans-unit id="tx_placements_domain_model_organization">
-				<source>Organization</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_organization.title">
-				<source>title</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_organization.identifier">
-				<source>Unique external identifier</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_organization.description">
-				<source>description</source>
-			</trans-unit>
-			
-			<trans-unit id="tx_placements_domain_model_resume">
-				<source>Resume</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_resume.title">
-				<source>title</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_resume.introduction">
-				<source>introduction</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_resume.sections">
-				<source>sections</source>
-			</trans-unit>
-			
-			<trans-unit id="tx_placements_domain_model_section">
-				<source>Section</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_section.begin">
-				<source>begin</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_section.end">
-				<source>end</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_section.position">
-				<source>position</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_section.description">
-				<source>description</source>
-			</trans-unit>
-			
-			<trans-unit id="tx_placements_domain_model_client">
-				<source>Client</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_client.name">
-				<source>name</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_client.identifier">
-				<source>Unique external identifier</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_client.description">
-				<source>description</source>
-			</trans-unit>
-			
-			<trans-unit id="tx_placements_domain_model_user">
-				<source>User</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_user.resumes">
-				<source>resumes</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_user.applications">
-				<source>applications</source>
-			</trans-unit>
-			
-			<trans-unit id="tx_placements_domain_model_profil">
-				<source>Profil</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_profil.user">
-				<source>user</source>
-			</trans-unit>
-			
-			<trans-unit id="tx_placements_domain_model_positiontype">
-				<source>Type of Position</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_positiontype.title">
-				<source>title</source>
-			</trans-unit>
-			<trans-unit id="tx_placements_domain_model_positiontype.description">
-				<source>description</source>
-			</trans-unit>
-			
+		<trans-unit id="tx_placements.general.delete" xml:space="preserve">
+			<source>Delete</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.edit" xml:space="preserve">
+			<source>Edit</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.save" xml:space="preserve">
+			<source>Save</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.new_position" xml:space="preserve">
+			<source>Add Position</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application" xml:space="preserve">
+			<source>Application</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.file" xml:space="preserve">
+			<source>File</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.introduction" xml:space="preserve">
+			<source>Introduction</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.position" xml:space="preserve">
+			<source>Position</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.resume" xml:space="preserve">
+			<source>Resume</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.text" xml:space="preserve">
+			<source>Text</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_client" xml:space="preserve">
+			<source>Client</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_client.description" xml:space="preserve">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_client.identifier" xml:space="preserve">
+			<source>ID</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_client.name" xml:space="preserve">
+			<source>Name</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization" xml:space="preserve">
+			<source>Organization</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.description" xml:space="preserve">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.identifier" xml:space="preserve">
+			<source>ID</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position" xml:space="preserve">
+			<source>Position.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.categories" xml:space="preserve">
+			<source>Categories</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.client" xml:space="preserve">
+			<source>Client</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.description" xml:space="preserve">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.identifier" xml:space="preserve">
+			<source>ID</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.organization" xml:space="preserve">
+			<source>Organization</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.summary" xml:space="preserve">
+			<source>Summary</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.type" xml:space="preserve">
+			<source>Type of Position</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_positiontype" xml:space="preserve">
+			<source>Type of Position</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_positiontype.description" xml:space="preserve">
+			<source>description</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_positiontype.title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_profil" xml:space="preserve">
+			<source>Profil</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_profil.user" xml:space="preserve">
+			<source>User</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_resume" xml:space="preserve">
+			<source>Resume</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_resume.introduction" xml:space="preserve">
+			<source>Introduction</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_resume.sections" xml:space="preserve">
+			<source>Sections</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_resume.title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section" xml:space="preserve">
+			<source>Section</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section.begin" xml:space="preserve">
+			<source>Begin</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section.description" xml:space="preserve">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section.end" xml:space="preserve">
+			<source>End</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section.position" xml:space="preserve">
+			<source>Position</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_user" xml:space="preserve">
+			<source>User</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_user.applications" xml:space="preserve">
+			<source>Applications</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_user.resumes" xml:space="preserve">
+			<source>Resumes</source>
+		</trans-unit>
 		</body>
 	</file>
 </xliff>
