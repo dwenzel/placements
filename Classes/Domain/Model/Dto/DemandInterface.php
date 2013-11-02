@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\Placements\Domain\Model;
+namespace Webfox\Placements\Domain\Model\Dto;
 
 /***************************************************************
 *  Copyright notice
