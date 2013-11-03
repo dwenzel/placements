@@ -18,7 +18,17 @@ This Template creates a list of positions.
 		</f:security.ifHasRole>
 	</tr>
 
-	<pw:paginate itemsPerPage="1" objects="{positions}" as="paginatedPostitions" insertAbove="1">
+	<pw:paginate  
+		objects="{positions}" 
+		as="paginatedPostitions" 
+		configuration="{itemsPerPage: '{settings.position.list.paginate.itemsPerPage}', 
+				insertAbove: '{settings.position.list.paginate.insertAbove}',
+				insertBelow: '{settings.position.list.paginate.insertBelow}',
+				lessPages: '{settings.position.list.paginate.lessPages}',
+				forcedNumberOfLinks: '{settings.position.list.paginate.lessPages}',
+				pagesBefore: '{settings.position.list.paginate.pagesBefore}',
+				pagesAfter: '{settings.position.list.paginate.pagesAfter}'
+				}" >
 		<f:for each="{paginatedPositions}" as="position">
 			<tr>
 				<td class="identifier">{position.identifier}</td>
