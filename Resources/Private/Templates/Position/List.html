@@ -1,3 +1,4 @@
+{namespace pw=Webfox\Placements\ViewHelpers\Widget}
 <f:layout name="Default" />
 
 This Template creates a list of positions.
@@ -17,23 +18,25 @@ This Template creates a list of positions.
 		</f:security.ifHasRole>
 	</tr>
 
-	<f:for each="{positions}" as="position">
-		<tr>
-			<td class="identifier">{position.identifier}</td>
-			<td class="title"><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></td>
-			<td class="summary"><f:format.crop maxCharacters="{settings.position.list.summary.crop}"> {position.summary}</f:format.crop></td>
-			<f:security.ifHasRole role="{settings.security.editorGroup}">
-				<td>
-					<f:link.action action="edit" arguments="{position : position}" class="button edit">
-						<f:translate key="tx_placements.general.edit">Edit</f:translate>
-					</f:link.action>
-					<f:link.action action="delete" arguments="{position : position}" class="button delete">
-						<f:translate key="tx_placements.general.delete">Delete</f:translate>
-					</f:link.action>
-				</td>
-			</f:security.ifHasRole>
-		</tr>
-	</f:for>
+	<pw:paginate itemsPerPage="1" objects="{positions}" as="paginatedPostitions" insertAbove="1">
+		<f:for each="{paginatedPositions}" as="position">
+			<tr>
+				<td class="identifier">{position.identifier}</td>
+				<td class="title"><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></td>
+				<td class="summary"><f:format.crop maxCharacters="{settings.position.list.summary.crop}"> {position.summary}</f:format.crop></td>
+				<f:security.ifHasRole role="{settings.security.editorGroup}">
+					<td>
+						<f:link.action action="edit" arguments="{position : position}" class="button edit">
+							<f:translate key="tx_placements.general.edit">Edit</f:translate>
+						</f:link.action>
+						<f:link.action action="delete" arguments="{position : position}" class="button delete">
+							<f:translate key="tx_placements.general.delete">Delete</f:translate>
+						</f:link.action>
+					</td>
+				</f:security.ifHasRole>
+			</tr>
+		</f:for>
+	</pw:paginate>
 </table>
 
 <f:security.ifHasRole role="{settings.security.editorGroup}">
