@@ -3,6 +3,11 @@ plugin.tx_placements {
 		templateRootPath = {$plugin.tx_placements.view.templateRootPath}
 		partialRootPath = {$plugin.tx_placements.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_placements.view.layoutRootPath}
+		widget {
+			Webfox\Placements\ViewHelpers\Widget\PaginateViewHelper {
+				templateRootPath = {$plugin.tx_placements.view.templateRootPath}
+			}
+		}
 	}
 	persistence {
 		storagePid = {$plugin.tx_placements.persistence.storagePid}
@@ -17,6 +22,18 @@ plugin.tx_placements {
 		position {
 			list {
 				summary.crop = 35	
+				# Paginate configuration.
+				paginate {
+					itemsPerPage ={$plugin.tx_placements.settings.list.paginate.itemsPerPage}
+					insertAbove = {$plugin.tx_placements.settings.list.paginate.insertAbove}
+					insertBelow = {$plugin.tx_placements.settings.list.paginate.insertBelow}
+					lessPages = {$plugin.tx_placements.settings.list.paginate.lessPages}
+					forcedNumberOfLinks = {$plugin.tx_placements.settings.list.paginate.forcedNumberOfLinks}
+					pagesBefore = {$plugin.tx_placements.settings.list.paginate.pagesBefore}
+					pagesAfter = {$plugin.tx_placements.settings.list.paginate.pagesAfter}
+					templatePath =
+					prevNextHeaderTags = {$plugin.tx_placements.settings.list.paginate.prevNextHeaderTags}
+				}
 			}
 		}
 	}
