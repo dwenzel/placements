@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-01T17:08:17Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-03T13:01:32Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -16,6 +16,15 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.new_position" xml:space="preserve">
 			<source>Add Position</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.paginate_next" xml:space="preserve">
+			<source>next</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.paginate_overall" xml:space="preserve">
+			<source>Page %s of %s pages</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.paginate_previous" xml:space="preserve">
+			<source>previous</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" xml:space="preserve">
 			<source>Application</source>
