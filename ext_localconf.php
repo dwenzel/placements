@@ -5,41 +5,17 @@ if (!defined('TYPO3_MODE')) {
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'Webfox.' . $_EXTKEY,
-	'User',
-	array(
-		'User' => 'list, show, new, create, edit, update, delete',
-		
-	),
-	// non-cacheable actions
-	array(
-		'User' => 'create, update, delete',
-		
-	)
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Webfox.' . $_EXTKEY,
-	'Position',
+	'Placements',
 	array(
 		'Position' => 'list, show, new, create, edit, update, delete',
-		
-	),
-	// non-cacheable actions
-	array(
-		'Position' => 'create, update, delete',
-		
-	)
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Webfox.' . $_EXTKEY,
-	'Application',
-	array(
+		'User' => 'list, show, new, create, edit, update, delete',
 		'Application' => 'list, show, new, create, edit, update, delete',
 		
 	),
 	// non-cacheable actions
 	array(
+		'Position' => 'create, update, delete',
+		'User' => 'create, update, delete',
 		'Application' => 'create, update, delete',
 		
 	)
