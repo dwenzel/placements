@@ -46,13 +46,13 @@ overwriteSettings:
 
   Configuration:
     TCA: merge
-    #TypoScript: keep
+    TypoScript: keep
 
   Resources:
     Private:
       Language:
         locallang.xml: merge
-        #locallang.xlf: merge
+        locallang.xlf: merge
       Templates: keep
 
   ext_icon.gif: keep
