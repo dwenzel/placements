@@ -33,7 +33,7 @@ namespace Webfox\Placements\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PositionType extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+class PositionType extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * title

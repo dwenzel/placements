@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\Placements\Domain\Model;
+namespace Webfox\Placements\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -33,59 +33,7 @@ namespace Webfox\Placements\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class WorkingHours extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	/**
-	 * title
-	 *
-	 * @var \string
-	 */
-	protected $title;
-
-	/**
-	 * description
-	 *
-	 * @var \string
-	 */
-	protected $description;
-
-	/**
-	 * Returns the title
-	 *
-	 * @return \string $title
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
-
-	/**
-	 * Sets the title
-	 *
-	 * @param \string $title
-	 * @return void
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
-
-	/**
-	 * Returns the description
-	 *
-	 * @return \string $description
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
-
-	/**
-	 * Sets the description
-	 *
-	 * @param \string $description
-	 * @return void
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
+class PositionTypeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 }
 ?>

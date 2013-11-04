@@ -1,18 +1,17 @@
 <?php
-namespace Webfox\Placements\Domain\Model;
-
+namespace Webfox\Placements\Tests;
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, AgenturWebfox GmbH
- *  Michael Kasten <kasten@webfox01.de>, AgenturWebfox GmbH
- *  
+ *  			Michael Kasten <kasten@webfox01.de>, AgenturWebfox GmbH
+ *  			
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
+ *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
  *  The GNU General Public License can be found at
@@ -27,64 +26,37 @@ namespace Webfox\Placements\Domain\Model;
  ***************************************************************/
 
 /**
+ * Test case for class Tx_Placements_Controller_PositionTypeController.
  *
- *
- * @package placements
+ * @version $Id$
+ * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
+ * @package TYPO3
+ * @subpackage Placement Service
+ *
+ * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @author Michael Kasten <kasten@webfox01.de>
  */
-class WorkingHours extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
+class PositionTypeControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * title
-	 *
-	 * @var \string
+	 * @var 
 	 */
-	protected $title;
+	protected $fixture;
 
-	/**
-	 * description
-	 *
-	 * @var \string
-	 */
-	protected $description;
+	public function setUp() {
+		$this->fixture = new \Webfox\Placements\Domain\Model\PositionType();
+	}
 
-	/**
-	 * Returns the title
-	 *
-	 * @return \string $title
-	 */
-	public function getTitle() {
-		return $this->title;
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 	/**
-	 * Sets the title
-	 *
-	 * @param \string $title
-	 * @return void
+	 * @test
 	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
-
-	/**
-	 * Returns the description
-	 *
-	 * @return \string $description
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
-
-	/**
-	 * Sets the description
-	 *
-	 * @param \string $description
-	 * @return void
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
+	public function dummyMethod() {
+		$this->markTestIncomplete();
 	}
 
 }
