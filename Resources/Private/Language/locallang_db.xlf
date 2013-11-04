@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-01T15:09:04Z" product-name="placements">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-04T10:32:44Z" product-name="placements">
 		<header/>
 		<body>
 
@@ -30,6 +30,9 @@
 			</trans-unit>
 			<trans-unit id="tx_placements_domain_model_position.categories">
 				<source>Categories</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_position.working_hours">
+				<source>Working Hours</source>
 			</trans-unit>
 
 			<trans-unit id="tx_placements_domain_model_application">
@@ -134,6 +137,16 @@
 				<source>Title</source>
 			</trans-unit>
 			<trans-unit id="tx_placements_domain_model_positiontype.description">
+				<source>Description</source>
+			</trans-unit>
+
+			<trans-unit id="tx_placements_domain_model_workinghours">
+				<source>Working Hours</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_workinghours.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_placements_domain_model_workinghours.description">
 				<source>Description</source>
 			</trans-unit>
 

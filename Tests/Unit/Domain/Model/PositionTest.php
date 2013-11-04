@@ -209,5 +209,15 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		);
 	}
 	
+	/**
+	 * @test
+	 */
+	public function getWorkingHoursReturnsInitialValueForWorkingHours() { }
+
+	/**
+	 * @test
+	 */
+	public function setWorkingHoursForWorkingHoursSetsWorkingHours() { }
+	
 }
 ?>

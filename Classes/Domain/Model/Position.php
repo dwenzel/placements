@@ -97,6 +97,14 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $categories;
 
 	/**
+	 * Working Hours
+	 *
+	 * @var \Webfox\Placements\Domain\Model\WorkingHours
+	 * @lazy
+	 */
+	protected $workingHours;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return \string $title
@@ -290,6 +298,25 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories) {
 		$this->categories = $categories;
+	}
+
+	/**
+	 * Returns the workingHours
+	 *
+	 * @return \Webfox\Placements\Domain\Model\WorkingHours workingHours
+	 */
+	public function getWorkingHours() {
+		return $this->workingHours;
+	}
+
+	/**
+	 * Sets the workingHours
+	 *
+	 * @param \Webfox\Placements\Domain\Model\WorkingHours $workingHours
+	 * @return \Webfox\Placements\Domain\Model\WorkingHours workingHours
+	 */
+	public function setWorkingHours(\Webfox\Placements\Domain\Model\WorkingHours $workingHours) {
+		$this->workingHours = $workingHours;
 	}
 
 }

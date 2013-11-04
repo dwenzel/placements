@@ -1,34 +1,16 @@
-
-<div class="form-field title">
-	<label for="title">
-		<f:translate key="tx_placements_domain_model_position.title" />
-		<span class="required">(required)</span>
-	</label>
-	<f:form.textfield property="title" />
-</div>
-<div class="form-field identifier">
-	<label for="identifier">
-		<f:translate key="tx_placements_domain_model_position.identifier" />
-	</label>
-	<f:form.textfield property="identifier" />
-</div>
-<div class="form-field summary">
-	<label for="summary">
-		<f:translate key="tx_placements_domain_model_position.summary" />
-	</label>
-	<f:form.textarea property="summary" cols="40" rows="15" />
-</div>
-<div class="form-field description">
-	<label for="description">
-		<f:translate key="tx_placements_domain_model_position.description" />
-	</label>
-	<f:form.textarea property="description" cols="40" rows="15" />
-</div>
-<div class="form-field categories">
-	<label for="categories">
-		<f:translate key="tx_placements_domain_model_position.categories" />
-	</label>
-	<f:comment>@todo get available categories from controller
-		<!--f:form.select property="categories" /><br />-->
-	</f:comment>
-</div>
+<label for="title">
+	<f:translate key="tx_placements_domain_model_position.title" /> <span class="required">(required)</span>
+</label><br />
+	<f:form.textfield property="title" /><br />
+<label for="identifier">
+	<f:translate key="tx_placements_domain_model_position.identifier" />
+</label><br />
+	<f:form.textfield property="identifier" /><br />
+<label for="summary">
+	<f:translate key="tx_placements_domain_model_position.summary" />
+</label><br />
+	<f:form.textarea property="summary" cols="40" rows="15" /><br />
+<label for="description">
+	<f:translate key="tx_placements_domain_model_position.description" />
+</label><br />
+	<f:form.textarea property="description" cols="40" rows="15" /><br />
