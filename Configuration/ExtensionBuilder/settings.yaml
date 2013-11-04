@@ -47,6 +47,8 @@ overwriteSettings:
   Configuration:
     TCA: merge
     TypoScript: keep
+	FlexForms: merge
+	 # flexform_placements.xml: merge
 
   Resources:
     Private:
