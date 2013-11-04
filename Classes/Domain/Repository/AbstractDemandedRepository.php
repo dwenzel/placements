@@ -99,6 +99,22 @@ abstract class AbstractDemandedRepository
 		return $sql;
 	}
 
+	/**
+	 * Returns multiple records by uid sorted by a given field and order.
+	 *
+	 * @param \string $recordList A comma separated list of uids
+	 * @param \string $sortField Field to sort by
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $sortOrder 
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult
+	 */
+	public function findMultipleByUid ($recordList, $sortField = 'uid', $sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING) {
+		$uids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $recordList, TRUE);
+		$query = $this->createQuery();
+		$query->matching($query->in('uid' , $uids));
+		$query->setOrderings(array($sortField => $sortOrder));
+		return $query->execute();
+	}
+
 	protected function generateQuery(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand, $respectEnableFields = TRUE) {
 		$query = $this->createQuery();
 
