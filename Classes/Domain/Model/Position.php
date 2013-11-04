@@ -105,6 +105,62 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $workingHours;
 
 	/**
+	 * entryDate
+	 *
+	 * @var \DateTime
+	 */
+	protected $entryDate;
+
+	/**
+	 * fixedTerm
+	 *
+	 * @var boolean
+	 */
+	protected $fixedTerm = FALSE;
+
+	/**
+	 * duration
+	 *
+	 * @var \string
+	 */
+	protected $duration;
+
+	/**
+	 * zip
+	 *
+	 * @var \string
+	 */
+	protected $zip;
+
+	/**
+	 * city
+	 *
+	 * @var \string
+	 */
+	protected $city;
+
+	/**
+	 * payment
+	 *
+	 * @var \string
+	 */
+	protected $payment;
+
+	/**
+	 * contact
+	 *
+	 * @var \string
+	 */
+	protected $contact;
+
+	/**
+	 * link
+	 *
+	 * @var \string
+	 */
+	protected $link;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return \string $title
@@ -317,6 +373,167 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setWorkingHours(\Webfox\Placements\Domain\Model\WorkingHours $workingHours) {
 		$this->workingHours = $workingHours;
+	}
+
+	/**
+	 * Returns the entryDate
+	 *
+	 * @return \DateTime $entryDate
+	 */
+	public function getEntryDate() {
+		return $this->entryDate;
+	}
+
+	/**
+	 * Sets the entryDate
+	 *
+	 * @param \DateTime $entryDate
+	 * @return void
+	 */
+	public function setEntryDate($entryDate) {
+		$this->entryDate = $entryDate;
+	}
+
+	/**
+	 * Returns the fixedTerm
+	 *
+	 * @return boolean $fixedTerm
+	 */
+	public function getFixedTerm() {
+		return $this->fixedTerm;
+	}
+
+	/**
+	 * Sets the fixedTerm
+	 *
+	 * @param boolean $fixedTerm
+	 * @return void
+	 */
+	public function setFixedTerm($fixedTerm) {
+		$this->fixedTerm = $fixedTerm;
+	}
+
+	/**
+	 * Returns the boolean state of fixedTerm
+	 *
+	 * @return boolean
+	 */
+	public function isFixedTerm() {
+		return $this->getFixedTerm();
+	}
+
+	/**
+	 * Returns the duration
+	 *
+	 * @return \string $duration
+	 */
+	public function getDuration() {
+		return $this->duration;
+	}
+
+	/**
+	 * Sets the duration
+	 *
+	 * @param \string $duration
+	 * @return void
+	 */
+	public function setDuration($duration) {
+		$this->duration = $duration;
+	}
+
+	/**
+	 * Returns the zip
+	 *
+	 * @return \string $zip
+	 */
+	public function getZip() {
+		return $this->zip;
+	}
+
+	/**
+	 * Sets the zip
+	 *
+	 * @param \string $zip
+	 * @return void
+	 */
+	public function setZip($zip) {
+		$this->zip = $zip;
+	}
+
+	/**
+	 * Returns the city
+	 *
+	 * @return \string $city
+	 */
+	public function getCity() {
+		return $this->city;
+	}
+
+	/**
+	 * Sets the city
+	 *
+	 * @param \string $city
+	 * @return void
+	 */
+	public function setCity($city) {
+		$this->city = $city;
+	}
+
+	/**
+	 * Returns the payment
+	 *
+	 * @return \string $payment
+	 */
+	public function getPayment() {
+		return $this->payment;
+	}
+
+	/**
+	 * Sets the payment
+	 *
+	 * @param \string $payment
+	 * @return void
+	 */
+	public function setPayment($payment) {
+		$this->payment = $payment;
+	}
+
+	/**
+	 * Returns the contact
+	 *
+	 * @return \string $contact
+	 */
+	public function getContact() {
+		return $this->contact;
+	}
+
+	/**
+	 * Sets the contact
+	 *
+	 * @param \string $contact
+	 * @return void
+	 */
+	public function setContact($contact) {
+		$this->contact = $contact;
+	}
+
+	/**
+	 * Returns the link
+	 *
+	 * @return \string $link
+	 */
+	public function getLink() {
+		return $this->link;
+	}
+
+	/**
+	 * Sets the link
+	 *
+	 * @param \string $link
+	 * @return void
+	 */
+	public function setLink($link) {
+		$this->link = $link;
 	}
 
 }

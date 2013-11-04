@@ -38,7 +38,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'title,identifier,summary,description,organization,client,type,categories,working_hours,',
+		'searchFields' => 'title,identifier,summary,description,entry_date,fixed_term,duration,zip,city,payment,contact,link,organization,client,type,categories,working_hours,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Position.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_placements_domain_model_position.gif'
 	),

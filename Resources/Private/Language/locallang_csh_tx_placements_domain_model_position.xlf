@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-04T14:12:06Z" product-name="placements">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-04T17:01:54Z" product-name="placements">
 		<header/>
 		<body>
 
@@ -15,6 +15,30 @@
 			</trans-unit>
 			<trans-unit id="description.description">
 				<source>description</source>
+			</trans-unit>
+			<trans-unit id="entry_date.description">
+				<source>entryDate</source>
+			</trans-unit>
+			<trans-unit id="fixed_term.description">
+				<source>fixedTerm</source>
+			</trans-unit>
+			<trans-unit id="duration.description">
+				<source>duration</source>
+			</trans-unit>
+			<trans-unit id="zip.description">
+				<source>zip</source>
+			</trans-unit>
+			<trans-unit id="city.description">
+				<source>city</source>
+			</trans-unit>
+			<trans-unit id="payment.description">
+				<source>payment</source>
+			</trans-unit>
+			<trans-unit id="contact.description">
+				<source>contact</source>
+			</trans-unit>
+			<trans-unit id="link.description">
+				<source>link</source>
 			</trans-unit>
 			<trans-unit id="organization.description">
 				<source>Organization offering this position</source>

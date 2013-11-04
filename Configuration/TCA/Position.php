@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_placements_domain_model_position'] = array(
 	'ctrl' => $TCA['tx_placements_domain_model_position']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, summary, description, organization, client, type, categories, working_hours',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, summary, description, entry_date, fixed_term, duration, zip, city, payment, contact, link, organization, client, type, categories, working_hours',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, identifier, summary, description, organization, client, type, categories, working_hours,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, identifier, summary, description, entry_date, fixed_term, duration, zip, city, payment, contact, link, organization, client, type, categories, working_hours,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -141,6 +141,93 @@ $TCA['tx_placements_domain_model_position'] = array(
 				)
 			),
 			'defaultExtras' => 'richtext:rte_transform[flag=rte_enabled|mode=ts]',
+		),
+		'entry_date' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.entry_date',
+			'config' => array(
+				'type' => 'input',
+				'size' => 7,
+				'eval' => 'date',
+				'checkbox' => 1,
+				'default' => time()
+			),
+		),
+		'fixed_term' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.fixed_term',
+			'config' => array(
+				'type' => 'check',
+				'default' => 0
+			),
+		),
+		'duration' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.duration',
+			'config' => array(
+				'type' => 'text',
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim'
+			),
+		),
+		'zip' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.zip',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
+		),
+		'city' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.city',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
+		),
+		'payment' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.payment',
+			'config' => array(
+				'type' => 'text',
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim'
+			),
+		),
+		'contact' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.contact',
+			'config' => array(
+				'type' => 'text',
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim',
+				'wizards' => array(
+					'RTE' => array(
+						'icon' => 'wizard_rte2.gif',
+						'notNewRecords'=> 1,
+						'RTEonly' => 1,
+						'script' => 'wizard_rte.php',
+						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
+						'type' => 'script'
+					)
+				)
+			),
+			'defaultExtras' => 'richtext:rte_transform[flag=rte_enabled|mode=ts]',
+		),
+		'link' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.link',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
 		),
 		'organization' => array(
 			'exclude' => 1,

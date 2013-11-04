@@ -124,6 +124,128 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getEntryDateReturnsInitialValueForDateTime() { }
+
+	/**
+	 * @test
+	 */
+	public function setEntryDateForDateTimeSetsEntryDate() { }
+	
+	/**
+	 * @test
+	 */
+	public function getFixedTermReturnsInitialValueForOolean() { }
+
+	/**
+	 * @test
+	 */
+	public function setFixedTermForOoleanSetsFixedTerm() { }
+	
+	/**
+	 * @test
+	 */
+	public function getDurationReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setDurationForStringSetsDuration() { 
+		$this->fixture->setDuration('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getDuration()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getZipReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setZipForStringSetsZip() { 
+		$this->fixture->setZip('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getZip()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getCityReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setCityForStringSetsCity() { 
+		$this->fixture->setCity('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getCity()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getPaymentReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setPaymentForStringSetsPayment() { 
+		$this->fixture->setPayment('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getPayment()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getContactReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setContactForStringSetsContact() { 
+		$this->fixture->setContact('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getContact()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getLinkReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setLinkForStringSetsLink() { 
+		$this->fixture->setLink('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getLink()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getOrganizationReturnsInitialValueForOrganization() { }
 
 	/**
