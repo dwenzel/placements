@@ -32,6 +32,69 @@ namespace Webfox\Placements\Domain\Model\Dto;
  */
 class PositionDemand extends AbstractDemand implements DemandInterface {
 
+	/**
+	 * @var \string
+	 */
+	protected $positionTypes;
+
+	/**
+	 * @var \string
+	 */
+	protected $workingHours;
+
+	/**
+	 * @var \string
+	 */
+	protected $categories;
+
+	/**
+	 * Get Working Hours
+	 * @return \string
+	 */
+	public function getWorkingHours () {
+		return $this->workingHours;
+	}
+
+	/**
+	 * Sets the Working Hours
+	 * @param \string $workingHours A comma separated list of working hours uids
+	 */
+	public function setWorkingHours ($workingHours) {
+		$this->workingHours = $workingHours;
+	}
+
+	/**
+	 * Get Position Types
+	 * @return \string
+	 */
+	public function getPositionTypes () {
+		return $this->positionTypes;
+	}
+
+	/**
+	 * Sets the Position Types
+	 * @param \string $positionTypes A comma separated list of position type uids
+	 */
+	public function setPositionTypes ($positionTypes) {
+		$this->positionTypes = $positionTypes;
+	}
+
+	/**
+	 * Get Categories
+	 * @return \string
+	 */
+	public function getCategories () {
+		return $this->categories;
+	}
+
+	/**
+	 * Sets the Categories
+	 * @param \string $categories A comma separated list of category uids
+	 */
+	public function setCategories ($categories) {
+		$this->categories = $categories;
+	}
+
 }
 
 ?>
