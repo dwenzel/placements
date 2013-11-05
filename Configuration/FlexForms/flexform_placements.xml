@@ -30,10 +30,10 @@
 						</TCEforms>
 					</switchableControllerActions>
 
-					<!-- Position Type -->
-					<settings.positionType>
+					<!-- Position Types -->
+					<settings.positionTypes>
 						<TCEforms>
-							<label>Position Type</label>
+							<label>Position Types</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -50,7 +50,7 @@
 								</wizards>
 							</config>
 						</TCEforms>
-					</settings.positionType>
+					</settings.positionTypes>
 
 					<!-- Working Hours -->
 					<settings.workingHours>
