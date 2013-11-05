@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-05T17:19:29Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+		<trans-unit id="fe_users.tx_extbase_type.Tx_Placements_User" approved="yes" xml:space="preserve">
+			<source>Placement Service User</source>
+			<target>Benutzer der Stellenbörse</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.categoryConjunction" approved="yes" xml:space="preserve">
+			<source>Category Mode</source>
+			<target>Kategorienmodus</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.categoryConjunction.and" approved="yes" xml:space="preserve">
+			<source>Show items with selected categories (AND)</source>
+			<target>Zeige Einträge mit gewählten Kategorien (AND)</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.categoryConjunction.empty" approved="yes" xml:space="preserve">
+			<source>Ignore selected categories.</source>
+			<target>Ignoriere gewählte Kategorien.</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.categoryConjunction.notand" approved="yes" xml:space="preserve">
+			<source>Do NOT show items with selected categories (AND)</source>
+			<target>Zeige KEINE Einträge mit gewählten Kategorien (AND)</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.categoryConjunction.notor" approved="yes" xml:space="preserve">
+			<source>Do NOT show items with selected categories (OR)</source>
+			<target>Zeige KEINE Einträge mit gewählten Kategorien (OR)</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.categoryConjunction.or" approved="yes" xml:space="preserve">
+			<source>Show items with selected categories (OR)</source>
+			<target>Zeige Einträge mit gewählten Kategorien (OR)</target>
+		</trans-unit>
+		</body>
+	</file>
+</xliff>
