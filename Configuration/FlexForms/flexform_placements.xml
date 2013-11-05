@@ -30,6 +30,62 @@
 						</TCEforms>
 					</switchableControllerActions>
 
+					<!-- order by -->
+					<settings.orderBy>
+						<TCEforms>
+							<label>order By</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0" type="array">
+										<numIndex index="0"></numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">Title</numIndex>
+										<numIndex index="1">title</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">Identifier</numIndex>
+										<numIndex index="1">identifier</numIndex>
+									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">Type</numIndex>
+										<numIndex index="1">type</numIndex>
+									</numIndex>
+									<numIndex index="4">
+										<numIndex index="0">Entry Date</numIndex>
+										<numIndex index="1">entryDate</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.orderBy>
+
+					<!-- order direction -->
+					<settings.orderDirection>
+						<TCEforms>
+							<label>Order Direction</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0" type="array">
+										<numIndex index="0"></numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">ascending</numIndex>
+										<numIndex index="1">asc</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">descending</numIndex>
+										<numIndex index="1">desc</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.orderDirection>
+
 					<!-- Position Types -->
 					<settings.positionTypes>
 						<TCEforms>
@@ -77,7 +133,7 @@
 					<!-- Category -->
 					<settings.categories>
 						<TCEforms>
-							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xml:flexforms_general.categories</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categories</label>
 							<config>
 								<type>select</type>
 								<renderMode>tree</renderMode>
@@ -98,6 +154,36 @@
 							</config>
 						</TCEforms>
 					</settings.categories>
+					<settings.categoryConjunction>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.empty</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.and</numIndex>
+										<numIndex index="1">and</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.or</numIndex>
+										<numIndex index="1">or</numIndex>
+									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.notor</numIndex>
+										<numIndex index="1">notor</numIndex>
+									</numIndex>
+									<numIndex index="4">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.notand</numIndex>
+										<numIndex index="1">notand</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.categoryConjunction>
 					<settings.limit>
 						<TCEforms>
 							<label>Limit</label>
