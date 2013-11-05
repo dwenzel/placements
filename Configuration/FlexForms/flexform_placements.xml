@@ -98,6 +98,21 @@
 							</config>
 						</TCEforms>
 					</settings.categories>
+					<settings.limit>
+						<TCEforms>
+							<label>Limit</label>
+							<config>
+								<type>input</type>
+								<size>8</size>
+								<eval>int</eval>
+								<range>
+									<lower>0</lower>
+									<upper>99999</upper>
+								</range>
+							</config>
+						</TCEforms>
+					</settings.limit>
+
 				</el>
 			</ROOT>
 		</sDEF>
