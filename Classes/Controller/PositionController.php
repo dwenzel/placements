@@ -46,10 +46,13 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	/**
 	 * action list
 	 *
+	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function listAction() {
-		$positions = $this->positionRepository->findAll();
+	public function listAction($overwriteDemand = NULL) {
+		$demand = $this->createDemandFromSettings($this->settings);
+		$positions = $this->positionRepository->findDemanded($demand);	
+		//$positions = $this->positionRepository->findAll();
 		$this->view->assign('positions', $positions);
 	}
 
@@ -118,6 +121,25 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$this->positionRepository->remove($position);
 		$this->flashMessageContainer->add('Your Position was removed.');
 		$this->redirect('list');
+	}
+
+	/**
+	 * Create demand from settings
+	 *
+	 * @param \array $settings
+	 * @return \Webfox\Placements\Domain\Model\Dto\PositionDemand
+	 */
+	public function createDemandFromSettings ($settings) {
+		$demand = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\PositionDemand');
+		if ($settings['orderBy']) {
+			$demand->setOrder($settings['orderBy'] . '|' . $settings['orderDirection']);
+		}
+		$demand->setLimit($settings['limit']);
+		$demand->setPositionTypes($settings['positionTypes']);
+		$demand->setWorkingHours($settings['workingHours']);
+		$demand->setCategories($settings['categories']);
+
+		return $demand;
 	}
 
 }
