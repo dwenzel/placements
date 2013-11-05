@@ -34,10 +34,10 @@ namespace Webfox\Placements\Domain\Repository;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  */
 abstract class AbstractDemandedRepository
-	extends TYPO3\CMS\Extbase\Persistence\Repository {
+	extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\Storage\BackendInterface
+	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbBackend
 	 * @inject
 	 */
 	protected $storageBackend;
@@ -47,7 +47,7 @@ abstract class AbstractDemandedRepository
 	 * 
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
 	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 * @abstract
 	 */
 	abstract protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand);
