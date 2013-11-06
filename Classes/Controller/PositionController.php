@@ -138,7 +138,9 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$demand->setPositionTypes($settings['positionTypes']);
 		$demand->setWorkingHours($settings['workingHours']);
 		$demand->setCategories($settings['categories']);
-
+		if($settings['categoryConjunction'] !== '') {
+			$demand->setCategoryConjunction($settings['categoryConjunction']);
+		}
 		return $demand;
 	}
 
