@@ -124,6 +124,14 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
+	 * Quick Menu action
+	 * @return void
+	 */
+	public function quickMenuAction() {
+	
+	}
+
+	/**
 	 * Create demand from settings
 	 *
 	 * @param \array $settings
