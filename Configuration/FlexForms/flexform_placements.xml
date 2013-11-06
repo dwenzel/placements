@@ -137,6 +137,28 @@
 						</TCEforms>
 					</settings.workingHours>
 				
+					<!-- Sectors -->
+					<settings.sectors>
+						<TCEforms>
+							<label>Sectors</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>tx_placements_domain_model_sector</allowed>
+								<size>3</size>
+								<autoMaxSize>20</autoMaxSize>
+								<minitems>0</minitems>
+								<maxitems>9999</maxitems>
+								<showThumbs>1</showThumbs>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.sectors>
+				
 					<!-- Category -->
 					<settings.categories>
 						<TCEforms>
