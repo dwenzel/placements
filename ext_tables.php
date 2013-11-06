@@ -96,7 +96,7 @@ $TCA['tx_placements_domain_model_organization'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'title,identifier,description,',
+		'searchFields' => 'title,identifier,description,sectors,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Organization.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_placements_domain_model_organization.gif'
 	),
@@ -350,6 +350,8 @@ $TCA['tx_placements_domain_model_sector'] = array(
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_placements_domain_model_sector.gif'
 	),
 );
+
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 //extend frontend user
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] = $TCA['fe_users']['types']['Tx_Extbase_Domain_Model_FrontendUser']['showitem'];
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= ',--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_user,';
@@ -363,6 +365,5 @@ $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applica
 	$fieldName = 'categories',
 	$options = array()
 );
-
 ?>
 

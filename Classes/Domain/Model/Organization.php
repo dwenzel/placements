@@ -58,6 +58,14 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $description;
 
 	/**
+	 * sectors
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Sector>
+	 * @lazy
+	 */
+	protected $sectors;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return \string $title
@@ -112,6 +120,69 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setDescription($description) {
 		$this->description = $description;
+	}
+
+	/**
+	 * __construct
+	 *
+	 * @return Organization
+	 */
+	public function __construct() {
+		//Do not remove the next line: It would break the functionality
+		$this->initStorageObjects();
+	}
+
+	/**
+	 * Initializes all ObjectStorage properties.
+	 *
+	 * @return void
+	 */
+	protected function initStorageObjects() {
+		/**
+		 * Do not modify this method!
+		 * It will be rewritten on each save in the extension builder
+		 * You may modify the constructor of this class instead
+		 */
+		$this->sectors = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Adds a Sector
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Sector $sector
+	 * @return void
+	 */
+	public function addSector(\Webfox\Placements\Domain\Model\Sector $sector) {
+		$this->sectors->attach($sector);
+	}
+
+	/**
+	 * Removes a Sector
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Sector $sectorToRemove The Sector to be removed
+	 * @return void
+	 */
+	public function removeSector(\Webfox\Placements\Domain\Model\Sector $sectorToRemove) {
+		$this->sectors->detach($sectorToRemove);
+	}
+
+	/**
+	 * Returns the sectors
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Sector> $sectors
+	 */
+	public function getSectors() {
+		return $this->sectors;
+	}
+
+	/**
+	 * Sets the sectors
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Sector> $sectors
+	 * @return void
+	 */
+	public function setSectors(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $sectors) {
+		$this->sectors = $sectors;
 	}
 
 }
