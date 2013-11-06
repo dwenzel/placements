@@ -44,8 +44,9 @@ class PositionRepository extends AbstractDemandedRepository {
 	 */
 	protected function createConstraintsFromDemand (\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
 		$constraints = array();
-		
-		if ($demand->getCategories() && $demand->getCategories() !== '0') {
+	
+		// Category constraints
+		if ($demand->getCategories() && $demand->getCategoryConjunction() !== NULL) {
 			
 			// @todo get subcategories ($demand->getIncludeSubCategories())
 			$constraints[] = $this->createCategoryConstraint(
@@ -54,6 +55,32 @@ class PositionRepository extends AbstractDemandedRepository {
 				$demand->getCategoryConjunction(),
 				FALSE
 			);
+		}
+
+		// Position type constraints
+		if ($demand->getPositionTypes()) {
+			$positionTypes = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getPositionTypes());
+			$positionConstraints = array();
+			foreach ($positionTypes as $positionType) {
+				echo('positionType: '. $positionType);
+				$positionConstraints[] = $query->equals('type.uid', $positionType);
+			}
+			if (count($positionConstraints)) {
+				$constraints[] = $query->logicalOr($positionConstraints);
+			}
+		}
+
+		// Working hours constraints
+		if ($demand->getWorkingHours()) {
+			$workingHours = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getWorkingHours());
+			$wHoursConstraints = array();
+			foreach ($workingHours as $workingHour) {
+				echo('workingHour: '. $workingHour);
+				$wHoursConstraints[] = $query->equals('workingHours.uid', $workingHour);
+			}
+			if (count($wHoursConstraints)) {
+				$constraints[] = $query->logicalOr($wHoursConstraints);
+			}
 		}
 
 		//@todo add constraints
