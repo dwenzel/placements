@@ -48,6 +48,11 @@ class PositionDemand extends AbstractDemand implements DemandInterface {
 	protected $categories;
 
 	/**
+	 * @var \string
+	 */
+	protected $categoryConjunction;
+
+	/**
 	 * Get Working Hours
 	 * @return \string
 	 */
@@ -95,6 +100,22 @@ class PositionDemand extends AbstractDemand implements DemandInterface {
 		$this->categories = $categories;
 	}
 
+	/**
+	 * Get Category conjunction
+	 * @return \string
+	 */
+	public function getCategoryConjunction () {
+		return $this->categoryConjunction;
+	}
+
+	/**
+	 * Set Category conjunction
+	 *
+	 * @param \string $conjunction
+	 */
+	public function setCategoryConjunction ($conjunction) {
+		$this->categoryConjunction = $conjunction;
+	}
 }
 
 ?>
