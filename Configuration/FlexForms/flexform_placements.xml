@@ -10,6 +10,7 @@
 					<switchableControllerActions>
 						<TCEforms>
 							<label>Select function</label>
+							<onChange>reload</onChange>
 							<config>
 								<type>select</type>
 								<items>
@@ -25,6 +26,10 @@
 										<numIndex index="0">Application</numIndex>
 										<numIndex index="1">Application->list;Application->show</numIndex>
 									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">Quick Menu</numIndex>
+										<numIndex index="1">Position->quickMenu</numIndex>
+									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
@@ -34,6 +39,7 @@
 					<settings.orderBy>
 						<TCEforms>
 							<label>order By</label>
+							<displayCond>FIELD:switchableControllerActions:!=:Position->quickMenu</displayCond>
 							<config>
 								<type>select</type>
 								<items>
@@ -66,6 +72,7 @@
 					<settings.orderDirection>
 						<TCEforms>
 							<label>Order Direction</label>
+							<displayCond>FIELD:switchableControllerActions:!=:Position->quickMenu</displayCond>
 							<config>
 								<type>select</type>
 								<items>
@@ -187,6 +194,7 @@
 					<settings.limit>
 						<TCEforms>
 							<label>Limit</label>
+							<displayCond>FIELD:switchableControllerActions:!=:Position->quickMenu</displayCond>
 							<config>
 								<type>input</type>
 								<size>8</size>
