@@ -65,46 +65,6 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $description;
 
 	/**
-	 * Organization offering this position
-	 *
-	 * @var \Webfox\Placements\Domain\Model\Organization
-	 * @lazy
-	 */
-	protected $organization;
-
-	/**
-	 * Client for whom this position is managed
-	 *
-	 * @var \Webfox\Placements\Domain\Model\Client
-	 * @lazy
-	 */
-	protected $client;
-
-	/**
-	 * Type of position
-	 *
-	 * @var \Webfox\Placements\Domain\Model\PositionType
-	 * @lazy
-	 */
-	protected $type;
-
-	/**
-	 * Categories
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
-	 * @lazy
-	 */
-	protected $categories;
-
-	/**
-	 * Working Hours
-	 *
-	 * @var \Webfox\Placements\Domain\Model\WorkingHours
-	 * @lazy
-	 */
-	protected $workingHours;
-
-	/**
 	 * entryDate
 	 *
 	 * @var \DateTime
@@ -159,6 +119,54 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var \string
 	 */
 	protected $link;
+
+	/**
+	 * Organization offering this position
+	 *
+	 * @var \Webfox\Placements\Domain\Model\Organization
+	 * @lazy
+	 */
+	protected $organization;
+
+	/**
+	 * Client for whom this position is managed
+	 *
+	 * @var \Webfox\Placements\Domain\Model\Client
+	 * @lazy
+	 */
+	protected $client;
+
+	/**
+	 * Type of position
+	 *
+	 * @var \Webfox\Placements\Domain\Model\PositionType
+	 * @lazy
+	 */
+	protected $type;
+
+	/**
+	 * Categories
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+	 * @lazy
+	 */
+	protected $categories;
+
+	/**
+	 * Working Hours
+	 *
+	 * @var \Webfox\Placements\Domain\Model\WorkingHours
+	 * @lazy
+	 */
+	protected $workingHours;
+
+	/**
+	 * Sectors
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Sector>
+	 * @lazy
+	 */
+	protected $sectors;
 
 	/**
 	 * Returns the title
@@ -315,6 +323,8 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		 * You may modify the constructor of this class instead
 		 */
 		$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		
+		$this->sectors = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -534,6 +544,45 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setLink($link) {
 		$this->link = $link;
+	}
+
+	/**
+	 * Adds a Sector
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Sector $sector
+	 * @return void
+	 */
+	public function addSector(\Webfox\Placements\Domain\Model\Sector $sector) {
+		$this->sectors->attach($sector);
+	}
+
+	/**
+	 * Removes a Sector
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Sector $sectorToRemove The Sector to be removed
+	 * @return void
+	 */
+	public function removeSector(\Webfox\Placements\Domain\Model\Sector $sectorToRemove) {
+		$this->sectors->detach($sectorToRemove);
+	}
+
+	/**
+	 * Returns the sectors
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Sector> $sectors
+	 */
+	public function getSectors() {
+		return $this->sectors;
+	}
+
+	/**
+	 * Sets the sectors
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Sector> $sectors
+	 * @return void
+	 */
+	public function setSectors(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $sectors) {
+		$this->sectors = $sectors;
 	}
 
 }

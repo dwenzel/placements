@@ -7,19 +7,18 @@ if (!defined('TYPO3_MODE')) {
 	'Webfox.' . $_EXTKEY,
 	'Placements',
 	array(
-		'Position' => 'list, show, new, create, edit, update, delete',
+		'Position' => 'list, show, new, create, edit, update, delete, quickMenu',
 		'User' => 'list, show, new, create, edit, update, delete',
 		'Application' => 'list, show, new, create, edit, update, delete',
 		
 	),
 	// non-cacheable actions
 	array(
-		'Position' => 'create, update, delete,quickMenu',
+		'Position' => 'create, update, delete, quickMenu',
 		'User' => 'create, update, delete',
 		'Application' => 'create, update, delete',
 		
 	)
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>

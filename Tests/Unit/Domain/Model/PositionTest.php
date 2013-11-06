@@ -341,5 +341,63 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setWorkingHoursForWorkingHoursSetsWorkingHours() { }
 	
+	/**
+	 * @test
+	 */
+	public function getSectorsReturnsInitialValueForSector() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getSectors()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setSectorsForObjectStorageContainingSectorSetsSectors() { 
+		$sector = new \Webfox\Placements\Domain\Model\Sector();
+		$objectStorageHoldingExactlyOneSectors = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSectors->attach($sector);
+		$this->fixture->setSectors($objectStorageHoldingExactlyOneSectors);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneSectors,
+			$this->fixture->getSectors()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addSectorToObjectStorageHoldingSectors() {
+		$sector = new \Webfox\Placements\Domain\Model\Sector();
+		$objectStorageHoldingExactlyOneSector = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSector->attach($sector);
+		$this->fixture->addSector($sector);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneSector,
+			$this->fixture->getSectors()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeSectorFromObjectStorageHoldingSectors() {
+		$sector = new \Webfox\Placements\Domain\Model\Sector();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage->attach($sector);
+		$localObjectStorage->detach($sector);
+		$this->fixture->addSector($sector);
+		$this->fixture->removeSector($sector);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getSectors()
+		);
+	}
+	
 }
 ?>

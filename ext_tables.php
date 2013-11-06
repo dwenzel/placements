@@ -38,7 +38,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'title,identifier,summary,description,entry_date,fixed_term,duration,zip,city,payment,contact,link,organization,client,type,categories,working_hours,',
+		'searchFields' => 'title,identifier,summary,description,entry_date,fixed_term,duration,zip,city,payment,contact,link,organization,client,type,categories,working_hours,sectors,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Position.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_placements_domain_model_position.gif'
 	),
@@ -322,7 +322,34 @@ $TCA['tx_placements_domain_model_workinghours'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_placements_domain_model_sector', 'EXT:placements/Resources/Private/Language/locallang_csh_tx_placements_domain_model_sector.xlf');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_placements_domain_model_sector');
+$TCA['tx_placements_domain_model_sector'] = array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_sector',
+		'label' => 'titel',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'titel,description,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Sector.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_placements_domain_model_sector.gif'
+	),
+);
 //extend frontend user
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] = $TCA['fe_users']['types']['Tx_Extbase_Domain_Model_FrontendUser']['showitem'];
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= ',--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_user,';
@@ -334,8 +361,8 @@ $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applica
 	$_EXTKEY,
 	'tx_placements_domain_model_position',
 	$fieldName = 'categories',
-	$options = array(
-				
-			)
- );
+	$options = array()
+);
+
 ?>
+
