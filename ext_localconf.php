@@ -14,7 +14,7 @@ if (!defined('TYPO3_MODE')) {
 	),
 	// non-cacheable actions
 	array(
-		'Position' => 'create, update, delete',
+		'Position' => 'create, update, delete,quickMenu',
 		'User' => 'create, update, delete',
 		'Application' => 'create, update, delete',
 		
