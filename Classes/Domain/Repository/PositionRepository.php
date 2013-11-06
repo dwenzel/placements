@@ -62,7 +62,6 @@ class PositionRepository extends AbstractDemandedRepository {
 			$positionTypes = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getPositionTypes());
 			$positionConstraints = array();
 			foreach ($positionTypes as $positionType) {
-				echo('positionType: '. $positionType);
 				$positionConstraints[] = $query->equals('type.uid', $positionType);
 			}
 			if (count($positionConstraints)) {
@@ -75,7 +74,6 @@ class PositionRepository extends AbstractDemandedRepository {
 			$workingHours = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getWorkingHours());
 			$wHoursConstraints = array();
 			foreach ($workingHours as $workingHour) {
-				echo('workingHour: '. $workingHour);
 				$wHoursConstraints[] = $query->equals('workingHours.uid', $workingHour);
 			}
 			if (count($wHoursConstraints)) {
