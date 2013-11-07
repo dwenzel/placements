@@ -75,6 +75,11 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	public function listAction($overwriteDemand = NULL) {
 		$demand = $this->createDemandFromSettings($this->settings);
+		//\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($demand, 'demand before');
+		if($overwriteDemand) {
+		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+		}
+		//\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($demand, 'demand after');
 		$positions = $this->positionRepository->findDemanded($demand);	
 		//$positions = $this->positionRepository->findAll();
 		$this->view->assign('positions', $positions);
@@ -187,6 +192,24 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			$demand->setCategoryConjunction($settings['categoryConjunction']);
 		}
 		$demand->setLimit($settings['limit']);
+		return $demand;
+	}
+
+	/**
+	 * Overwrites a given demand object by an propertyName =>  $propertyValue array
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Dto\PositionDemand $demand
+	 * @param \array $overwriteDemand
+	 * @return \Webfox\Placements\Domain\Model\Dto\PositionDemand
+	 */
+	protected function overwriteDemandObject($demand, $overwriteDemand) {
+		unset($overwriteDemand['orderByAllowed']);
+		foreach ($overwriteDemand as $propertyName => $propertyValue) {
+			if(!empty($propertyValue)) {
+				//echo($propertyName . ' '. $propertyValue);
+				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+		    }
+		}
 		return $demand;
 	}
 
