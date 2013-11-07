@@ -14,7 +14,7 @@ This Template creates a quick menu.
 
 	<div class="quickMenu">
 		<div class="message">
-			<f:translate key="tx_placements.searchAllEventsByGenre.hint" />
+			<f:translate key="tx_placements.quickMenu.hint" />
 		</div>
 		<div class="selectbox">
 			<f:form name="overwriteDemand" action="list"
@@ -28,6 +28,7 @@ This Template creates a quick menu.
 						options="{positionTypes}"
 						optionValueField="uid" 
 						optionLabelField="title"
+						prependOptionLabel="@todo selectAllPositionTypes"
 						value="{overwriteDemand.positionTypes}"
 					/>
 				</f:if>
@@ -40,6 +41,7 @@ This Template creates a quick menu.
 						options="{workingHours}"
 						optionValueField="uid" 
 						optionLabelField="title"
+						prependOptionLabel="@todo selectAllWorkingHours"
 						value="{overwriteDemand.workingHours}"
 					/>
 				</f:if>
@@ -52,6 +54,7 @@ This Template creates a quick menu.
 						options="{sectors}"
 						optionValueField="uid" 
 						optionLabelField="title"
+						prependOptionLabel="@todo selectAllSectors"
 						value="{overwriteDemand.sectors}"
 					/>
 				</f:if>
@@ -64,6 +67,7 @@ This Template creates a quick menu.
 						options="{positionTypes}"
 						optionValueField="uid" 
 						optionLabelField="title"
+						prependOptionLabel="@todo selectAllPositionTypes"
 						value="{overwriteDemand.positionTypes}"
 					/>
 					<f:form.select 
@@ -72,6 +76,7 @@ This Template creates a quick menu.
 						options="{workingHours}"
 						optionValueField="uid" 
 						optionLabelField="title"
+						prependOptionLabel="@todo selectAllWorkingHours"
 						value="{overwriteDemand.workingHours}"
 					/>
 					<f:form.select 
@@ -80,6 +85,7 @@ This Template creates a quick menu.
 						options="{sectors}"
 						optionValueField="uid" 
 						optionLabelField="title"
+						prependOptionLabel="@todo selectAllSectors"
 						value="{overwriteDemand.sectors}"
 					/>
 					<f:form.hidden 
@@ -91,7 +97,7 @@ This Template creates a quick menu.
 					
 				</f:if>
 				<f:form.submit 
-				  id="tx_placementsQuickMenueSubmit"
+				  id="tx_placementsQuickMenue"
 					name="submit" 
 					value="{f:translate(key: 'tx_placements.button.label.update', default: 'Update')}"
 				/>
