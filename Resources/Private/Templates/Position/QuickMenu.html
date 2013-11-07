@@ -1,0 +1,103 @@
+<f:layout name="Default" />
+
+This Template creates a quick menu.
+
+<f:section name="main">
+<f:if condition="{settings.debug}">
+	<f:debug title="settings">{settings}</f:debug>
+	<f:debug title="overwrite demand">{overwriteDemand}</f:debug>
+	<f:debug title="workingHours">{workingHours}</f:debug>
+	<f:debug title="positionTypes">{positionTypes}</f:debug>
+	<f:debug title="sectors">{sectors}</f:debug>
+</f:if>
+<f:flashMessages />
+
+	<div class="quickMenu">
+		<div class="message">
+			<f:translate key="tx_placements.searchAllEventsByGenre.hint" />
+		</div>
+		<div class="selectbox">
+			<f:form name="overwriteDemand" action="list"
+				pageUid="{settings.position.list.pid}">
+				
+				<f:comment>show position types  only</f:comment>
+				<f:if condition="{0: settings.quickMenuType}=={0: 'positionTypes'}">
+					<f:form.select 
+						id="tx_placementsQuickMenue"
+						name="overwriteDemand[positionTypes]" 
+						options="{positionTypes}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.positionTypes}"
+					/>
+				</f:if>
+				
+				<f:comment>show workingHours only</f:comment>
+				<f:if condition="{0:settings.quickMenuType}=={0: 'workingHours'}"> 
+					<f:form.select 
+					  id="tx_placementsQuickMenue"
+						name="overwriteDemand[workingHours]" 
+						options="{workingHours}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.workingHours}"
+					/>
+				</f:if>
+				
+				<f:comment>show sectors only</f:comment>
+				<f:if condition="{0:settings.quickMenuType}=={0: 'sectors'}"> 
+					<f:form.select 
+					  id="tx_placementsQuickMenue"
+						name="overwriteDemand[sectors]" 
+						options="{sectors}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.sectors}"
+					/>
+				</f:if>
+				
+				<f:comment>show positionTypes, workingHours and sectors</f:comment>
+				<f:if condition="{0:settings.quickMenuType}=={0: ''}">
+					<f:form.select 
+						id="tx_placementsQuickMenue"
+						name="overwriteDemand[positionTypes]" 
+						options="{positionTypes}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.positionTypes}"
+					/>
+					<f:form.select 
+					  id="tx_placementsQuickMenue"
+						name="overwriteDemand[workingHours]" 
+						options="{workingHours}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.workingHours}"
+					/>
+					<f:form.select 
+					  id="tx_placementsQuickMenue"
+						name="overwriteDemand[sectors]" 
+						options="{sectors}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.sectors}"
+					/>
+					<f:form.hidden 
+					  id="tx_placementsQuickMenue"
+					  	name="overwriteDemand[categoryConjunction]"
+					  	value="{settings.categoryConjunction}"
+					/>
+
+					
+				</f:if>
+				<f:form.submit 
+				  id="tx_placementsQuickMenueSubmit"
+					name="submit" 
+					value="{f:translate(key: 'tx_placements.button.label.update', default: 'Update')}"
+				/>
+			</f:form>
+		</div>
+	</div>
+</f:section>
+
+
