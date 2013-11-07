@@ -118,7 +118,7 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getResumeReturnsInitialValueForResume() { 
-		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getResume()
@@ -130,7 +130,7 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setResumeForObjectStorageContainingResumeSetsResume() { 
 		$resume = new \Webfox\Placements\Domain\Model\Resume();
-		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneResume->attach($resume);
 		$this->fixture->setResume($objectStorageHoldingExactlyOneResume);
 
@@ -145,7 +145,7 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function addResumeToObjectStorageHoldingResume() {
 		$resume = new \Webfox\Placements\Domain\Model\Resume();
-		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneResume->attach($resume);
 		$this->fixture->addResume($resume);
 
@@ -160,7 +160,7 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function removeResumeFromObjectStorageHoldingResume() {
 		$resume = new \Webfox\Placements\Domain\Model\Resume();
-		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($resume);
 		$localObjectStorage->detach($resume);
 		$this->fixture->addResume($resume);

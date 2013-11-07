@@ -277,7 +277,7 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getCategoriesReturnsInitialValueForCategory() { 
-		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getCategories()
@@ -289,7 +289,7 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setCategoriesForObjectStorageContainingCategorySetsCategories() { 
 		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
-		$objectStorageHoldingExactlyOneCategories = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneCategories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneCategories->attach($category);
 		$this->fixture->setCategories($objectStorageHoldingExactlyOneCategories);
 
@@ -304,7 +304,7 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function addCategoryToObjectStorageHoldingCategories() {
 		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
-		$objectStorageHoldingExactlyOneCategory = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneCategory = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneCategory->attach($category);
 		$this->fixture->addCategory($category);
 
@@ -319,7 +319,7 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function removeCategoryFromObjectStorageHoldingCategories() {
 		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
-		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($category);
 		$localObjectStorage->detach($category);
 		$this->fixture->addCategory($category);
@@ -345,7 +345,7 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getSectorsReturnsInitialValueForSector() { 
-		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getSectors()
@@ -357,7 +357,7 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setSectorsForObjectStorageContainingSectorSetsSectors() { 
 		$sector = new \Webfox\Placements\Domain\Model\Sector();
-		$objectStorageHoldingExactlyOneSectors = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSectors = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneSectors->attach($sector);
 		$this->fixture->setSectors($objectStorageHoldingExactlyOneSectors);
 
@@ -372,7 +372,7 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function addSectorToObjectStorageHoldingSectors() {
 		$sector = new \Webfox\Placements\Domain\Model\Sector();
-		$objectStorageHoldingExactlyOneSector = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSector = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneSector->attach($sector);
 		$this->fixture->addSector($sector);
 
@@ -387,7 +387,7 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function removeSectorFromObjectStorageHoldingSectors() {
 		$sector = new \Webfox\Placements\Domain\Model\Sector();
-		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($sector);
 		$localObjectStorage->detach($sector);
 		$this->fixture->addSector($sector);

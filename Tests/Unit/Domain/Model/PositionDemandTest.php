@@ -77,6 +77,48 @@ class PositionDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getWorkingHoursReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getWorkingHours()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setWorkingHoursForStringSetsWorkingHours() { 
+		$this->fixture->setWorkingHours('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getWorkingHours()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getSectorsReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getSectors()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setSectorsForStringSetsSectors() { 
+		$this->fixture->setSectors('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getSectors()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getCategoriesReturnsInitialValueForString() {
 		$this->assertNull($this->fixture->getCategories());
 	}
@@ -114,26 +156,5 @@ class PositionDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		);
 	}
 	
-	
-	/**
-	 * @test
-	 */
-	public function getWorkingHoursReturnsInitialValueForString() {
-		$this->assertNull(
-			$this->fixture->getWorkingHours()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setWorkingHoursForStringSetsWorkingHours() { 
-		$this->fixture->setWorkingHours('Conceived at T3CON10');
-
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getWorkingHours()
-		);
-	}
 }
 ?>

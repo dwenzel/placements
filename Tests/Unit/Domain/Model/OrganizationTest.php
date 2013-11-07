@@ -56,7 +56,11 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getTitleReturnsInitialValueForString() { }
+	public function getTitleReturnsInitialValueForString() { 
+		$this->assertNull(
+			$this->fixture->getTitle()
+		);
+	}
 
 	/**
 	 * @test
@@ -73,7 +77,11 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getIdentifierReturnsInitialValueForString() { }
+	public function getIdentifierReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getIdentifier()
+		);
+	}
 
 	/**
 	 * @test
@@ -90,7 +98,11 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getDescriptionReturnsInitialValueForString() { }
+	public function getDescriptionReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getDescription()
+		);
+	}
 
 	/**
 	 * @test
@@ -108,7 +120,7 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getSectorsReturnsInitialValueForSector() { 
-		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getSectors()
@@ -120,7 +132,7 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setSectorsForObjectStorageContainingSectorSetsSectors() { 
 		$sector = new \Webfox\Placements\Domain\Model\Sector();
-		$objectStorageHoldingExactlyOneSectors = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSectors = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneSectors->attach($sector);
 		$this->fixture->setSectors($objectStorageHoldingExactlyOneSectors);
 
@@ -135,7 +147,7 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function addSectorToObjectStorageHoldingSectors() {
 		$sector = new \Webfox\Placements\Domain\Model\Sector();
-		$objectStorageHoldingExactlyOneSector = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSector = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneSector->attach($sector);
 		$this->fixture->addSector($sector);
 
@@ -150,7 +162,7 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function removeSectorFromObjectStorageHoldingSectors() {
 		$sector = new \Webfox\Placements\Domain\Model\Sector();
-		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($sector);
 		$localObjectStorage->detach($sector);
 		$this->fixture->addSector($sector);
