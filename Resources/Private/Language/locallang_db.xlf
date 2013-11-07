@@ -8,26 +8,11 @@
 		<trans-unit id="fe_users.tx_extbase_type.Tx_Placements_User" xml:space="preserve">
 			<source>Placement Service User</source>
 		</trans-unit>
-		<trans-unit id="flexforms_general.categoryConjunction" xml:space="preserve">
-			<source>Category Mode</source>
-		</trans-unit>
-		<trans-unit id="flexforms_general.categoryConjunction.and" xml:space="preserve">
-			<source>Show items with selected categories (AND)</source>
-		</trans-unit>
-		<trans-unit id="flexforms_general.categoryConjunction.empty" xml:space="preserve">
-			<source>Ignore selected categories.</source>
-		</trans-unit>
-		<trans-unit id="flexforms_general.categoryConjunction.notand" xml:space="preserve">
-			<source>Do NOT show items with selected categories (AND)</source>
-		</trans-unit>
-		<trans-unit id="flexforms_general.categoryConjunction.notor" xml:space="preserve">
-			<source>Do NOT show items with selected categories (OR)</source>
-		</trans-unit>
-		<trans-unit id="flexforms_general.categoryConjunction.or" xml:space="preserve">
-			<source>Show items with selected categories (OR)</source>
-		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" xml:space="preserve">
 			<source>Application</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_sector" xml:space="preserve">
+			<source>Sector</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application.file" xml:space="preserve">
 			<source>File</source>

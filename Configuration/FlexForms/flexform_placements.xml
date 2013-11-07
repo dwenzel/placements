@@ -3,31 +3,47 @@
 		<sDEF>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>Function</sheetTitle>
+					<sheetTitle>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.settings</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
 					<switchableControllerActions>
 						<TCEforms>
-							<label>Select function</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.select_function</label>
 							<onChange>reload</onChange>
 							<config>
 								<type>select</type>
 								<items>
 									<numIndex index="0">
-										<numIndex index="0">Position</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.positions</numIndex>
 										<numIndex index="1">Position->list;Position->show;Position->new;Position->create;Position->edit;Position->update;Position->delete</numIndex>
 									</numIndex>
 									<numIndex index="1">
-										<numIndex index="0">User</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.users</numIndex>
 										<numIndex index="1">User->list;User->show</numIndex>
 									</numIndex>
 									<numIndex index="2">
-										<numIndex index="0">Application</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.applications</numIndex>
 										<numIndex index="1">Application->list;Application->show</numIndex>
 									</numIndex>
 									<numIndex index="3">
-										<numIndex index="0">Quick Menu</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.optionGroupSearch</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="4">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchForm</numIndex>
+										<numIndex index="1">Position->searchForm</numIndex>
+									</numIndex>
+									<numIndex index="5">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchResult</numIndex>
+										<numIndex index="1">Position->searchResult</numIndex>
+									</numIndex>
+									<numIndex index="6">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.optionGroupOthers</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="7">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.quickMenu</numIndex>
 										<numIndex index="1">Position->quickMenu</numIndex>
 									</numIndex>
 								</items>
@@ -38,7 +54,7 @@
 					<!-- order by -->
 					<settings.orderBy>
 						<TCEforms>
-							<label>order By</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.orderBy</label>
 							<displayCond>FIELD:switchableControllerActions:!=:Position->quickMenu</displayCond>
 							<config>
 								<type>select</type>
@@ -48,19 +64,19 @@
 										<numIndex index="1"></numIndex>
 									</numIndex>
 									<numIndex index="1">
-										<numIndex index="0">Title</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.title</numIndex>
 										<numIndex index="1">title</numIndex>
 									</numIndex>
 									<numIndex index="2">
-										<numIndex index="0">Identifier</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.identifier</numIndex>
 										<numIndex index="1">identifier</numIndex>
 									</numIndex>
 									<numIndex index="3">
-										<numIndex index="0">Type</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.type</numIndex>
 										<numIndex index="1">type</numIndex>
 									</numIndex>
 									<numIndex index="4">
-										<numIndex index="0">Entry Date</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.entryDate</numIndex>
 										<numIndex index="1">entryDate</numIndex>
 									</numIndex>
 								</items>
@@ -71,7 +87,7 @@
 					<!-- order direction -->
 					<settings.orderDirection>
 						<TCEforms>
-							<label>Order Direction</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.orderDirection</label>
 							<displayCond>FIELD:switchableControllerActions:!=:Position->quickMenu</displayCond>
 							<config>
 								<type>select</type>
@@ -81,11 +97,11 @@
 										<numIndex index="1"></numIndex>
 									</numIndex>
 									<numIndex index="1">
-										<numIndex index="0">ascending</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.orderDirection.ascending</numIndex>
 										<numIndex index="1">asc</numIndex>
 									</numIndex>
 									<numIndex index="2">
-										<numIndex index="0">descending</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.orderDirection.descending</numIndex>
 										<numIndex index="1">desc</numIndex>
 									</numIndex>
 								</items>
@@ -93,10 +109,23 @@
 						</TCEforms>
 					</settings.orderDirection>
 
+
+				</el>
+			</ROOT>
+		</sDEF>
+		
+		<!-- SHEET CONSTRAINTS -->
+		<constraints>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.constraints</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
 					<!-- Position Types -->
 					<settings.positionTypes>
 						<TCEforms>
-							<label>Position Types</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.positionTypes</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -118,7 +147,7 @@
 					<!-- Working Hours -->
 					<settings.workingHours>
 						<TCEforms>
-							<label>Working Hours</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.workingHours</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -140,7 +169,7 @@
 					<!-- Sectors -->
 					<settings.sectors>
 						<TCEforms>
-							<label>Sectors</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.sectors</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -162,7 +191,7 @@
 					<!-- Category -->
 					<settings.categories>
 						<TCEforms>
-							<label>LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categories</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.categories</label>
 							<config>
 								<type>select</type>
 								<renderMode>tree</renderMode>
@@ -185,28 +214,28 @@
 					</settings.categories>
 					<settings.categoryConjunction>
 						<TCEforms>
-							<label>LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.categoryConjunction</label>
 							<config>
 								<type>select</type>
 								<items>
 									<numIndex index="0">
-										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.empty</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.categoryConjunction.empty</numIndex>
 										<numIndex index="1"></numIndex>
 									</numIndex>
 									<numIndex index="1">
-										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.and</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.categoryConjunction.and</numIndex>
 										<numIndex index="1">and</numIndex>
 									</numIndex>
 									<numIndex index="2">
-										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.or</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.categoryConjunction.or</numIndex>
 										<numIndex index="1">or</numIndex>
 									</numIndex>
 									<numIndex index="3">
-										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.notor</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.categoryConjunction.notor</numIndex>
 										<numIndex index="1">notor</numIndex>
 									</numIndex>
 									<numIndex index="4">
-										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:flexforms_general.categoryConjunction.notand</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.categoryConjunction.notand</numIndex>
 										<numIndex index="1">notand</numIndex>
 									</numIndex>
 								</items>
@@ -231,6 +260,6 @@
 
 				</el>
 			</ROOT>
-		</sDEF>
+		</constraints>
 	</sheets>
 </T3DataStructure>
