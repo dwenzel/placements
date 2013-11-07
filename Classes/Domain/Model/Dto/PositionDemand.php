@@ -43,6 +43,11 @@ class PositionDemand extends AbstractDemand implements DemandInterface {
 	protected $workingHours;
 
 	/**
+	* @var \string
+	*/
+	protected $sectors;
+
+	/**
 	 * @var \string
 	 */
 	protected $categories;
@@ -82,6 +87,22 @@ class PositionDemand extends AbstractDemand implements DemandInterface {
 	 */
 	public function setPositionTypes ($positionTypes) {
 		$this->positionTypes = $positionTypes;
+	}
+
+	/**
+	 * Get Sectors
+	 * @return \string
+	 */
+	public function getSectors () {
+	    return $this->sectors;
+	}
+
+	/**
+	 * Set Sectors
+	 * @param \string $sectors A comma separated list of sector uids
+	 */
+	public function setSectors ($sectors) {
+	    $this->sectors = $sectors;
 	}
 
 	/**

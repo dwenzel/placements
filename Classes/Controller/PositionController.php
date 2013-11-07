@@ -142,13 +142,14 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		if ($settings['orderBy']) {
 			$demand->setOrder($settings['orderBy'] . '|' . $settings['orderDirection']);
 		}
-		$demand->setLimit($settings['limit']);
 		$demand->setPositionTypes($settings['positionTypes']);
 		$demand->setWorkingHours($settings['workingHours']);
 		$demand->setCategories($settings['categories']);
+		$demand->setSectors($settings['sectors']);
 		if($settings['categoryConjunction'] !== '') {
 			$demand->setCategoryConjunction($settings['categoryConjunction']);
 		}
+		$demand->setLimit($settings['limit']);
 		return $demand;
 	}
 
