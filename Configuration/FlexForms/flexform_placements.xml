@@ -123,9 +123,20 @@
 				<type>array</type>
 				<el>
 					<!-- Position Types -->
+					<settings.showPositionTypes>
+						<TCEforms>
+							<label>showPositionTypes</label>
+							<onChange>reload</onChange>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</settings.showPositionTypes>
 					<settings.positionTypes>
 						<TCEforms>
 							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.positionTypes</label>
+							<displayCond>FIELD:settings.showPositionTypes:=:1</displayCond>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -145,9 +156,20 @@
 					</settings.positionTypes>
 
 					<!-- Working Hours -->
+					<settings.showWorkingHours>
+						<TCEforms>
+							<label>showWorkingHours</label>
+							<onChange>reload</onChange>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</settings.showWorkingHours>
 					<settings.workingHours>
 						<TCEforms>
 							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.workingHours</label>
+							<displayCond>FIELD:settings.showWorkingHours:=:1</displayCond>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -167,9 +189,20 @@
 					</settings.workingHours>
 				
 					<!-- Sectors -->
+					<settings.showSectors>
+						<TCEforms>
+							<label>showSectors</label>
+							<onChange>reload</onChange>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</settings.showSectors>
 					<settings.sectors>
 						<TCEforms>
 							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.sectors</label>
+							<displayCond>FIELD:settings.showSectors:=:1</displayCond>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>

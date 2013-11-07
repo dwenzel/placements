@@ -21,7 +21,7 @@ This Template creates a quick menu.
 				pageUid="{settings.position.list.pid}">
 				
 				<f:comment>show position types  only</f:comment>
-				<f:if condition="{0: settings.quickMenuType}=={0: 'positionTypes'}">
+				<f:if condition="{settings.showPositionTypes}">
 					<f:form.select 
 						id="tx_placementsQuickMenue"
 						name="overwriteDemand[positionTypes]" 
@@ -34,7 +34,7 @@ This Template creates a quick menu.
 				</f:if>
 				
 				<f:comment>show workingHours only</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: 'workingHours'}"> 
+				<f:if condition="{settings.showWorkingHours}"> 
 					<f:form.select 
 					  id="tx_placementsQuickMenue"
 						name="overwriteDemand[workingHours]" 
@@ -47,7 +47,7 @@ This Template creates a quick menu.
 				</f:if>
 				
 				<f:comment>show sectors only</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: 'sectors'}"> 
+				<f:if condition="{0:settings.showSectors'}"> 
 					<f:form.select 
 					  id="tx_placementsQuickMenue"
 						name="overwriteDemand[sectors]" 
@@ -60,38 +60,14 @@ This Template creates a quick menu.
 				</f:if>
 				
 				<f:comment>show positionTypes, workingHours and sectors</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: ''}">
-					<f:form.select 
-						id="tx_placementsQuickMenue"
-						name="overwriteDemand[positionTypes]" 
-						options="{positionTypes}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="@todo selectAllPositionTypes"
-						value="{overwriteDemand.positionTypes}"
-					/>
-					<f:form.select 
-					  id="tx_placementsQuickMenue"
-						name="overwriteDemand[workingHours]" 
-						options="{workingHours}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="@todo selectAllWorkingHours"
-						value="{overwriteDemand.workingHours}"
-					/>
-					<f:form.select 
-					  id="tx_placementsQuickMenue"
-						name="overwriteDemand[sectors]" 
-						options="{sectors}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="@todo selectAllSectors"
-						value="{overwriteDemand.sectors}"
-					/>
+				<f:if condition="{settings.showConjunctionSelector}">
+					<f:then>
+						@todo: add conjunction selector
+					</f:then>
 					<f:form.hidden 
 					  id="tx_placementsQuickMenue"
-					  	name="overwriteDemand[categoryConjunction]"
-					  	value="{settings.categoryConjunction}"
+					  	name="overwriteDemand[selectionConjunction]"
+					  	value="{settings.selectionConjunction}"
 					/>
 
 					
