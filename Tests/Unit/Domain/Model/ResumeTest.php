@@ -91,7 +91,7 @@ class ResumeTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getSectionsReturnsInitialValueForSection() { 
-		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getSections()
@@ -103,7 +103,7 @@ class ResumeTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setSectionsForObjectStorageContainingSectionSetsSections() { 
 		$section = new \Webfox\Placements\Domain\Model\Section();
-		$objectStorageHoldingExactlyOneSections = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSections = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneSections->attach($section);
 		$this->fixture->setSections($objectStorageHoldingExactlyOneSections);
 
@@ -118,7 +118,7 @@ class ResumeTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function addSectionToObjectStorageHoldingSections() {
 		$section = new \Webfox\Placements\Domain\Model\Section();
-		$objectStorageHoldingExactlyOneSection = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneSection = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneSection->attach($section);
 		$this->fixture->addSection($section);
 
@@ -133,7 +133,7 @@ class ResumeTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function removeSectionFromObjectStorageHoldingSections() {
 		$section = new \Webfox\Placements\Domain\Model\Section();
-		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($section);
 		$localObjectStorage->detach($section);
 		$this->fixture->addSection($section);
