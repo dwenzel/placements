@@ -327,7 +327,7 @@ $TCA['tx_placements_domain_model_workinghours'] = array(
 $TCA['tx_placements_domain_model_sector'] = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_sector',
-		'label' => 'titel',
+		'label' => 'title',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -345,7 +345,7 @@ $TCA['tx_placements_domain_model_sector'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'titel,description,',
+		'searchFields' => 'title,description,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Sector.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_placements_domain_model_sector.gif'
 	),

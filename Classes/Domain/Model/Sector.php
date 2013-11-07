@@ -36,12 +36,12 @@ namespace Webfox\Placements\Domain\Model;
 class Sector extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * titel
+	 * title
 	 *
 	 * @var \string
 	 * @validate NotEmpty
 	 */
-	protected $titel;
+	protected $title;
 
 	/**
 	 * description
@@ -51,22 +51,22 @@ class Sector extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $description;
 
 	/**
-	 * Returns the titel
+	 * Returns the title
 	 *
-	 * @return \string $titel
+	 * @return \string $title
 	 */
-	public function getTitel() {
-		return $this->titel;
+	public function getTitle() {
+		return $this->title;
 	}
 
 	/**
-	 * Sets the titel
+	 * Sets the title
 	 *
-	 * @param \string $titel
+	 * @param \string $title
 	 * @return void
 	 */
-	public function setTitel($titel) {
-		$this->titel = $titel;
+	public function setTitle($title) {
+		$this->title = $title;
 	}
 
 	/**

@@ -33,7 +33,52 @@ namespace Webfox\Placements\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PositionTypeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class PositionTypeRepository extends AbstractDemandedRepository {
+	/**
+	 * Returns an array of query constraints from a given demand object
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query A query object
+	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand A demand object
+	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 */
+	protected function createConstraintsFromDemand (\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
+		//@todo implement constraints
+		$constraints = array();
+		return $constraints;
+	}
+
+	/**
+	 * Returns an array of orderings created from a given demand object.
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
+	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 */
+	protected function createOrderingsFromDemand(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
+		$orderings = array();
+
+		//@todo validate order (orderAllowed)
+		if ($demand->getOrder()) {
+			$orderList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $demand->getOrder(), TRUE);
+
+			if (!empty($orderList)) {
+				// go through every order statement
+				foreach ($orderList as $orderItem) {
+					list($orderField, $ascDesc) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('|', $orderItem, TRUE);
+					// count == 1 means that no direction is given
+					if ($ascDesc) {
+						$orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
+							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING :
+							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+					} else {
+						$orderings[$orderField] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+					}
+				}
+			}
+		}
+
+		return $orderings;
+	}
 
 }
 ?>
+

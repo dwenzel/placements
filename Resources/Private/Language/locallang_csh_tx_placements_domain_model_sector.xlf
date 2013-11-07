@@ -4,8 +4,8 @@
 		<header/>
 		<body>
 
-			<trans-unit id="titel.description">
-				<source>titel</source>
+			<trans-unit id="title.description">
+				<source>title</source>
 			</trans-unit>
 			<trans-unit id="description.description">
 				<source>description</source>

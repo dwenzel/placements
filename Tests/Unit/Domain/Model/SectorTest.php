@@ -56,17 +56,17 @@ class SectorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getTitelReturnsInitialValueForString() { }
+	public function getTitleReturnsInitialValueForString() { }
 
 	/**
 	 * @test
 	 */
-	public function setTitelForStringSetsTitel() { 
-		$this->fixture->setTitel('Conceived at T3CON10');
+	public function setTitleForStringSetsTitle() { 
+		$this->fixture->setTitle('Conceived at T3CON10');
 
 		$this->assertSame(
 			'Conceived at T3CON10',
-			$this->fixture->getTitel()
+			$this->fixture->getTitle()
 		);
 	}
 	
