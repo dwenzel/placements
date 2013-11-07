@@ -36,12 +36,36 @@ namespace Webfox\Placements\Controller;
 class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * positionRepository
+	 * Position Repository
 	 *
 	 * @var \Webfox\Placements\Domain\Repository\PositionRepository
 	 * @inject
 	 */
 	protected $positionRepository;
+
+	/**
+	 * Position Type Repository
+	 * 
+	 * @var \Webfox\Placements\Domain\Repository\PositionTypeRepository
+	 * @inject
+	 */
+	protected $positionTypeRepository;
+
+	/**
+	 * Sector Repository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\SectorRepository
+	 * @inject
+	 */
+	protected $sectorRepository;
+
+	/**
+	 * WorkingHoursRepository.php
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\WorkingHoursRepository
+	 * @inject
+	 */
+	protected $workingHoursRepository;
 
 	/**
 	 * action list
@@ -128,7 +152,20 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function quickMenuAction() {
-	
+		// get session data
+		$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_placements_overwriteDemand');
+		
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$this->view->assignMultiple(
+			array(
+			    'positionTypes' => $positionTypes,
+			    'workingHours' => $workingHours,
+			    'sectors' => $sectors,
+			    'overwriteDemand' => unserialize($sessionData)
+			    )
+		);
 	}
 
 	/**
