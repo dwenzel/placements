@@ -204,12 +204,17 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	protected function overwriteDemandObject($demand, $overwriteDemand) {
 		unset($overwriteDemand['orderByAllowed']);
+
 		foreach ($overwriteDemand as $propertyName => $propertyValue) {
 			if(!empty($propertyValue)) {
 				//echo($propertyName . ' '. $propertyValue);
 				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 		    }
 		}
+		//store session data
+		$sessionData = serialize($overwriteDemand);
+		$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_placements_overwriteDemand', $sessionData);
+		$GLOBALS['TSFE']->fe_user->storeSessionData();
 		return $demand;
 	}
 
