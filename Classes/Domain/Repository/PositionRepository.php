@@ -81,6 +81,18 @@ class PositionRepository extends AbstractDemandedRepository {
 			}
 		}
 
+		// Sector constraints
+		if ($demand->getSectors()) {
+			$sectors = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getSectors());
+			$sectorsConstraints = array();
+			foreach ($sectors as $sector) {
+				$sectorsConstraints[] = $query->equals('sectors.uid', $sector);
+			}
+			if (count($sectorsConstraints)) {
+				$constraints[] = $query->logicalOr($sectorsConstraints);
+			}
+		}
+
 		//@todo add constraints
 		return $constraints;
 	}
