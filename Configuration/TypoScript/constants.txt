@@ -26,8 +26,8 @@ plugin.tx_placements {
 					templatePath =
 					prevNextHeaderTags = 1
 				}
-				
 			}
+			search.fields = title,identifier,summary,zip,city,type.title
 		}
 	}
 }

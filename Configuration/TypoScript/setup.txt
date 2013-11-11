@@ -35,6 +35,7 @@ plugin.tx_placements {
 					prevNextHeaderTags = {$plugin.tx_placements.settings.position.list.paginate.prevNextHeaderTags}
 				}
 			}
+			search.fields = {$plugin.tx_placements.settings.position.search.fields}
 		}
 	}
 }
