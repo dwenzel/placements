@@ -174,6 +174,43 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
+	 * Displays the Search Form
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @return void
+	 */
+	public function searchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL) {
+		if (is_null($search)) {
+			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
+		}
+		$this->view->assign('search', $search);
+	}
+
+
+	/**
+	 * Displays the Search Result
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @return void
+	 */
+	public function searchResultAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL) {
+		$demand = $this->createDemandFromSettings($this->settings);
+		if (!is_null($search)) {
+			//@todo: throw exception if search fields are not set
+			$search->setFields($this->settings['position']['search']['fields']);
+		}
+		$demand->setSearch($search);
+
+		$this->view->assignMultiple(
+			array(
+				'positions' => $this->positionRepository->findDemanded($demand),
+				'search' => $search,
+				'demand' => $demand,
+			)
+		);
+
+	}
+	/**
 	 * Create demand from settings
 	 *
 	 * @param \array $settings
