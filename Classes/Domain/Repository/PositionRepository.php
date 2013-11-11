@@ -93,7 +93,25 @@ class PositionRepository extends AbstractDemandedRepository {
 			}
 		}
 
-		//@todo add constraints
+		// Search constraints
+		if ($demand->getSearch()) {
+			$searchConstraints = array();
+			$search = $demand->getSearch();
+			$searchFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $search->getFields(), TRUE);
+			if (count($searchFields) === 0) {
+				throw new \UnexpectedValueException('No search fields given', 1382608407);
+			}
+			$subject = $search->getSubject();
+			if(!empty($subject)) {
+				foreach($searchFields as $field) {
+					$searchConstraints[] = $query->like($field, '%' . $subject . '%');
+                }
+            }
+			if(count($searchConstraints)) {
+				$constraints[] = $query->logicalOr($searchConstraints);
+			}
+		}
+
 		return $constraints;
 	}
 
