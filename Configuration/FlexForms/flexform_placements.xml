@@ -125,7 +125,7 @@
 					<!-- Position Types -->
 					<settings.showPositionTypes>
 						<TCEforms>
-							<label>showPositionTypes</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showPositionTypes</label>
 							<onChange>reload</onChange>
 							<config>
 								<type>check</type>
@@ -158,7 +158,7 @@
 					<!-- Working Hours -->
 					<settings.showWorkingHours>
 						<TCEforms>
-							<label>showWorkingHours</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showWorkingHours</label>
 							<onChange>reload</onChange>
 							<config>
 								<type>check</type>
@@ -191,7 +191,7 @@
 					<!-- Sectors -->
 					<settings.showSectors>
 						<TCEforms>
-							<label>showSectors</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showSectors</label>
 							<onChange>reload</onChange>
 							<config>
 								<type>check</type>
@@ -220,7 +220,36 @@
 							</config>
 						</TCEforms>
 					</settings.sectors>
+
+					<!-- Conjunction of Selection -->
+					<settings.constraintsConjunction>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.constraintsConjunction</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.constraintsConjunction.and</numIndex>
+										<numIndex index="1">and</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.constraintsConjunction.or</numIndex>
+										<numIndex index="1">or</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.constraintsConjunction>
 				
+					<settings.showConjunctionSelector>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showConjunctionSelector</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.showConjunctionSelector>
+
 					<!-- Category -->
 					<settings.categories>
 						<TCEforms>
