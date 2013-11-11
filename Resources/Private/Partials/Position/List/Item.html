@@ -1,16 +1,16 @@
 
-<tr>
-	<td class="identifier">{position.identifier}</td>
-	<td class="title"><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></td>
-	<td class="summary"><f:format.crop maxCharacters="{settings.position.list.summary.crop}"> {position.summary}</f:format.crop></td>
+<div class="row-fluid">
+	<div class="span2 identifier">{position.identifier}</div>
+	<div class="span2 title"><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></div>
+	<div class="span2 summary"><f:format.crop maxCharacters="{settings.position.list.summary.crop}"> {position.summary}</f:format.crop></div>
 	<f:security.ifHasRole role="{settings.security.editorGroup}">
-		<td>
+		<div class="span2">
 			<f:link.action action="edit" arguments="{position : position}" class="button edit">
 				<f:translate key="tx_placements.general.edit">Edit</f:translate>
 			</f:link.action>
 			<f:link.action action="delete" arguments="{position : position}" class="button delete">
 				<f:translate key="tx_placements.general.delete">Delete</f:translate>
 			</f:link.action>
-		</td>
+		</div>
 	</f:security.ifHasRole>
-</tr>
+</div>

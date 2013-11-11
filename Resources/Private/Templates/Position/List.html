@@ -8,15 +8,15 @@ This Template creates a list of positions.
 
 <f:flashMessages />
 
-<table  class="tx_placements position-list" >
-	<tr>
-		<th><f:translate key="tx_placements_domain_model_position.identifier" /></th>
-		<th><f:translate key="tx_placements_domain_model_position.title" /></th>
-		<th><f:translate key="tx_placements_domain_model_position.summary" /></th>
+<div  class="tx_placements position-list" >
+	<div class="row-fluid">
+		<div class="span2"><f:translate key="tx_placements_domain_model_position.identifier" /></div>
+		<div class="span2"><f:translate key="tx_placements_domain_model_position.title" /></div>
+		<div class="span2"><f:translate key="tx_placements_domain_model_position.summary" /></div>
 		<f:security.ifHasRole role="{settings.security.editorGroup}" >
-			<th> </th>
+			<div class="span2"> </div>
 		</f:security.ifHasRole>
-	</tr>
+	</div>
 
 	<pw:paginate  
 		objects="{positions}" 
@@ -33,7 +33,7 @@ This Template creates a list of positions.
 			<f:render partial="Position/List/Item" arguments="{position: '{position}', settings: '{settings}'}" /> 
 		</f:for>
 	</pw:paginate>
-</table>
+</div>
 
 <f:security.ifHasRole role="{settings.security.editorGroup}">
 	<f:link.action action="new" class="button new">

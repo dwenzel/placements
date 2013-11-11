@@ -9,22 +9,22 @@
 	<div class="tx_placements search-result">
 		<f:if condition="{search}">
 			<f:if condition="{positions}">
-				<table  class="tx_placements position-list" >
-					<tr>
-						<th><f:translate key="tx_placements_domain_model_position.identifier" /></th>
-						<th><f:translate key="tx_placements_domain_model_position.title" /></th>
-						<th><f:translate key="tx_placements_domain_model_position.summary" /></th>
+				<div  class="tx_placements position-list" >
+					<div class="row-fluid">
+						<div class="span2"><f:translate key="tx_placements_domain_model_position.identifier" /></div>
+						<div class="span2"><f:translate key="tx_placements_domain_model_position.title" /></div>
+						<div class="span2"><f:translate key="tx_placements_domain_model_position.summary" /></div>
 						<f:security.ifHasRole role="{settings.security.editorGroup}" >
-							<th> </th>
+							<div class="span2"> </div>
 						</f:security.ifHasRole>
-					</tr>
+					</div>
 						<f:for each="{positions}"
 							as="position">
 							<f:render partial="Position/List/Item"
 								arguments="{position: '{position}', settings: '{settings}'}"
 							/>
 						</f:for>
-				</table>
+				</div>
 			</f:if>
 		</f:if>
 	</div>
