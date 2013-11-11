@@ -1,0 +1,31 @@
+<f:layout name="Default" />
+<f:section name="main">
+	<f:if condition="{settings.debug}">
+		<f:debug title="Settings">{settings}</f:debug>
+		<f:debug title="Demand">{demand}</f:debug>
+		<f:debug title="Search">{search}</f:debug>
+		<f:debug title="Positions">{positions}</f:debug>
+	</f:if>
+	<div class="tx_placements search-result">
+		<f:if condition="{search}">
+			<f:if condition="{positions}">
+				<table  class="tx_placements position-list" >
+					<tr>
+						<th><f:translate key="tx_placements_domain_model_position.identifier" /></th>
+						<th><f:translate key="tx_placements_domain_model_position.title" /></th>
+						<th><f:translate key="tx_placements_domain_model_position.summary" /></th>
+						<f:security.ifHasRole role="{settings.security.editorGroup}" >
+							<th> </th>
+						</f:security.ifHasRole>
+					</tr>
+						<f:for each="{positions}"
+							as="position">
+							<f:render partial="Position/List/Item"
+								arguments="{position: '{position}', settings: '{settings}'}"
+							/>
+						</f:for>
+				</table>
+			</f:if>
+		</f:if>
+	</div>
+</f:section>

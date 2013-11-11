@@ -1,0 +1,19 @@
+<f:layout name="Default" />
+<f:if condition="{settings.debug}">
+	<f:debug title="Search">{search}</f:debug>
+</f:if>
+
+<f:section name="main">
+	<div class="tx_placements search-form">
+		<f:form 
+			action="searchResult"
+			object="{search}" 
+			name="search"
+		>
+			<fieldset>
+				<f:form.textfield property="subject" />
+				<f:form.submit value="Start" />
+			</fieldset>
+		</f:form>
+	</div>
+</f:section>
