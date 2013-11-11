@@ -30,21 +30,7 @@ This Template creates a list of positions.
 				pagesAfter: '{settings.position.list.paginate.pagesAfter}'
 				}" >
 		<f:for each="{paginatedPositions}" as="position">
-			<tr>
-				<td class="identifier">{position.identifier}</td>
-				<td class="title"><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></td>
-				<td class="summary"><f:format.crop maxCharacters="{settings.position.list.summary.crop}"> {position.summary}</f:format.crop></td>
-				<f:security.ifHasRole role="{settings.security.editorGroup}">
-					<td>
-						<f:link.action action="edit" arguments="{position : position}" class="button edit">
-							<f:translate key="tx_placements.general.edit">Edit</f:translate>
-						</f:link.action>
-						<f:link.action action="delete" arguments="{position : position}" class="button delete">
-							<f:translate key="tx_placements.general.delete">Delete</f:translate>
-						</f:link.action>
-					</td>
-				</f:security.ifHasRole>
-			</tr>
+			<f:render partial="Position/List/Item" arguments="{position: '{position}', settings: '{settings}'}" /> 
 		</f:for>
 	</pw:paginate>
 </table>
