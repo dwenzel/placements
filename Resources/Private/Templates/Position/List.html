@@ -4,8 +4,9 @@
 This Template creates a list of positions.
 
 <f:section name="main">
-<f:debug title="settings">{settings}</f:debug>
-
+<f:if condition="{settings.debug}">
+	<f:debug title="settings">{settings}</f:debug>
+</f:if>
 <f:flashMessages />
 
 <div  class="tx_placements position-list" >
