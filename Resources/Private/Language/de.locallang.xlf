@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-03T13:01:32Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-11T17:06:22Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -32,6 +32,22 @@
 		<trans-unit id="tx_placements.paginate_previous" approved="yes" xml:space="preserve">
 			<source>previous</source>
 			<target>zurück</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.quickMenu.hint" approved="yes" xml:space="preserve">
+			<source>Search for positions.</source>
+			<target>Suche nach Stellenangeboten.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.quickMenu.selectAllPositionTypes" approved="yes" xml:space="preserve">
+			<source>All Position Types</source>
+			<target>Alle Stellentypen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.quickMenu.selectAllSectors" approved="yes" xml:space="preserve">
+			<source>All Sectors</source>
+			<target>Alle Branchen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.quickMenu.selectAllWorkingHours" approved="yes" xml:space="preserve">
+			<source>All Working Hours</source>
+			<target>Alle Arbeitszeiten</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" approved="yes" xml:space="preserve">
 			<source>Application</source>

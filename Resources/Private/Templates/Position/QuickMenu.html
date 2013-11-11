@@ -20,7 +20,7 @@ This Template creates a quick menu.
 			<f:form name="overwriteDemand" action="list"
 				pageUid="{settings.position.list.pid}">
 				
-				<f:comment>show position types  only</f:comment>
+				<f:comment>show position types selector</f:comment>
 				<f:if condition="{settings.showPositionTypes}">
 					<f:form.select 
 						id="tx_placementsQuickMenue"
@@ -28,12 +28,12 @@ This Template creates a quick menu.
 						options="{positionTypes}"
 						optionValueField="uid" 
 						optionLabelField="title"
-						prependOptionLabel="@todo selectAllPositionTypes"
+						prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllPositionTypes')}"
 						value="{overwriteDemand.positionTypes}"
 					/>
 				</f:if>
 				
-				<f:comment>show workingHours only</f:comment>
+				<f:comment>show workingHours selector</f:comment>
 				<f:if condition="{settings.showWorkingHours}"> 
 					<f:form.select 
 					  id="tx_placementsQuickMenue"
@@ -41,12 +41,12 @@ This Template creates a quick menu.
 						options="{workingHours}"
 						optionValueField="uid" 
 						optionLabelField="title"
-						prependOptionLabel="@todo selectAllWorkingHours"
+						prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllWorkingHours')}"
 						value="{overwriteDemand.workingHours}"
 					/>
 				</f:if>
 				
-				<f:comment>show sectors only</f:comment>
+				<f:comment>show sectors selector</f:comment>
 				<f:if condition="{0:settings.showSectors'}"> 
 					<f:form.select 
 					  id="tx_placementsQuickMenue"
@@ -54,20 +54,20 @@ This Template creates a quick menu.
 						options="{sectors}"
 						optionValueField="uid" 
 						optionLabelField="title"
-						prependOptionLabel="@todo selectAllSectors"
+						prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllSectors')}"
 						value="{overwriteDemand.sectors}"
 					/>
 				</f:if>
 				
-				<f:comment>show positionTypes, workingHours and sectors</f:comment>
+				<f:comment>show conjunction selector</f:comment>
 				<f:if condition="{settings.showConjunctionSelector}">
 					<f:then>
 						@todo: add conjunction selector
 					</f:then>
 					<f:form.hidden 
 					  id="tx_placementsQuickMenue"
-					  	name="overwriteDemand[selectionConjunction]"
-					  	value="{settings.selectionConjunction}"
+					  	name="overwriteDemand[constraintsConjunction]"
+					  	value="{settings.constraintsConjunction}"
 					/>
 
 					
