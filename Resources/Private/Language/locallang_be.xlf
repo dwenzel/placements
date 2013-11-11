@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-11T13:53:13Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-11T15:19:30Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -31,6 +31,15 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.constraints" xml:space="preserve">
 			<source>Selection</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.constraintsConjunction" xml:space="preserve">
+			<source>Conjunction</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.constraintsConjunction.and" xml:space="preserve">
+			<source>AND</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.constraintsConjunction.or" xml:space="preserve">
+			<source>OR</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.entryDate" xml:space="preserve">
 			<source>Entry Date</source>
@@ -79,6 +88,18 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.settings" xml:space="preserve">
 			<source>Settings</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showConjunctionSelector" xml:space="preserve">
+			<source>Show Conjunction Selector</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showPositionTypes" xml:space="preserve">
+			<source>Show Position Type Selector</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showSectors" xml:space="preserve">
+			<source>Show Sectors Selector</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showWorkingHours" xml:space="preserve">
+			<source>Show Working Hours Selector</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.title" xml:space="preserve">
 			<source>Title</source>

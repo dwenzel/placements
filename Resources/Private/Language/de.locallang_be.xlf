@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-11T13:53:13Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-11T15:19:30Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -40,6 +40,18 @@
 		<trans-unit id="flexforms_general.constraints" approved="yes" xml:space="preserve">
 			<source>Selection</source>
 			<target>Auswahl</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.constraintsConjunction" approved="yes" xml:space="preserve">
+			<source>Conjunction</source>
+			<target>Verknüpfung</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.constraintsConjunction.and" approved="yes" xml:space="preserve">
+			<source>AND</source>
+			<target>UND</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.constraintsConjunction.or" approved="yes" xml:space="preserve">
+			<source>OR</source>
+			<target>ODER</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.entryDate" approved="yes" xml:space="preserve">
 			<source>Entry Date</source>
@@ -104,6 +116,22 @@
 		<trans-unit id="flexforms_general.settings" approved="yes" xml:space="preserve">
 			<source>Settings</source>
 			<target>Einstellungen</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showConjunctionSelector" approved="yes" xml:space="preserve">
+			<source>Show Conjunction Selector</source>
+			<target>Zeige Verknüpfungsauswahl</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showPositionTypes" approved="yes" xml:space="preserve">
+			<source>Show Position Type Selector</source>
+			<target>Zeige Stellentypenauswahl</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showSectors" approved="yes" xml:space="preserve">
+			<source>Show Sectors Selector</source>
+			<target>Zeige Branchenauswahl</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showWorkingHours" approved="yes" xml:space="preserve">
+			<source>Show Working Hours Selector</source>
+			<target>Zeige Arbeitszeitauswahl</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.title" approved="yes" xml:space="preserve">
 			<source>Title</source>
