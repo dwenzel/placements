@@ -81,7 +81,6 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		}
 		//\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($demand, 'demand after');
 		$positions = $this->positionRepository->findDemanded($demand);	
-		//$positions = $this->positionRepository->findAll();
 		$this->view->assign('positions', $positions);
 	}
 
@@ -225,6 +224,9 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$demand->setWorkingHours($settings['workingHours']);
 		$demand->setCategories($settings['categories']);
 		$demand->setSectors($settings['sectors']);
+		if($settings['constraintsConjunction'] !== '') {
+			$demand->setConstraintsConjunction($settings['constraintsConjunction']);
+		}
 		if($settings['categoryConjunction'] !== '') {
 			$demand->setCategoryConjunction($settings['categoryConjunction']);
 		}
