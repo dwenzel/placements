@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-07T11:40:16Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-11T13:53:13Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -38,8 +38,8 @@
 			<target>Zeige Einträge mit gewählten Kategorien (OR)</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.constraints" approved="yes" xml:space="preserve">
-			<source>Constraints</source>
-			<target>Einschränkungen</target>
+			<source>Selection</source>
+			<target>Auswahl</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.entryDate" approved="yes" xml:space="preserve">
 			<source>Entry Date</source>
