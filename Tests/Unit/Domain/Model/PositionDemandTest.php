@@ -119,6 +119,27 @@ class PositionDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getConstraintsConjunctionReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getConstraintsConjunction()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setConstraintsConjunctionForStringSetsConstraintsConjunction() {
+		$this->fixture->setConstraintsConjunction('asc');
+
+		$this->assertSame(
+			'asc',
+			$this->fixture->getConstraintsConjunction()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getCategoriesReturnsInitialValueForString() {
 		$this->assertNull($this->fixture->getCategories());
 	}
