@@ -57,6 +57,7 @@ class PositionRepository extends AbstractDemandedRepository {
 			);
 		}
 
+		$constraintsConjunction = $demand->getConstraintsConjunction();
 		// Position type constraints
 		if ($demand->getPositionTypes()) {
 			$positionTypes = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getPositionTypes());
@@ -65,7 +66,14 @@ class PositionRepository extends AbstractDemandedRepository {
 				$positionConstraints[] = $query->equals('type.uid', $positionType);
 			}
 			if (count($positionConstraints)) {
-				$constraints[] = $query->logicalOr($positionConstraints);
+				switch ($constraintsConjunction) {
+					case 'or':
+						$constraints[] = $query->logicalOr($positionConstraints);
+						break;
+					case 'and':
+					default:
+						$constraints[] = $query->logicalAnd($positionConstraints);
+				}
 			}
 		}
 
@@ -77,7 +85,14 @@ class PositionRepository extends AbstractDemandedRepository {
 				$wHoursConstraints[] = $query->equals('workingHours.uid', $workingHour);
 			}
 			if (count($wHoursConstraints)) {
-				$constraints[] = $query->logicalOr($wHoursConstraints);
+				switch ($constraintsConjunction) {
+					case 'or':
+						$constraints[] = $query->logicalOr($wHoursConstraints);
+						break;
+					case 'and':
+					default:
+						$constraints[] = $query->logicalAnd($wHoursConstraints);
+				}
 			}
 		}
 
@@ -89,7 +104,14 @@ class PositionRepository extends AbstractDemandedRepository {
 				$sectorsConstraints[] = $query->equals('sectors.uid', $sector);
 			}
 			if (count($sectorsConstraints)) {
-				$constraints[] = $query->logicalOr($sectorsConstraints);
+				switch ($constraintsConjunction) {
+					case 'or':
+						$constraints[] = $query->logicalOr($sectorsConstraints);
+						break;
+					case 'and':
+					default:
+						$constraints[] = $query->logicalAnd($sectorsConstraints);
+				}
 			}
 		}
 
