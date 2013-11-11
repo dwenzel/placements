@@ -50,6 +50,11 @@ class PositionDemand extends AbstractDemand implements DemandInterface {
 	/**
 	 * @var \string
 	 */
+	protected $constraintsConjunction;
+
+	/**
+	 * @var \string
+	 */
 	protected $categories;
 
 	/**
@@ -103,6 +108,23 @@ class PositionDemand extends AbstractDemand implements DemandInterface {
 	 */
 	public function setSectors ($sectors) {
 	    $this->sectors = $sectors;
+	}
+
+	/**
+	 * Get Constraints Conjunction
+	 * @return \string
+	 */
+	public function getConstraintsConjunction () {
+		return $this->constraintsConjunction;
+	}
+
+	/**
+	 * Set Constraints Conjunction
+	 *
+	 * @param \string $conjunction
+	 */
+	public function setConstraintsConjunction ($conjunction) {
+		$this->constraintsConjunction = $conjunction;
 	}
 
 	/**
