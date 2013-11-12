@@ -12,73 +12,87 @@ This Template creates a quick menu.
 </f:if>
 <f:flashMessages />
 
-	<div class="quickMenu">
+	<div class="quick-menu">
 		<div class="message">
 			<f:translate key="tx_placements.quickMenu.hint" />
 		</div>
-		<div class="selectbox">
-			<f:form name="overwriteDemand" action="list"
+		<f:form name="overwriteDemand" action="list"
 				pageUid="{settings.position.list.pid}">
+			<div class="row-fluid">
+				<div class="span6">
+					<f:comment>show position types selector</f:comment>
+					<f:if condition="{settings.showPositionTypes}">
+						<div class="clearfix">
+						<label for="tx-placements-position-types-select">{f:translate(key: 'tx_placements_domain_model_positiontype')}</label>
+							<f:form.select 
+								id="tx-placements-position-types-select"
+								name="overwriteDemand[positionTypes]" 
+								options="{positionTypes}"
+								optionValueField="uid" 
+								optionLabelField="title"
+								prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllPositionTypes')}"
+								value="{overwriteDemand.positionTypes}"
+							/>							
+						</div>
+					</f:if>
+						
+					<f:comment>show workingHours selector</f:comment>
+					<f:if condition="{settings.showWorkingHours}"> 
+						<div class="clearfix">
+						<label for="tx-placements-working-hours-select">{f:translate(key: 'tx_placements_domain_model_workinghours')}</label>
+							<f:form.select 
+							  id="tx-placements-working-hours-select"
+								name="overwriteDemand[workingHours]" 
+								options="{workingHours}"
+								optionValueField="uid" 
+								optionLabelField="title"
+								prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllWorkingHours')}"
+								value="{overwriteDemand.workingHours}"
+							/>
+						</div>
+						</f:if>
+				</div>
+				<div class="span6">
+					<f:comment>show sectors selector</f:comment>
+					<f:if condition="{0:settings.showSectors'}"> 
+						<div class="clearfix">
+						<label for="tx-placements-sectors-select">{f:translate(key: 'tx_placements_domain_model_sector')}</label>
+							<f:form.select 
+							  id="tx-placements-sectors-select"
+								name="overwriteDemand[sectors]" 
+								options="{sectors}"
+								optionValueField="uid" 
+								optionLabelField="title"
+								prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllSectors')}"
+								value="{overwriteDemand.sectors}"
+							/>
+						</div>
+					</f:if>
 				
-				<f:comment>show position types selector</f:comment>
-				<f:if condition="{settings.showPositionTypes}">
-					<f:form.select 
-						id="tx_placementsQuickMenue"
-						name="overwriteDemand[positionTypes]" 
-						options="{positionTypes}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllPositionTypes')}"
-						value="{overwriteDemand.positionTypes}"
+					<f:comment>show conjunction selector</f:comment>
+					<f:if condition="{settings.showConjunctionSelector}">
+						<f:then>
+							<div class="clearfix">
+								<label for="tx-placements-conjunction-select"></label>
+							@todo: add conjunction selector
+							</div>
+						</f:then>
+						<f:form.hidden 
+						  id="tx-placements-conjunction-select"
+					  		name="overwriteDemand[constraintsConjunction]"
+					  		value="{settings.constraintsConjunction}"
+						/>
+					</f:if>
+				</div>
+				<div class="span12">
+					<f:form.submit 
+					  id="tx-placements-quick-menue-submit"
+						name="submit" 
+						value="{f:translate(key: 'tx_placements.general.update')}"
 					/>
-				</f:if>
-				
-				<f:comment>show workingHours selector</f:comment>
-				<f:if condition="{settings.showWorkingHours}"> 
-					<f:form.select 
-					  id="tx_placementsQuickMenue"
-						name="overwriteDemand[workingHours]" 
-						options="{workingHours}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllWorkingHours')}"
-						value="{overwriteDemand.workingHours}"
-					/>
-				</f:if>
-				
-				<f:comment>show sectors selector</f:comment>
-				<f:if condition="{0:settings.showSectors'}"> 
-					<f:form.select 
-					  id="tx_placementsQuickMenue"
-						name="overwriteDemand[sectors]" 
-						options="{sectors}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllSectors')}"
-						value="{overwriteDemand.sectors}"
-					/>
-				</f:if>
-				
-				<f:comment>show conjunction selector</f:comment>
-				<f:if condition="{settings.showConjunctionSelector}">
-					<f:then>
-						@todo: add conjunction selector
-					</f:then>
-					<f:form.hidden 
-					  id="tx_placementsQuickMenue"
-					  	name="overwriteDemand[constraintsConjunction]"
-					  	value="{settings.constraintsConjunction}"
-					/>
-
-					
-				</f:if>
-				<f:form.submit 
-				  id="tx_placementsQuickMenue"
-					name="submit" 
-					value="{f:translate(key: 'tx_placements.button.label.update', default: 'Update')}"
-				/>
-			</f:form>
-		</div>
+				</div>
+			</div>
+		</f:form>
 	</div>
 </f:section>
 
