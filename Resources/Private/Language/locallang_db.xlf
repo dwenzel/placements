@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-05T17:19:29Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T17:32:49Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -8,11 +8,29 @@
 		<trans-unit id="fe_users.tx_extbase_type.Tx_Placements_User" xml:space="preserve">
 			<source>Placement Service User</source>
 		</trans-unit>
+		<trans-unit id="palettes.conditions" xml:space="preserve">
+			<source>Conditions</source>
+		</trans-unit>
+		<trans-unit id="palettes.contact" xml:space="preserve">
+			<source>Contact</source>
+		</trans-unit>
+		<trans-unit id="palettes.location" xml:space="preserve">
+			<source>Location</source>
+		</trans-unit>
+		<trans-unit id="palettes.references" xml:space="preserve">
+			<source>References</source>
+		</trans-unit>
+		<trans-unit id="palettes.types" xml:space="preserve">
+			<source>Types</source>
+		</trans-unit>
+		<trans-unit id="tabs.categories" xml:space="preserve">
+			<source>Categories</source>
+		</trans-unit>
+		<trans-unit id="tabs.extended" xml:space="preserve">
+			<source>Extended</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" xml:space="preserve">
 			<source>Application</source>
-		</trans-unit>
-		<trans-unit id="tx_placements_domain_model_sector" xml:space="preserve">
-			<source>Sector</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application.file" xml:space="preserve">
 			<source>File</source>
@@ -148,6 +166,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_section.position" xml:space="preserve">
 			<source>Position</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_sector" xml:space="preserve">
+			<source>Sector</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_user" xml:space="preserve">
 			<source>User</source>

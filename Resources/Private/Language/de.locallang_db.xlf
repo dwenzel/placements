@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-05T17:19:29Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-12T17:32:49Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -10,28 +10,56 @@
 			<target>Benutzer der Stellenbörse</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.categoryConjunction" approved="yes" xml:space="preserve">
-			<source>Category Mode</source>
+			<source></source>
 			<target>Kategorienmodus</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.categoryConjunction.and" approved="yes" xml:space="preserve">
-			<source>Show items with selected categories (AND)</source>
+			<source></source>
 			<target>Zeige Einträge mit gewählten Kategorien (AND)</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.categoryConjunction.empty" approved="yes" xml:space="preserve">
-			<source>Ignore selected categories.</source>
+			<source></source>
 			<target>Ignoriere gewählte Kategorien.</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.categoryConjunction.notand" approved="yes" xml:space="preserve">
-			<source>Do NOT show items with selected categories (AND)</source>
+			<source></source>
 			<target>Zeige KEINE Einträge mit gewählten Kategorien (AND)</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.categoryConjunction.notor" approved="yes" xml:space="preserve">
-			<source>Do NOT show items with selected categories (OR)</source>
+			<source></source>
 			<target>Zeige KEINE Einträge mit gewählten Kategorien (OR)</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.categoryConjunction.or" approved="yes" xml:space="preserve">
-			<source>Show items with selected categories (OR)</source>
+			<source></source>
 			<target>Zeige Einträge mit gewählten Kategorien (OR)</target>
+		</trans-unit>
+		<trans-unit id="palettes.conditions" approved="yes" xml:space="preserve">
+			<source>Conditions</source>
+			<target>Konditionen</target>
+		</trans-unit>
+		<trans-unit id="palettes.contact" approved="yes" xml:space="preserve">
+			<source>Contact</source>
+			<target>Kontakt</target>
+		</trans-unit>
+		<trans-unit id="palettes.location" approved="yes" xml:space="preserve">
+			<source>Location</source>
+			<target>Ort</target>
+		</trans-unit>
+		<trans-unit id="palettes.references" approved="yes" xml:space="preserve">
+			<source>References</source>
+			<target>Referenzen</target>
+		</trans-unit>
+		<trans-unit id="palettes.types" approved="yes" xml:space="preserve">
+			<source>Types</source>
+			<target>Typen</target>
+		</trans-unit>
+		<trans-unit id="tabs.categories" approved="yes" xml:space="preserve">
+			<source>Categories</source>
+			<target>Kategorien</target>
+		</trans-unit>
+		<trans-unit id="tabs.extended" approved="yes" xml:space="preserve">
+			<source>Extended</source>
+			<target>Erweitert</target>
 		</trans-unit>
 		</body>
 	</file>
