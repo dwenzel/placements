@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T17:32:49Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T19:36:47Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -67,6 +67,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.identifier" xml:space="preserve">
 			<source>Identifier</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.sectors" xml:space="preserve">
+			<source>Sectors</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.title" xml:space="preserve">
 			<source>Title</source>

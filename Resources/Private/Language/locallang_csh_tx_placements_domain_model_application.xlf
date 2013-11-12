@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-04T17:01:54Z" product-name="placements">
-		<header/>
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T19:40:44Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
 		<body>
-
-			<trans-unit id="introduction.description">
-				<source>introduction</source>
-			</trans-unit>
-			<trans-unit id="text.description">
-				<source>text</source>
-			</trans-unit>
-			<trans-unit id="file.description">
-				<source>file</source>
-			</trans-unit>
-			<trans-unit id="position.description">
-				<source>position</source>
-			</trans-unit>
-			<trans-unit id="resume.description">
-				<source>resume</source>
-			</trans-unit>
+		<trans-unit id="file.description" xml:space="preserve">
+			<source>File</source>
+		</trans-unit>
+		<trans-unit id="introduction.description" xml:space="preserve">
+			<source>Introduction</source>
+		</trans-unit>
+		<trans-unit id="position.description" xml:space="preserve">
+			<source>Position</source>
+		</trans-unit>
+		<trans-unit id="resume.description" xml:space="preserve">
+			<source>Resume</source>
+		</trans-unit>
+		<trans-unit id="text.description" xml:space="preserve">
+			<source>Text</source>
+		</trans-unit>
 		</body>
 	</file>
 </xliff>
