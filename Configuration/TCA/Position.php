@@ -9,10 +9,15 @@ $TCA['tx_placements_domain_model_position'] = array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, summary, description, entry_date, fixed_term, duration, zip, city, payment, contact, link, organization, client, type, categories, working_hours, sectors',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, identifier, summary, description, entry_date, fixed_term, duration, zip, city, payment, contact, link, organization, client, type, categories, working_hours, sectors,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.types;types,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.references;references, summary,--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tabs.extended, description,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.location;location,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.conditions;conditions,contact,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.contact;contact,--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tabs.categories, categories, sectors,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
+		'types' => array('showitem' => 'type,working_hours, entry_date'),
+		'references' => array('showitem' => 'identifier,--linebreak--,organization,client'),
+		'location' => array('showitem' => 'zip,city'),
+		'conditions' => array('showitem' => 'payment,fixed_term,duration'),
+		'contact' => array('showitem' => 'link'),
 	),
 	'columns' => array(
 		'sys_language_uid' => array(
@@ -116,8 +121,8 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.summary',
 			'config' => array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
+				'cols' => 30,
+				'rows' => 5,
 				'eval' => 'trim'
 			),
 		),
@@ -126,14 +131,14 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.description',
 			'config' => array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
+				'cols' => 20,
+				'rows' => 5,
 				'eval' => 'trim',
 				'wizards' => array(
 					'RTE' => array(
 						'icon' => 'wizard_rte2.gif',
 						'notNewRecords'=> 1,
-						'RTEonly' => 1,
+						'RTEonly' => 0,
 						'script' => 'wizard_rte.php',
 						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
 						'type' => 'script'
@@ -164,10 +169,11 @@ $TCA['tx_placements_domain_model_position'] = array(
 		'duration' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.duration',
+			'displayCond' => 'FIELD:fixed_term:REQ:true',
 			'config' => array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
+				'cols' => 30,
+				'rows' => 5,
 				'eval' => 'trim'
 			),
 		),
@@ -176,7 +182,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.zip',
 			'config' => array(
 				'type' => 'input',
-				'size' => 30,
+				'size' => 5,
 				'eval' => 'trim'
 			),
 		),
@@ -185,7 +191,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.city',
 			'config' => array(
 				'type' => 'input',
-				'size' => 30,
+				'size' => 10,
 				'eval' => 'trim'
 			),
 		),
@@ -194,8 +200,8 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.payment',
 			'config' => array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
+				'cols' => 30,
+				'rows' => 5,
 				'eval' => 'trim'
 			),
 		),
@@ -204,14 +210,14 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.contact',
 			'config' => array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
+				'cols' => 30,
+				'rows' => 5,
 				'eval' => 'trim',
 				'wizards' => array(
 					'RTE' => array(
 						'icon' => 'wizard_rte2.gif',
 						'notNewRecords'=> 1,
-						'RTEonly' => 1,
+						'RTEonly' => 0,
 						'script' => 'wizard_rte.php',
 						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
 						'type' => 'script'
@@ -325,5 +331,5 @@ $TCA['tx_placements_domain_model_position'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>
+
