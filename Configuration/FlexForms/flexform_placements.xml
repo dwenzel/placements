@@ -13,6 +13,7 @@
 							<onChange>reload</onChange>
 							<config>
 								<type>select</type>
+								<itemsProcFunc>Webfox\Placements\Hooks\ItemsProcFunc->user_switchableControllerActions</itemsProcFunc>
 								<items>
 									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.positions</numIndex>

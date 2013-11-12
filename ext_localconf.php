@@ -21,4 +21,8 @@ if (!defined('TYPO3_MODE')) {
 	)
 );
 
+// Modify flexform values
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass'][$_EXTKEY] =
+	'EXT:' . $_EXTKEY . '/Classes/Hooks/T3libBefunc.php:Webfox\Placements\Hooks\T3libBefunc';
+
 ?>
