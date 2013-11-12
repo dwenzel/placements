@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-11T17:06:22Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T14:49:23Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -13,6 +13,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.save" xml:space="preserve">
 			<source>Save</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.update" xml:space="preserve">
+			<source>update</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.new_position" xml:space="preserve">
 			<source>Add Position</source>
@@ -81,7 +84,7 @@
 			<source>Title</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position" xml:space="preserve">
-			<source>Position.</source>
+			<source>Position</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.categories" xml:space="preserve">
 			<source>Categories</source>
@@ -149,6 +152,9 @@
 		<trans-unit id="tx_placements_domain_model_section.position" xml:space="preserve">
 			<source>Position</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_sector" xml:space="preserve">
+			<source>Sector</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_user" xml:space="preserve">
 			<source>User</source>
 		</trans-unit>
@@ -157,6 +163,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_user.resumes" xml:space="preserve">
 			<source>Resumes</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_workinghours" xml:space="preserve">
+			<source>Working Hours</source>
 		</trans-unit>
 		</body>
 	</file>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-11T17:06:22Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-12T14:49:23Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -17,9 +17,13 @@
 			<source>Save</source>
 			<target>Speichern</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.update" approved="yes" xml:space="preserve">
+			<source>update</source>
+			<target>aktualisieren</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.new_position" approved="yes" xml:space="preserve">
 			<source>Add Position</source>
-			<target>Position hinzufügen</target>
+			<target>Stellenangebot hinzufügen</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.paginate_next" approved="yes" xml:space="preserve">
 			<source>next</source>
@@ -63,7 +67,7 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application.position" approved="yes" xml:space="preserve">
 			<source>Position</source>
-			<target>Position</target>
+			<target>Stellenangebot</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application.resume" approved="yes" xml:space="preserve">
 			<source>Resume</source>
@@ -106,8 +110,8 @@
 			<target>Titel</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position" approved="yes" xml:space="preserve">
-			<source>Position.</source>
-			<target>Position</target>
+			<source>Position</source>
+			<target>Stellenangebot</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.categories" approved="yes" xml:space="preserve">
 			<source>Categories</source>
@@ -139,11 +143,11 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.type" approved="yes" xml:space="preserve">
 			<source>Type of Position</source>
-			<target>Positionstyp</target>
+			<target>Art der Stelle</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_positiontype" approved="yes" xml:space="preserve">
 			<source>Type of Position</source>
-			<target>Positionstyp</target>
+			<target>Art der Stelle</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_positiontype.description" approved="yes" xml:space="preserve">
 			<source>description</source>
@@ -197,6 +201,10 @@
 			<source>Position</source>
 			<target>Position</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_sector" approved="yes" xml:space="preserve">
+			<source>Sector</source>
+			<target>Branche</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_user" approved="yes" xml:space="preserve">
 			<source>User</source>
 			<target>Benutzer</target>
@@ -208,6 +216,10 @@
 		<trans-unit id="tx_placements_domain_model_user.resumes" approved="yes" xml:space="preserve">
 			<source>Resumes</source>
 			<target>Lebensläufe</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_workinghours" approved="yes" xml:space="preserve">
+			<source>Working Hours</source>
+			<target>Arbeitszeit</target>
 		</trans-unit>
 		</body>
 	</file>
