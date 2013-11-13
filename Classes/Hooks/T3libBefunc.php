@@ -63,7 +63,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionSearchFormView = array(
 			'sDEF' => 'orderBy,orderDirection',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,categoryConjunction,limit',
+			//'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,categoryConjunction,limit',
 		);
 
 	/**
@@ -156,7 +156,7 @@ class T3libBefunc {
 					break;
 				case 'Position->searchForm':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPositionSearchFormView);
-					unset($dataStructure['sheets']['constraints']);
+					//unset($dataStructure['sheets']['constraints']);
 					break;
 				case 'Position->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPositionQuickMenuView);
