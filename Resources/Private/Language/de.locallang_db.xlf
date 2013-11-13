@@ -61,9 +61,221 @@
 			<source>Extended</source>
 			<target>Erweitert</target>
 		</trans-unit>
-		<trans-unit id="tx_placements_domain_model_position.sectors" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_placements_domain_model_application" approved="yes" xml:space="preserve">
+			<source>Application</source>
+			<target>Bewerbung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.file" approved="yes" xml:space="preserve">
+			<source>File</source>
+			<target>Datei</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.introduction" approved="yes" xml:space="preserve">
+			<source>Introduction</source>
+			<target>Einleitung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.position" approved="yes" xml:space="preserve">
+			<source>Position</source>
+			<target>Stellenangebot</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.resume" approved="yes" xml:space="preserve">
+			<source>Resume</source>
+			<target>Lebenslauf</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_application.text" approved="yes" xml:space="preserve">
+			<source>Text</source>
+			<target>Text</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_client" approved="yes" xml:space="preserve">
+			<source>Client</source>
+			<target>Kunde</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_client.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_client.identifier" approved="yes" xml:space="preserve">
+			<source>Identifier</source>
+			<target>Referenz</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_client.name" approved="yes" xml:space="preserve">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization" approved="yes" xml:space="preserve">
+			<source>Organization</source>
+			<target>Organisation</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.identifier" approved="yes" xml:space="preserve">
+			<source>Identifier</source>
+			<target>Referenz</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.sectors" approved="yes" xml:space="preserve">
 			<source>Sectors</source>
 			<target>Branchen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position" approved="yes" xml:space="preserve">
+			<source>Position</source>
+			<target>Stellenangebot</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.categories" approved="yes" xml:space="preserve">
+			<source>Categories</source>
+			<target>Kategorien</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.city" approved="yes" xml:space="preserve">
+			<source>City</source>
+			<target>Ort</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.client" approved="yes" xml:space="preserve">
+			<source>Client</source>
+			<target>Kunde</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.contact" approved="yes" xml:space="preserve">
+			<source>Contact</source>
+			<target>Kontakt</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.duration" approved="yes" xml:space="preserve">
+			<source>Duration</source>
+			<target>Dauer</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.entry_date" approved="yes" xml:space="preserve">
+			<source>Entry Date</source>
+			<target>Eintrittsdatum</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.fixed_term" approved="yes" xml:space="preserve">
+			<source>Fixed Term</source>
+			<target>befristet</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.identifier" approved="yes" xml:space="preserve">
+			<source>Identifier</source>
+			<target>Referenz</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.link" approved="yes" xml:space="preserve">
+			<source>Link</source>
+			<target>Link</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.organization" approved="yes" xml:space="preserve">
+			<source>Organization</source>
+			<target>Organisation</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.payment" approved="yes" xml:space="preserve">
+			<source>Payment</source>
+			<target>Bezahlung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.summary" approved="yes" xml:space="preserve">
+			<source>Summary</source>
+			<target>Übersicht</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.type" approved="yes" xml:space="preserve">
+			<source>Type</source>
+			<target>Typ</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.working_hours" approved="yes" xml:space="preserve">
+			<source>Working Hours</source>
+			<target>Arbeitszeit</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.zip" approved="yes" xml:space="preserve">
+			<source>Zip</source>
+			<target>PLZ</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_positiontype" approved="yes" xml:space="preserve">
+			<source>Position Type</source>
+			<target>Art der Stelle</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_positiontype.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_positiontype.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_profil" approved="yes" xml:space="preserve">
+			<source>Profil</source>
+			<target>Profil</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_profil.user" approved="yes" xml:space="preserve">
+			<source>User</source>
+			<target>Benutzer</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_resume" approved="yes" xml:space="preserve">
+			<source>Resume</source>
+			<target>Lebenslauf</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_resume.introduction" approved="yes" xml:space="preserve">
+			<source>Introduction</source>
+			<target>Einleitung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_resume.sections" approved="yes" xml:space="preserve">
+			<source>Sections</source>
+			<target>Abschnitte</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_resume.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section" approved="yes" xml:space="preserve">
+			<source>Section</source>
+			<target>Abschnitt</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section.begin" approved="yes" xml:space="preserve">
+			<source>Begin</source>
+			<target>von</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section.end" approved="yes" xml:space="preserve">
+			<source>End</source>
+			<target>bis</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_section.position" approved="yes" xml:space="preserve">
+			<source>Position</source>
+			<target>Position</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_sector" approved="yes" xml:space="preserve">
+			<source>Sector</source>
+			<target>Branche</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_user" approved="yes" xml:space="preserve">
+			<source>User</source>
+			<target>Benutzer</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_user.applications" approved="yes" xml:space="preserve">
+			<source>Applications</source>
+			<target>Bewerbungen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_user.resumes" approved="yes" xml:space="preserve">
+			<source>Resumes</source>
+			<target>Lebensläufe</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_workinghours" approved="yes" xml:space="preserve">
+			<source>Working Hours</source>
+			<target>Arbeitszeit</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_workinghours.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_workinghours.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Titel</target>
 		</trans-unit>
 		</body>
 	</file>

@@ -68,6 +68,9 @@
 		<trans-unit id="tx_placements_domain_model_organization.identifier" xml:space="preserve">
 			<source>Identifier</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.sectors" xml:space="preserve">
+			<source>Sectors</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.title" xml:space="preserve">
 			<source>Title</source>
 		</trans-unit>

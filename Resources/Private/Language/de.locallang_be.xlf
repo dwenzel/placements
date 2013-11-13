@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-11T15:19:30Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-12T19:38:56Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -87,11 +87,11 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.positionTypes" approved="yes" xml:space="preserve">
 			<source>Position Types</source>
-			<target>Stellentyp</target>
+			<target>Art der Stelle</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.positions" approved="yes" xml:space="preserve">
 			<source>Positions</source>
-			<target>Stellen</target>
+			<target>Stellenangebote</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.quickMenu" approved="yes" xml:space="preserve">
 			<source>Quick Menu</source>
@@ -123,7 +123,7 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.showPositionTypes" approved="yes" xml:space="preserve">
 			<source>Show Position Type Selector</source>
-			<target>Zeige Stellentypenauswahl</target>
+			<target>Zeige Auswahl für Art der Stelle</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.showSectors" approved="yes" xml:space="preserve">
 			<source>Show Sectors Selector</source>
@@ -139,7 +139,7 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.type" approved="yes" xml:space="preserve">
 			<source>Position Type</source>
-			<target>Stellentyp</target>
+			<target>Art der Stelle</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.users" approved="yes" xml:space="preserve">
 			<source>Users</source>

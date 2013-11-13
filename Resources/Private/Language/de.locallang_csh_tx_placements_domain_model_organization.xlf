@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-12T19:42:46Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+		<trans-unit id="description.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="identifier.description" approved="yes" xml:space="preserve">
+			<source>Unique external identifier</source>
+			<target>Eindeutige externe Referenz</target>
+		</trans-unit>
+		<trans-unit id="title.description" approved="yes" xml:space="preserve">
+			<source>Name of organization or company</source>
+			<target>Name der Organisation oder Firma</target>
+		</trans-unit>
+		</body>
+	</file>
+</xliff>
