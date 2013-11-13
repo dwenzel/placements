@@ -60,12 +60,20 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	protected $sectorRepository;
 
 	/**
-	 * WorkingHoursRepository.php
+	 * Working Hours Repository
 	 *
 	 * @var \Webfox\Placements\Domain\Repository\WorkingHoursRepository
 	 * @inject
 	 */
 	protected $workingHoursRepository;
+
+	/**
+	 * Category Repository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\CategoryRepository
+	 * @inject
+	 */
+	protected $categoryRepository;
 
 	/**
 	 * action list
@@ -153,21 +161,26 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 	/**
 	 * Quick Menu action
+	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function quickMenuAction() {
+	public function quickMenuAction(array $overwriteDemand = NULL) {
 		// get session data
-		$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_placements_overwriteDemand');
+		//$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_placements_overwriteDemand');
 		
 		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
 		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
+		//$categories = $this->categoryRepository->findAll();
 		$this->view->assignMultiple(
 			array(
 			    'positionTypes' => $positionTypes,
 			    'workingHours' => $workingHours,
 			    'sectors' => $sectors,
-			    'overwriteDemand' => unserialize($sessionData)
+				'categories' => $categories,
+			    //'overwriteDemand' => unserialize($sessionData)
+			    'overwriteDemand' => $overwriteDemand
 			    )
 		);
 	}
@@ -176,13 +189,34 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Displays the Search Form
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function searchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL) {
+	public function searchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL, array $overwriteDemand = NULL) {
+		// get session data
+		//$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_placements_overwriteDemand');
 		if (is_null($search)) {
 			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
 		}
-		$this->view->assign('search', $search);
+		if ($this->settings['extendedSearch']) {
+			$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
+			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
+			$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+			$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
+			$this->view->assignMultiple(
+				array(
+					'search' => $search,
+				    'positionTypes' => $positionTypes,
+					'workingHours' => $workingHours,
+					'sectors' => $sectors,
+					'categories' => $categories,
+					//'overwriteDemand' => unserialize($sessionData),
+					'overwriteDemand' => $overwriteDemand,
+			    )
+			);
+		}else {
+			$this->view->assign('search', $search);
+		}
 	}
 
 
@@ -190,10 +224,15 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Displays the Search Result
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function searchResultAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL) {
+	public function searchResultAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL, $overwriteDemand = NULL) {
 		$demand = $this->createDemandFromSettings($this->settings);
+		if($overwriteDemand) {
+			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+		}
+
 		if (!is_null($search)) {
 			//@todo: throw exception if search fields are not set
 			$search->setFields($this->settings['position']['search']['fields']);
@@ -207,7 +246,6 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				'demand' => $demand,
 			)
 		);
-
 	}
 	/**
 	 * Create demand from settings
@@ -251,9 +289,11 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		    }
 		}
 		//store session data
+		/*
 		$sessionData = serialize($overwriteDemand);
 		$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_placements_overwriteDemand', $sessionData);
 		$GLOBALS['TSFE']->fe_user->storeSessionData();
+		*/
 		return $demand;
 	}
 
