@@ -1,11 +1,36 @@
 <f:layout name="Default" />
-<f:if condition="{settings.debug}">
-	<f:debug title="Search">{search}</f:debug>
-</f:if>
 
 <f:section name="main">
+<f:if condition="{settings.debug}">
+	<f:debug title="Search">{search}</f:debug>
+	<f:debug title="Demand">{demand}</f:debug>
+	<f:debug title="Position Types">{positionTypes}</f:debug>
+	<f:debug title="Sectors">{sectors}</f:debug>
+</f:if>
 	<div class="tx-placements search-form">
-		<f:form 
+		<f:if condition="{settings.extendedSearch}">
+			<f:then>
+				<f:render 
+					section="extendedForm" 
+					arguments="{
+						search: '{search}', 
+						positionTypes: '{positionTypes}',
+						workingHours: '{workingHours}',
+						categories: '{categories}',
+						sectors: '{sectors}',
+						overwriteDemand: '{overwriteDemand}'
+					}"
+				/>
+			</f:then>
+			<f:else>
+				<f:render section="simpleForm"/>
+			</f:else>
+		</f:if>
+	</div>
+</f:section>
+
+<f:section name="simpleForm">
+<f:form 
 			action="searchResult"
 			object="{search}" 
 			name="search"
@@ -15,5 +40,87 @@
 				<f:form.submit value="Start" />
 			</fieldset>
 		</f:form>
-	</div>
+</f:section>
+
+<f:section name="extendedForm">
+		<f:form name="searchForm" action="searchResult" >
+			<div class="row-fluid">
+				<f:form.textfield
+					name="search[subject]"
+					value="{search.subject}"
+				/>
+				<div class="span6">
+					<f:comment>show position types selector</f:comment>
+					<f:if condition="{settings.showPositionTypes}">
+						<div class="clearfix">
+						<label for="tx-placements-position-types-select">{f:translate(key: 'tx_placements_domain_model_positiontype')}</label>
+							<f:form.select 
+								id="tx-placements-position-types-select"
+								name="overwriteDemand[positionTypes]" 
+								options="{positionTypes}"
+								optionValueField="uid" 
+								optionLabelField="title"
+								prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllPositionTypes')}"
+								value="{overwriteDemand.positionTypes}"
+							/>							
+						</div>
+					</f:if>
+						
+					<f:comment>show workingHours selector</f:comment>
+					<f:if condition="{settings.showWorkingHours}"> 
+						<div class="clearfix">
+						<label for="tx-placements-working-hours-select">{f:translate(key: 'tx_placements_domain_model_workinghours')}</label>
+							<f:form.select 
+							  id="tx-placements-working-hours-select"
+								name="overwriteDemand[workingHours]" 
+								options="{workingHours}"
+								optionValueField="uid" 
+								optionLabelField="title"
+								prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllWorkingHours')}"
+								value="{overwriteDemand.workingHours}"
+							/>
+						</div>
+						</f:if>
+				</div>
+				<div class="span6">
+					<f:comment>show sectors selector</f:comment>
+					<f:if condition="{0:settings.showSectors'}"> 
+						<div class="clearfix">
+						<label for="tx-placements-sectors-select">{f:translate(key: 'tx_placements_domain_model_sector')}</label>
+							<f:form.select 
+							  id="tx-placements-sectors-select"
+								name="overwriteDemand[sectors]" 
+								options="{sectors}"
+								optionValueField="uid" 
+								optionLabelField="title"
+								prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllSectors')}"
+								value="{overwriteDemand.sectors}"
+							/>
+						</div>
+					</f:if>
+				
+					<f:comment>show conjunction selector</f:comment>
+					<f:if condition="{settings.showConjunctionSelector}">
+						<f:then>
+							<div class="clearfix">
+								<label for="tx-placements-conjunction-select"></label>
+							@todo: add conjunction selector
+							</div>
+						</f:then>
+						<f:form.hidden 
+						  id="tx-placements-conjunction-select"
+					  		name="overwriteDemand[constraintsConjunction]"
+					  		value="{settings.constraintsConjunction}"
+						/>
+					</f:if>
+				</div>
+				<div class="span12">
+					<f:form.submit 
+					  id="tx-placements-quick-menue-submit"
+						name="submit" 
+						value="{f:translate(key: 'tx_placements.general.update')}"
+					/>
+				</div>
+			</div>
+		</f:form>
 </f:section>
