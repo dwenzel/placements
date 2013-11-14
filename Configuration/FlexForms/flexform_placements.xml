@@ -32,18 +32,22 @@
 										<numIndex index="1">--div--</numIndex>
 									</numIndex>
 									<numIndex index="4">
-										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchForm</numIndex>
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchForm.simple</numIndex>
 										<numIndex index="1">Position->searchForm</numIndex>
 									</numIndex>
 									<numIndex index="5">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchForm.extended</numIndex>
+										<numIndex index="1">Position->extendedSearchForm</numIndex>
+									</numIndex>
+									<numIndex index="6">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchResult</numIndex>
 										<numIndex index="1">Position->searchResult</numIndex>
 									</numIndex>
-									<numIndex index="6">
+									<numIndex index="7">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.optionGroupOthers</numIndex>
 										<numIndex index="1">--div--</numIndex>
 									</numIndex>
-									<numIndex index="7">
+									<numIndex index="8">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.quickMenu</numIndex>
 										<numIndex index="1">Position->quickMenu</numIndex>
 									</numIndex>
@@ -52,16 +56,6 @@
 						</TCEforms>
 					</switchableControllerActions>
 					
-					<settings.extendedSearch>
-						<TCEforms>
-							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.extendedSearch </label>
-							<!-- <onChange>reload</onChange> -->
-							<config>
-								<type>check</type>
-								<default>0</default>
-							</config>
-						</TCEforms>	
-					</settings.extendedSearch>
 					<!-- order by -->
 					<settings.orderBy>
 						<TCEforms>
