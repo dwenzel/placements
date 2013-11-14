@@ -256,6 +256,16 @@
 					</settings.showConjunctionSelector>
 
 					<!-- Category -->
+					<settings.showCategorySelector>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showCategorySelector</label>
+							<onChange>reload</onChange>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</settings.showCategorySelector>
 					<settings.categories>
 						<TCEforms>
 							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.categories</label>
