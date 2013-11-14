@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_placements_domain_model_organization'] = array(
 	'ctrl' => $TCA['tx_placements_domain_model_organization']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, description, sectors',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, description,image,sectors',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, identifier, description, sectors,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, identifier, description,image,sectors,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -131,6 +131,21 @@ $TCA['tx_placements_domain_model_organization'] = array(
 				)
 			),
 			'defaultExtras' => 'richtext:rte_transform[flag=rte_enabled|mode=ts]',
+		),
+		'image' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xml:tx_placement_domain_model_organization.image',
+			'config' => array(
+				'type' => 'group',
+				'internal_type' => 'file',
+				'uploadfolder' => 'uploads/tx_placements',
+				'show_thumbs' => 1,
+				'size' => 1,
+				'maxitems' => 1,
+				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+				'disallowed' => '',
+				'disable_controls' => 'list',
+			),
 		),
 		'sectors' => array(
 			'exclude' => 1,

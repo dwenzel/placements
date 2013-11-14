@@ -112,6 +112,7 @@ CREATE TABLE tx_placements_domain_model_organization (
 	title varchar(255) DEFAULT '' NOT NULL,
 	identifier varchar(255) DEFAULT '' NOT NULL,
 	description text NOT NULL,
+	image text NOT NULL,
 	sectors int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

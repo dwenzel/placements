@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-13T09:41:56Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-14T17:55:03Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -60,6 +60,10 @@
 		<trans-unit id="tabs.extended" approved="yes" xml:space="preserve">
 			<source>Extended</source>
 			<target>Erweitert</target>
+		</trans-unit>
+		<trans-unit id="tx_placement_domain_model_organization.image" approved="yes" xml:space="preserve">
+			<source>Image</source>
+			<target>Bild</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" approved="yes" xml:space="preserve">
 			<source>Application</source>

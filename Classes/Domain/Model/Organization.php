@@ -58,6 +58,13 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $description;
 
 	/**
+	 * Image
+	 *
+	 * @var \string
+	 */ 
+	protected $image;
+
+	/**
 	 * sectors
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Sector>
@@ -120,6 +127,24 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setDescription($description) {
 		$this->description = $description;
+	}
+
+	/**
+	 * Get the image
+	 *
+	 * @return \string
+	 */
+	public function getImage() {
+	    return $this->image;
+	}
+
+	/**
+	 * Sets the image
+	 *
+	 * @param \string $image
+	 */
+	public function setImage($image) {
+		$this->image = $image;
 	}
 
 	/**
