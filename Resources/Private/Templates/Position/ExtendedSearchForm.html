@@ -6,22 +6,26 @@
 	<f:debug title="Demand">{demand}</f:debug>
 	<f:debug title="Position Types">{positionTypes}</f:debug>
 	<f:debug title="Sectors">{sectors}</f:debug>
+	<f:debug title="Categories">{categories}</f:debug>
 </f:if>
 	<div class="tx-placements search-form">
-		<div class="message hint">{f:translate(key: 'tx_placements.extendedSearchForm.hint')}</div>
+		<div class="row-fluid message hint">{f:translate(key: 'tx_placements.extendedSearchForm.hint')}</div>
 		<f:form name="searchForm" action="searchResult" >
 			<div class="row-fluid">
 				<div class="span6">
-					<f:form.textfield
-						name="search[subject]"
-						value="{search.subject}"
-					/>
+					<div class="clearfix">
+						<f:form.textfield
+							name="search[subject]"
+							value="{search.subject}"
+							class="input-search"
+						/>
+					</div>
 				</div>
 			</div>
 			<div class="row-fluid">
-				<div class="span6">
-					<f:comment>show position types selector</f:comment>
-					<f:if condition="{settings.showPositionTypes}">
+				<f:comment>show position types selector</f:comment>
+				<f:if condition="{settings.showPositionTypes}">
+					<div class="span6">
 						<div class="clearfix">
 						<label for="tx-placements-position-types-select">{f:translate(key: 'tx_placements_domain_model_positiontype')}</label>
 							<f:form.select 
@@ -34,10 +38,12 @@
 								value="{overwriteDemand.positionTypes}"
 							/>							
 						</div>
-					</f:if>
+					</div>	
+				</f:if>
 						
-					<f:comment>show workingHours selector</f:comment>
-					<f:if condition="{settings.showWorkingHours}"> 
+				<f:comment>show workingHours selector</f:comment>
+				<f:if condition="{settings.showWorkingHours}"> 
+					<div class="span6">
 						<div class="clearfix">
 						<label for="tx-placements-working-hours-select">{f:translate(key: 'tx_placements_domain_model_workinghours')}</label>
 							<f:form.select 
@@ -50,11 +56,13 @@
 								value="{overwriteDemand.workingHours}"
 							/>
 						</div>
-						</f:if>
-				</div>
-				<div class="span6">
-					<f:comment>show sectors selector</f:comment>
-					<f:if condition="{0:settings.showSectors'}"> 
+					</div>
+				</f:if>
+			</div>
+			<div class="row-fluid">
+				<f:comment>show sectors selector</f:comment>
+				<f:if condition="{settings.showSectors'}"> 
+					<div class="span6">
 						<div class="clearfix">
 						<label for="tx-placements-sectors-select">{f:translate(key: 'tx_placements_domain_model_sector')}</label>
 							<f:form.select 
@@ -67,23 +75,47 @@
 								value="{overwriteDemand.sectors}"
 							/>
 						</div>
-					</f:if>
-				
-					<f:comment>show conjunction selector</f:comment>
-					<f:if condition="{settings.showConjunctionSelector}">
-						<f:then>
-							<div class="clearfix">
-								<label for="tx-placements-conjunction-select"></label>
+					</div>
+				</f:if>
+				<f:comment>show conjunction selector</f:comment>
+				<f:if condition="{settings.showConjunctionSelector}">
+					<f:then>
+						<div class="clearfix">
+							<label for="tx-placements-conjunction-select"></label>
 							@todo: add conjunction selector
-							</div>
-						</f:then>
-						<f:form.hidden 
-						  id="tx-placements-conjunction-select"
-					  		name="overwriteDemand[constraintsConjunction]"
-					  		value="{settings.constraintsConjunction}"
+						</div>
+					</f:then>
+					<f:form.hidden 
+						id="tx-placements-conjunction-select"
+						name="overwriteDemand[constraintsConjunction]"
+					  	value="{settings.constraintsConjunction}"
+					/>
+				</f:if>
+				<f:comment>show categorie selector</f:comment>
+				<f:if condition="{settings.showCategorySelector}"> 
+					<div class="span6">
+						<div class="clearfix">
+						<label for="tx-placements-category-select">{f:translate(key: 'tx_placements_domain_model_category')}</label>
+							<f:form.select 
+							  id="tx-placements-category-select"
+								name="overwriteDemand[categories]" 
+								options="{categories}"
+								optionValueField="uid" 
+								optionLabelField="title"
+								prependOptionLabel="{f:translate(key: 'tx_placements.quickMenu.selectAllCategories')}"
+								value="{overwriteDemand.categories}"
+							/>
+							<f:form.hidden 
+						 	 id="tx-placements-category-conjunction"
+					  		name="overwriteDemand[categoryConjunction]"
+					  		value="{settings.categoryConjunction}"
 						/>
-					</f:if>
-				</div>
+						</div>
+					</div>
+				</f:if>
+			
+			</div>
+			<div class="row-fluid">
 				<div class="span12">
 					<f:form.submit 
 					  id="tx-placements-quick-menue-submit"

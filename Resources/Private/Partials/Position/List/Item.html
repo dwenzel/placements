@@ -3,7 +3,7 @@
 <f:comment>titel, organization.title,entryDate,organization.zip organization.city</f:comment>
 	<div class="span2 title"><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></div>
 	<div class="span2 organization title">{position.organization.title}</div>
-	<div class="span2 date"><f:format.date>{position.entryDate}</f:format.date></div>
+	<div class="span2 date"><f:format.date format="d. F Y">{position.entryDate}</f:format.date></div>
 	<div class="span2 organization zip city">{position.zip} {position.city}</div>
 	<f:security.ifHasRole role="{settings.security.editorGroup}">
 		<div class="span2">
