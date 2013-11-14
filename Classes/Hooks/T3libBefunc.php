@@ -57,13 +57,23 @@ class T3libBefunc {
 		);
 
 	/**
-	 * Fields which are removed in position searchForm view
+	 * Fields which are removed in position searchForm view (simple form)
 	 *
 	 * @var \array
 	 */
 	public $removedFieldsInPositionSearchFormView = array(
 			'sDEF' => 'orderBy,orderDirection',
-			//'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,categoryConjunction,limit',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,categoryConjunction,limit',
+		);
+
+	/**
+	 * Fields which are removed in position extendedSearchForm view (simple form)
+	 *
+	 * @var \array
+	 */
+	public $removedFieldsInPositionExtendedSearchFormView = array(
+			'sDEF' => 'orderBy,orderDirection',
+			'constraints' => 'limit',
 		);
 
 	/**
@@ -156,7 +166,10 @@ class T3libBefunc {
 					break;
 				case 'Position->searchForm':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPositionSearchFormView);
-					//unset($dataStructure['sheets']['constraints']);
+					unset($dataStructure['sheets']['constraints']);
+					break;
+				case 'Position->extendedSearchForm':
+					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPositionExtendedSearchFormView);
 					break;
 				case 'Position->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPositionQuickMenuView);
