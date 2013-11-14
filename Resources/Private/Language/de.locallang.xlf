@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-12T14:49:23Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-14T10:33:19Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.extendedSearchForm.hint" approved="yes" xml:space="preserve">
+			<source>Please enter a keyword or choose any option.</source>
+			<target>Bitte geben Sie einen Suchbegriff ein oder wählen Sie eine der Optionen.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.delete" approved="yes" xml:space="preserve">
 			<source>Delete</source>
 			<target>Löschen</target>
@@ -16,6 +20,10 @@
 		<trans-unit id="tx_placements.general.save" approved="yes" xml:space="preserve">
 			<source>Save</source>
 			<target>Speichern</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.search" approved="yes" xml:space="preserve">
+			<source>search</source>
+			<target>suchen</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.update" approved="yes" xml:space="preserve">
 			<source>update</source>
@@ -52,6 +60,14 @@
 		<trans-unit id="tx_placements.quickMenu.selectAllWorkingHours" approved="yes" xml:space="preserve">
 			<source>All Working Hours</source>
 			<target>Alle Arbeitszeiten</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.search.position.message.noSearchResult" approved="yes" xml:space="preserve">
+			<source>Sorry! We could not find any position for your query.</source>
+			<target>Zu Ihrer Anfrage wurden keine Stellenangebote gefunden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.searchForm.hint" approved="yes" xml:space="preserve">
+			<source>Please enter a keyword.</source>
+			<target>Bitte geben Sie einen Suchbegriff ein.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" approved="yes" xml:space="preserve">
 			<source>Application</source>

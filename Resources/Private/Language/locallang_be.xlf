@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T19:38:56Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-14T09:14:11Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -76,6 +76,12 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.searchForm" xml:space="preserve">
 			<source>Search Form</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.searchForm.extended" xml:space="preserve">
+			<source>Search Form (extended)</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.searchForm.simple" xml:space="preserve">
+			<source>Search Form (simple)</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.searchResult" xml:space="preserve">
 			<source>Search Result</source>

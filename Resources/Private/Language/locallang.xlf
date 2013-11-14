@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T14:49:23Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-14T10:33:19Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.extendedSearchForm.hint" xml:space="preserve">
+			<source>Please enter a keyword or choose any option.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.delete" xml:space="preserve">
 			<source>Delete</source>
 		</trans-unit>
@@ -13,6 +16,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.save" xml:space="preserve">
 			<source>Save</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.search" xml:space="preserve">
+			<source>search</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.update" xml:space="preserve">
 			<source>update</source>
@@ -40,6 +46,12 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.quickMenu.selectAllWorkingHours" xml:space="preserve">
 			<source>All Working Hours</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.search.position.message.noSearchResult" xml:space="preserve">
+			<source>Sorry! We could not find any position for your query.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.searchForm.hint" xml:space="preserve">
+			<source>Please enter a keyword.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" xml:space="preserve">
 			<source>Application</source>
