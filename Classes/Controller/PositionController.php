@@ -186,37 +186,43 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
-	 * Displays the Search Form
+	 * Displays a Simple Search Form
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @return void
+	 */
+	public function searchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL) {
+		if (is_null($search)) {
+			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
+		}
+		$this->view->assign('search', $search);
+	}
+
+	/**
+	 * Displays the Extended Search Form
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function searchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL, array $overwriteDemand = NULL) {
-		// get session data
-		//$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_placements_overwriteDemand');
+	public function extendedSearchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL, array $overwriteDemand = NULL) {
 		if (is_null($search)) {
 			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
 		}
-		if ($this->settings['extendedSearch']) {
-			$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
-			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
-			$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
-			$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
-			$this->view->assignMultiple(
-				array(
-					'search' => $search,
-				    'positionTypes' => $positionTypes,
-					'workingHours' => $workingHours,
-					'sectors' => $sectors,
-					'categories' => $categories,
-					//'overwriteDemand' => unserialize($sessionData),
-					'overwriteDemand' => $overwriteDemand,
-			    )
-			);
-		}else {
-			$this->view->assign('search', $search);
-		}
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
+		$this->view->assignMultiple(
+			array(
+				'search' => $search,
+				'positionTypes' => $positionTypes,
+				'workingHours' => $workingHours,
+				'sectors' => $sectors,
+				'categories' => $categories,
+				'overwriteDemand' => $overwriteDemand,
+			)
+		);
 	}
 
 
@@ -239,9 +245,17 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		}
 		$demand->setSearch($search);
 
+		$positions = $this->positionRepository->findDemanded($demand);
+		if(!count($positions)) {
+			$this->flashMessageContainer->add(
+				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+				    'tx_placements.search.position.message.noSearchResult', 'placements'
+				    )
+				);
+		}
 		$this->view->assignMultiple(
 			array(
-				'positions' => $this->positionRepository->findDemanded($demand),
+				'positions' => $positions,
 				'search' => $search,
 				'demand' => $demand,
 			)
