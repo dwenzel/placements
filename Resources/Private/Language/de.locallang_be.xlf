@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-14T09:14:11Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-14T14:40:58Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -124,6 +124,10 @@
 		<trans-unit id="flexforms_general.settings" approved="yes" xml:space="preserve">
 			<source>Settings</source>
 			<target>Einstellungen</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showCategorySelector" approved="yes" xml:space="preserve">
+			<source>Show Category Selector</source>
+			<target>Zeige Kategorienauswahl</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.showConjunctionSelector" approved="yes" xml:space="preserve">
 			<source>Show Conjunction Selector</source>

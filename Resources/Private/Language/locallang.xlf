@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-14T10:33:19Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-14T14:32:12Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -8,11 +8,17 @@
 		<trans-unit id="tx_placements.extendedSearchForm.hint" xml:space="preserve">
 			<source>Please enter a keyword or choose any option.</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.backToList" xml:space="preserve">
+			<source>back to list view</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.delete" xml:space="preserve">
 			<source>Delete</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.edit" xml:space="preserve">
 			<source>Edit</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.information.plural" xml:space="preserve">
+			<source>Information</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.save" xml:space="preserve">
 			<source>Save</source>
@@ -37,6 +43,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.quickMenu.hint" xml:space="preserve">
 			<source>Search for positions.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.quickMenu.selectAllCategories" xml:space="preserve">
+			<source>All Categories</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.quickMenu.selectAllPositionTypes" xml:space="preserve">
 			<source>All Position Types</source>
@@ -71,6 +80,9 @@
 		<trans-unit id="tx_placements_domain_model_application.text" xml:space="preserve">
 			<source>Text</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_category" xml:space="preserve">
+			<source>Category</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_client" xml:space="preserve">
 			<source>Client</source>
 		</trans-unit>
@@ -85,6 +97,12 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization" xml:space="preserve">
 			<source>Organization</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.about_company" xml:space="preserve">
+			<source>About company</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.company_information" xml:space="preserve">
+			<source>Company Information</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.description" xml:space="preserve">
 			<source>Description</source>
@@ -101,26 +119,41 @@
 		<trans-unit id="tx_placements_domain_model_position.categories" xml:space="preserve">
 			<source>Categories</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.city" xml:space="preserve">
+			<source>Location</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.client" xml:space="preserve">
 			<source>Client</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.description" xml:space="preserve">
-			<source>Description</source>
+			<source>Job Description</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.duration" xml:space="preserve">
+			<source>Duration</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.entryDate" xml:space="preserve">
+			<source>Entry Date</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.identifier" xml:space="preserve">
 			<source>ID</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.organization" xml:space="preserve">
-			<source>Organization</source>
+			<source>Company</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.payment" xml:space="preserve">
+			<source>Payment</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.summary" xml:space="preserve">
 			<source>Summary</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.title" xml:space="preserve">
-			<source>Title</source>
+			<source>Job Title</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.type" xml:space="preserve">
 			<source>Type of Position</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.zip" xml:space="preserve">
+			<source>ZIP</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_positiontype" xml:space="preserve">
 			<source>Type of Position</source>
