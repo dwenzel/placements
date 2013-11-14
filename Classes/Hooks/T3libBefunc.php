@@ -43,7 +43,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionListView = array(
 			'sDEF' => '',
-			'constraints' => 'showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector',
+			'constraints' => 'showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector',
 		);
 
 	/**
@@ -63,7 +63,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionSearchFormView = array(
 			'sDEF' => 'orderBy,orderDirection',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,categoryConjunction,limit',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,categories,categoryConjunction,limit',
 		);
 
 	/**
@@ -83,7 +83,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionSearchResultView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,categoryConjunction',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,showCategorySelector,categoryConjunction',
 		);
 
 	/**
@@ -93,7 +93,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInUserListView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector',
 		);
 
 	/**
@@ -103,7 +103,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInApplicationListView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector',
 		);
 
 
