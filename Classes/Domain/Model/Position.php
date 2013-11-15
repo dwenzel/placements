@@ -68,6 +68,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * entryDate
 	 *
 	 * @var \DateTime
+	 * @validate Date
 	 */
 	protected $entryDate;
 
@@ -117,6 +118,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * link
 	 *
 	 * @var \string
+	 * @validate Uri
 	 */
 	protected $link;
 
