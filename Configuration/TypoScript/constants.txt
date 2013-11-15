@@ -26,6 +26,7 @@ plugin.tx_placements {
 					templatePath =
 					prevNextHeaderTags = 1
 				}
+				entryDate.format = d. F Y
 			}
 			detail {
 				organization.image {
@@ -33,6 +34,7 @@ plugin.tx_placements {
 					height = 100 
 				}
 			}
+			edit.entryDate.format = d.m.Y
 			search.fields = title,identifier,summary,zip,city,type.title
 		}
 	}

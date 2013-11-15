@@ -21,7 +21,8 @@ plugin.tx_placements {
 		security.editorGroup =
 		position {
 			list {
-				summary.crop = 35	
+				summary.crop = 35
+				entryDate.format = {$plugin.tx_placements.settings.position.list.entryDate.format}	
 				# Paginate configuration.
 				paginate {
 					itemsPerPage ={$plugin.tx_placements.settings.position.list.paginate.itemsPerPage}
@@ -40,6 +41,9 @@ plugin.tx_placements {
 					width = {$plugin.tx_placements.settings.position.detail.organization.image.width}
 					height = {$plugin.tx_placements.settings.position.detail.organization.image.height}
 				}
+			}
+			edit {
+				entryDate.format = {$plugin.tx_placements.settings.position.edit.entryDate.format}
 			}
 			search.fields = {$plugin.tx_placements.settings.position.search.fields}
 		}
