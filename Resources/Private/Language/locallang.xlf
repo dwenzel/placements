@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-14T14:32:12Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-15T09:51:40Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -19,6 +19,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.information.plural" xml:space="preserve">
 			<source>Information</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.required" xml:space="preserve">
+			<source>*</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.save" xml:space="preserve">
 			<source>Save</source>
@@ -125,17 +128,26 @@
 		<trans-unit id="tx_placements_domain_model_position.client" xml:space="preserve">
 			<source>Client</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.contact" xml:space="preserve">
+			<source>Contact</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.description" xml:space="preserve">
 			<source>Job Description</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.duration" xml:space="preserve">
 			<source>Duration</source>
 		</trans-unit>
-		<trans-unit id="tx_placements_domain_model_position.entryDate" xml:space="preserve">
+		<trans-unit id="tx_placements_domain_model_position.entry_date" xml:space="preserve">
 			<source>Entry Date</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.fixed_term" xml:space="preserve">
+			<source>Fixed Term</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.identifier" xml:space="preserve">
 			<source>ID</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.link" xml:space="preserve">
+			<source>Link</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.organization" xml:space="preserve">
 			<source>Company</source>

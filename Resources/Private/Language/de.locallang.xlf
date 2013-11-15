@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-14T14:32:12Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-15T09:51:40Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -24,6 +24,10 @@
 		<trans-unit id="tx_placements.general.information.plural" approved="yes" xml:space="preserve">
 			<source>Information</source>
 			<target>Informationen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.required" approved="yes" xml:space="preserve">
+			<source>*</source>
+			<target>*</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.save" approved="yes" xml:space="preserve">
 			<source>Save</source>
@@ -165,6 +169,10 @@
 			<source>Client</source>
 			<target>Kunde</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.contact" approved="yes" xml:space="preserve">
+			<source>Contact</source>
+			<target>Kontakt</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.description" approved="yes" xml:space="preserve">
 			<source>Job Description</source>
 			<target>Stellenbeschreibung</target>
@@ -173,13 +181,21 @@
 			<source>Duration</source>
 			<target>Dauer</target>
 		</trans-unit>
-		<trans-unit id="tx_placements_domain_model_position.entryDate" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_placements_domain_model_position.entry_date" approved="yes" xml:space="preserve">
 			<source>Entry Date</source>
 			<target>Eintrittsdatum</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.fixed_term" approved="yes" xml:space="preserve">
+			<source>Fixed Term</source>
+			<target>befristet</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.identifier" approved="yes" xml:space="preserve">
 			<source>ID</source>
 			<target>ID</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.link" approved="yes" xml:space="preserve">
+			<source>Link</source>
+			<target>Link</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.organization" approved="yes" xml:space="preserve">
 			<source>Company</source>
