@@ -35,6 +35,12 @@ plugin.tx_placements {
 					prevNextHeaderTags = {$plugin.tx_placements.settings.position.list.paginate.prevNextHeaderTags}
 				}
 			}
+			detail {
+				organization.image {
+					width = {$plugin.tx_placements.settings.position.detail.organization.image.width}
+					height = {$plugin.tx_placements.settings.position.detail.organization.image.height}
+				}
+			}
 			search.fields = {$plugin.tx_placements.settings.position.search.fields}
 		}
 	}
