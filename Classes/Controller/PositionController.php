@@ -128,7 +128,7 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * action new
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Position $newPosition
-	 * @dontvalidate $newPosition
+	 * @ignorevalidation $newPosition
 	 * @return void
 	 */
 	public function newAction(\Webfox\Placements\Domain\Model\Position $newPosition = NULL) {
@@ -151,6 +151,7 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * action edit
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Position $position
+	 * @ignorevalidation $position
 	 * @return void
 	 */
 	public function editAction(\Webfox\Placements\Domain\Model\Position $position) {
