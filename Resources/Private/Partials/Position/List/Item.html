@@ -1,9 +1,13 @@
 
 <div class="row-fluid list-item">
 <f:comment>titel, organization.title,entryDate,organization.zip organization.city</f:comment>
-	<div class="span2 title"><f:link.action action="show" arguments="{position : position}"> {position.title}</f:link.action></div>
-	<div class="span2 organization title">{position.organization.title}</div>
-	<div class="span2 date"><f:format.date format="{settings.position.list.entryDate.format}">{position.entryDate}</f:format.date></div>
+	<div class="span4 title">
+		<f:link.action 
+			action="show"
+			pageUid="{settings.position.detail.pid}" 
+			arguments="{position : position}"> {position.title}</f:link.action></div>
+	<div class="span3 organization title">{position.organization.title}</div>
+	<div class="span3 date"><f:format.date format="{settings.position.list.entryDate.format}">{position.entryDate}</f:format.date></div>
 	<div class="span2 organization zip city">{position.zip} {position.city}</div>
 	<f:security.ifHasRole role="{settings.security.editorGroup}">
 		<div class="span2">
