@@ -45,7 +45,10 @@ plugin.tx_placements {
 			edit {
 				entryDate.format = {$plugin.tx_placements.settings.position.edit.entryDate.format}
 			}
-			search.fields = {$plugin.tx_placements.settings.position.search.fields}
+			search {
+				pid = {$plugin.tx_placements.settings.search.pid}
+				fields = {$plugin.tx_placements.settings.position.search.fields}
+			}
 		}
 	}
 }
