@@ -2,6 +2,7 @@
 
 <f:section name="main">
 <f:if condition="{settings.debug}">
+	<f:debug title="Settings">{settings}</f:debug>
 	<f:debug title="Search">{search}</f:debug>
 	<f:debug title="Demand">{demand}</f:debug>
 	<f:debug title="Position Types">{positionTypes}</f:debug>
@@ -10,7 +11,10 @@
 </f:if>
 	<div class="tx-placements search-form">
 		<div class="row-fluid message hint">{f:translate(key: 'tx_placements.extendedSearchForm.hint')}</div>
-		<f:form name="searchForm" action="searchResult" >
+		<f:form 
+			name="searchForm" 
+			action="searchResult" 
+			pageUid="{settings.position.search.pid}">
 			<div class="row-fluid">
 				<div class="span6">
 					<div class="clearfix">
