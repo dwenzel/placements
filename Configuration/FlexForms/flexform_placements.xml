@@ -114,6 +114,22 @@
 						</TCEforms>
 					</settings.orderDirection>
 
+					<!-- Template Layout -->
+					<settings.templateLayout>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xml:flexforms_general.templateLayout</label>
+							<config>
+								<type>select</type>
+								<itemsProcFunc>Webfox\Placements\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+								<items>
+									<numIndex index="0" type="array">
+										<numIndex index="0"></numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.templateLayout>
 
 				</el>
 			</ROOT>
