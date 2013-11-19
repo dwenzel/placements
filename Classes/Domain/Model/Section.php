@@ -45,7 +45,7 @@ class Section extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * end
 	 *
-	 * @var \string
+	 * @var \DateTime
 	 */
 	protected $end;
 
@@ -85,7 +85,7 @@ class Section extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the end
 	 *
-	 * @return \string $end
+	 * @return \DateTime $end
 	 */
 	public function getEnd() {
 		return $this->end;
@@ -94,7 +94,7 @@ class Section extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the end
 	 *
-	 * @param \string $end
+	 * @param \DateTime $end
 	 * @return void
 	 */
 	public function setEnd($end) {

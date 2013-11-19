@@ -27,7 +27,7 @@ namespace Webfox\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class \Webfox\Placements\Domain\Model\Profil.
+ * Test case for class \Webfox\Placements\Domain\Model\Profile.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -39,14 +39,14 @@ namespace Webfox\Placements\Tests;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class ProfilTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class ProfileTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @var \Webfox\Placements\Domain\Model\Profil
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\Placements\Domain\Model\Profil();
+		$this->fixture = new \Webfox\Placements\Domain\Model\Profile();
 	}
 
 	public function tearDown() {

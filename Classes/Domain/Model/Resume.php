@@ -36,6 +36,21 @@ namespace Webfox\Placements\Domain\Model;
 class Resume extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
+	 * title
+	 *
+	 * @var \string
+	 * @validate NotEmpty
+	 */
+	protected $title;
+
+	/**
+	 * introduction
+	 *
+	 * @var \string
+	 */
+	protected $introduction;
+
+	/**
 	 * sections
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Section>
@@ -65,6 +80,44 @@ class Resume extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		 * You may modify the constructor of this class instead
 		 */
 		$this->sections = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Returns the title
+	 *
+	 * @return \string $title
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * Sets the title
+	 *
+	 * @param \string $title
+	 * @return void
+	 */
+	public function setTitle($title) {
+		$this->title = $title;
+	}
+
+	/**
+	 * Returns the introduction
+	 *
+	 * @return \string $introduction
+	 */
+	public function getIntroduction() {
+		return $this->introduction;
+	}
+
+	/**
+	 * Sets the introduction
+	 *
+	 * @param \string $introduction
+	 * @return void
+	 */
+	public function setIntroduction($introduction) {
+		$this->introduction = $introduction;
 	}
 
 	/**

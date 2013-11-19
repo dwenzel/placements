@@ -56,6 +56,196 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getTitleReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setTitleForStringSetsTitle() { 
+		$this->fixture->setTitle('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getTitle()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getIdentifierReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setIdentifierForStringSetsIdentifier() { 
+		$this->fixture->setIdentifier('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getIdentifier()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getSummaryReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setSummaryForStringSetsSummary() { 
+		$this->fixture->setSummary('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getSummary()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getDescriptionReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setDescriptionForStringSetsDescription() { 
+		$this->fixture->setDescription('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getDescription()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getEntryDateReturnsInitialValueForDateTime() { }
+
+	/**
+	 * @test
+	 */
+	public function setEntryDateForDateTimeSetsEntryDate() { }
+	
+	/**
+	 * @test
+	 */
+	public function getFixedTermReturnsInitialValueForOolean() { }
+
+	/**
+	 * @test
+	 */
+	public function setFixedTermForOoleanSetsFixedTerm() { }
+	
+	/**
+	 * @test
+	 */
+	public function getDurationReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setDurationForStringSetsDuration() { 
+		$this->fixture->setDuration('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getDuration()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getZipReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setZipForStringSetsZip() { 
+		$this->fixture->setZip('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getZip()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getCityReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setCityForStringSetsCity() { 
+		$this->fixture->setCity('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getCity()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getPaymentReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setPaymentForStringSetsPayment() { 
+		$this->fixture->setPayment('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getPayment()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getContactReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setContactForStringSetsContact() { 
+		$this->fixture->setContact('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getContact()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getLinkReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setLinkForStringSetsLink() { 
+		$this->fixture->setLink('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getLink()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getOrganizationReturnsInitialValueForOrganization() { }
 
 	/**
@@ -72,6 +262,142 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function setClientForClientSetsClient() { }
+	
+	/**
+	 * @test
+	 */
+	public function getTypeReturnsInitialValueForPositionType() { }
+
+	/**
+	 * @test
+	 */
+	public function setTypeForPositionTypeSetsType() { }
+	
+	/**
+	 * @test
+	 */
+	public function getCategoriesReturnsInitialValueForCategory() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getCategories()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setCategoriesForObjectStorageContainingCategorySetsCategories() { 
+		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
+		$objectStorageHoldingExactlyOneCategories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneCategories->attach($category);
+		$this->fixture->setCategories($objectStorageHoldingExactlyOneCategories);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneCategories,
+			$this->fixture->getCategories()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addCategoryToObjectStorageHoldingCategories() {
+		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
+		$objectStorageHoldingExactlyOneCategory = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneCategory->attach($category);
+		$this->fixture->addCategory($category);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneCategory,
+			$this->fixture->getCategories()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeCategoryFromObjectStorageHoldingCategories() {
+		$category = new \TYPO3\CMS\Extbase\Domain\Model\Category();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$localObjectStorage->attach($category);
+		$localObjectStorage->detach($category);
+		$this->fixture->addCategory($category);
+		$this->fixture->removeCategory($category);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getCategories()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getWorkingHoursReturnsInitialValueForWorkingHours() { }
+
+	/**
+	 * @test
+	 */
+	public function setWorkingHoursForWorkingHoursSetsWorkingHours() { }
+	
+	/**
+	 * @test
+	 */
+	public function getSectorsReturnsInitialValueForSector() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getSectors()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setSectorsForObjectStorageContainingSectorSetsSectors() { 
+		$sector = new \Webfox\Placements\Domain\Model\Sector();
+		$objectStorageHoldingExactlyOneSectors = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneSectors->attach($sector);
+		$this->fixture->setSectors($objectStorageHoldingExactlyOneSectors);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneSectors,
+			$this->fixture->getSectors()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addSectorToObjectStorageHoldingSectors() {
+		$sector = new \Webfox\Placements\Domain\Model\Sector();
+		$objectStorageHoldingExactlyOneSector = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneSector->attach($sector);
+		$this->fixture->addSector($sector);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneSector,
+			$this->fixture->getSectors()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeSectorFromObjectStorageHoldingSectors() {
+		$sector = new \Webfox\Placements\Domain\Model\Sector();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$localObjectStorage->attach($sector);
+		$localObjectStorage->detach($sector);
+		$this->fixture->addSector($sector);
+		$this->fixture->removeSector($sector);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getSectors()
+		);
+	}
 	
 }
 ?>

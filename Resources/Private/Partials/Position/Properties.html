@@ -1,3 +1,16 @@
-<table class="tx-placements" >
-	
-</table>
+<h2>{position.title}</h2>
+<div class="short-info">
+	<h3>{f:translate(key: 'tx_placements.general.information.plural')}</h3>
+	<div class="label">{f:translate(key: 'tx_placements_domain_model_position.entry_date')}</div>
+	<div class="date">{f:format.date(date:'{position.entryDate}', format:'d. F Y')}</div>
+	<div class="label">{f:translate(key: 'tx_placements_domain_model_position.duration')}</div>
+	<div class="duration">{position.duration}</div>
+	<div class="label">{f:translate(key: 'tx_placements_domain_model_position.location')}</div>
+	<div class="location">{position.zip} {position.city}</div>
+</div>
+<div class="long-info">
+	<h3>{f:translate(key: 'tx_placements_domain_model_position.description')}</h3>
+	<f:format.html>{position.description}</f:format.html>
+</div>
+<h3>{f:translate(key: 'tx_placements_domain_model_position.payment')}</h3>
+<div class="payment"><f:format.nl2br>{position.payment}</f:format.nl2br></div>

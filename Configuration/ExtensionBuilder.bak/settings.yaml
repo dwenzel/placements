@@ -46,13 +46,15 @@ overwriteSettings:
 
   Configuration:
     TCA: merge
-    #TypoScript: keep
+    TypoScript: keep
+	FlexForms: merge
+	 # flexform_placements.xml: merge
 
   Resources:
     Private:
       Language:
         locallang.xml: merge
-        #locallang.xlf: merge
+        locallang.xlf: keep
       Templates: keep
 
   ext_icon.gif: keep

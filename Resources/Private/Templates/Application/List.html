@@ -16,9 +16,10 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:flashMessages />
 
-<table  class="tx_placements" >
+<table  class="tx-placements" >
 	<tr>
 		<th><f:translate key="tx_placements_domain_model_application.introduction" /></th>
+		<th><f:translate key="tx_placements_domain_model_application.text" /></th>
 		<th><f:translate key="tx_placements_domain_model_application.file" /></th>
 		<th> </th>
 		<th> </th>
@@ -27,6 +28,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<f:for each="{applications}" as="application">
 		<tr>
 			<td><f:link.action action="show" arguments="{application : application}"> {application.introduction}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{application : application}"> {application.text}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{application : application}"> {application.file}</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{application : application}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{application : application}">Delete</f:link.action></td>
