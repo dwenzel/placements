@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-14T14:40:58Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-19T10:23:23Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -144,6 +144,10 @@
 		<trans-unit id="flexforms_general.showWorkingHours" approved="yes" xml:space="preserve">
 			<source>Show Working Hours Selector</source>
 			<target>Zeige Arbeitszeitauswahl</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.templateLayout" approved="yes" xml:space="preserve">
+			<source>Template Layout</source>
+			<target>Template Layout</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.title" approved="yes" xml:space="preserve">
 			<source>Title</source>
