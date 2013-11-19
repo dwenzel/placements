@@ -66,19 +66,12 @@ class SectionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getEndReturnsInitialValueForString() { }
+	public function getEndReturnsInitialValueForDateTime() { }
 
 	/**
 	 * @test
 	 */
-	public function setEndForStringSetsEnd() { 
-		$this->fixture->setEnd('Conceived at T3CON10');
-
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getEnd()
-		);
-	}
+	public function setEndForDateTimeSetsEnd() { }
 	
 	/**
 	 * @test

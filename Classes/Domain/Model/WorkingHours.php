@@ -33,32 +33,58 @@ namespace Webfox\Placements\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Profil extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class WorkingHours extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * user
+	 * title
 	 *
-	 * @var \Webfox\Placements\Domain\Model\User
+	 * @var \string
 	 */
-	protected $user;
+	protected $title;
 
 	/**
-	 * Returns the user
+	 * description
 	 *
-	 * @return \Webfox\Placements\Domain\Model\User user
+	 * @var \string
 	 */
-	public function getUser() {
-		return $this->user;
+	protected $description;
+
+	/**
+	 * Returns the title
+	 *
+	 * @return \string $title
+	 */
+	public function getTitle() {
+		return $this->title;
 	}
 
 	/**
-	 * Sets the user
+	 * Sets the title
 	 *
-	 * @param \Webfox\Placements\Domain\Model\User $user
-	 * @return \Webfox\Placements\Domain\Model\User user
+	 * @param \string $title
+	 * @return void
 	 */
-	public function setUser(\Webfox\Placements\Domain\Model\User $user) {
-		$this->user = $user;
+	public function setTitle($title) {
+		$this->title = $title;
+	}
+
+	/**
+	 * Returns the description
+	 *
+	 * @return \string $description
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
+
+	/**
+	 * Sets the description
+	 *
+	 * @param \string $description
+	 * @return void
+	 */
+	public function setDescription($description) {
+		$this->description = $description;
 	}
 
 }

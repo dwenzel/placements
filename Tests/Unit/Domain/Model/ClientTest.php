@@ -52,12 +52,56 @@ class ClientTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	public function tearDown() {
 		unset($this->fixture);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getNameReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setNameForStringSetsName() { 
+		$this->fixture->setName('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getName()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function dummyTestToNotLeaveThisFileEmpty() {
-		$this->markTestIncomplete();
+	public function getIdentifierReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setIdentifierForStringSetsIdentifier() { 
+		$this->fixture->setIdentifier('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getIdentifier()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getDescriptionReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setDescriptionForStringSetsDescription() { 
+		$this->fixture->setDescription('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getDescription()
+		);
 	}
 	
 }

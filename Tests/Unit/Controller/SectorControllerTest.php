@@ -1,6 +1,5 @@
 <?php
-
-namespace TYPO3\Placements\Tests;
+namespace Webfox\Placements\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -27,7 +26,7 @@ namespace TYPO3\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class \TYPO3\Placements\Domain\Model\Profile.
+ * Test case for class Tx_Placements_Controller_SectorController.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -39,26 +38,26 @@ namespace TYPO3\Placements\Tests;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class ProfileTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class SectorControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \TYPO3\Placements\Domain\Model\Profile
+	 * @var 
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \TYPO3\Placements\Domain\Model\Profile();
+		$this->fixture = new \Webfox\Placements\Domain\Model\Sector();
 	}
 
 	public function tearDown() {
 		unset($this->fixture);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function dummyTestToNotLeaveThisFileEmpty() {
+	public function dummyMethod() {
 		$this->markTestIncomplete();
 	}
-	
+
 }
 ?>

@@ -57,7 +57,7 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getResumesReturnsInitialValueForResume() { 
-		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getResumes()
@@ -69,7 +69,7 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setResumesForObjectStorageContainingResumeSetsResumes() { 
 		$resume = new \Webfox\Placements\Domain\Model\Resume();
-		$objectStorageHoldingExactlyOneResumes = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneResumes = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneResumes->attach($resume);
 		$this->fixture->setResumes($objectStorageHoldingExactlyOneResumes);
 
@@ -84,7 +84,7 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function addResumeToObjectStorageHoldingResumes() {
 		$resume = new \Webfox\Placements\Domain\Model\Resume();
-		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneResume->attach($resume);
 		$this->fixture->addResume($resume);
 
@@ -99,7 +99,7 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function removeResumeFromObjectStorageHoldingResumes() {
 		$resume = new \Webfox\Placements\Domain\Model\Resume();
-		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($resume);
 		$localObjectStorage->detach($resume);
 		$this->fixture->addResume($resume);
@@ -115,7 +115,7 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getApplicationsReturnsInitialValueForApplication() { 
-		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getApplications()
@@ -127,7 +127,7 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setApplicationsForObjectStorageContainingApplicationSetsApplications() { 
 		$application = new \Webfox\Placements\Domain\Model\Application();
-		$objectStorageHoldingExactlyOneApplications = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneApplications = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneApplications->attach($application);
 		$this->fixture->setApplications($objectStorageHoldingExactlyOneApplications);
 
@@ -142,7 +142,7 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function addApplicationToObjectStorageHoldingApplications() {
 		$application = new \Webfox\Placements\Domain\Model\Application();
-		$objectStorageHoldingExactlyOneApplication = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$objectStorageHoldingExactlyOneApplication = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneApplication->attach($application);
 		$this->fixture->addApplication($application);
 
@@ -157,7 +157,7 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function removeApplicationFromObjectStorageHoldingApplications() {
 		$application = new \Webfox\Placements\Domain\Model\Application();
-		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($application);
 		$localObjectStorage->detach($application);
 		$this->fixture->addApplication($application);

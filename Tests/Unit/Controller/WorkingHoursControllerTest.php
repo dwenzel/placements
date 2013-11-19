@@ -1,6 +1,5 @@
 <?php
-
-namespace TYPO3\Placements\Tests;
+namespace Webfox\Placements\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -27,7 +26,7 @@ namespace TYPO3\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class \TYPO3\Placements\Domain\Model\Manager.
+ * Test case for class Tx_Placements_Controller_WorkingHoursController.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -39,14 +38,14 @@ namespace TYPO3\Placements\Tests;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class ManagerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class WorkingHoursControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \TYPO3\Placements\Domain\Model\Manager
+	 * @var 
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \TYPO3\Placements\Domain\Model\Manager();
+		$this->fixture = new \Webfox\Placements\Domain\Model\WorkingHours();
 	}
 
 	public function tearDown() {
@@ -56,12 +55,9 @@ class ManagerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getPersonReturnsInitialValueForPerson() { }
+	public function dummyMethod() {
+		$this->markTestIncomplete();
+	}
 
-	/**
-	 * @test
-	 */
-	public function setPersonForPersonSetsPerson() { }
-	
 }
 ?>

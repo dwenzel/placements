@@ -73,6 +73,23 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getTextReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setTextForStringSetsText() { 
+		$this->fixture->setText('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getText()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getFileReturnsInitialValueForString() { }
 
 	/**
@@ -100,12 +117,60 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getResumeReturnsInitialValueForResume() { }
+	public function getResumeReturnsInitialValueForResume() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getResume()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setResumeForResumeSetsResume() { }
+	public function setResumeForObjectStorageContainingResumeSetsResume() { 
+		$resume = new \Webfox\Placements\Domain\Model\Resume();
+		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneResume->attach($resume);
+		$this->fixture->setResume($objectStorageHoldingExactlyOneResume);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneResume,
+			$this->fixture->getResume()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addResumeToObjectStorageHoldingResume() {
+		$resume = new \Webfox\Placements\Domain\Model\Resume();
+		$objectStorageHoldingExactlyOneResume = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneResume->attach($resume);
+		$this->fixture->addResume($resume);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneResume,
+			$this->fixture->getResume()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeResumeFromObjectStorageHoldingResume() {
+		$resume = new \Webfox\Placements\Domain\Model\Resume();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$localObjectStorage->attach($resume);
+		$localObjectStorage->detach($resume);
+		$this->fixture->addResume($resume);
+		$this->fixture->removeResume($resume);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getResume()
+		);
+	}
 	
 }
 ?>

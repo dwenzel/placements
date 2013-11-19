@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\Placements\Tests;
+namespace Webfox\Placements\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -27,7 +27,7 @@ namespace TYPO3\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class \TYPO3\Placements\Domain\Model\Vacation.
+ * Test case for class \Webfox\Placements\Domain\Model\Sector.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -39,25 +39,52 @@ namespace TYPO3\Placements\Tests;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class VacationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class SectorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \TYPO3\Placements\Domain\Model\Vacation
+	 * @var \Webfox\Placements\Domain\Model\Sector
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \TYPO3\Placements\Domain\Model\Vacation();
+		$this->fixture = new \Webfox\Placements\Domain\Model\Sector();
 	}
 
 	public function tearDown() {
 		unset($this->fixture);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getTitleReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setTitleForStringSetsTitle() { 
+		$this->fixture->setTitle('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getTitle()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function dummyTestToNotLeaveThisFileEmpty() {
-		$this->markTestIncomplete();
+	public function getDescriptionReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setDescriptionForStringSetsDescription() { 
+		$this->fixture->setDescription('Conceived at T3CON10');
+
+		$this->assertSame(
+			'Conceived at T3CON10',
+			$this->fixture->getDescription()
+		);
 	}
 	
 }

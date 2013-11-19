@@ -98,8 +98,8 @@ $TCA['tx_placements_domain_model_section'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_section.begin',
 			'config' => array(
 				'type' => 'input',
-				'size' => 7,
-				'eval' => 'date',
+				'size' => 10,
+				'eval' => 'datetime',
 				'checkbox' => 1,
 				'default' => time()
 			),
@@ -109,8 +109,10 @@ $TCA['tx_placements_domain_model_section'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_section.end',
 			'config' => array(
 				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
+				'size' => 10,
+				'eval' => 'datetime',
+				'checkbox' => 1,
+				'default' => time()
 			),
 		),
 		'position' => array(
@@ -126,10 +128,22 @@ $TCA['tx_placements_domain_model_section'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_section.description',
 			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
+				'type' => 'text',
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim',
+				'wizards' => array(
+					'RTE' => array(
+						'icon' => 'wizard_rte2.gif',
+						'notNewRecords'=> 1,
+						'RTEonly' => 1,
+						'script' => 'wizard_rte.php',
+						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
+						'type' => 'script'
+					)
+				)
 			),
+			'defaultExtras' => 'richtext:rte_transform[flag=rte_enabled|mode=ts]',
 		),
 		'resume' => array(
 			'config' => array(

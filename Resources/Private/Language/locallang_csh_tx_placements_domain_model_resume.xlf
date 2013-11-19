@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-28T12:36:46Z" product-name="placements">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-04T17:01:54Z" product-name="placements">
 		<header/>
 		<body>
 
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="introduction.description">
+				<source>introduction</source>
+			</trans-unit>
 			<trans-unit id="sections.description">
 				<source>sections</source>
 			</trans-unit>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-12T19:56:26Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+		<trans-unit id="categories.description" approved="yes" xml:space="preserve">
+			<source>Categories </source>
+			<target>Kategorien</target>
+		</trans-unit>
+		<trans-unit id="city.description" approved="yes" xml:space="preserve">
+			<source>City</source>
+			<target>Ort</target>
+		</trans-unit>
+		<trans-unit id="client.description" approved="yes" xml:space="preserve">
+			<source>Client for whom this position is managed. &lt;br /&gt;(Create records of type 'Client' first. Only necessary for multi-client capable installation.)</source>
+			<target>Kunde, für den diese Stelle verwaltet wird. &lt;br /&gt;(Datensätze vom Typ 'Kunde' müssen angelegt sein. Nur für mandantenfähige Installation benötigt)</target>
+		</trans-unit>
+		<trans-unit id="contact.description" approved="yes" xml:space="preserve">
+			<source>Contact</source>
+			<target>Kontakt</target>
+		</trans-unit>
+		<trans-unit id="description.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="duration.description" approved="yes" xml:space="preserve">
+			<source>Duration</source>
+			<target>Dauer</target>
+		</trans-unit>
+		<trans-unit id="entry_date.description" approved="yes" xml:space="preserve">
+			<source>Entry Date</source>
+			<target>Eintrittsdatum</target>
+		</trans-unit>
+		<trans-unit id="fixed_term.description" approved="yes" xml:space="preserve">
+			<source>Fixed Term &lt;br /&gt;(If enabled an additional field 'duration' will be shown.)</source>
+			<target>befristet &lt;br /&gt;(Wenn dieses Feld gesetzt ist, wird ein zusätzliches Feld 'Dauer' eingeblendet)</target>
+		</trans-unit>
+		<trans-unit id="identifier.description" approved="yes" xml:space="preserve">
+			<source>Unique external identifier for position.</source>
+			<target>Eindeutige externe Referenz</target>
+		</trans-unit>
+		<trans-unit id="link.description" approved="yes" xml:space="preserve">
+			<source>external or internal Link</source>
+			<target>Externer oder interner Link</target>
+		</trans-unit>
+		<trans-unit id="organization.description" approved="yes" xml:space="preserve">
+			<source>Organization or company offering this position. &lt;br /&gt;(Create records of type 'Organisation' first.)</source>
+			<target>Organisation oder Firma, die diese Stelle anbietet. &lt;br /&gt;(Datensätze vom Typ 'Organisation' müssen angelegt sein.)</target>
+		</trans-unit>
+		<trans-unit id="payment.description" approved="yes" xml:space="preserve">
+			<source>Payment</source>
+			<target>Bezahlung</target>
+		</trans-unit>
+		<trans-unit id="summary.description" approved="yes" xml:space="preserve">
+			<source>Summary</source>
+			<target>Zusammenfassung</target>
+		</trans-unit>
+		<trans-unit id="title.description" approved="yes" xml:space="preserve">
+			<source>Title of position.</source>
+			<target>Titel des Stellenangebotes</target>
+		</trans-unit>
+		<trans-unit id="type.description" approved="yes" xml:space="preserve">
+			<source>Type of position &lt;br /&gt;(Create records of type 'Position Type' first.)</source>
+			<target>Art der Stelle &lt;br /&gt;(Datensätze vom Typ 'Art der Stelle' müssen angelegt sein.)</target>
+		</trans-unit>
+		<trans-unit id="working_hours.description" approved="yes" xml:space="preserve">
+			<source>Working Hours &lt;br /&gt;(Create records of type 'Working Hours' first)</source>
+			<target>Arbeitszeit &lt;br /&gt;(Datensätze vom Typ 'Arbeitszeit' müssen angelegt sein)</target>
+		</trans-unit>
+		<trans-unit id="zip.description" approved="yes" xml:space="preserve">
+			<source>Zip</source>
+			<target>PLZ</target>
+		</trans-unit>
+		</body>
+	</file>
+</xliff>

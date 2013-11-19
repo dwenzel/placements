@@ -14,7 +14,11 @@ config.tx_extbase{
                     recordType = Tx_Placements_User
                 }
             }
-            
+			Webfox\Placements\Domain\Model\Category {
+				mapping {
+					tableName = sys_category
+				}
+			}
     	}
     }
 }

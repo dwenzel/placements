@@ -1,0 +1,28 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+	<f:if condition="{settings.debug}">
+		<f:debug title="Search">{search}</f:debug>
+	</f:if>
+	<div class="tx-placements search-form">
+		<div class="row-fluid">
+			<div class="message hint">{f:translate(key: 'tx_placements.searchForm.hint')}</div>
+		</div>
+		<f:form 
+			action="searchResult"
+			object="{search}" 
+			name="search"
+			pageUid="{settings.position.search.pid}"
+		>
+			<fieldset>
+				<div class="row-fluid">
+					<div class="span6">	
+						<f:form.textfield property="subject" class="input-search"/>
+					</div>
+					<f:form.submit value="{f:translate(key: 'tx_placements.general.search')}" />
+				</div>
+				</fieldset>
+			</f:form>
+	</div>
+</f:section>
+

@@ -1,15 +1,61 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-08-28T12:36:46Z" product-name="placements">
-		<header/>
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T19:56:26Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
 		<body>
-
-			<trans-unit id="organization.description">
-				<source>organization</source>
-			</trans-unit>
-			<trans-unit id="client.description">
-				<source>client</source>
-			</trans-unit>
+		<trans-unit id="categories.description" xml:space="preserve">
+			<source>Categories </source>
+		</trans-unit>
+		<trans-unit id="city.description" xml:space="preserve">
+			<source>City</source>
+		</trans-unit>
+		<trans-unit id="client.description" xml:space="preserve">
+			<source>Client for whom this position is managed. &lt;br /&gt;(Create records of type 'Client' first. Only necessary for multi-client capable installation.)</source>
+		</trans-unit>
+		<trans-unit id="contact.description" xml:space="preserve">
+			<source>Contact</source>
+		</trans-unit>
+		<trans-unit id="description.description" xml:space="preserve">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="duration.description" xml:space="preserve">
+			<source>Duration</source>
+		</trans-unit>
+		<trans-unit id="entry_date.description" xml:space="preserve">
+			<source>Entry Date</source>
+		</trans-unit>
+		<trans-unit id="fixed_term.description" xml:space="preserve">
+			<source>Fixed Term &lt;br /&gt;(If enabled an additional field 'duration' will be shown.)</source>
+		</trans-unit>
+		<trans-unit id="identifier.description" xml:space="preserve">
+			<source>Unique external identifier for position.</source>
+		</trans-unit>
+		<trans-unit id="link.description" xml:space="preserve">
+			<source>external or internal Link</source>
+		</trans-unit>
+		<trans-unit id="organization.description" xml:space="preserve">
+			<source>Organization or company offering this position. &lt;br /&gt;(Create records of type 'Organisation' first.)</source>
+		</trans-unit>
+		<trans-unit id="payment.description" xml:space="preserve">
+			<source>Payment</source>
+		</trans-unit>
+		<trans-unit id="summary.description" xml:space="preserve">
+			<source>Summary</source>
+		</trans-unit>
+		<trans-unit id="title.description" xml:space="preserve">
+			<source>Title of position.</source>
+		</trans-unit>
+		<trans-unit id="type.description" xml:space="preserve">
+			<source>Type of position &lt;br /&gt;(Create records of type 'Position Type' first.)</source>
+		</trans-unit>
+		<trans-unit id="working_hours.description" xml:space="preserve">
+			<source>Working Hours &lt;br /&gt;(Create records of type 'Working Hours' first)</source>
+		</trans-unit>
+		<trans-unit id="zip.description" xml:space="preserve">
+			<source>Zip</source>
+		</trans-unit>
 		</body>
 	</file>
 </xliff>
