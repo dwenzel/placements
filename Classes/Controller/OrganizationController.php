@@ -36,7 +36,7 @@ namespace Webfox\Placements\Controller;
 class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * organizationRepository
+	 * Organization Repository
 	 *
 	 * @var \Webfox\Placements\Domain\Repository\OrganizationRepository
 	 * @inject
@@ -50,6 +50,14 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @inject
 	 */
 	protected $sectorRepository;
+
+	/**
+	 * Category Repository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\CategoryRepository
+	 * @inject
+	 */
+	protected $categoryRepository;
 
 	/**
 	 * action list
@@ -80,9 +88,11 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 */
 	public function newAction(\Webfox\Placements\Domain\Model\Organization $newOrganization = NULL) {
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
 		$this->view->assignMultiple(array(
 			'newOrganization' => $newOrganization,
-			'sectors' => $sectors 
+			'sectors' => $sectors,
+			'categories' => $categories,
 		));
 	}
 
@@ -106,9 +116,11 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 */
 	public function editAction(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
 		$this->view->assignMultiple(array(
 			'organization'=> $organization,
 			'sectors' => $sectors,
+			'categories' => $categories,
 		));
 	}
 
