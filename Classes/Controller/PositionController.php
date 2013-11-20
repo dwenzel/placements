@@ -132,7 +132,19 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function newAction(\Webfox\Placements\Domain\Model\Position $newPosition = NULL) {
-		$this->view->assign('newPosition', $newPosition);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$organizations = $this->organizationRepository->findAll();
+		$this->view->assignMultiple(array(
+			'newPosition' => $newPosition,
+			'workingHours' => $workingHours,
+			'positionTypes' => $positionTypes,
+			'categories' => $categories,
+			'sectors' => $sectors,
+			'organizations' => $organizations,
+		));
 	}
 
 	/**
