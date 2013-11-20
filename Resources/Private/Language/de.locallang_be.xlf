@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-19T10:23:23Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-20T14:53:15Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -84,6 +84,10 @@
 		<trans-unit id="flexforms_general.orderDirection.descending" approved="yes" xml:space="preserve">
 			<source>descending</source>
 			<target>absteigend</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.organizations" approved="yes" xml:space="preserve">
+			<source>Organizations</source>
+			<target>Organisationen</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.positionTypes" approved="yes" xml:space="preserve">
 			<source>Position Types</source>
