@@ -106,6 +106,16 @@ class T3libBefunc {
 			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector',
 		);
 
+	/**
+	 * Fields which are removed in organization list view
+	 *
+	 * @var \array
+	 */
+	public $removedFieldsInOrganizationListView = array(
+			'sDEF' => '',
+			'constraints' => 'workingHours,positionTypes,showWorkingHours,showPositionTypes,constraintsConjunction,showConjunctionSelector',
+		);
+
 
 	/**
 	 * Hook function of t3lib_befunc
@@ -173,6 +183,9 @@ class T3libBefunc {
 					break;
 				case 'Position->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPositionQuickMenuView);
+					break;
+				case 'Organization->list':
+					$this->deleteFromStructure($dataStructure, $this->removedFieldsInOrganizationListView);
 					break;
 				default:
 			}
