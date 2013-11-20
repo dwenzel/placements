@@ -1,0 +1,20 @@
+
+<div class="row-fluid list-item">
+<f:comment>titel, organization.title,entryDate,organization.zip organization.city</f:comment>
+	<div class="span8 title">
+		<f:link.action 
+			action="show"
+			pageUid="{settings.organization.detail.pid}" 
+			arguments="{organization : organization}"> {organization.title}</f:link.action></div>
+	<div class="span2 identifier">{organization.identifier}</div>
+	<f:security.ifHasRole role="{settings.security.organization.editorGroup}">
+		<div class="span2">
+			<f:link.action action="edit" arguments="{organization : organization}" class="button edit">
+				<f:translate key="tx_placements.general.edit">Edit</f:translate>
+			</f:link.action>
+			<f:link.action action="delete" arguments="{organization : organization}" class="button delete">
+				<f:translate key="tx_placements.general.delete">Delete</f:translate>
+			</f:link.action>
+		</div>
+	</f:security.ifHasRole>
+</div>

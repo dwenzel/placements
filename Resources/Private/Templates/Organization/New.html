@@ -1,14 +1,24 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-<h1>New Organization</h1>
 
-<f:flashMessages />
+	<div class="edit-form">
+		<f:flashMessages class="message"/>
+		<f:render partial="FormErrors" arguments="{object:Organization}"/>
 
-<f:render partial="FormErrors" arguments="{object:Organization}"/>
-
-<f:form action="create"  enctype="multipart/form-data"  name="newOrganization" object="{newOrganization}">
-<f:render partial="Organization/FormFields" arguments="{sectors: sectors}"/>
-	<f:form.submit value="Create new" />
-</f:form>
+		<f:form action="create"  
+			enctype="multipart/form-data"  
+			name="newOrganization" 
+			object="{newOrganization}"
+		>
+			<f:render 
+				partial="Organization/FormFields" 
+				arguments="{
+					sectors: sectors,
+					categories: categories
+					}"
+			/>
+			<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
+		</f:form>
+	</div>
 </f:section>
