@@ -1,12 +1,21 @@
 <f:form.validationResults for="{object}">
+<f:comment>
+	<f:debug title="Validation Results">{validationResults}</f:debug>
+	<f:debug title="Flattend Errors">{validationResults.flattenedErrors}</f:debug>
+</f:comment>
 	<f:if condition="{validationResults.flattenedErrors}">
-		<ul>
-		<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
-			<li>
-			{propertyPath}: <ul>
-				<f:for each="{errors}" as="error"><li>{error}</li></f:for>
-				</ul>
-			</li>
-		</f:for></ul>
-</f:if>
+		<div class="error">
+			<ul>
+				<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
+					<li>
+					<span class="property">{f:translate(key:'tx_placements_domain_model_{propertyPath}', default: '{propertyPath}')}</span>
+					 <ul>
+						<f:for each="{errors}" as="error">
+							<li>{f:translate(key: 'tx_placements.error.{propertyPath}.{error.code}', default: '{error}')}</li></f:for>
+						</ul>
+					</li>
+				</f:for>
+			</ul>
+		</div>
+	</f:if>
 </f:form.validationResults>
