@@ -1,25 +1,24 @@
 <f:layout name="Default" />
 
-This template displays a EDIT form for the current domain object.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        Edit.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
-<h1>Edit Organization</h1>
+	<div class="edit-form">
+		<f:flashMessages class="message"/>
+		<f:render partial="FormErrors" arguments="{object:Organization}"/>
 
-<f:flashMessages />
-
-<f:render partial="FormErrors" arguments="{object:Organization}"/>
-
-<f:form action="update" name="organization" object="{organization}" >
-<f:render partial="Organization/FormFields" arguments="{organization:organization}" />
-	<f:form.submit value="Save" />
-</f:form>
+		<f:form action="update"  
+			enctype="multipart/form-data"  
+			name="organization" 
+			object="{organization}"
+		>
+			<f:render 
+				partial="Organization/FormFields" 
+				arguments="{
+					organization: organization
+					sectors: sectors,
+					categories: categories
+					}"
+			/>
+			<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
+		</f:form>
+	</div>
 </f:section>
