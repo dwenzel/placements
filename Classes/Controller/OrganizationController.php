@@ -116,7 +116,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 */
 	public function editAction(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories', 'title']);
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 		$this->view->assignMultiple(array(
 			'organization'=> $organization,
 			'sectors' => $sectors,
