@@ -132,10 +132,10 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function newAction(\Webfox\Placements\Domain\Model\Position $newPosition = NULL) {
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
 		$organizations = $this->organizationRepository->findAll();
 		$this->view->assignMultiple(array(
 			'newPosition' => $newPosition,
@@ -167,10 +167,10 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function editAction(\Webfox\Placements\Domain\Model\Position $position) {
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
 		$organizations = $this->organizationRepository->findAll();
 		$this->view->assignMultiple(array(
 			'position' => $position,
@@ -215,10 +215,10 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		// get session data
 		//$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_placements_overwriteDemand');
 		
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 		//$categories = $this->categoryRepository->findAll();
 		$this->view->assignMultiple(
 			array(
@@ -256,10 +256,10 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		if (is_null($search)) {
 			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
 		}
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 		$this->view->assignMultiple(
 			array(
 				'search' => $search,
