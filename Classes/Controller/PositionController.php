@@ -165,7 +165,11 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Position $newPosition) {
 		$this->positionRepository->add($newPosition);
-		$this->flashMessageContainer->add('Your new Position was created.');
+		$this->flashMessageContainer->add(
+			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+				'tx_placements.success.position.createAction', 'placements'
+				)
+			);
 		$this->redirect('list');
 	}
 
@@ -366,6 +370,17 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		*/
 		return $demand;
 	}
+
+	/**
+	 * A template method for displaying custom error flash messages, or to
+	 * display no flash message at all on errors.
+	 *
+	 * @return string|boolean The flash message or FALSE if no flash message should be set
+	 */
+	 protected function getErrorFlashMessage() {
+		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+	 	'tx_placements.error'.'.position.'. $this->actionMethodName, 'placements');
+	 }
 
 }
 ?>
