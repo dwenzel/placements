@@ -18,7 +18,16 @@ plugin.tx_placements {
 	}
 
 	settings {
-		security.editorGroup =
+		security {
+			position {
+				editorGroup = {$plugin.tx_placements.settings.security.position.editorGroup}
+				adminGroup = {$plugin.tx_placements.settings.security.position.adminGroup}
+			}
+			organization {
+				editorGroup = {$plugin.tx_placements.settings.security.organization.editorGroup}
+				adminGroup = {$plugin.tx_placements.settings.security.organization.adminGroup}
+			}
+		}			
 		position {
 			list {
 				summary.crop = 35
