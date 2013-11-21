@@ -98,6 +98,16 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				$this->settings['position']['edit']['entryDate']['format']
 			);
 		}
+		if ($this->arguments->hasArgument('newPosition')) {
+			$this->arguments->getArgument('newPosition')
+			->getPropertyMappingConfiguration()
+			->forProperty('entryDate')
+			->setTypeConverterOption(
+				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
+				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
+				$this->settings['position']['create']['entryDate']['format']
+			);
+		}
 	}
 	/**
 	 * action list

@@ -35,6 +35,7 @@ plugin.tx_placements {
 				}
 			}
 			edit.entryDate.format = d.m.Y
+			create.entryDate.format = d.m.Y
 			search {
 				pid = 
 				fields = title,identifier,summary,zip,city,type.title
