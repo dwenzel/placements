@@ -1,22 +1,24 @@
 
 <div class="row-fluid list-item">
 <f:comment>titel, organization.title,entryDate,organization.zip organization.city</f:comment>
-	<div class="span4 title">
+	<div class="span3 title">
 		<f:link.action 
 			action="show"
 			pageUid="{settings.position.detail.pid}" 
 			arguments="{position : position}"> {position.title}</f:link.action></div>
 	<div class="span3 organization title">{position.organization.title}</div>
-	<div class="span3 date"><f:format.date format="{settings.position.list.entryDate.format}">{position.entryDate}</f:format.date></div>
+	<div class="span2 date"><f:format.date format="{settings.position.list.entryDate.format}">{position.entryDate}</f:format.date></div>
 	<div class="span2 organization zip city">{position.zip} {position.city}</div>
-	<f:security.ifHasRole role="{settings.security.editorGroup}">
-		<div class="span2">
+	<div class="span2">
+		<f:security.ifHasRole role="{settings.security.position.editorGroup}">
 			<f:link.action action="edit" arguments="{position : position}" class="button edit">
 				<f:translate key="tx_placements.general.edit">Edit</f:translate>
 			</f:link.action>
+		</f:security.ifHasRole>
+		<f:security.ifHasRole role="{settings.security.position.adminGroup}">
 			<f:link.action action="delete" arguments="{position : position}" class="button delete">
 				<f:translate key="tx_placements.general.delete">Delete</f:translate>
 			</f:link.action>
-		</div>
-	</f:security.ifHasRole>
+		</f:security.ifHasRole>
+	</div>
 </div>
