@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-15T09:51:40Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-21T17:55:21Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.error.newPosition.title.1221560718" approved="yes" xml:space="preserve">
+			<source>Please enter a job title.</source>
+			<target>Bitte geben Sie ein Stellenbezeichnung an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.createAction" approved="yes" xml:space="preserve">
+			<source>Sorry! Your position could not be created.</source>
+			<target>Ihr Stellenangebot konnte nicht gespeichert werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.title.1221560718" approved="yes" xml:space="preserve">
+			<source>Please enter a job title.</source>
+			<target>Die Stellenbezeichnung darf nicht leer sein.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.updateAction" approved="yes" xml:space="preserve">
+			<source>Sorry! Your position could not be updated.</source>
+			<target>Ihr Stellenangebot konnte nicht aktualisiert werden.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.extendedSearchForm.hint" approved="yes" xml:space="preserve">
 			<source>Please enter a keyword or choose any option.</source>
 			<target>Bitte geben Sie einen Suchbegriff ein oder wählen Sie eine der Optionen.</target>
@@ -84,6 +100,10 @@
 		<trans-unit id="tx_placements.searchForm.hint" approved="yes" xml:space="preserve">
 			<source>Please enter a keyword.</source>
 			<target>Bitte geben Sie einen Suchbegriff ein.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.createAction" approved="yes" xml:space="preserve">
+			<source>Your new Position was created.</source>
+			<target>Ihr neues Stellenangebot wurde gespeichert.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" approved="yes" xml:space="preserve">
 			<source>Application</source>
