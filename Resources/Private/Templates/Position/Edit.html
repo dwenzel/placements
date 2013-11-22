@@ -12,7 +12,7 @@ This template displays a EDIT form for a position
 		<div class="edit-form">
 			<f:render partial="FormErrors" arguments="{object:Position}"/>
 
-			<f:form action="update" name="position" object="{position}" >
+			<f:form pageUid="{settings.position.list.pid}" action="update" name="position" object="{position}" >
 				<f:render 
 					partial="Position/FormFields" 
 					arguments="{
