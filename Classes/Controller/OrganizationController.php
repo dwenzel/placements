@@ -148,5 +148,16 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		$this->redirect('list');
 	}
 
+	/**
+	 * A template method for displaying custom error flash messages, or to
+	 * display no flash message at all on errors.
+	 *
+	 * @return string|boolean The flash message or FALSE if no flash message should be set
+	 */
+	 protected function getErrorFlashMessage() {
+		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+	 	'tx_placements.error'.'.organization.'. $this->actionMethodName, 'placements');
+	 }
+
 }
 ?>
