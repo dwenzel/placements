@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-21T17:55:21Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-22T15:22:03Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" approved="yes" xml:space="preserve">
+			<source>Please enter a name for your organization.</source>
+			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.newPosition.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a job title.</source>
 			<target>Bitte geben Sie ein Stellenbezeichnung an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.createAction" approved="yes" xml:space="preserve">
+			<source>Sorry! Your organization could not be created.</source>
+			<target>Ihr Unternehmen konnte nicht erstellt werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.title.1221560718" approved="yes" xml:space="preserve">
+			<source>Please enter a name for your organization.</source>
+			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.updateAction" approved="yes" xml:space="preserve">
+			<source>Sorry! Your organization could not be updated.</source>
+			<target>Ihr Unternehmen konnte nicht aktualisiert werden.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.createAction" approved="yes" xml:space="preserve">
 			<source>Sorry! Your position could not be created.</source>
@@ -52,6 +68,26 @@
 		<trans-unit id="tx_placements.general.search" approved="yes" xml:space="preserve">
 			<source>search</source>
 			<target>suchen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectCategory" approved="yes" xml:space="preserve">
+			<source>Choose Category</source>
+			<target>Kategorie auswählen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectOrganization" approved="yes" xml:space="preserve">
+			<source>Choose Organization</source>
+			<target>Unternehmen auswählen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectPositionType" approved="yes" xml:space="preserve">
+			<source>Select Position Type</source>
+			<target>Stellentyp auswählen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectSector" approved="yes" xml:space="preserve">
+			<source>Select Sector</source>
+			<target>Branche auswählen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectWorkingHours" approved="yes" xml:space="preserve">
+			<source>Choose Working Hours</source>
+			<target>Arbeitszeit auswählen</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.update" approved="yes" xml:space="preserve">
 			<source>update</source>
@@ -148,6 +184,14 @@
 		<trans-unit id="tx_placements_domain_model_client.name" approved="yes" xml:space="preserve">
 			<source>Name</source>
 			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newOrganization.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newPosition.title" approved="yes" xml:space="preserve">
+			<source>Job Title</source>
+			<target>Stellenbezeichnung</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization" approved="yes" xml:space="preserve">
 			<source>Organization</source>

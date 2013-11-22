@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-21T17:55:21Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-22T15:22:03Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" xml:space="preserve">
+			<source>Please enter a name for your organization.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.newPosition.title.1221560718" xml:space="preserve">
 			<source>Please enter a job title.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.createAction" xml:space="preserve">
+			<source>Sorry! Your organization could not be created.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.title.1221560718" xml:space="preserve">
+			<source>Please enter a name for your organization.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.updateAction" xml:space="preserve">
+			<source>Sorry! Your organization could not be updated.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.createAction" xml:space="preserve">
 			<source>Sorry! Your position could not be created.</source>
@@ -40,6 +52,21 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.search" xml:space="preserve">
 			<source>search</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectCategory" xml:space="preserve">
+			<source>Choose Category</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectOrganization" xml:space="preserve">
+			<source>Choose Organization</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectPositionType" xml:space="preserve">
+			<source>Select Position Type</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectSector" xml:space="preserve">
+			<source>Select Sector</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectWorkingHours" xml:space="preserve">
+			<source>Choose Working Hours</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.update" xml:space="preserve">
 			<source>update</source>
@@ -112,6 +139,12 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_client.name" xml:space="preserve">
 			<source>Name</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newOrganization.title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newPosition.title" xml:space="preserve">
+			<source>Job Title</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization" xml:space="preserve">
 			<source>Organization</source>
