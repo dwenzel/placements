@@ -83,7 +83,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * action new
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Organization $newOrganization
-	 * @dontvalidate $newOrganization
+	 * @ignorevalidation $newOrganization
 	 * @return void
 	 */
 	public function newAction(\Webfox\Placements\Domain\Model\Organization $newOrganization = NULL) {
