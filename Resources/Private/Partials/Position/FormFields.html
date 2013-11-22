@@ -11,6 +11,7 @@
 				<f:form.select
 					id="working_hours"
 		 			options="{workingHours}"
+					property = "working_hours"
 					optionValueField="uid"
 					optionLabelField="title"
 					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectWorkingHours')}"
@@ -22,6 +23,7 @@
 				<label for="position_type">{f:translate(key: 'tx_placements_domain_model_positiontype')}</label>
 				<f:form.select
 					id="position_type"
+					property="position_type"
 				 	options="{positionTypes}"
 					optionValueField="uid"
 					optionLabelField="title"
@@ -35,6 +37,7 @@
 				<f:form.select
 					id="sectors"
 				 	options="{sectors}"
+					property="sectors"
 					optionValueField="uid"
 					optionLabelField="title"
 					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectSector')}"
@@ -56,6 +59,7 @@
 				<f:form.select
 					id="categories"
 				 	options="{categories}"
+					property="categories"
 					optionValueField="uid"
 					optionLabelField="title"
 					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectCategory')}"
@@ -73,6 +77,7 @@
 				<f:form.select
 					id="organization"
 				 	options="{organizations}"
+					property="organization"
 					optionValueField="uid"
 					optionLabelField="title"
 					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectOrganization')}"

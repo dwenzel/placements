@@ -25,6 +25,7 @@
 		<label for="sectors">{f:translate(key: 'tx_placements_domain_model_sector')}</label>
 			<f:form.select
 				id="sectors"
+				property="sectors"
 				options="{sectors}"
 				optionValueField="uid"
 				optionLabelField="title"
@@ -36,6 +37,7 @@
 		<label for="categories">{f:translate(key: 'tx_placements_domain_model_category')}</label>
 		<f:form.select
 			id="categories"
+			property="categories"
 			options="{categories}"
 			optionValueField="uid"
 			optionLabelField="title"
