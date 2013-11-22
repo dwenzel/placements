@@ -10,6 +10,7 @@ if (!defined('TYPO3_MODE')) {
 		'Position' => 'list, show, new, create, edit, update, delete, quickMenu',
 		'User' => 'list, show, new, create, edit, update, delete',
 		'Application' => 'list, show, new, create, edit, update, delete',
+		'Organization' => 'list, show, new, create, edit, update, delete',
 		
 	),
 	// non-cacheable actions
@@ -17,6 +18,7 @@ if (!defined('TYPO3_MODE')) {
 		'Position' => 'create, update, delete, quickMenu',
 		'User' => 'create, update, delete',
 		'Application' => 'create, update, delete',
+		'Organization' => 'create, update, delete',
 		
 	)
 );

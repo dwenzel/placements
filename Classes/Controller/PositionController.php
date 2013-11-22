@@ -98,6 +98,16 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				$this->settings['position']['edit']['entryDate']['format']
 			);
 		}
+		if ($this->arguments->hasArgument('newPosition')) {
+			$this->arguments->getArgument('newPosition')
+			->getPropertyMappingConfiguration()
+			->forProperty('entryDate')
+			->setTypeConverterOption(
+				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
+				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
+				$this->settings['position']['create']['entryDate']['format']
+			);
+		}
 	}
 	/**
 	 * action list
@@ -132,7 +142,19 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function newAction(\Webfox\Placements\Domain\Model\Position $newPosition = NULL) {
-		$this->view->assign('newPosition', $newPosition);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
+		$organizations = $this->organizationRepository->findAll();
+		$this->view->assignMultiple(array(
+			'newPosition' => $newPosition,
+			'workingHours' => $workingHours,
+			'positionTypes' => $positionTypes,
+			'categories' => $categories,
+			'sectors' => $sectors,
+			'organizations' => $organizations,
+		));
 	}
 
 	/**
@@ -143,7 +165,11 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Position $newPosition) {
 		$this->positionRepository->add($newPosition);
-		$this->flashMessageContainer->add('Your new Position was created.');
+		$this->flashMessageContainer->add(
+			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+				'tx_placements.success.position.createAction', 'placements'
+				)
+			);
 		$this->redirect('list');
 	}
 
@@ -155,10 +181,10 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function editAction(\Webfox\Placements\Domain\Model\Position $position) {
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
 		$organizations = $this->organizationRepository->findAll();
 		$this->view->assignMultiple(array(
 			'position' => $position,
@@ -203,10 +229,10 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		// get session data
 		//$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_placements_overwriteDemand');
 		
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 		//$categories = $this->categoryRepository->findAll();
 		$this->view->assignMultiple(
 			array(
@@ -244,10 +270,10 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		if (is_null($search)) {
 			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
 		}
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes']);
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours']);
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors']);
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories']);
+		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
+		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 		$this->view->assignMultiple(
 			array(
 				'search' => $search,
@@ -344,6 +370,17 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		*/
 		return $demand;
 	}
+
+	/**
+	 * A template method for displaying custom error flash messages, or to
+	 * display no flash message at all on errors.
+	 *
+	 * @return string|boolean The flash message or FALSE if no flash message should be set
+	 */
+	 protected function getErrorFlashMessage() {
+		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+	 	'tx_placements.error'.'.position.'. $this->actionMethodName, 'placements');
+	 }
 
 }
 ?>

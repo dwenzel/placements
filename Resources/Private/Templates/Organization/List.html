@@ -1,0 +1,84 @@
+{namespace pw=Webfox\Placements\ViewHelpers\Widget}
+<f:layout name="Default" />
+
+This Template creates a list of organizations.
+
+<f:section name="main">
+<f:if condition="{settings.debug}">
+	<f:debug title="settings">{settings}</f:debug>
+</f:if>
+<f:flashMessages />
+
+<div  class="organization-list" >
+	<div class="row-fluid">
+		<div class="span8"><f:translate key="tx_placements_domain_model_organization.title" /></div>
+		<div class="span2"><f:translate key="tx_placements_domain_model_organization.identifier" /></div>
+		<f:security.ifHasRole role="{settings.security.organization.editorGroup}" >
+			<div class="span2"> </div>
+		</f:security.ifHasRole>
+	</div>
+
+	<pw:paginate  
+		objects="{organizations}" 
+		as="paginatedOrganizations" 
+		configuration="{itemsPerPage: '{settings.organization.list.paginate.itemsPerPage}', 
+				insertAbove: '{settings.organization.list.paginate.insertAbove}',
+				insertBelow: '{settings.organization.list.paginate.insertBelow}',
+				lessPages: '{settings.organization.list.paginate.lessPages}',
+				forcedNumberOfLinks: '{settings.organization.list.paginate.lessPages}',
+				pagesBefore: '{settings.organization.list.paginate.pagesBefore}',
+				pagesAfter: '{settings.organization.list.paginate.pagesAfter}'
+				}" >
+		<f:for each="{paginatedOrganizations}" as="organization">
+			<f:render partial="Organization/List/Item" arguments="{organization: '{organization}', settings: '{settings}'}" /> 
+		</f:for>
+	</pw:paginate>
+</div>
+
+<f:security.ifHasRole role="{settings.security.organization.editorGroup}">
+	<f:link.action action="new" class="button new">
+		<f:translate key="tx_placements.new_organization" >New Organization</f:translate>
+	</f:link.action>
+</f:security.ifHasRole>
+</f:section>
+
+<!-- old -->
+<f:comment>
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<h1>Listing for Organization</h1>
+
+<f:flashMessages />
+
+<table  class="tx-placements" >
+	<tr>
+		<th><f:translate key="tx_placements_domain_model_organization.introduction" /></th>
+		<th><f:translate key="tx_placements_domain_model_organization.text" /></th>
+		<th><f:translate key="tx_placements_domain_model_organization.file" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{organizations}" as="organization">
+		<tr>
+			<td><f:link.action action="show" arguments="{organization : organization}"> {organization.introduction}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{organization : organization}"> {organization.text}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{organization : organization}"> {organization.file}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{organization : organization}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{organization : organization}">Delete</f:link.action></td>
+		</tr>
+	</f:for>
+</table>
+
+<f:link.action action="new">New Organization</f:link.action>
+</f:comment>

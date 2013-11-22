@@ -1,0 +1,24 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+	<div class="edit-form">
+		<f:flashMessages class="message"/>
+		<f:render partial="FormErrors" arguments="{object:Organization}"/>
+
+		<f:form action="update"  
+			enctype="multipart/form-data"  
+			name="organization" 
+			object="{organization}"
+		>
+			<f:render 
+				partial="Organization/FormFields" 
+				arguments="{
+					organization: organization
+					sectors: sectors,
+					categories: categories
+					}"
+			/>
+			<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
+		</f:form>
+	</div>
+</f:section>

@@ -1,0 +1,28 @@
+
+<h2>{organization.title}</h2>
+<div class="long-info">
+	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.identifier')}</div>
+	<div class="identifier">{organization.identifier}</div>
+	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.sector')}</div>
+	<div class="sector-list">
+		<f:for each="{organization.sectors}" as="sector" >
+			<div class="sector">{sector.title}</div>
+		</f:for>
+	</div>
+	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.image')}</div>
+	<div class="image">
+	<f:image 
+		src="uploads/tx_placements/{organization.image}" 
+		alt="{organization.title}"
+		width="{settings.organization.detail.image.width}"
+	/>
+	</div>
+
+	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.description')}</div>
+	<div class="description"><f:format.html>{organization.description}</f:format.html></div>
+	<div class="category-list">
+		<f:for each="{organization.categories}" as="category" >
+			<div class="category">{category.title}</div>
+		</f:for>
+	</div>
+</div>

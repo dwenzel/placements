@@ -12,13 +12,11 @@
 			<f:if condition="{positions}">
 				<div  class="position-list" >
 					<div class="row-fluid">
-						<div class="span4"><f:translate key="tx_placements_domain_model_position.title" /></div>
+						<div class="span3"><f:translate key="tx_placements_domain_model_position.title" /></div>
 						<div class="span3"><f:translate key="tx_placements_domain_model_position.organization" /></div>
-						<div class="span3"><f:translate key="tx_placements_domain_model_position.entry_date" /></div>
+						<div class="span2"><f:translate key="tx_placements_domain_model_position.entry_date" /></div>
 						<div class="span2"><f:translate key="tx_placements_domain_model_position.city" /></div>
-						<f:security.ifHasRole role="{settings.security.editorGroup}" >
-							<div class="span2"> </div>
-						</f:security.ifHasRole>
+						<div class="span2"> </div>
 					</div>
 						<f:for each="{positions}"
 							as="position">
