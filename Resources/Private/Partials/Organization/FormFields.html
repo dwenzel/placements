@@ -34,8 +34,6 @@
 	</div>
 </f:if>
 
-<f:comment>
-<!-- field categories not implemented yet! -->
 <f:if condition="{categories}">
 	<div class="clearfix">
 		<label for="categories">{f:translate(key: 'tx_placements_domain_model_category')}</label>
@@ -45,7 +43,7 @@
 			options="{categories}"
 			optionValueField="uid"
 			optionLabelField="title"
+			prependOptionLabel="{f:translate(key: 'tx_placements.general.selectCategory')}"
 		/>
 	</div>
 </f:if>
-</f:comment>

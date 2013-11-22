@@ -73,6 +73,14 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $sectors;
 
 	/**
+	 * Categories
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+	 * @lazy
+	 */
+	protected $categories;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return \string $title
@@ -168,6 +176,7 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		 * It will be rewritten on each save in the extension builder
 		 * You may modify the constructor of this class instead
 		 */
+		$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->sectors = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
@@ -208,6 +217,45 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setSectors(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $sectors) {
 		$this->sectors = $sectors;
+	}
+
+	/**
+	 * Adds a Category
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
+	 * @return void
+	 */
+	public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category) {
+		$this->categories->attach($category);
+	}
+
+	/**
+	 * Removes a Category
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove The Category to be removed
+	 * @return void
+	 */
+	public function removeCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove) {
+		$this->categories->detach($categoryToRemove);
+	}
+
+	/**
+	 * Returns the categories
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+	 */
+	public function getCategories() {
+		return $this->categories;
+	}
+
+	/**
+	 * Sets the categories
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+	 * @return void
+	 */
+	public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories) {
+		$this->categories = $categories;
 	}
 
 }
