@@ -367,5 +367,12 @@ $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applica
 	$fieldName = 'categories',
 	$options = array()
 );
+// make organizations categorizable
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
+	$_EXTKEY,
+	'tx_placements_domain_model_organization',
+	$fieldName = 'categories',
+	$options = array()
+);
 ?>
 
