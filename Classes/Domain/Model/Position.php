@@ -126,6 +126,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Organization offering this position
 	 *
 	 * @var \Webfox\Placements\Domain\Model\Organization
+	 * @validate NotEmpty
 	 * @lazy
 	 */
 	protected $organization;
@@ -134,6 +135,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Client for whom this position is managed
 	 *
 	 * @var \Webfox\Placements\Domain\Model\Client
+	 * @validate NotEmpty
 	 * @lazy
 	 */
 	protected $client;
@@ -142,6 +144,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Type of position
 	 *
 	 * @var \Webfox\Placements\Domain\Model\PositionType
+	 * @validate NotEmpty
 	 * @lazy
 	 */
 	protected $type;
@@ -158,6 +161,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Working Hours
 	 *
 	 * @var \Webfox\Placements\Domain\Model\WorkingHours
+	 * @validate NotEmpty
 	 * @lazy
 	 */
 	protected $workingHours;
@@ -261,7 +265,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \Webfox\Placements\Domain\Model\Organization $organization
 	 * @return void
 	 */
-	public function setOrganization(\Webfox\Placements\Domain\Model\Organization $organization) {
+	public function setOrganization(\Webfox\Placements\Domain\Model\Organization $organization = NULL) {
 		$this->organization = $organization;
 	}
 
@@ -280,7 +284,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \Webfox\Placements\Domain\Model\Client $client
 	 * @return void
 	 */
-	public function setClient(\Webfox\Placements\Domain\Model\Client $client) {
+	public function setClient(\Webfox\Placements\Domain\Model\Client $client = NULL) {
 		$this->client = $client;
 	}
 
@@ -299,7 +303,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \Webfox\Placements\Domain\Model\PositionType $type
 	 * @return void
 	 */
-	public function setType(\Webfox\Placements\Domain\Model\PositionType $type) {
+	public function setType(\Webfox\Placements\Domain\Model\PositionType $type = NULL) {
 		$this->type = $type;
 	}
 
@@ -383,7 +387,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \Webfox\Placements\Domain\Model\WorkingHours $workingHours
 	 * @return \Webfox\Placements\Domain\Model\WorkingHours workingHours
 	 */
-	public function setWorkingHours(\Webfox\Placements\Domain\Model\WorkingHours $workingHours) {
+	public function setWorkingHours(\Webfox\Placements\Domain\Model\WorkingHours $workingHours = NULL) {
 		$this->workingHours = $workingHours;
 	}
 
