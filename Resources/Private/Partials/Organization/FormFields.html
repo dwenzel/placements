@@ -26,6 +26,7 @@
 			<f:form.select
 				id="sectors"
 				property="sectors"
+				multiple="true"
 				options="{sectors}"
 				optionValueField="uid"
 				optionLabelField="title"
@@ -33,7 +34,6 @@
 			/>
 	</div>
 </f:if>
-
 <f:if condition="{categories}">
 	<div class="clearfix">
 		<label for="categories">{f:translate(key: 'tx_placements_domain_model_category')}</label>
@@ -41,6 +41,7 @@
 			id="categories"
 			property="categories"
 			options="{categories}"
+			multiple="true"
 			optionValueField="uid"
 			optionLabelField="title"
 			prependOptionLabel="{f:translate(key: 'tx_placements.general.selectCategory')}"
