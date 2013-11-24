@@ -11,7 +11,7 @@
 				<f:form.select
 					id="working_hours"
 		 			options="{workingHours}"
-					property = "working_hours"
+		 			property="workingHours"
 					optionValueField="uid"
 					optionLabelField="title"
 					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectWorkingHours')}"
@@ -38,6 +38,7 @@
 					id="sectors"
 				 	options="{sectors}"
 					property="sectors"
+					multiple="true"
 					optionValueField="uid"
 					optionLabelField="title"
 					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectSector')}"
@@ -59,6 +60,7 @@
 				<f:form.select
 					id="categories"
 				 	options="{categories}"
+				 	multiple="true"
 					property="categories"
 					optionValueField="uid"
 					optionLabelField="title"
