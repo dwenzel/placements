@@ -7,9 +7,9 @@ This template displays a EDIT form for a position
 		<f:debug title="Categories">{categories}</f:debug>
 	</f:if>
 
-	<f:flashMessages class="message"/>
 
-		<div class="edit-form">
+	<div class="edit-form">
+		<f:flashMessages class="message"/>
 			<f:render partial="FormErrors" arguments="{object:Position}"/>
 
 			<f:form pageUid="{settings.position.list.pid}" action="update" name="position" object="{position}" >
@@ -27,5 +27,8 @@ This template displays a EDIT form for a position
 				/>
 				<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
 			</f:form>
+		<div class="navigation">
+			<f:link.action action="list" class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
 		</div>
+	</div>
 </f:section>
