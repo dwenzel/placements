@@ -131,6 +131,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Organization $organization) {
+		$this->updateStorageProperties($organization);
 		$this->organizationRepository->update($organization);
 		$this->flashMessageContainer->add('Your Organization was updated.');
 		$this->redirect('list');
@@ -149,10 +150,49 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	}
 
 	/**
+	 * Update storage properties
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Organization $organization
+	 */
+	 protected function updateStorageProperties(\Webfox\Placements\Domain\Model\Organization &$organization) {
+		$args = $this->request->getArgument('organization');
+		// get sectors
+		if (is_array($args['sector'])) {
+			$choosenSectors = $args['sectors'];
+		} else {
+			$choosenSectors = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $args['sectors']);
+		}
+		foreach ($choosenSectors as $choosenSector) {
+			$sector = $this->sectorRepository->findOneByUid($choosenSector);
+			$sectors = $organization->getSectors();
+			if (!$sectors->contains($sector)) {
+				$sectors->attach($sector);
+				$organization->setSectors($sectors);
+			}
+		}
+
+		// get categories
+		if (is_array($args['categories'])) {
+			$choosenCategories = $args['categories'];
+		} else {
+			$choosenCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $args['categories']);
+		}
+		foreach ($choosenCategories as $choosenCategory) {
+			$category = $this->categoryRepository->findOneByUid($choosenCategory);
+			$categories = $organization->getCategories();
+			if(!$categories->contains($category)) {
+				$categories->attach(category);
+				$organization->setCategories($categories);
+			}
+		}
+	 }
+
+	/**
 	 * A template method for displaying custom error flash messages, or to
 	 * display no flash message at all on errors.
 	 *
 	 * @return string|boolean The flash message or FALSE if no flash message should be set
+	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
 		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
