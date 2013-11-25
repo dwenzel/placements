@@ -3,7 +3,7 @@
 	<div class="span6">
 		<div class="clearfix">
 			<label for="title">{f:translate(key: 'tx_placements_domain_model_position.title')} <span class="required">{f:translate(key: 'tx_placements.general.required')}</span></label>
-			<f:form.textfield property="title" />
+			<f:form.textfield property="title" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.title')}"/>
 		</div>
 		<f:if condition="{workingHours}">
 			<div class="clearfix">
@@ -14,7 +14,6 @@
 		 			property="workingHours"
 					optionValueField="uid"
 					optionLabelField="title"
-					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectWorkingHours')}"
 				/>
 			</div>
 		</f:if>
@@ -51,11 +50,11 @@
 	<div class="span6">
 		<div class="clearfix">
 			<label for="identifier">{f:translate(key: 'tx_placements_domain_model_position.identifier')}</label>
-			<f:form.textfield property="identifier" />
+			<f:form.textfield property="identifier" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.identifier')}" />
 			<label for="entryDate">{f:translate(key: 'tx_placements_domain_model_position.entry_date')}</label>
 			<f:form.textfield 
 				property="entryDate"
-				class="datepicker"
+				class="datepicker" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.entryDate')}"
 				value="{position.entryDate->f:format.date(format: '{settings.position.edit.entryDate.format}')}" />
 		</div>
 		<f:if condition="{categories}">
@@ -90,13 +89,13 @@
 		</f:if>
 		<div class="clearfix">
 			<label for="city">{f:translate(key: 'tx_placements_domain_model_position.zip')} / {f:translate(key: 'tx_placements_domain_model_position.city')}</label>
-			<f:form.textfield property="zip" class="zip" />
-			<f:form.textfield property="city" class="city" />
+			<f:form.textfield property="zip" class="zip" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.zip')}" />
+			<f:form.textfield property="city" class="city" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.city')}" />
 		</div>
 
 		<div class="clearfix">
 			<label for="link">{f:translate(key: 'tx_placements_domain_model_position.link')}</label>
-			<f:form.textfield property="link" class="link"/>
+			<f:form.textfield property="link" class="link" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.link')}"/>
 		</div>
 	</div>
 
@@ -126,11 +125,11 @@
 		</div>
 		<div class="clearfix">
 			<label for="duration">{f:translate(key: 'tx_placements_domain_model_position.duration')}</label>
-			<f:form.textarea property="duration" class="duration"/>
+			<f:form.textarea property="duration" class="duration" />
 		</div>
 		<div class="clearfix">
 			<label for="payment">{f:translate(key: 'tx_placements_domain_model_position.payment')}</label>
-			<f:form.textarea property="payment" class="payment"/>
+			<f:form.textarea property="payment" class="payment" />
 		</div>
 	</div>
 </div>
