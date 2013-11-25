@@ -87,15 +87,8 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Initialize Action
 	 *
 	 */
-	public function initializeAction() {
+	 public function initializeAction() {
 		$this->organizationRepository->setDefaultOrderings(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
-	}
-
-	/**
-	 * Initialize Action
-	 *
-	 */
-	 public function initializeUpdateAction() {
 		if ($this->arguments->hasArgument('position')) {
 			$this->arguments->getArgument('position')
 			->getPropertyMappingConfiguration()
