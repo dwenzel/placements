@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-25T15:46:04Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-25T17:01:22Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
-		<trans-unit id="tx_placements.error.newPosition.entryDate.1307719788" approved="yes" xml:space="preserve">
-			<source>Please enter a entry date formated as dd.mm.yyyy</source>
-			<target>Bitte geben Sie das Eintrittsdatum im Format TT.MM.JJJJ an.</target>
-		</trans-unit>
 		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.newPosition.entryDate.1307719788" approved="yes" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
+			<target>Bitte geben Sie das Eintrittsdatum im Format TT.MM.JJJJ an.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.newPosition.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a job title.</source>
@@ -109,6 +109,10 @@
 			<source>update</source>
 			<target>aktualisieren</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.new_organization" approved="yes" xml:space="preserve">
+			<source>Add Organization</source>
+			<target>Unternehmen hinzufügen</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.new_position" approved="yes" xml:space="preserve">
 			<source>Add Position</source>
 			<target>Stellenangebot hinzufügen</target>
@@ -152,6 +156,18 @@
 		<trans-unit id="tx_placements.searchForm.hint" approved="yes" xml:space="preserve">
 			<source>Please enter a keyword.</source>
 			<target>Bitte geben Sie einen Suchbegriff ein.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.createAction" approved="yes" xml:space="preserve">
+			<source>Your new Organization was created.</source>
+			<target>Das Unternehmen wurde hinzugefügt.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.deleteAction" approved="yes" xml:space="preserve">
+			<source>Your Organization was removed.</source>
+			<target>Das Unternehmen wurde entfernt.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.updateAction" approved="yes" xml:space="preserve">
+			<source>Your Organization was updated.</source>
+			<target>Das Unternehmen wurde geändert.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.success.position.createAction" approved="yes" xml:space="preserve">
 			<source>Your new Position was created.</source>

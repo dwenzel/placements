@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-25T15:46:04Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-25T17:01:22Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
-		<trans-unit id="tx_placements.error.newPosition.entryDate.1307719788" xml:space="preserve">
-			<source>Please enter a entry date formated as dd.mm.yyyy</source>
-		</trans-unit>
 		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.newPosition.entryDate.1307719788" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.newPosition.title.1221560718" xml:space="preserve">
 			<source>Please enter a job title.</source>
@@ -83,6 +83,9 @@
 		<trans-unit id="tx_placements.general.update" xml:space="preserve">
 			<source>update</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.new_organization" xml:space="preserve">
+			<source>Add Organization</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.new_position" xml:space="preserve">
 			<source>Add Position</source>
 		</trans-unit>
@@ -115,6 +118,15 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.searchForm.hint" xml:space="preserve">
 			<source>Please enter a keyword.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.createAction" xml:space="preserve">
+			<source>Your new Organization was created.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.deleteAction" xml:space="preserve">
+			<source>Your Organization was removed.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.updateAction" xml:space="preserve">
+			<source>Your Organization was updated.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.success.position.createAction" xml:space="preserve">
 			<source>Your new Position was created.</source>
