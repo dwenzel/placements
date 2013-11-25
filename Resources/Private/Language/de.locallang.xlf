@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-25T14:18:21Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-25T15:07:07Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -266,8 +266,8 @@
 			<target>befristet</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.identifier" approved="yes" xml:space="preserve">
-			<source>ID</source>
-			<target>ID</target>
+			<source>Reference</source>
+			<target>Referenz</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.link" approved="yes" xml:space="preserve">
 			<source>Link</source>
@@ -280,6 +280,30 @@
 		<trans-unit id="tx_placements_domain_model_position.payment" approved="yes" xml:space="preserve">
 			<source>Payment</source>
 			<target>Vergütung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.city" approved="yes" xml:space="preserve">
+			<source>Enter a location</source>
+			<target>Ort eingeben</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.entryDate" approved="yes" xml:space="preserve">
+			<source>dd.mm.yyyy</source>
+			<target>TT.MM.JJJJ</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.identifier" approved="yes" xml:space="preserve">
+			<source>Enter external identifier</source>
+			<target>Eindeutige Referenznummer eingeben</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.link" approved="yes" xml:space="preserve">
+			<source>External link: http://link.to.us</source>
+			<target>Externer Link: http://meine.seite.de</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.title" approved="yes" xml:space="preserve">
+			<source>Enter job title</source>
+			<target>Stellenbezeichnung eingeben</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.zip" approved="yes" xml:space="preserve">
+			<source>12345</source>
+			<target>12345</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.summary" approved="yes" xml:space="preserve">
 			<source>Summary</source>

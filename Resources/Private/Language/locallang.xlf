@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-25T14:18:21Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-25T15:07:07Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -201,7 +201,7 @@
 			<source>Fixed Term</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.identifier" xml:space="preserve">
-			<source>ID</source>
+			<source>Reference</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.link" xml:space="preserve">
 			<source>Link</source>
@@ -211,6 +211,24 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.payment" xml:space="preserve">
 			<source>Payment</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.city" xml:space="preserve">
+			<source>Enter a location</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.entryDate" xml:space="preserve">
+			<source>dd.mm.yyyy</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.identifier" xml:space="preserve">
+			<source>Enter external identifier</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.link" xml:space="preserve">
+			<source>External link: http://link.to.us</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.title" xml:space="preserve">
+			<source>Enter job title</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.zip" xml:space="preserve">
+			<source>12345</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.summary" xml:space="preserve">
 			<source>Summary</source>
