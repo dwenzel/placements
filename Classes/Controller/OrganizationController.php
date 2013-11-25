@@ -104,7 +104,11 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Organization $newOrganization) {
 		$this->organizationRepository->add($newOrganization);
-		$this->flashMessageContainer->add('Your new Organization was created.');
+		$this->flashMessageContainer->add(
+			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+				'tx_placements.success.organization.createAction', 'placements'
+			)
+		);
 		$this->redirect('list');
 	}
 
@@ -134,7 +138,11 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	public function updateAction(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$this->updateStorageProperties($organization);
 		$this->organizationRepository->update($organization);
-		$this->flashMessageContainer->add('Your Organization was updated.');
+		$this->flashMessageContainer->add(
+			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+				'tx_placements.success.organization.updateAction', 'placements'
+			)	
+		);
 		$this->redirect('list');
 	}
 
@@ -146,7 +154,11 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 */
 	public function deleteAction(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$this->organizationRepository->remove($organization);
-		$this->flashMessageContainer->add('Your Organization was removed.');
+		$this->flashMessageContainer->add(
+			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+				'tx_placements.success.organizationl.deleteAction', 'placements'
+			)
+		);
 		$this->redirect('list');
 	}
 
