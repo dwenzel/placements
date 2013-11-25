@@ -1,48 +1,66 @@
-<label for="title">
-	<f:translate key="tx_placements_domain_model_organization.title" /><span class="required">{f:translate(key: 'tx_placements.general.required')}</span>
-</label>
-	<f:form.textfield property="title" placeholder="{f:translate(key:'tx_placements_domain_model_organization.placeholder.title')}"/>
-
-<label for="identifier">
-	<f:translate key="tx_placements_domain_model_organization.identifier" />
-</label>
-	<f:form.textfield property="identifier" placeholder="{f:translate(key:'tx_placements_domain_model_organization.placeholder.identifier')}" />
-
-<label for="description">
-	<f:translate key="tx_placements_domain_model_organization.description" />
-</label>
-	<f:form.textarea property="description" cols="40" rows="15" />
-
-<f:comment>
-<label for="image">
-	<f:translate key="tx_placements_domain_model_organization.image" />
-</label>
-	<f:form.upload property="image" />
-</f:comment>
-
-<f:if condition="{sectors}">
-	<div class="clearfix">
-		<label for="sectors">{f:translate(key: 'tx_placements_domain_model_sector')}</label>
-			<f:form.select
-				id="sectors"
-				property="sectors"
-				multiple="true"
-				options="{sectors}"
-				optionValueField="uid"
-				optionLabelField="title"
-			/>
+<div class="row-fluid">
+	<div class="span12">
+		<label for="title">
+			<f:translate key="tx_placements_domain_model_organization.title" /><span class="required">{f:translate(key: 'tx_placements.general.required')}</span>
+			</label>
+		<f:form.textfield property="title" placeholder="{f:translate(key:'tx_placements_domain_model_organization.placeholder.title')}"/>
 	</div>
-</f:if>
-<f:if condition="{categories}">
-	<div class="clearfix">
-		<label for="categories">{f:translate(key: 'tx_placements_domain_model_category')}</label>
-		<f:form.select
-			id="categories"
-			property="categories"
-			options="{categories}"
-			multiple="true"
-			optionValueField="uid"
-			optionLabelField="title"
-		/>
+</div>
+<div class="row-fluid">
+	<div class="span12">
+		<label for="identifier">
+		<f:translate key="tx_placements_domain_model_organization.identifier" />
+		</label>
+		<f:form.textfield property="identifier" placeholder="{f:translate(key:'tx_placements_domain_model_organization.placeholder.identifier')}"/>
 	</div>
-</f:if>
+</div>
+
+<div class="row-fluid">
+	<div class="span12">
+		<label for="description">
+			<f:translate key="tx_placements_domain_model_organization.description" />
+		</label>
+		<f:form.textarea property="description" cols="40" rows="15" />
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span12">
+		
+		<f:comment>
+		<label for="image">
+			<f:translate key="tx_placements_domain_model_organization.image" />
+		</label>
+			<f:form.upload property="image" />
+		</f:comment>
+		
+		<f:if condition="{sectors}">
+			<div class="clearfix">
+				<label for="sectors">{f:translate(key: 'tx_placements_domain_model_sector')}</label>
+					<f:form.select
+						id="sectors"
+						property="sectors"
+						multiple="true"
+						options="{sectors}"
+						optionValueField="uid"
+						optionLabelField="title"
+					/>
+			</div>
+		</f:if>
+
+		<f:if condition="{categories}">
+			<div class="clearfix">
+				<label for="categories">{f:translate(key: 'tx_placements_domain_model_category')}</label>
+				<f:form.select
+					id="categories"
+					property="categories"
+					options="{categories}"
+					multiple="true"
+					optionValueField="uid"
+					optionLabelField="title"
+				/>
+			</div>
+		</f:if>
+
+	</div>
+</div>
