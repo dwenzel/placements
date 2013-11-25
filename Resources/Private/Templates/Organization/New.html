@@ -21,7 +21,10 @@
 			<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
 		</f:form>
 		<div class="navigation">
-			<f:link.action action="list" class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
+			<f:link.action 
+				pageUid="{settings.organization.list.pid}"
+				action="list" 
+				class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
 		</div>
 	</div>
 </f:section>
