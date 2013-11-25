@@ -11,7 +11,7 @@
 					<span class="property">{f:translate(key:'tx_placements_domain_model_{propertyPath}', default: '{propertyPath}')}</span>
 					 <ul>
 						<f:for each="{errors}" as="error">
-							<li>{f:translate(key: 'tx_placements.error.{propertyPath}.{error.code}', default: '{error}')}</li></f:for>
+							<li>{f:translate(key: 'tx_placements.error.{propertyPath}.{error.code}', default: '{error}, (Code: tx_placements.error.{propertyPath}.{error.code})')}</li></f:for>
 						</ul>
 					</li>
 				</f:for>

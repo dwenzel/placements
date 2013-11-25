@@ -43,7 +43,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionListView = array(
 			'sDEF' => '',
-			'constraints' => 'showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector',
+			'constraints' => 'showWorkingHours,showSectors,showPositionTypes,showConjunctionSelector,showCategorySelector',
 		);
 
 	/**

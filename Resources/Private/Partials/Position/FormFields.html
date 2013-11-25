@@ -11,8 +11,10 @@
 				<f:form.select
 					id="working_hours"
 		 			options="{workingHours}"
+		 			property="workingHours"
 					optionValueField="uid"
 					optionLabelField="title"
+					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectWorkingHours')}"
 				/>
 			</div>
 		</f:if>
@@ -21,9 +23,11 @@
 				<label for="position_type">{f:translate(key: 'tx_placements_domain_model_positiontype')}</label>
 				<f:form.select
 					id="position_type"
+					property="type"
 				 	options="{positionTypes}"
 					optionValueField="uid"
 					optionLabelField="title"
+					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectPositionType')}"
 				/>
 			</div>
 		</f:if>
@@ -33,6 +37,8 @@
 				<f:form.select
 					id="sectors"
 				 	options="{sectors}"
+					property="sectors"
+					multiple="true"
 					optionValueField="uid"
 					optionLabelField="title"
 				/>
@@ -53,6 +59,8 @@
 				<f:form.select
 					id="categories"
 				 	options="{categories}"
+				 	multiple="true"
+					property="categories"
 					optionValueField="uid"
 					optionLabelField="title"
 				/>
@@ -69,6 +77,7 @@
 				<f:form.select
 					id="organization"
 				 	options="{organizations}"
+					property="organization"
 					optionValueField="uid"
 					optionLabelField="title"
 				/>
@@ -82,39 +91,41 @@
 
 		<div class="clearfix">
 			<label for="link">{f:translate(key: 'tx_placements_domain_model_position.link')}</label>
-			<f:form.textfield property="link" />
+			<f:form.textfield property="link" class="link"/>
 		</div>
 	</div>
 
 	<div class="span6">
 		<label for="contact">{f:translate(key: 'tx_placements_domain_model_position.contact')}</label>
-		<f:form.textarea property="contact" />
+		<f:form.textarea property="contact" class="contact"/>
 	</div>
 </div>
 
+<f:comment>
 <div class="row-fluid">
 	<div class="span6">
 		<label for="summary">{f:translate(key: 'tx_placements_domain_model_position.summary')}</label>
-		<f:form.textarea property="summary" />
+		<f:form.textarea property="summary" class="summary"/>
 	</div>
 </div>
+</f:comment>
 <div class="row-fluid">
 	<div class="span6">
 		<label for="description">{f:translate(key: 'tx_placements_domain_model_position.description')}</label>
-		<f:form.textarea property="description" />
+		<f:form.textarea property="description" class="description"/>
 	</div>
 	<div class="span6">
 		<div class="clearfix">
 			<label for="fixedTerm">{f:translate(key: 'tx_placements_domain_model_position.fixed_term')}</label>
-			<f:form.checkbox property="fixedTerm" value="{position.fixedTerm}" />
+			<f:form.checkbox property="fixedTerm" class="fixed-term" value="{position.fixedTerm}" />
 		</div>
 		<div class="clearfix">
 			<label for="duration">{f:translate(key: 'tx_placements_domain_model_position.duration')}</label>
-			<f:form.textarea property="duration" />
+			<f:form.textarea property="duration" class="duration"/>
 		</div>
 		<div class="clearfix">
 			<label for="payment">{f:translate(key: 'tx_placements_domain_model_position.payment')}</label>
-			<f:form.textarea property="payment" />
+			<f:form.textarea property="payment" class="payment"/>
 		</div>
 	</div>
 </div>

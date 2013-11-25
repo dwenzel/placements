@@ -6,6 +6,7 @@ This template displays a NEW form for a position.
 	<f:if condition="{settings.debug}">
 		<f:debug title="Position Types">{positionTypes}</f:debug>
 		<f:debug title="Categories">{categories}</f:debug>
+		<f:debug title="Position">{position}</f:debug>
 	</f:if>
 
 	<f:flashMessages class="message"/>
@@ -13,7 +14,7 @@ This template displays a NEW form for a position.
 		<div class="edit-form">
 			<f:render partial="FormErrors" arguments="{object:Position}"/>
 
-			<f:form action="create" name="newPosition" object="{newPosition}" >
+			<f:form pageUid="{settings.position.list.pid}" action="create" name="newPosition" object="{newPosition}" >
 				<f:render 
 					partial="Position/FormFields" 
 					arguments="{
@@ -28,5 +29,11 @@ This template displays a NEW form for a position.
 				/>
 				<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
 			</f:form>
+			<div class="navigation">
+				<f:link.action 
+					pageUid="{settings.position.list.pid}"
+					action="list" 
+					class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
+			</div>
 		</div>
 </f:section>

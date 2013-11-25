@@ -87,6 +87,14 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Initialize Action
 	 *
 	 */
+	public function initializeAction() {
+		$this->organizationRepository->setDefaultOrderings(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
+	}
+
+	/**
+	 * Initialize Action
+	 *
+	 */
 	 public function initializeUpdateAction() {
 		if ($this->arguments->hasArgument('position')) {
 			$this->arguments->getArgument('position')
@@ -97,6 +105,14 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
 				$this->settings['position']['edit']['entryDate']['format']
 			);
+			$this->arguments->getArgument('position')
+			->getPropertyMappingConfiguration()
+			->forProperty('sectors')
+			->allowProperties('__identity');
+			$this->arguments->getArgument('position')
+			->getPropertyMappingConfiguration()
+			->forProperty('categories')
+			->allowProperties('__identity');
 		}
 		if ($this->arguments->hasArgument('newPosition')) {
 			$this->arguments->getArgument('newPosition')
@@ -203,6 +219,7 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Position $position) {
+		$this->updateStorageProperties($position);
 		$this->positionRepository->update($position);
 		$this->flashMessageContainer->add('Your Position was updated.');
 		$this->redirect('list');
@@ -372,10 +389,50 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
+	 * Update storage properties
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Position $position
+	 */
+	 protected function updateStorageProperties(\Webfox\Placements\Domain\Model\position &$position) {
+		$args = $this->request->getArgument('position');
+		// get sectors
+		if (is_array($args['sector'])) {
+			$choosenSectors = $args['sectors'];
+		} else {
+			$choosenSectors = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $args['sectors']);
+		}
+		foreach ($choosenSectors as $choosenSector) {
+			$sector = $this->sectorRepository->findOneByUid($choosenSector);
+			$sectors = $position->getSectors();
+			if (!$sectors->contains($sector)) {
+				$sectors->attach($sector);
+				$position->setSectors($sectors);
+			}
+		}
+
+		// get categories
+		if (is_array($args['categories'])) {
+			$choosenCategories = $args['categories'];
+		} else {
+			$choosenCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $args['categories']);
+		}
+		foreach ($choosenCategories as $choosenCategory) {
+			$category = $this->categoryRepository->findOneByUid($choosenCategory);
+			$categories = $position->getCategories();
+			if(!$categories->contains($category)) {
+				$categories->attach(category);
+				$position->setCategories($categories);
+			}
+		}
+	 }
+
+
+	/**
 	 * A template method for displaying custom error flash messages, or to
 	 * display no flash message at all on errors.
 	 *
 	 * @return string|boolean The flash message or FALSE if no flash message should be set
+	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
 		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(

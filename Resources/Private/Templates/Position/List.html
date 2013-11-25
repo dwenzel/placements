@@ -7,7 +7,7 @@ This Template creates a list of positions.
 <f:if condition="{settings.debug}">
 	<f:debug title="settings">{settings}</f:debug>
 </f:if>
-<f:flashMessages />
+<f:flashMessages class="message"/>
 
 <div  class="position-list" >
 	<div class="row-fluid">
@@ -36,7 +36,7 @@ This Template creates a list of positions.
 </div>
 
 <f:security.ifHasRole role="{settings.security.position.editorGroup}">
-	<f:link.action action="new" class="button new">
+	<f:link.action pageUid="{settings.position.detail.pid}" action="new" class="button new">
 		<f:translate key="tx_placements.new_position" >New Position</f:translate>
 	</f:link.action>
 </f:security.ifHasRole>
