@@ -112,6 +112,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * action edit
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Organization $organization
+	 * @ignorevalidation $organization
 	 * @return void
 	 */
 	public function editAction(\Webfox\Placements\Domain\Model\Organization $organization) {
