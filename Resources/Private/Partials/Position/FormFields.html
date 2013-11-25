@@ -27,8 +27,10 @@
 				 	options="{positionTypes}"
 					optionValueField="uid"
 					optionLabelField="title"
-					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectPositionType')}"
 				/>
+				<f:comment>
+					prependOptionLabel="{f:translate(key: 'tx_placements.general.selectPositionType')}"
+				</f:comment>
 			</div>
 		</f:if>
 		<f:if condition="{sectors}">
@@ -51,7 +53,10 @@
 			<label for="identifier">{f:translate(key: 'tx_placements_domain_model_position.identifier')}</label>
 			<f:form.textfield property="identifier" />
 			<label for="entryDate">{f:translate(key: 'tx_placements_domain_model_position.entry_date')}</label>
-			<f:form.textfield property="entryDate"  value="{position.entryDate->f:format.date(format: '{settings.position.edit.entryDate.format}')}" />
+			<f:form.textfield 
+				property="entryDate"
+				class="datepicker"
+				value="{position.entryDate->f:format.date(format: '{settings.position.edit.entryDate.format}')}" />
 		</div>
 		<f:if condition="{categories}">
 			<div class="clearfix">
