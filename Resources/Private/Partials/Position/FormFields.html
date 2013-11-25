@@ -115,19 +115,27 @@
 </div>
 </f:comment>
 <div class="row-fluid">
-	<div class="span6">
+	<div class="span12">
 		<label for="description">{f:translate(key: 'tx_placements_domain_model_position.description')}</label>
 		<f:form.textarea property="description" class="description"/>
 	</div>
-	<div class="span6">
-		<div class="clearfix">
+</div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="clearfix hidden">
 			<label for="fixedTerm">{f:translate(key: 'tx_placements_domain_model_position.fixed_term')}</label>
 			<f:form.checkbox property="fixedTerm" class="fixed-term" value="{position.fixedTerm}" />
 		</div>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span6">
 		<div class="clearfix">
 			<label for="duration">{f:translate(key: 'tx_placements_domain_model_position.duration')}</label>
 			<f:form.textarea property="duration" class="duration"/>
 		</div>
+	</div>
+	<div class="span6">
 		<div class="clearfix">
 			<label for="payment">{f:translate(key: 'tx_placements_domain_model_position.payment')}</label>
 			<f:form.textarea property="payment" class="payment"/>
