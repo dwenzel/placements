@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-24T14:26:21Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-25T14:18:21Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -155,9 +155,6 @@
 		<trans-unit id="tx_placements_domain_model_newPosition.title" xml:space="preserve">
 			<source>Job Title</source>
 		</trans-unit>
-		<trans-unit id="tx_placements_domain_model_organization" xml:space="preserve">
-			<source>Organization</source>
-		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.about_company" xml:space="preserve">
 			<source>About company</source>
 		</trans-unit>
@@ -169,6 +166,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.identifier" xml:space="preserve">
 			<source>ID</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.label" xml:space="preserve">
+			<source>Organization</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.title" xml:space="preserve">
 			<source>Title</source>
