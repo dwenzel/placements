@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-25T15:07:07Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-25T15:46:04Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id=" tx_placements.error.newPosition.entryDate.1307719788" approved="yes" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
+			<target>Bitte geben Sie das Eintrittsdatum im Format TT.MM.JJJJ an.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
@@ -199,7 +203,11 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_newOrganization.title" approved="yes" xml:space="preserve">
 			<source>Title</source>
-			<target>Titel</target>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newPosition.entryDate" approved="yes" xml:space="preserve">
+			<source>Entry Date</source>
+			<target>Eintrittsdatum</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_newPosition.title" approved="yes" xml:space="preserve">
 			<source>Job Title</source>
@@ -225,9 +233,17 @@
 			<source>Organization</source>
 			<target>Organisation</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" approved="yes" xml:space="preserve">
+			<source>Enter external reference</source>
+			<target>Externe Referenznummer eingeben</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.placeholder.title" approved="yes" xml:space="preserve">
+			<source>Enter company name</source>
+			<target>Unternehmensnamen eingeben</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.title" approved="yes" xml:space="preserve">
 			<source>Title</source>
-			<target>Titel</target>
+			<target>Name</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position" approved="yes" xml:space="preserve">
 			<source>Position</source>

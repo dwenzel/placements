@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-25T15:07:07Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-25T15:46:04Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id=" tx_placements.error.newPosition.entryDate.1307719788" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 		</trans-unit>
@@ -152,6 +155,9 @@
 		<trans-unit id="tx_placements_domain_model_newOrganization.title" xml:space="preserve">
 			<source>Title</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newPosition.entryDate" xml:space="preserve">
+			<source>Entry Date</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_newPosition.title" xml:space="preserve">
 			<source>Job Title</source>
 		</trans-unit>
@@ -169,6 +175,12 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.label" xml:space="preserve">
 			<source>Organization</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" xml:space="preserve">
+			<source>Enter external reference</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.placeholder.title" xml:space="preserve">
+			<source>Enter company name</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.title" xml:space="preserve">
 			<source>Title</source>
