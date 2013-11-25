@@ -5,7 +5,7 @@
 			<generator>LFEditor</generator>
 		</header>
 		<body>
-		<trans-unit id=" tx_placements.error.newPosition.entryDate.1307719788" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_placements.error.newPosition.entryDate.1307719788" approved="yes" xml:space="preserve">
 			<source>Please enter a entry date formated as dd.mm.yyyy</source>
 			<target>Bitte geben Sie das Eintrittsdatum im Format TT.MM.JJJJ an.</target>
 		</trans-unit>
