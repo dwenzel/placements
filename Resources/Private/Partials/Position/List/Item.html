@@ -11,13 +11,13 @@
 	<div class="span2 organization zip city">{position.zip} {position.city}</div>
 	<div class="span2">
 		<f:security.ifHasRole role="{settings.security.position.editorGroup}">
-			<f:link.action pageUid="{settings.position.detail.pid}" action="edit" arguments="{position : position}" class="button edit">
-				<f:translate key="tx_placements.general.edit">Edit</f:translate>
+			<f:link.action pageUid="{settings.position.detail.pid}" action="edit" arguments="{position : position}" class="button edit" title="Edit">
+				<!--f:translate key="tx_placements.general.edit">Edit</f:translate-->
 			</f:link.action>
 		</f:security.ifHasRole>
 		<f:security.ifHasRole role="{settings.security.position.adminGroup}">
-			<f:link.action action="delete" arguments="{position : position}" class="button delete">
-				<f:translate key="tx_placements.general.delete">Delete</f:translate>
+			<f:link.action action="delete" arguments="{position : position}" class="button delete" title="Delete">
+				<!--f:translate key="tx_placements.general.delete">Delete</f:translate-->
 			</f:link.action>
 		</f:security.ifHasRole>
 	</div>
