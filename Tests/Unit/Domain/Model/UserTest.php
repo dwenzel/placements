@@ -54,6 +54,26 @@ class UserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	}
 
 	/**
+ 	 * @test
+ 	 */
+	public function getClientReturnsInitialValueForClient() {
+		$this->assertNull(
+			$this->fixture->getClient()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setClientForClientSetsClient() {
+		$client = new \Webfox\Placements\Domain\Model\Client();
+		$this->fixture->setClient($client);
+		$this->assertSame(
+			$client,
+			$this->fixture->getClient()
+		);
+	}
+	/**
 	 * @test
 	 */
 	public function getResumesReturnsInitialValueForResume() { 
