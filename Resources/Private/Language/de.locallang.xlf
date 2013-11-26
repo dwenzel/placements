@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-15T09:51:40Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-26T09:38:44Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" approved="yes" xml:space="preserve">
+			<source>Please enter a name for your organization.</source>
+			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.newPosition.entryDate.1307719788" approved="yes" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
+			<target>Bitte geben Sie das Eintrittsdatum im Format TT.MM.JJJJ an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.newPosition.title.1221560718" approved="yes" xml:space="preserve">
+			<source>Please enter a job title.</source>
+			<target>Bitte geben Sie ein Stellenbezeichnung an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.createAction" approved="yes" xml:space="preserve">
+			<source>Sorry! Your organization could not be created.</source>
+			<target>Ihr Unternehmen konnte nicht erstellt werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.title.1221560718" approved="yes" xml:space="preserve">
+			<source>Please enter a name for your organization.</source>
+			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.updateAction" approved="yes" xml:space="preserve">
+			<source>Sorry! Your organization could not be updated.</source>
+			<target>Ihr Unternehmen konnte nicht aktualisiert werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.createAction" approved="yes" xml:space="preserve">
+			<source>Sorry! Your position could not be created.</source>
+			<target>Ihr Stellenangebot konnte nicht gespeichert werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.entryDate.1307719788" approved="yes" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
+			<target>Bitte geben Sie das Eintrittsdatum im Format TT.MM.JJJJ an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.organization.1221560910" approved="yes" xml:space="preserve">
+			<source>Please select an organization.</source>
+			<target>Bitte wählen Sie eine Organisation.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.title.1221560718" approved="yes" xml:space="preserve">
+			<source>Please enter a job title.</source>
+			<target>Die Stellenbezeichnung darf nicht leer sein.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.type.1221560910" approved="yes" xml:space="preserve">
+			<source>Please select a position type.</source>
+			<target>Bitte wählen Sie einen Stellentyp.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.updateAction" approved="yes" xml:space="preserve">
+			<source>Sorry! Your position could not be updated.</source>
+			<target>Ihr Stellenangebot konnte nicht aktualisiert werden.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.extendedSearchForm.hint" approved="yes" xml:space="preserve">
 			<source>Please enter a keyword or choose any option.</source>
 			<target>Bitte geben Sie einen Suchbegriff ein oder wählen Sie eine der Optionen.</target>
@@ -12,6 +60,10 @@
 		<trans-unit id="tx_placements.general.backToList" approved="yes" xml:space="preserve">
 			<source>back to list view</source>
 			<target>zurück zur Übersicht</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.cancel" approved="yes" xml:space="preserve">
+			<source>Cancel</source>
+			<target>Abbrechen</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.delete" approved="yes" xml:space="preserve">
 			<source>Delete</source>
@@ -25,6 +77,54 @@
 			<source>Information</source>
 			<target>Informationen</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.01" approved="yes" xml:space="preserve">
+			<source>January</source>
+			<target>Januar</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.02" approved="yes" xml:space="preserve">
+			<source>February</source>
+			<target>Februar</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.03" approved="yes" xml:space="preserve">
+			<source>March</source>
+			<target>März</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.04" approved="yes" xml:space="preserve">
+			<source>April</source>
+			<target>April</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.05" approved="yes" xml:space="preserve">
+			<source>May</source>
+			<target>Mai</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.06" approved="yes" xml:space="preserve">
+			<source>June</source>
+			<target>Juni</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.07" approved="yes" xml:space="preserve">
+			<source>July</source>
+			<target>Juli</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.08" approved="yes" xml:space="preserve">
+			<source>August</source>
+			<target>August</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.09" approved="yes" xml:space="preserve">
+			<source>September</source>
+			<target>September</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.10" approved="yes" xml:space="preserve">
+			<source>October</source>
+			<target>Oktober</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.11" approved="yes" xml:space="preserve">
+			<source>November</source>
+			<target>November</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.12" approved="yes" xml:space="preserve">
+			<source>December</source>
+			<target>Dezember</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.required" approved="yes" xml:space="preserve">
 			<source>*</source>
 			<target>*</target>
@@ -37,9 +137,33 @@
 			<source>search</source>
 			<target>suchen</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.selectCategory" approved="yes" xml:space="preserve">
+			<source>Choose Category</source>
+			<target>Kategorie auswählen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectOrganization" approved="yes" xml:space="preserve">
+			<source>Choose Organization</source>
+			<target>Unternehmen auswählen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectPositionType" approved="yes" xml:space="preserve">
+			<source>Select Position Type</source>
+			<target>Stellentyp auswählen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectSector" approved="yes" xml:space="preserve">
+			<source>Select Sector</source>
+			<target>Branche auswählen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectWorkingHours" approved="yes" xml:space="preserve">
+			<source>Choose Working Hours</source>
+			<target>Arbeitszeit auswählen</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.update" approved="yes" xml:space="preserve">
 			<source>update</source>
 			<target>aktualisieren</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.new_organization" approved="yes" xml:space="preserve">
+			<source>Add Organization</source>
+			<target>Unternehmen hinzufügen</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.new_position" approved="yes" xml:space="preserve">
 			<source>Add Position</source>
@@ -85,6 +209,22 @@
 			<source>Please enter a keyword.</source>
 			<target>Bitte geben Sie einen Suchbegriff ein.</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.createAction" approved="yes" xml:space="preserve">
+			<source>Your new Organization was created.</source>
+			<target>Das Unternehmen wurde hinzugefügt.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.deleteAction" approved="yes" xml:space="preserve">
+			<source>Your Organization was removed.</source>
+			<target>Das Unternehmen wurde entfernt.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.updateAction" approved="yes" xml:space="preserve">
+			<source>Your Organization was updated.</source>
+			<target>Das Unternehmen wurde geändert.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.createAction" approved="yes" xml:space="preserve">
+			<source>Your new Position was created.</source>
+			<target>Ihr neues Stellenangebot wurde gespeichert.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" approved="yes" xml:space="preserve">
 			<source>Application</source>
 			<target>Bewerbung</target>
@@ -129,9 +269,17 @@
 			<source>Name</source>
 			<target>Name</target>
 		</trans-unit>
-		<trans-unit id="tx_placements_domain_model_organization" approved="yes" xml:space="preserve">
-			<source>Organization</source>
-			<target>Organisation</target>
+		<trans-unit id="tx_placements_domain_model_newOrganization.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newPosition.entryDate" approved="yes" xml:space="preserve">
+			<source>Entry Date</source>
+			<target>Eintrittsdatum</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newPosition.title" approved="yes" xml:space="preserve">
+			<source>Job Title</source>
+			<target>Stellenbezeichnung</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.about_company" approved="yes" xml:space="preserve">
 			<source>About company</source>
@@ -149,9 +297,21 @@
 			<source>ID</source>
 			<target>ID</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.label" approved="yes" xml:space="preserve">
+			<source>Organization</source>
+			<target>Organisation</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" approved="yes" xml:space="preserve">
+			<source>Enter external reference</source>
+			<target>Externe Referenznummer eingeben</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.placeholder.title" approved="yes" xml:space="preserve">
+			<source>Enter company name</source>
+			<target>Unternehmensnamen eingeben</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.title" approved="yes" xml:space="preserve">
 			<source>Title</source>
-			<target>Titel</target>
+			<target>Name</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position" approved="yes" xml:space="preserve">
 			<source>Position</source>
@@ -190,8 +350,8 @@
 			<target>befristet</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.identifier" approved="yes" xml:space="preserve">
-			<source>ID</source>
-			<target>ID</target>
+			<source>Reference</source>
+			<target>Referenz</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.link" approved="yes" xml:space="preserve">
 			<source>Link</source>
@@ -204,6 +364,30 @@
 		<trans-unit id="tx_placements_domain_model_position.payment" approved="yes" xml:space="preserve">
 			<source>Payment</source>
 			<target>Vergütung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.city" approved="yes" xml:space="preserve">
+			<source>Enter a location</source>
+			<target>Ort eingeben</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.entryDate" approved="yes" xml:space="preserve">
+			<source>dd.mm.yyyy</source>
+			<target>TT.MM.JJJJ</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.identifier" approved="yes" xml:space="preserve">
+			<source>Enter external identifier</source>
+			<target>Eindeutige Referenznummer eingeben</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.link" approved="yes" xml:space="preserve">
+			<source>External link: http://link.to.us</source>
+			<target>Externer Link: http://meine.seite.de</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.title" approved="yes" xml:space="preserve">
+			<source>Enter job title</source>
+			<target>Stellenbezeichnung eingeben</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.zip" approved="yes" xml:space="preserve">
+			<source>12345</source>
+			<target>12345</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.summary" approved="yes" xml:space="preserve">
 			<source>Summary</source>

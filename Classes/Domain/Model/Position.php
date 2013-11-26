@@ -126,6 +126,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * Organization offering this position
 	 *
 	 * @var \Webfox\Placements\Domain\Model\Organization
+	 * @validate NotEmpty
 	 * @lazy
 	 */
 	protected $organization;

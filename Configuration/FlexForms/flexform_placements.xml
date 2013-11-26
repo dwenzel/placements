@@ -20,34 +20,38 @@
 										<numIndex index="1">Position->list;Position->show;Position->new;Position->create;Position->edit;Position->update;Position->delete</numIndex>
 									</numIndex>
 									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.organizations</numIndex>
+										<numIndex index="1">Organization->list;Organization->show;Organization->new;Organization->create;Organization->edit;Organization->update;Organization->delete</numIndex>
+									</numIndex>
+									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.users</numIndex>
 										<numIndex index="1">User->list;User->show</numIndex>
 									</numIndex>
-									<numIndex index="2">
+									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.applications</numIndex>
 										<numIndex index="1">Application->list;Application->show</numIndex>
 									</numIndex>
-									<numIndex index="3">
+									<numIndex index="4">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.optionGroupSearch</numIndex>
 										<numIndex index="1">--div--</numIndex>
 									</numIndex>
-									<numIndex index="4">
+									<numIndex index="5">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchForm.simple</numIndex>
 										<numIndex index="1">Position->searchForm</numIndex>
 									</numIndex>
-									<numIndex index="5">
+									<numIndex index="6">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchForm.extended</numIndex>
 										<numIndex index="1">Position->extendedSearchForm</numIndex>
 									</numIndex>
-									<numIndex index="6">
+									<numIndex index="7">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.searchResult</numIndex>
 										<numIndex index="1">Position->searchResult</numIndex>
 									</numIndex>
-									<numIndex index="7">
+									<numIndex index="8">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.optionGroupOthers</numIndex>
 										<numIndex index="1">--div--</numIndex>
 									</numIndex>
-									<numIndex index="8">
+									<numIndex index="9">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.quickMenu</numIndex>
 										<numIndex index="1">Position->quickMenu</numIndex>
 									</numIndex>

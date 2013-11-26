@@ -1,25 +1,39 @@
 <f:layout name="Default" />
 
-This template displays a NEW form for the current domain object.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        New.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+This template displays a NEW form for a position.
 
 <f:section name="main">
-<h1>New Position</h1>
+	<f:if condition="{settings.debug}">
+		<f:debug title="Position Types">{positionTypes}</f:debug>
+		<f:debug title="Categories">{categories}</f:debug>
+		<f:debug title="Position">{position}</f:debug>
+	</f:if>
 
-<f:flashMessages />
+	<f:flashMessages class="message"/>
 
-<f:render partial="FormErrors" arguments="{object:Position}"/>
+		<div class="edit-form">
+			<f:render partial="FormErrors" arguments="{object:Position}"/>
 
-<f:form action="create"  enctype="multipart/form-data"  name="newPosition" object="{newPosition}">
-<f:render partial="Position/FormFields" />
-	<f:form.submit value="Create new" />
-</f:form>
+			<f:form pageUid="{settings.position.list.pid}" action="create" name="newPosition" object="{newPosition}" >
+				<f:render 
+					partial="Position/FormFields" 
+					arguments="{
+						settings: settings,
+						position: position,
+						categories: categories,
+						sectors: sectors,
+						workingHours: workingHours,
+						positionTypes: positionTypes,
+						organizations: organizations
+					}" 
+				/>
+				<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
+			</f:form>
+			<div class="navigation">
+				<f:link.action 
+					pageUid="{settings.position.list.pid}"
+					action="list" 
+					class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
+			</div>
+		</div>
 </f:section>

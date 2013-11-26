@@ -114,6 +114,7 @@ CREATE TABLE tx_placements_domain_model_organization (
 	description text NOT NULL,
 	image text NOT NULL,
 	sectors int(11) unsigned DEFAULT '0' NOT NULL,
+	categories int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

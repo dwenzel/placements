@@ -1,0 +1,37 @@
+<f:layout name="Default" />
+
+This Template is responsible for displaying a single view for a domain object
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Show.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+<f:if condition="{settings.debug}">
+	<f:debug title="settings">{settings}</f:debug>
+	<f:debug title="organization">{organization}</f:debug>
+</f:if>
+<f:flashMessages class="message"/>
+	<div class="organization-detail">
+		<div class="row-fluid">
+			<div class="span8">
+
+				<f:render partial="Organization/Properties" arguments="{organization:organization}" />
+			</div>
+			<div class="span4">
+				<div class="navigation">
+					<f:link.action action="list" class="button back">{f:translate(key:'tx_placements.general.backToList')}</f:link.action><br />
+					<f:security.ifHasRole role="{settings.security.organization.editorGroup}">		
+						<f:link.action action="new" class="button new">{f:translate(key:'tx_placements.new_organization')}</f:link.action>
+					</f:security.ifHasRole>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</f:section>

@@ -1,15 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-15T09:51:40Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-26T09:38:44Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" xml:space="preserve">
+			<source>Please enter a name for your organization.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.newPosition.entryDate.1307719788" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.newPosition.title.1221560718" xml:space="preserve">
+			<source>Please enter a job title.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.createAction" xml:space="preserve">
+			<source>Sorry! Your organization could not be created.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.title.1221560718" xml:space="preserve">
+			<source>Please enter a name for your organization.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.updateAction" xml:space="preserve">
+			<source>Sorry! Your organization could not be updated.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.createAction" xml:space="preserve">
+			<source>Sorry! Your position could not be created.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.entryDate.1307719788" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.organization.1221560910" xml:space="preserve">
+			<source>Please select an organization.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.title.1221560718" xml:space="preserve">
+			<source>Please enter a job title.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.type.1221560910" xml:space="preserve">
+			<source>Please select a position type.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.updateAction" xml:space="preserve">
+			<source>Sorry! Your position could not be updated.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.extendedSearchForm.hint" xml:space="preserve">
 			<source>Please enter a keyword or choose any option.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.backToList" xml:space="preserve">
 			<source>back to list view</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.cancel" xml:space="preserve">
+			<source>Cancel</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.delete" xml:space="preserve">
 			<source>Delete</source>
@@ -20,6 +59,42 @@
 		<trans-unit id="tx_placements.general.information.plural" xml:space="preserve">
 			<source>Information</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.01" xml:space="preserve">
+			<source>January</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.02" xml:space="preserve">
+			<source>February</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.03" xml:space="preserve">
+			<source>March</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.04" xml:space="preserve">
+			<source>April</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.05" xml:space="preserve">
+			<source>May</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.06" xml:space="preserve">
+			<source>June</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.07" xml:space="preserve">
+			<source>July</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.08" xml:space="preserve">
+			<source>August</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.09" xml:space="preserve">
+			<source>September</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.10" xml:space="preserve">
+			<source>October</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.11" xml:space="preserve">
+			<source>November</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.12" xml:space="preserve">
+			<source>December</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.required" xml:space="preserve">
 			<source>*</source>
 		</trans-unit>
@@ -29,8 +104,26 @@
 		<trans-unit id="tx_placements.general.search" xml:space="preserve">
 			<source>search</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.selectCategory" xml:space="preserve">
+			<source>Choose Category</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectOrganization" xml:space="preserve">
+			<source>Choose Organization</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectPositionType" xml:space="preserve">
+			<source>Select Position Type</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectSector" xml:space="preserve">
+			<source>Select Sector</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.selectWorkingHours" xml:space="preserve">
+			<source>Choose Working Hours</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.update" xml:space="preserve">
 			<source>update</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.new_organization" xml:space="preserve">
+			<source>Add Organization</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.new_position" xml:space="preserve">
 			<source>Add Position</source>
@@ -65,6 +158,18 @@
 		<trans-unit id="tx_placements.searchForm.hint" xml:space="preserve">
 			<source>Please enter a keyword.</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.createAction" xml:space="preserve">
+			<source>Your new Organization was created.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.deleteAction" xml:space="preserve">
+			<source>Your Organization was removed.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.organization.updateAction" xml:space="preserve">
+			<source>Your Organization was updated.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.createAction" xml:space="preserve">
+			<source>Your new Position was created.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" xml:space="preserve">
 			<source>Application</source>
 		</trans-unit>
@@ -98,8 +203,14 @@
 		<trans-unit id="tx_placements_domain_model_client.name" xml:space="preserve">
 			<source>Name</source>
 		</trans-unit>
-		<trans-unit id="tx_placements_domain_model_organization" xml:space="preserve">
-			<source>Organization</source>
+		<trans-unit id="tx_placements_domain_model_newOrganization.title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newPosition.entryDate" xml:space="preserve">
+			<source>Entry Date</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_newPosition.title" xml:space="preserve">
+			<source>Job Title</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.about_company" xml:space="preserve">
 			<source>About company</source>
@@ -112,6 +223,15 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.identifier" xml:space="preserve">
 			<source>ID</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.label" xml:space="preserve">
+			<source>Organization</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" xml:space="preserve">
+			<source>Enter external reference</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.placeholder.title" xml:space="preserve">
+			<source>Enter company name</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.title" xml:space="preserve">
 			<source>Title</source>
@@ -144,7 +264,7 @@
 			<source>Fixed Term</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.identifier" xml:space="preserve">
-			<source>ID</source>
+			<source>Reference</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.link" xml:space="preserve">
 			<source>Link</source>
@@ -154,6 +274,24 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.payment" xml:space="preserve">
 			<source>Payment</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.city" xml:space="preserve">
+			<source>Enter a location</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.entryDate" xml:space="preserve">
+			<source>dd.mm.yyyy</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.identifier" xml:space="preserve">
+			<source>Enter external identifier</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.link" xml:space="preserve">
+			<source>External link: http://link.to.us</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.title" xml:space="preserve">
+			<source>Enter job title</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.placeholder.zip" xml:space="preserve">
+			<source>12345</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.summary" xml:space="preserve">
 			<source>Summary</source>
