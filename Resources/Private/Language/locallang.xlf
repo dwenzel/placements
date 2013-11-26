@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-25T17:01:22Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-26T09:38:44Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -25,6 +25,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.createAction" xml:space="preserve">
 			<source>Sorry! Your position could not be created.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.entryDate.1307719788" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.organization.1221560910" xml:space="preserve">
 			<source>Please select an organization.</source>
@@ -55,6 +58,42 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.information.plural" xml:space="preserve">
 			<source>Information</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.01" xml:space="preserve">
+			<source>January</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.02" xml:space="preserve">
+			<source>February</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.03" xml:space="preserve">
+			<source>March</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.04" xml:space="preserve">
+			<source>April</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.05" xml:space="preserve">
+			<source>May</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.06" xml:space="preserve">
+			<source>June</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.07" xml:space="preserve">
+			<source>July</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.08" xml:space="preserve">
+			<source>August</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.09" xml:space="preserve">
+			<source>September</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.10" xml:space="preserve">
+			<source>October</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.11" xml:space="preserve">
+			<source>November</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.12" xml:space="preserve">
+			<source>December</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.required" xml:space="preserve">
 			<source>*</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-25T17:01:22Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-26T09:38:44Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -32,6 +32,10 @@
 		<trans-unit id="tx_placements.error.position.createAction" approved="yes" xml:space="preserve">
 			<source>Sorry! Your position could not be created.</source>
 			<target>Ihr Stellenangebot konnte nicht gespeichert werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.entryDate.1307719788" approved="yes" xml:space="preserve">
+			<source>Please enter a entry date formated as dd.mm.yyyy</source>
+			<target>Bitte geben Sie das Eintrittsdatum im Format TT.MM.JJJJ an.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.organization.1221560910" approved="yes" xml:space="preserve">
 			<source>Please select an organization.</source>
@@ -72,6 +76,54 @@
 		<trans-unit id="tx_placements.general.information.plural" approved="yes" xml:space="preserve">
 			<source>Information</source>
 			<target>Informationen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.01" approved="yes" xml:space="preserve">
+			<source>January</source>
+			<target>Januar</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.02" approved="yes" xml:space="preserve">
+			<source>February</source>
+			<target>Februar</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.03" approved="yes" xml:space="preserve">
+			<source>March</source>
+			<target>März</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.04" approved="yes" xml:space="preserve">
+			<source>April</source>
+			<target>April</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.05" approved="yes" xml:space="preserve">
+			<source>May</source>
+			<target>Mai</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.06" approved="yes" xml:space="preserve">
+			<source>June</source>
+			<target>Juni</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.07" approved="yes" xml:space="preserve">
+			<source>July</source>
+			<target>Juli</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.08" approved="yes" xml:space="preserve">
+			<source>August</source>
+			<target>August</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.09" approved="yes" xml:space="preserve">
+			<source>September</source>
+			<target>September</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.10" approved="yes" xml:space="preserve">
+			<source>October</source>
+			<target>Oktober</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.11" approved="yes" xml:space="preserve">
+			<source>November</source>
+			<target>November</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.monthNameLong.12" approved="yes" xml:space="preserve">
+			<source>December</source>
+			<target>Dezember</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.required" approved="yes" xml:space="preserve">
 			<source>*</source>
