@@ -285,6 +285,7 @@ CREATE TABLE fe_users (
 
 	resumes int(11) unsigned DEFAULT '0' NOT NULL,
 	applications int(11) unsigned DEFAULT '0' NOT NULL,
+	client int(11) unsigned DEFAULT '0',
 
 	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
 
