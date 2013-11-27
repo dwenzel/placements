@@ -33,7 +33,7 @@ namespace Webfox\Placements\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class PositionController extends AbstractController {
 
 	/**
 	 * Position Repository
@@ -52,36 +52,12 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	protected $positionTypeRepository;
 
 	/**
-	 * Sector Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\SectorRepository
-	 * @inject
-	 */
-	protected $sectorRepository;
-
-	/**
-	 * Organization Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\OrganizationRepository
-	 * @inject
-	 */
-	protected $organizationRepository;
-
-	/**
 	 * Working Hours Repository
 	 *
 	 * @var \Webfox\Placements\Domain\Repository\WorkingHoursRepository
 	 * @inject
 	 */
 	protected $workingHoursRepository;
-
-	/**
-	 * Category Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\CategoryRepository
-	 * @inject
-	 */
-	protected $categoryRepository;
 
 	/**
 	 * Initialize Action
@@ -118,6 +94,7 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			);
 		}
 	}
+
 	/**
 	 * action list
 	 *
@@ -151,19 +128,28 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function newAction(\Webfox\Placements\Domain\Model\Position $newPosition = NULL) {
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
-		$organizations = $this->organizationRepository->findAll();
-		$this->view->assignMultiple(array(
-			'newPosition' => $newPosition,
-			'workingHours' => $workingHours,
-			'positionTypes' => $positionTypes,
-			'categories' => $categories,
-			'sectors' => $sectors,
-			'organizations' => $organizations,
-		));
+		if(!$this->accessControlService->isAllowedToCreate('position')) {
+			$this->flashMessageContainer->add(
+				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+					'tx_placements.error.position.createActionNotAllowed', 'placements'
+				)
+			);
+			$this->redirect('list');
+		} else {
+			$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+			$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
+			$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
+			$organizations = $this->organizationRepository->findAll();
+			$this->view->assignMultiple(array(
+				'newPosition' => $newPosition,
+				'workingHours' => $workingHours,
+				'positionTypes' => $positionTypes,
+				'categories' => $categories,
+				'sectors' => $sectors,
+				'organizations' => $organizations,
+			));
+		}
 	}
 
 	/**
@@ -190,19 +176,28 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function editAction(\Webfox\Placements\Domain\Model\Position $position) {
-		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
-		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
-		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
-		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
-		$organizations = $this->organizationRepository->findAll();
-		$this->view->assignMultiple(array(
-			'position' => $position,
-			'workingHours' => $workingHours,
-			'positionTypes' => $positionTypes,
-			'categories' => $categories,
-			'sectors' => $sectors,
-			'organizations' => $organizations,
-		));
+		if(!$this->accessControlService->isAllowedToEdit('position')) {
+			$this->flashMessageContainer->add(
+				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+					'tx_placements.error.position.editActionNotAllowed', 'placements'
+				)
+			);
+			$this->redirect('list');
+		} else {
+			$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
+			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
+			$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
+			$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
+			$organizations = $this->organizationRepository->findAll();
+			$this->view->assignMultiple(array(
+				'position' => $position,
+				'workingHours' => $workingHours,
+				'positionTypes' => $positionTypes,
+				'categories' => $categories,
+				'sectors' => $sectors,
+				'organizations' => $organizations,
+			));
+		}
 	}
 
 	/**
@@ -225,8 +220,16 @@ class PositionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function deleteAction(\Webfox\Placements\Domain\Model\Position $position) {
-		$this->positionRepository->remove($position);
-		$this->flashMessageContainer->add('Your Position was removed.');
+		if($this->accessControlService->isAllowed('delete', 'position')) {
+			$this->positionRepository->remove($position);
+			$this->flashMessageContainer->add('Your Position was removed.');
+		} else {
+			$this->flashMessageContainer->add(
+				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+					'tx_placements.error.position.deleteActionNotAllowed', 'placements'
+				)
+			);
+		}
 		$this->redirect('list');
 	}
 
