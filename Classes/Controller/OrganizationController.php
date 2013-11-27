@@ -33,31 +33,7 @@ namespace Webfox\Placements\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
-	/**
-	 * Organization Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\OrganizationRepository
-	 * @inject
-	 */
-	protected $organizationRepository;
-
-	/**
-	 * Sector Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\SectorRepository
-	 * @inject
-	 */
-	protected $sectorRepository;
-
-	/**
-	 * Category Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\CategoryRepository
-	 * @inject
-	 */
-	protected $categoryRepository;
+class OrganizationController extends AbstractController {
 
 	/**
 	 * action list
@@ -156,7 +132,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		$this->organizationRepository->remove($organization);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organizationl.deleteAction', 'placements'
+				'tx_placements.success.organization.deleteAction', 'placements'
 			)
 		);
 		$this->redirect('list');
