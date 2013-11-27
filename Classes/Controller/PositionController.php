@@ -220,7 +220,7 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(\Webfox\Placements\Domain\Model\Position $position) {
-		if($this->accessControlService->isAllowed('delete', 'position')) {
+		if($this->accessControlService->isAllowedToDelete('position')) {
 			$this->positionRepository->remove($position);
 			$this->flashMessageContainer->add('Your Position was removed.');
 		} else {
