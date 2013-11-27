@@ -170,7 +170,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 protected function updateStorageProperties(\Webfox\Placements\Domain\Model\Organization &$organization) {
 		$args = $this->request->getArgument('organization');
 		// get sectors
-		if (is_array($args['sector'])) {
+		if (is_array($args['sectors'])) {
 			$choosenSectors = $args['sectors'];
 		} else {
 			$choosenSectors = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $args['sectors']);
