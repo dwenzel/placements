@@ -108,7 +108,7 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 		 */
 		public function getFrontendUser() {
 			if ($this->frontendUser == NULL) {
-			$this->frontendUser = $this->userRepository->findOneByUid(intval($GLOBALS['TSFE']->fe_user->user['uid']));
+				$this->frontendUser = $this->userRepository->findOneByUid(intval($GLOBALS['TSFE']->fe_user->user['uid']));
 			}
 			return $this->frontendUser;
 		}
@@ -151,7 +151,17 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 		 * @return \boolean
 		 */
 		public function isAllowedToCreate($objectType) {
-			return ($this->isAllowed('create', $objectType) OR $this->isAllowed('addmin', $objectType));
+			return ($this->isAllowed('create', $objectType) OR $this->isAllowed('admin', $objectType));
+		}
+
+		/** 
+		 * Is current user allowed to delete
+		 *
+		 * @param \string $objectType Type of object to delete
+		 * @return \boolean
+		 */
+		public function isAllowedToDelete($objectType) {
+			return ($this->isAllowed('delete', $objectType) OR $this->isAllowed('admin', $objectType));
 		}
 
 		/** 
