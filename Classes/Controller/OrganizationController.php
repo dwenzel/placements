@@ -112,7 +112,7 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Organization $organization) {
-		$this->updateStorageProperties($organization);
+		//$this->updateStorageProperties($organization);
 		$this->organizationRepository->update($organization);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -140,7 +140,8 @@ class OrganizationController extends AbstractController {
 
 	/**
 	 * Update storage properties
-	 *
+	 * 
+	 * @todo: remove this method. It  seems not necessary anymore.
 	 * @param \Webfox\Placements\Domain\Model\Organization $organization
 	 */
 	 protected function updateStorageProperties(\Webfox\Placements\Domain\Model\Organization &$organization) {
@@ -170,7 +171,7 @@ class OrganizationController extends AbstractController {
 			$category = $this->categoryRepository->findOneByUid($choosenCategory);
 			$categories = $organization->getCategories();
 			if(!$categories->contains($category)) {
-				$categories->attach(category);
+				$categories->attach($category);
 				$organization->setCategories($categories);
 			}
 		}
