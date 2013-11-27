@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-26T09:38:44Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-27T17:09:54Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -21,6 +21,18 @@
 			<source>Sorry! Your organization could not be created.</source>
 			<target>Ihr Unternehmen konnte nicht erstellt werden.</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.createActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to add organizations.</source>
+			<target>Sie dürfen keine Unternehmen hinzufügen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.deleteActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to delete organizations.</source>
+			<target>Sie dürfen keine Unternehmen löschen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.editActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to edit organizations.</source>
+			<target>Sie dürfen keine Unternehmen bearbeiten.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.organization.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
@@ -32,6 +44,18 @@
 		<trans-unit id="tx_placements.error.position.createAction" approved="yes" xml:space="preserve">
 			<source>Sorry! Your position could not be created.</source>
 			<target>Ihr Stellenangebot konnte nicht gespeichert werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.createActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to add positions.</source>
+			<target>Sie dürfen keine Stellenangebote hinzufügen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.deleteActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to delete positions.</source>
+			<target>Sie dürfen keine Stellenangebote löschen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.editActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to edit positions.</source>
+			<target>Sie dürfen keine Stellenangebote bearbeiten.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.entryDate.1307719788" approved="yes" xml:space="preserve">
 			<source>Please enter a entry date formated as dd.mm.yyyy</source>

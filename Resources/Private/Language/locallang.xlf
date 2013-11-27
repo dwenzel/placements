@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-26T09:38:44Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-27T17:09:54Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -17,6 +17,15 @@
 		<trans-unit id="tx_placements.error.organization.createAction" xml:space="preserve">
 			<source>Sorry! Your organization could not be created.</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.createActionNotAllowed" xml:space="preserve">
+			<source>Sorry! You are not allowed to add organizations.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.deleteActionNotAllowed" xml:space="preserve">
+			<source>Sorry! You are not allowed to delete organizations.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.editActionNotAllowed" xml:space="preserve">
+			<source>Sorry! You are not allowed to edit organizations.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.organization.title.1221560718" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 		</trans-unit>
@@ -25,6 +34,15 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.createAction" xml:space="preserve">
 			<source>Sorry! Your position could not be created.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.createActionNotAllowed" xml:space="preserve">
+			<source>Sorry! You are not allowed to add positions.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.deleteActionNotAllowed" xml:space="preserve">
+			<source>Sorry! You are not allowed to delete positions.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.editActionNotAllowed" xml:space="preserve">
+			<source>Sorry! You are not allowed to edit positions.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.entryDate.1307719788" xml:space="preserve">
 			<source>Please enter a entry date formated as dd.mm.yyyy</source>
