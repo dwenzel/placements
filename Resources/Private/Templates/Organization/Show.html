@@ -23,6 +23,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 				<f:render partial="Organization/Properties" arguments="{organization:organization}" />
 			</div>
+			<f:comment>
 			<div class="span4">
 				<div class="navigation">
 					<f:link.action action="list" class="button back">{f:translate(key:'tx_placements.general.backToList')}</f:link.action><br />
@@ -31,6 +32,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 					</f:security.ifHasRole>
 				</div>
 			</div>
+			</f:comment>
 		</div>
 	</div>
 
