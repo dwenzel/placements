@@ -78,6 +78,11 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 		 */
 		public function __construct() {
 			$this->userRepository = new \Webfox\Placements\Domain\Repository\UserRepository();
+			$query = $this->userRepository->createQuery();
+			$querySettings = $query->getQuerySettings();
+			$querySettings->setRespectStoragePage(FALSE);
+			$querySettings->setRespectSysLanguage(FALSE);
+			$this->userRepository->setDefaultQuerySettings($querySettings);
 			$this->frontendUser = $this->userRepository->findOneByUid(intval($GLOBALS['TSFE']->fe_user->user['uid']));
 			//$this->configurationManager = new \TYPO3\CMS\Extbase\Configuration\ConfigurationManager();
 			//$this->configurationManager->initializeObject();
@@ -133,6 +138,20 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 				return FALSE;
 			}
 		}
+
+		/**
+		 * Does the client of a given object match with 
+		 * current user's client?
+		 * 
+		 * @param \object $object
+		 * @return \boolean
+		 */
+		public function matchesClient($object) {
+			return (($object->getClient() !== NULL) AND 
+				$this->hasLoggedInClient() AND
+				($this->getFrontendUser()->getClient()->getUid() == $object->getClient()->getUid()));
+		}
+		 
 
 		/** 
 		 * Is current user allowed to edit
