@@ -1,4 +1,5 @@
 {namespace pw=Webfox\Placements\ViewHelpers\Widget}
+{namespace ps=Webfox\Placements\ViewHelpers}
 <f:layout name="Default" />
 
 This Template creates a list of organizations.
@@ -35,11 +36,11 @@ This Template creates a list of organizations.
 	</pw:paginate>
 </div>
 
-<f:security.ifHasRole role="{settings.security.organization.editorGroup}">
+<ps:security.allow action="create" type="organization">
 	<f:link.action action="new" class="button new">
 		
 		<f:translate key="tx_placements.new_organization" >New Organization</f:translate>
 	</f:link.action>
-</f:security.ifHasRole>
+</ps:security.allow>
 </f:section>
 
