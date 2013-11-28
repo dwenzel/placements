@@ -81,6 +81,14 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $categories;
 
 	/**
+	 * Client for whom this position is managed
+	 *
+	 * @var \Webfox\Placements\Domain\Model\Client
+	 * @lazy
+	 */
+	protected $client;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return \string $title
@@ -256,6 +264,25 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories) {
 		$this->categories = $categories;
+	}
+
+	/**
+	 * Returns the client
+	 *
+	 * @return \Webfox\Placements\Domain\Model\Client $client
+	 */
+	public function getClient() {
+		return $this->client;
+	}
+
+	/**
+	 * Sets the client
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Client $client
+	 * @return void
+	 */
+	public function setClient(\Webfox\Placements\Domain\Model\Client $client) {
+		$this->client = $client;
 	}
 
 }
