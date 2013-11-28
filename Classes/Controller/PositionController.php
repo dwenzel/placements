@@ -140,7 +140,12 @@ class PositionController extends AbstractController {
 			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
 			$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 			$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
-			$organizations = $this->organizationRepository->findAll();
+			$user = $this->accessControlService->getFrontendUser();
+			if ($user AND $user->getClient()) {
+			    $organizations = $this->organizationRepository->findByClient($user->getClient());
+			} else {
+				$organizations = $this->organizationRepository->findAll();
+			}
 			$this->view->assignMultiple(array(
 				'newPosition' => $newPosition,
 				'workingHours' => $workingHours,
@@ -189,7 +194,11 @@ class PositionController extends AbstractController {
 			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
 			$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 			$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
-			$organizations = $this->organizationRepository->findAll();
+			if ($user AND $user->getClient()) {
+			    $organizations = $this->organizationRepository->findByClient($user->getClient());
+			} else {
+				$organizations = $this->organizationRepository->findAll();
+			}
 			$this->view->assignMultiple(array(
 				'position' => $position,
 				'workingHours' => $workingHours,
