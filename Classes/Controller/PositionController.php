@@ -207,7 +207,7 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Position $position) {
-		$this->updateStorageProperties($position);
+		//$this->updateStorageProperties($position);
 		$this->positionRepository->update($position);
 		$this->flashMessageContainer->add('Your Position was updated.');
 		$this->redirect('list');
