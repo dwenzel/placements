@@ -6,6 +6,7 @@
 		<f:form.textfield property="title" placeholder="{f:translate(key:'tx_placements_domain_model_organization.placeholder.title')}"/>
 	</div>
 </div>
+<f:comment>
 <div class="row-fluid">
 	<div class="span12">
 		<label for="identifier">
@@ -14,11 +15,12 @@
 		<f:form.textfield property="identifier" placeholder="{f:translate(key:'tx_placements_domain_model_organization.placeholder.identifier')}"/>
 	</div>
 </div>
+</f:comment>
 
 <div class="row-fluid">
 	<div class="span12">
 		<label for="description">
-			<f:translate key="tx_placements_domain_model_organization.description" />
+			<a class="legend" title="{f:translate(key: 'tx_placements_domain_model_organization.legend.description')}">&nbsp;</a><f:translate key="tx_placements_domain_model_organization.description" />
 		</label>
 		<f:form.textarea property="description" cols="40" rows="15" class="description"/>
 	</div>
