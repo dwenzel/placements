@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-28T12:19:02Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-28T15:49:09Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -248,6 +248,9 @@
 		<trans-unit id="tx_placements_domain_model_organization.label" xml:space="preserve">
 			<source>Organization</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.description" xml:space="preserve">
+			<source>Describe your organization.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" xml:space="preserve">
 			<source>Enter external reference</source>
 		</trans-unit>
@@ -286,6 +289,15 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.identifier" xml:space="preserve">
 			<source>Reference</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.description" xml:space="preserve">
+			<source>Describe the position.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.payment" xml:space="preserve">
+			<source>Describe the payment.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.title" xml:space="preserve">
+			<source>Enter a title for the position.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.link" xml:space="preserve">
 			<source>Link</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-28T12:19:02Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-28T15:49:09Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -329,6 +329,10 @@
 			<source>Organization</source>
 			<target>Organisation</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.description" approved="yes" xml:space="preserve">
+			<source>Describe your organization.</source>
+			<target>Beschreiben Sie Ihr Unternehmen.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" approved="yes" xml:space="preserve">
 			<source>Enter external reference</source>
 			<target>Externe Referenznummer eingeben</target>
@@ -380,6 +384,18 @@
 		<trans-unit id="tx_placements_domain_model_position.identifier" approved="yes" xml:space="preserve">
 			<source>Reference</source>
 			<target>Referenz</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.description" approved="yes" xml:space="preserve">
+			<source>Describe the position.</source>
+			<target>Beschreiben Sie das Stellenangebot.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.payment" approved="yes" xml:space="preserve">
+			<source>Describe the payment.</source>
+			<target>Beschreiben Sie die Vergütung.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.title" approved="yes" xml:space="preserve">
+			<source>Enter a title for the position.</source>
+			<target>Geben Sie einen Titel für das Stellenangebot ein.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.link" approved="yes" xml:space="preserve">
 			<source>Link</source>
