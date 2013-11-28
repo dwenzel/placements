@@ -79,7 +79,8 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Organization $newOrganization) {
-		$this->organizationRepository->add($newOrganization);
+		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
+	    	$this->organizationRepository->add($newOrganization);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.organization.createAction', 'placements'

@@ -159,7 +159,8 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Position $newPosition) {
-		$this->positionRepository->add($newPosition);
+		$newPosition->setClient($this->accessControlService->getFrontendUser()->getClient());
+	    	$this->positionRepository->add($newPosition);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.position.createAction', 'placements'
