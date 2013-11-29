@@ -1,11 +1,13 @@
 <strong>{f:translate(key: 'tx_placements_domain_model_organization.company_information')}</strong>
-<div class="organization image">
-	<f:image 
-		src="uploads/tx_placements/{organization.image}" 
-		alt="{organization.title}"
-		width="{settings.position.detail.organization.image.width}"
-	/>
-</div>
+<f:if condition="{organization.image}">
+	<div class="organization image">
+		<f:image 
+			src="uploads/tx_placements/{organization.image}" 
+			alt="{organization.title}"
+			width="{settings.position.detail.organization.image.width}"
+		/>
+	</div>
+</f:if>
 <h4>{organization.title}</h4>
 <strong>{f:translate(key: 'tx_placements_domain_model_organization.about_company')}</strong>
 <div class="long-info"><f:format.html>{organization.description}</f:format.html></div>
