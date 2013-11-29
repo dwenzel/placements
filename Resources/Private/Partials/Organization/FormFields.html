@@ -1,3 +1,4 @@
+{namespace ps=Webfox\Placements\ViewHelpers}
 <div class="row-fluid">
 	<div class="span12">
 		<label for="title">
@@ -53,6 +54,7 @@
 		<f:if condition="{categories}">
 			<div class="clearfix">
 				<label for="categories">{f:translate(key: 'tx_placements_domain_model_category')}</label>
+<f:comment>
 				<f:form.select
 					id="categories"
 					property="categories"
@@ -61,6 +63,15 @@
 					optionValueField="uid"
 					optionLabelField="title"
 				/>
+		</f:comment>
+			<ps:select 
+				id="categories"
+				property="categories"
+				options="{categories}"
+				multiple="true"
+				optionValueField="uid"
+				optionLabelField="title"
+			/>
 			</div>
 		</f:if>
 
