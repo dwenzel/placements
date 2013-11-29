@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-28T15:49:09Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-29T12:31:37Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -248,6 +248,14 @@
 		<trans-unit id="tx_placements.success.position.createAction" approved="yes" xml:space="preserve">
 			<source>Your new Position was created.</source>
 			<target>Ihr neues Stellenangebot wurde gespeichert.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.deleteAction" approved="yes" xml:space="preserve">
+			<source>Your Position was removed.</source>
+			<target>Das Stellenangebot wurde gelöscht.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.updateAction" approved="yes" xml:space="preserve">
+			<source>Your Position was updated.</source>
+			<target>Das Stellenangebot wurde aktualisiert.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" approved="yes" xml:space="preserve">
 			<source>Application</source>

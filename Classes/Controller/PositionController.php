@@ -219,7 +219,11 @@ class PositionController extends AbstractController {
 	public function updateAction(\Webfox\Placements\Domain\Model\Position $position) {
 		//$this->updateStorageProperties($position);
 		$this->positionRepository->update($position);
-		$this->flashMessageContainer->add('Your Position was updated.');
+		$this->flashMessageContainer->add(
+			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+				'tx_placements.success.position.updateAction', 'placements'
+				)
+		);
 		$this->redirect('list');
 	}
 
@@ -232,7 +236,11 @@ class PositionController extends AbstractController {
 	public function deleteAction(\Webfox\Placements\Domain\Model\Position $position) {
 		if($this->accessControlService->isAllowedToDelete('position')) {
 			$this->positionRepository->remove($position);
-			$this->flashMessageContainer->add('Your Position was removed.');
+			$this->flashMessageContainer->add(
+				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+					'tx_placements.success.position.deleteAction', 'placements'
+				)
+			);
 		} else {
 			$this->flashMessageContainer->add(
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(

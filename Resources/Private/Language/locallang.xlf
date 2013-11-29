@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-28T15:49:09Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-29T12:31:37Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -187,6 +187,12 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.success.position.createAction" xml:space="preserve">
 			<source>Your new Position was created.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.deleteAction" xml:space="preserve">
+			<source>Your Position was removed.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.updateAction" xml:space="preserve">
+			<source>Your Position was updated.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" xml:space="preserve">
 			<source>Application</source>
