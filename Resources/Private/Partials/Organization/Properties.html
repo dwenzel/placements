@@ -10,14 +10,15 @@
 		</f:for>
 	</div>
 	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.image')}</div>
-	<div class="image">
-	<f:image 
-		src="uploads/tx_placements/{organization.image}" 
-		alt="{organization.title}"
-		width="{settings.organization.detail.image.width}"
-	/>
-	</div>
-
+	<f:if condition="{organization.image}">
+		<div class="image">
+			<f:image 
+				src="uploads/tx_placements/{organization.image}" 
+				alt="{organization.title}"
+				width="{settings.organization.detail.image.width}"
+			/>
+		</div>
+	</f:if>
 	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.description')}</div>
 	<div class="description"><f:format.html>{organization.description}</f:format.html></div>
 	<div class="category-list">
