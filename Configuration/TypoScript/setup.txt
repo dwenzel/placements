@@ -75,17 +75,4 @@ plugin.tx_placements._CSS_DEFAULT_STYLE (
 		background-color:#FF9F9F;
 		border: 1px #FF0000 solid;
 	}
-
-	.tx-placements table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
-
-	.tx-placements table th {
-		font-weight:bold;
-	}
-
-	.tx-placements table td {
-		vertical-align:top;
-	}
 )
