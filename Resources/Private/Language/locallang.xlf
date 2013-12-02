@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-02T11:11:18Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-02T16:41:41Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -169,6 +169,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.quickMenu.selectAllWorkingHours" xml:space="preserve">
 			<source>All Working Hours</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.quickMenu.showClientsPositionsOnly" xml:space="preserve">
+			<source>Show my positions only</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.search.position.message.noSearchResult" xml:space="preserve">
 			<source>Sorry! We could not find any position for your query.</source>
