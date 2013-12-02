@@ -41,7 +41,12 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		$organizations = $this->organizationRepository->findAll();
+		if ($this->settings['clientsOrganizationsOnly'] AND
+			$this->accessControlService->hasLoggedInClient()) {
+			$organizations = $this->organizationRepository->findByClient($this->accessControlService->getFrontendUser()->getClient());
+		} else {
+			$organizations = $this->organizationRepository->findAll();
+		}
 		$this->view->assign('organizations', $organizations);
 	}
 
