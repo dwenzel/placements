@@ -60,6 +60,16 @@ class PositionDemand extends AbstractDemand implements DemandInterface {
 	/**
 	 * @var \string
 	 */
+	protected $clients;
+
+	/**
+	 * @var \boolean
+	 */
+	protected $clientsPositionsOnly;
+
+	/**
+	 * @var \string
+	 */
 	protected $categoryConjunction;
 
 	/**
@@ -159,6 +169,40 @@ class PositionDemand extends AbstractDemand implements DemandInterface {
 	public function setCategoryConjunction ($conjunction) {
 		$this->categoryConjunction = $conjunction;
 	}
+
+	/**
+	 * Get Clients
+	 * @return \string
+	 */
+	public function getClients () {
+		return $this->clients;
+	}
+
+	/**
+	 * Sets the Clients
+	 * @param \string $clients A comma separated list of client uids
+	 */
+	public function setClients ($clients) {
+		$this->clients = $clients;
+	}
+	
+	/**
+	 * Get Clients Positions Only
+	 * @return \boolean
+	 */
+	public function getClientsPositionsOnly() {
+		return $this->clientsPositionsOnly;
+	}
+
+	/** 
+	 * Set Clients Positions Only
+	 *
+	 * @param \boolean $clientsPositionsOnly
+	 */
+	public function setClientsPositionsOnly($clientsPositionsOnly) {
+		$this->clientsPositionsOnly = $clientsPositionsOnly;
+	}
+
 }
 
 ?>
