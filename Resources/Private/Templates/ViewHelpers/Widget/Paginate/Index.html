@@ -25,9 +25,11 @@
 		</f:if>
 
 		<div class="page-navigation">
-			<p>
-				<f:translate key="tx_placements.paginate_overall" arguments="{0:'{pagination.current}',1:'{pagination.numberOfPages}'}" />
-			</p>
+			<f:if condition="{configuration.showNumberOfPages}">
+				<div class="number-of-pages">
+					<f:translate key="tx_placements.paginate_overall" arguments="{0:'{pagination.current}',1:'{pagination.numberOfPages}'}" />
+				</div>
+			</f:if>
 			<ul class="f3-widget-paginator clearfix">
 				<f:if condition="{pagination.previousPage}">
 					<li class="previous">
