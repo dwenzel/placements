@@ -110,7 +110,25 @@ This Template creates a quick menu.
 						</div>
 					</div>
 				</f:if>
-				
+			</div>
+			<div class="row-fluid">
+				<f:if condition="{settings.showClientsPositionsCheckbox}">
+					<div class="span6">
+						<div class="clearfix">
+							<label for="tx-placements-clients-only-select">{f:translate(key: 'tx_placements.quickMenu.showClientsPositionsOnly')}</label>
+							<f:form.checkbox
+								id="tx-placements-clients-only-select"
+								name="overwriteDemand[clientsPositionsOnly]"
+								checked="{f:if(
+									condition: '{overwriteDemand}',
+									then: '{overwriteDemand.clientsPositionsOnly}'
+									else: '{settings.clientsPositionsOnly}'
+									)}"
+								value="1"
+							/>
+						</div>
+					</div>
+				</f:if>	
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
