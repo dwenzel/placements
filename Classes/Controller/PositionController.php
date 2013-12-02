@@ -374,6 +374,13 @@ class PositionController extends AbstractController {
 		if($settings['categoryConjunction'] !== '') {
 			$demand->setCategoryConjunction($settings['categoryConjunction']);
 		}
+		if($settings['clientsPositionsOnly'] AND 
+			$this->accessControlService->hasLoggedInClient()) {
+			$demand->setClients(
+							$this->accessControlService->
+							getFrontendUser()->getClient()->getUid());
+			$demand->setClientsPositionsOnly(TRUE);
+		}
 		$demand->setLimit($settings['limit']);
 		return $demand;
 	}
@@ -387,12 +394,25 @@ class PositionController extends AbstractController {
 	 */
 	protected function overwriteDemandObject($demand, $overwriteDemand) {
 		unset($overwriteDemand['orderByAllowed']);
+		if($overwriteDemand['clientsPositionsOnly'] AND
+			$this->accessControlService->hasLoggedInClient()) {
+			$demand->setClients(
+							(string)
+							$this->
+							accessControlService->
+							getFrontendUser()->
+							getClient()->getUid());
+		} elseif ($overwriteDemand['clientsPositionOnly'] == '') {
+			$demand->setClients('');
+		}
+			
 
 		foreach ($overwriteDemand as $propertyName => $propertyValue) {
 			if(!empty($propertyValue)) {
 				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 		    }
 		}
+
 		//store session data
 		/*
 		$sessionData = serialize($overwriteDemand);
