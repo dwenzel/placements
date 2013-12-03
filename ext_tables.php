@@ -227,6 +227,17 @@ $tmp_placements_columns = array(
 			),
 		),
 	),
+	'client' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_user.client',
+		'config' => array(
+			'type' => 'select',
+			'foreign_table' => 'tx_placements_domain_model_client',
+			'minitems' => 0,
+			'maxitems' => 1,
+			'items' => array(array('',NULL)),
+		),
+	),
 );
 
 t3lib_extMgm::addTCAcolumns('fe_users',$tmp_placements_columns);
@@ -235,7 +246,7 @@ $TCA['fe_users']['columns'][$TCA['fe_users']['ctrl']['type']]['config']['items']
 
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] = $TCA['fe_users']['types']['1']['showitem'];
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= ',--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_user,';
-$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applications';
+$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applications, client';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_placements_domain_model_profil', 'EXT:placements/Resources/Private/Language/locallang_csh_tx_placements_domain_model_profil.xlf');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_placements_domain_model_profil');
@@ -357,13 +368,20 @@ $TCA['tx_placements_domain_model_sector'] = array(
 //extend frontend user
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] = $TCA['fe_users']['types']['Tx_Extbase_Domain_Model_FrontendUser']['showitem'];
 $TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= ',--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_user,';
-$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applications';
+$TCA['fe_users']['types']['Tx_Placements_User']['showitem'] .= 'resumes, applications, client';
 
 
 // make positions categorizable
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
 	$_EXTKEY,
 	'tx_placements_domain_model_position',
+	$fieldName = 'categories',
+	$options = array()
+);
+// make organizations categorizable
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
+	$_EXTKEY,
+	'tx_placements_domain_model_organization',
 	$fieldName = 'categories',
 	$options = array()
 );

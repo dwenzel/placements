@@ -12,13 +12,10 @@ This Template displays a single position.
 
 				<f:render partial="Position/Properties" arguments="{position:position}" />
 			</div>
+			<div class="span4 navigation">
+				<f:link.action action="list" class="button back">{f:translate(key:'tx_placements.general.backToList')}</f:link.action>
+			</div>
 			<div class="span4">
-				<div class="navigation">
-					<f:link.action action="list" class="button back">{f:translate(key:'tx_placements.general.backToList')}</f:link.action><br />
-					<f:security.ifHasRole role="{settings.security.editorGroup}">		
-						<f:link.action action="new" class="button new">{f:translate(key:'tx_placements.new_position')}</f:link.action>
-					</f:security.ifHasRole>
-				</div>
 				<f:render partial="Position/Organization" arguments="{organization: '{position.organization}'}" />
 			</div>
 		</div>

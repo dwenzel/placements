@@ -1,4 +1,5 @@
 {namespace pw=Webfox\Placements\ViewHelpers\Widget}
+{namespace ps=Webfox\Placements\ViewHelpers}
 <f:layout name="Default" />
 
 This Template creates a list of positions.
@@ -7,17 +8,15 @@ This Template creates a list of positions.
 <f:if condition="{settings.debug}">
 	<f:debug title="settings">{settings}</f:debug>
 </f:if>
-<f:flashMessages />
+<f:flashMessages class="message"/>
 
 <div  class="position-list" >
 	<div class="row-fluid">
-		<div class="span4"><f:translate key="tx_placements_domain_model_position.title" /></div>
+		<div class="span3"><f:translate key="tx_placements_domain_model_position.title" /></div>
 		<div class="span3"><f:translate key="tx_placements_domain_model_position.organization" /></div>
-		<div class="span3"><f:translate key="tx_placements_domain_model_position.entry_date" /></div>
+		<div class="span2"><f:translate key="tx_placements_domain_model_position.entry_date" /></div>
 		<div class="span2"><f:translate key="tx_placements_domain_model_position.city" /></div>
-		<f:security.ifHasRole role="{settings.security.editorGroup}" >
-			<div class="span2"> </div>
-		</f:security.ifHasRole>
+		<div class="span2"> </div>
 	</div>
 
 	<pw:paginate  
@@ -37,9 +36,9 @@ This Template creates a list of positions.
 	</pw:paginate>
 </div>
 
-<f:security.ifHasRole role="{settings.security.editorGroup}">
-	<f:link.action action="new" class="button new">
+<ps:security.allow action="create" type="position">
+	<f:link.action pageUid="{settings.position.detail.pid}" action="new" class="button new">
 		<f:translate key="tx_placements.new_position" >New Position</f:translate>
 	</f:link.action>
-</f:security.ifHasRole>
+</ps:security.allow>
 </f:section>

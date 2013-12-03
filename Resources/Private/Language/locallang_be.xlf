@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-19T10:23:23Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-02T14:48:07Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -28,6 +28,12 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.categoryConjunction.or" xml:space="preserve">
 			<source>Show items with selected categories (OR)</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.clientsOrganizationsOnly" xml:space="preserve">
+			<source>Show current clients organizations only</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.clientsPositionsOnly" xml:space="preserve">
+			<source>Show only positions of currently logged in client</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.constraints" xml:space="preserve">
 			<source>Selection</source>
@@ -65,6 +71,9 @@
 		<trans-unit id="flexforms_general.orderDirection.descending" xml:space="preserve">
 			<source>descending</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.organizations" xml:space="preserve">
+			<source>Organizations</source>
+		</trans-unit>
 		<trans-unit id="flexforms_general.positionTypes" xml:space="preserve">
 			<source>Position Types</source>
 		</trans-unit>
@@ -97,6 +106,9 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.showCategorySelector" xml:space="preserve">
 			<source>Show Category Selector</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showClientsPositionsCheckbox" xml:space="preserve">
+			<source>Show checkbox 'current clients positions only'</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.showConjunctionSelector" xml:space="preserve">
 			<source>Show Conjunction Selector</source>

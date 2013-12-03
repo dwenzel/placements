@@ -79,5 +79,16 @@ class CategoryRepository extends AbstractDemandedRepository {
 		return $orderings;
 	}
 
+	/**
+	 * Returns all children of a given category
+	 *
+	 */
+	public function findAllChildren(\Webfox\Placements\Domain\Model\Category $category) {
+		$query = $this->createQuery();
+		$query->matching($query->equals('parent', $category));
+		$query->setOrderings(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
+		return $query->execute()->toArray();
+	}
+
 }
 ?>

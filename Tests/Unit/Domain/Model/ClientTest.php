@@ -56,7 +56,9 @@ class ClientTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getNameReturnsInitialValueForString() { }
+	public function getNameReturnsInitialValueForString() {
+		$this->assertNull($this->fixture->getName());
+	}
 
 	/**
 	 * @test
@@ -73,7 +75,11 @@ class ClientTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getIdentifierReturnsInitialValueForString() { }
+	public function getIdentifierReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getIdentifier()
+		);
+	}
 
 	/**
 	 * @test
@@ -90,7 +96,11 @@ class ClientTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getDescriptionReturnsInitialValueForString() { }
+	public function getDescriptionReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getDescription()
+		);
+	}
 
 	/**
 	 * @test
@@ -103,6 +113,5 @@ class ClientTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getDescription()
 		);
 	}
-	
 }
 ?>

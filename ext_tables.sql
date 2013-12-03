@@ -114,6 +114,8 @@ CREATE TABLE tx_placements_domain_model_organization (
 	description text NOT NULL,
 	image text NOT NULL,
 	sectors int(11) unsigned DEFAULT '0' NOT NULL,
+	categories int(11) unsigned DEFAULT '0' NOT NULL,
+	client int(11) unsigned DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -284,6 +286,7 @@ CREATE TABLE fe_users (
 
 	resumes int(11) unsigned DEFAULT '0' NOT NULL,
 	applications int(11) unsigned DEFAULT '0' NOT NULL,
+	client int(11) unsigned DEFAULT '0',
 
 	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
 

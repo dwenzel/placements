@@ -134,6 +134,20 @@ class PositionRepository extends AbstractDemandedRepository {
 			}
 		}
 
+		// Clients constraints
+		if ($demand->getClients()) {
+				$clientConstraints = array();
+				$clients = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',',$demand->getClients());
+				foreach($clients as $client) {
+					$clientConstraints[] = $query->equals('client.uid', $client);
+				}
+				if(count($clientConstraints)) {
+					$constraints[] = $query->logicalOr($clientConstraints);
+				}
+		}
+
+				
+
 		return $constraints;
 	}
 

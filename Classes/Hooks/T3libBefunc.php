@@ -43,7 +43,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionListView = array(
 			'sDEF' => '',
-			'constraints' => 'showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector',
+			'constraints' => 'showWorkingHours,showSectors,showPositionTypes,showConjunctionSelector,showCategorySelector,clientsOrganizationsOnly',
 		);
 
 	/**
@@ -53,7 +53,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionQuickMenuView = array(
 			'sDEF' => '',
-			'constraints' => '',
+			'constraints' => 'clientsOrganizationsOnly',
 		);
 
 	/**
@@ -63,7 +63,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionSearchFormView = array(
 			'sDEF' => 'orderBy,orderDirection',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,categories,categoryConjunction,limit',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,categories,categoryConjunction,clientsOrganizationsOnly,clientsPositionsOnly,limit',
 		);
 
 	/**
@@ -73,7 +73,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionExtendedSearchFormView = array(
 			'sDEF' => 'orderBy,orderDirection',
-			'constraints' => 'limit',
+			'constraints' => 'limit,clientsOrganizationsOnly',
 		);
 
 	/**
@@ -83,7 +83,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionSearchResultView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,showCategorySelector,categoryConjunction',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,showCategorySelector,categoryConjunction,clientsOrganizationsOnly,clientsPositionsOnly',
 		);
 
 	/**
@@ -93,7 +93,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInUserListView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,clientsOrganizationsOnly,clientsPositionsOnly',
 		);
 
 	/**
@@ -103,7 +103,17 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInApplicationListView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,clientsOrganizationsOnly,clientsPositionsOnly',
+		);
+
+	/**
+	 * Fields which are removed in organization list view
+	 *
+	 * @var \array
+	 */
+	public $removedFieldsInOrganizationListView = array(
+			'sDEF' => '',
+			'constraints' => 'workingHours,positionTypes,showWorkingHours,showPositionTypes,constraintsConjunction,showConjunctionSelector,clientsPositionsOnly',
 		);
 
 
@@ -173,6 +183,9 @@ class T3libBefunc {
 					break;
 				case 'Position->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPositionQuickMenuView);
+					break;
+				case 'Organization->list':
+					$this->deleteFromStructure($dataStructure, $this->removedFieldsInOrganizationListView);
 					break;
 				default:
 			}

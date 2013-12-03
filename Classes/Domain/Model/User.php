@@ -36,6 +36,13 @@ namespace Webfox\Placements\Domain\Model;
 class User extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 
 	/**
+	 * Client
+	 * 
+	 * @var \Webfox\Placements\Domain\Model\Client
+	 */
+	protected $client;
+
+	/**
 	 * resumes
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\Placements\Domain\Model\Resume>
@@ -75,6 +82,24 @@ class User extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 		$this->resumes = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		
 		$this->applications = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Get the client
+	 *
+	 * @return \Webfox\Placements\Domain\Model\Client
+	 */
+	public function getClient() {
+		return $this->client;
+	}
+
+	/**
+	 * Sets the client
+	 * 
+	 * @param \Webfox\Placements\Domain\Model\Client $client
+	 */
+	public function setClient($client) {
+		$this->client = $client;
 	}
 
 	/**

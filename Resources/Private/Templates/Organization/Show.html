@@ -1,0 +1,29 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+<f:if condition="{settings.debug}">
+	<f:debug title="settings">{settings}</f:debug>
+	<f:debug title="organization">{organization}</f:debug>
+</f:if>
+	<div class="organization-detail">
+		<f:flashMessages class="message"/>
+		<div class="row-fluid">
+			<div class="span8">
+
+				<f:render partial="Organization/Properties" arguments="{organization:organization}" />
+			</div>
+			<f:comment>
+			<div class="span4 navigation">
+				<f:link.action action="list" class="button back">{f:translate(key:'tx_placements.general.backToList')}</f:link.action><br />
+			</div>
+			</f:comment>
+		</div>
+		<div class="navigation">
+			<f:link.action 
+				action="list" 
+				pageUid="{settings.organization.list.pid}"
+				class="button back">{f:translate(key:'tx_placements.general.backToList', default: 'cancel')}</f:link.action>
+		</div>
+	</div>
+
+</f:section>
