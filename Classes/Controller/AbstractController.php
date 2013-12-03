@@ -68,5 +68,64 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	protected $accessControlService;
 
 
+	/**
+	 * Injects the Configuration Manager and is initializing the framework settings
+	 *
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager Instance of the Configuration Manager
+	 * @return void
+	 */
+	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
+		$this->configurationManager = $configurationManager;
+
+		$tsSettings = $this->configurationManager->getConfiguration(
+				\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+			);
+		$originalSettings = $this->configurationManager->getConfiguration(
+				\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+			);
+
+		\TYPO3\CMS\Core\Utility\GeneralUtility::devlog('tsSettings', 'placements', 1 , $tsSettings);
+		\TYPO3\CMS\Core\Utility\GeneralUtility::devlog('originialSettings', 'placements', 1 , $originalSettings);
+			// start override
+		if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
+			//$overrideIfEmpty = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tsSettings['settings']['overrideFlexformSettingsIfEmpty'], TRUE);
+		/*	
+		foreach ($overrideIfEmpty as $key) {
+					// if flexform setting is empty and value is available in TS
+				if ((!isset($originalSettings[$key]) || empty($originalSettings[$key]))
+						&& isset($tsSettings['settings'][$key])) {
+					$originalSettings[$key] = $tsSettings['settings'][$key];
+				}
+			}*/
+		$resultingSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule(
+			$tsSettings, $originalSettings, FALSE, FALSE);
+		\TYPO3\CMS\Core\Utility\GeneralUtility::devlog('resultingSettings', 'placements', 1 , $resultingSettings);
+			
+		}
+
+/*			// Use stdWrap for given defined settings
+		if (isset($originalSettings['useStdWrap']) && !empty($originalSettings['useStdWrap'])) {
+			if (class_exists('\TYPO3\CMS\Extbase\Service\TypoScriptService')) {
+				$typoScriptService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Service\TypoScriptService');
+			} else {
+				$typoScriptService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Utility\TypoScript');
+			}
+			$typoScriptArray = $typoScriptService->convertPlainArrayToTypoScriptArray($originalSettings);
+			$stdWrapProperties = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $originalSettings['useStdWrap'], TRUE);
+			foreach ($stdWrapProperties as $key) {
+				if (is_array($typoScriptArray[$key . '.'])) {
+					$originalSettings[$key] = $this->configurationManager->getContentObject()->stdWrap(
+							$originalSettings[$key],
+							$typoScriptArray[$key . '.']
+					);
+				}
+			}
+		}
+
+		$this->settings = $originalSettings;
+*/
+		$this->settings = $resultingSettings['settings'];
+	}
+
 }
 ?>
