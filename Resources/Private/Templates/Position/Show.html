@@ -13,7 +13,10 @@ This Template displays a single position.
 				<f:render partial="Position/Properties" arguments="{position:position}" />
 			</div>
 			<div class="span4 navigation">
-				<f:link.action action="list" class="button back">{f:translate(key:'tx_placements.general.backToList')}</f:link.action>
+				<f:link.action 
+					action="list"
+					pageUid="{settings.position.back.pid}" 
+					class="button back">{f:translate(key:'tx_placements.general.backToList')}</f:link.action>
 			</div>
 			<div class="span4">
 				<f:render partial="Position/Organization" arguments="{organization: '{position.organization}'}" />
