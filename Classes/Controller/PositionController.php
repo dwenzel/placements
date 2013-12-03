@@ -134,7 +134,7 @@ class PositionController extends AbstractController {
 					'tx_placements.error.position.createActionNotAllowed', 'placements'
 				)
 			);
-			$this->redirect('list');
+			$this->redirect('list', NULL, NULL, NULL, $this->settings['position']['list']['pid']);
 		} else {
 			$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
 			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
@@ -171,7 +171,7 @@ class PositionController extends AbstractController {
 				'tx_placements.success.position.createAction', 'placements'
 				)
 			);
-		$this->redirect('list');
+		$this->redirect('list', NULL, NULL, NULL, $this->settings['position']['list']['pid']);
 	}
 
 	/**
@@ -188,7 +188,7 @@ class PositionController extends AbstractController {
 					'tx_placements.error.position.editActionNotAllowed', 'placements'
 				)
 			);
-			$this->redirect('list');
+			$this->redirect('list', NULL, NULL, NULL, $this->settings['position']['list']['pid']);
 		} else {
 			$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
 			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
@@ -224,7 +224,7 @@ class PositionController extends AbstractController {
 				'tx_placements.success.position.updateAction', 'placements'
 				)
 		);
-		$this->redirect('list');
+		$this->redirect('list', NULL, NULL, NULL, $this->settings['position']['list']['pid']);
 	}
 
 	/**
@@ -248,7 +248,7 @@ class PositionController extends AbstractController {
 				)
 			);
 		}
-		$this->redirect('list');
+		$this->redirect('list', NULL, NULL, NULL, $this->settings['position']['list']['pid']);
 	}
 
 	/**
