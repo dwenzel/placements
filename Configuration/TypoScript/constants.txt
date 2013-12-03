@@ -19,6 +19,7 @@ plugin.tx_placements {
 					itemsPerPage = 10
 					insertAbove = 1
 					insertBelow = 1
+					showNumberOfPages = 0
 					lessPages = 1
 					forcedNumberOfLinks = 5
 					pagesBefore = 3

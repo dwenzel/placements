@@ -1,3 +1,4 @@
+{namespace ps=Webfox\Placements\ViewHelpers}
 
 <div class="row-fluid list-item">
 <f:comment>titel, organization.title,entryDate,organization.zip organization.city</f:comment>
@@ -8,21 +9,21 @@
 			arguments="{organization : organization}"> {organization.title}</f:link.action></div>
 	<div class="span2 identifier">{organization.identifier}</div>
 	<div class="span2">
-		<f:security.ifHasRole role="{settings.security.organization.editorGroup}">
+		<ps:security.allow action="edit" object="{organization}" matchClient="TRUE">
 			<f:link.action 
 				action="edit" 
 				arguments="{organization: organization}" 
 				class="button edit"
 				title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
 			>{f:translate(key:'tx_placements.general.edit', default: 'Edit')}</f:link.action>
-		</f:security.ifHasRole>
-		<f:security.ifHasRole role="{settings.security.organization.adminGroup}">
+		</ps:security.allow>
+		<ps:security.allow action="delete" object="{organization}" matchClient="TRUE">
 			<f:link.action 
 				action="delete" 
 				arguments="{organization: organization}" 
 				class="button delete"
 				title="{f:translate(key:'tx_placements.general.delete', default: 'Delete')}"
 			>{f:translate(key:'tx_placements.general.delete', default: 'Delete')}</f:link.action>
-		</f:security.ifHasRole>
+		</ps:security.allow>
 	</div>
 </div>

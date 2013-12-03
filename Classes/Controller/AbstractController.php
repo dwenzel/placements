@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\Placements\Domain\Model;
+namespace Webfox\Placements\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -33,17 +33,40 @@ namespace Webfox\Placements\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category {
-	
+class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
 	/**
-	 * Returns all child categories of this
-	 * @return \array an array of \Webfox\Placements\Domain\Model\Category objects
+	 * Sector Repository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\SectorRepository
+	 * @inject
 	 */
-	public function getChildren() {
-		$categoryRepository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Webfox\\Placements\\Domain\\Repository\\CategoryRepository');
-		$children = $categoryRepository->findAllChildren($this);
-		return $children;
-	}
+	protected $sectorRepository;
+
+	/**
+	 * Organization Repository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\OrganizationRepository
+	 * @inject
+	 */
+	protected $organizationRepository;
+
+	/**
+	 * Category Repository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\CategoryRepository
+	 * @inject
+	 */
+	protected $categoryRepository;
+
+	/**
+	 * Access Control Service
+	 *
+	 * @var \Webfox\Placements\Service\AccessControlService
+	 * @inject
+	 */
+	protected $accessControlService;
+
 
 }
 ?>

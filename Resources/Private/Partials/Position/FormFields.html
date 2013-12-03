@@ -2,7 +2,7 @@
 <div class="row-fluid">
 	<div class="span6">
 		<div class="clearfix">
-			<label for="title">{f:translate(key: 'tx_placements_domain_model_position.title')} <span class="required">{f:translate(key: 'tx_placements.general.required')}</span></label>
+			<label for="title"><a class="legend" title="{f:translate(key: 'tx_placements_domain_model_position.legend.title')}">&nbsp;</a>{f:translate(key: 'tx_placements_domain_model_position.title')} <span class="required">{f:translate(key: 'tx_placements.general.required')}</span></label>
 			<f:form.textfield property="title" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.title')}"/>
 		</div>
 		<f:if condition="{workingHours}">
@@ -115,7 +115,7 @@
 </f:comment>
 <div class="row-fluid">
 	<div class="span12">
-		<label for="description">{f:translate(key: 'tx_placements_domain_model_position.description')}</label>
+		<label for="description">{f:translate(key: 'tx_placements_domain_model_position.description')}<br /><a class="legend" title="{f:translate(key: 'tx_placements_domain_model_position.legend.description')}">&nbsp;</a></label>
 		<f:form.textarea property="description" class="description"/>
 	</div>
 </div>
@@ -136,7 +136,7 @@
 	</div>
 	<div class="span6">
 		<div class="clearfix">
-			<label for="payment">{f:translate(key: 'tx_placements_domain_model_position.payment')}</label>
+			<label for="payment"><a class="legend" title="{f:translate(key: 'tx_placements_domain_model_position.legend.payment')}">&nbsp;</a>{f:translate(key: 'tx_placements_domain_model_position.payment')}</label>
 			<f:form.textarea property="payment" class="payment" />
 		</div>
 	</div>

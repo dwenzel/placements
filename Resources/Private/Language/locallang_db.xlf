@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-15T09:43:47Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-26T16:56:02Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -184,6 +184,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_user.applications" xml:space="preserve">
 			<source>Applications</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_user.client" xml:space="preserve">
+			<source>Client</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_user.resumes" xml:space="preserve">
 			<source>Resumes</source>

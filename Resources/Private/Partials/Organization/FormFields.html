@@ -1,3 +1,4 @@
+{namespace ps=Webfox\Placements\ViewHelpers}
 <div class="row-fluid">
 	<div class="span12">
 		<label for="title">
@@ -6,6 +7,7 @@
 		<f:form.textfield property="title" placeholder="{f:translate(key:'tx_placements_domain_model_organization.placeholder.title')}"/>
 	</div>
 </div>
+<f:comment>
 <div class="row-fluid">
 	<div class="span12">
 		<label for="identifier">
@@ -14,13 +16,14 @@
 		<f:form.textfield property="identifier" placeholder="{f:translate(key:'tx_placements_domain_model_organization.placeholder.identifier')}"/>
 	</div>
 </div>
+</f:comment>
 
 <div class="row-fluid">
 	<div class="span12">
 		<label for="description">
-			<f:translate key="tx_placements_domain_model_organization.description" />
+			<f:translate key="tx_placements_domain_model_organization.description" /><br /><a class="legend" title="{f:translate(key: 'tx_placements_domain_model_organization.legend.description')}">&nbsp;</a>
 		</label>
-		<f:form.textarea property="description" cols="40" rows="15" />
+		<f:form.textarea property="description" cols="40" rows="15" class="description"/>
 	</div>
 </div>
 
@@ -51,6 +54,7 @@
 		<f:if condition="{categories}">
 			<div class="clearfix">
 				<label for="categories">{f:translate(key: 'tx_placements_domain_model_category')}</label>
+<f:comment>
 				<f:form.select
 					id="categories"
 					property="categories"
@@ -59,6 +63,15 @@
 					optionValueField="uid"
 					optionLabelField="title"
 				/>
+		</f:comment>
+			<ps:select 
+				id="categories"
+				property="categories"
+				options="{categories}"
+				multiple="true"
+				optionValueField="uid"
+				optionLabelField="title"
+			/>
 			</div>
 		</f:if>
 

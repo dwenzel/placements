@@ -33,31 +33,7 @@ namespace Webfox\Placements\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
-	/**
-	 * Organization Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\OrganizationRepository
-	 * @inject
-	 */
-	protected $organizationRepository;
-
-	/**
-	 * Sector Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\SectorRepository
-	 * @inject
-	 */
-	protected $sectorRepository;
-
-	/**
-	 * Category Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\CategoryRepository
-	 * @inject
-	 */
-	protected $categoryRepository;
+class OrganizationController extends AbstractController {
 
 	/**
 	 * action list
@@ -65,7 +41,12 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function listAction() {
-		$organizations = $this->organizationRepository->findAll();
+		if ($this->settings['clientsOrganizationsOnly'] AND
+			$this->accessControlService->hasLoggedInClient()) {
+			$organizations = $this->organizationRepository->findByClient($this->accessControlService->getFrontendUser()->getClient());
+		} else {
+			$organizations = $this->organizationRepository->findAll();
+		}
 		$this->view->assign('organizations', $organizations);
 	}
 
@@ -103,7 +84,8 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Organization $newOrganization) {
-		$this->organizationRepository->add($newOrganization);
+		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
+	    	$this->organizationRepository->add($newOrganization);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.organization.createAction', 'placements'
@@ -136,7 +118,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Organization $organization) {
-		$this->updateStorageProperties($organization);
+		//$this->updateStorageProperties($organization);
 		$this->organizationRepository->update($organization);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -156,7 +138,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		$this->organizationRepository->remove($organization);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organizationl.deleteAction', 'placements'
+				'tx_placements.success.organization.deleteAction', 'placements'
 			)
 		);
 		$this->redirect('list');
@@ -164,7 +146,8 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 
 	/**
 	 * Update storage properties
-	 *
+	 * 
+	 * @todo: remove this method. It  seems not necessary anymore.
 	 * @param \Webfox\Placements\Domain\Model\Organization $organization
 	 */
 	 protected function updateStorageProperties(\Webfox\Placements\Domain\Model\Organization &$organization) {
@@ -194,7 +177,7 @@ class OrganizationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			$category = $this->categoryRepository->findOneByUid($choosenCategory);
 			$categories = $organization->getCategories();
 			if(!$categories->contains($category)) {
-				$categories->attach(category);
+				$categories->attach($category);
 				$organization->setCategories($categories);
 			}
 		}

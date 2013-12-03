@@ -14,7 +14,7 @@
 	</f:comment>
 	<div class="span2 organization zip city">{position.zip} {position.city}</div>
 	<div class="span2">
-		<f:security.ifHasRole role="{settings.security.position.editorGroup}">
+		<ps:security.allow action="edit" object="{position}" matchClient="TRUE">
 			<f:link.action 
 				pageUid="{settings.position.detail.pid}" 
 				action="edit" 
@@ -22,14 +22,14 @@
 				class="button edit" 
 				title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
 			>{f:translate(key:'tx_placements.general.edit', default: 'Edit')}</f:link.action>
-		</f:security.ifHasRole>
-		<f:security.ifHasRole role="{settings.security.position.adminGroup}">
+		</ps:security.allow>
+		<ps:security.allow action="delete" object="{position}" matchClient="TRUE">
 			<f:link.action 
 				action="delete" 
 				arguments="{position : position}" 
 				class="button delete" 
 				title="{f:translate(key:'tx_placements.general.delete', default: 'Delete')}"
 			>{f:translate(key:'tx_placements.general.delete', default: 'Delete')}</f:link.action>
-		</f:security.ifHasRole>
+		</ps:security.allow>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-26T09:38:44Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-02T16:41:41Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -21,6 +21,18 @@
 			<source>Sorry! Your organization could not be created.</source>
 			<target>Ihr Unternehmen konnte nicht erstellt werden.</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.createActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to add organizations.</source>
+			<target>Sie dürfen keine Unternehmen hinzufügen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.deleteActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to delete organizations.</source>
+			<target>Sie dürfen keine Unternehmen löschen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.editActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to edit organizations.</source>
+			<target>Sie dürfen keine Unternehmen bearbeiten.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.organization.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
@@ -32,6 +44,18 @@
 		<trans-unit id="tx_placements.error.position.createAction" approved="yes" xml:space="preserve">
 			<source>Sorry! Your position could not be created.</source>
 			<target>Ihr Stellenangebot konnte nicht gespeichert werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.createActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to add positions.</source>
+			<target>Sie dürfen keine Stellenangebote hinzufügen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.deleteActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to delete positions.</source>
+			<target>Sie dürfen keine Stellenangebote löschen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.position.editActionNotAllowed" approved="yes" xml:space="preserve">
+			<source>Sorry! You are not allowed to edit positions.</source>
+			<target>Sie dürfen keine Stellenangebote bearbeiten.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.entryDate.1307719788" approved="yes" xml:space="preserve">
 			<source>Please enter a entry date formated as dd.mm.yyyy</source>
@@ -175,7 +199,7 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.paginate_overall" approved="yes" xml:space="preserve">
 			<source>Page %s of %s pages</source>
-			<target>Seite %s von %</target>
+			<target>Seite %s von %s</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.paginate_previous" approved="yes" xml:space="preserve">
 			<source>previous</source>
@@ -201,6 +225,10 @@
 			<source>All Working Hours</source>
 			<target>Alle Arbeitszeiten</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.quickMenu.showClientsPositionsOnly" approved="yes" xml:space="preserve">
+			<source>Show my positions only</source>
+			<target>Zeige nur meine Stellenangebote</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.search.position.message.noSearchResult" approved="yes" xml:space="preserve">
 			<source>Sorry! We could not find any position for your query.</source>
 			<target>Zu Ihrer Anfrage wurden keine Stellenangebote gefunden.</target>
@@ -224,6 +252,14 @@
 		<trans-unit id="tx_placements.success.position.createAction" approved="yes" xml:space="preserve">
 			<source>Your new Position was created.</source>
 			<target>Ihr neues Stellenangebot wurde gespeichert.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.deleteAction" approved="yes" xml:space="preserve">
+			<source>Your Position was removed.</source>
+			<target>Das Stellenangebot wurde gelöscht.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.success.position.updateAction" approved="yes" xml:space="preserve">
+			<source>Your Position was updated.</source>
+			<target>Das Stellenangebot wurde aktualisiert.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_application" approved="yes" xml:space="preserve">
 			<source>Application</source>
@@ -285,6 +321,10 @@
 			<source>About company</source>
 			<target>Über das Unternehmen</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.client" approved="yes" xml:space="preserve">
+			<source>Client</source>
+			<target>Kunde</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.company_information" approved="yes" xml:space="preserve">
 			<source>Company Information</source>
 			<target>Informationen zum Unternehmen</target>
@@ -300,6 +340,10 @@
 		<trans-unit id="tx_placements_domain_model_organization.label" approved="yes" xml:space="preserve">
 			<source>Organization</source>
 			<target>Organisation</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.description" approved="yes" xml:space="preserve">
+			<source>Describe your organization.</source>
+			<target>Beschreiben Sie Ihr Unternehmen.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" approved="yes" xml:space="preserve">
 			<source>Enter external reference</source>
@@ -352,6 +396,18 @@
 		<trans-unit id="tx_placements_domain_model_position.identifier" approved="yes" xml:space="preserve">
 			<source>Reference</source>
 			<target>Referenz</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.description" approved="yes" xml:space="preserve">
+			<source>Describe the position.</source>
+			<target>Beschreiben Sie das Stellenangebot.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.payment" approved="yes" xml:space="preserve">
+			<source>Describe the payment.</source>
+			<target>Beschreiben Sie die Vergütung.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.title" approved="yes" xml:space="preserve">
+			<source>Enter a title for the position.</source>
+			<target>Geben Sie einen Titel für das Stellenangebot ein.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.link" approved="yes" xml:space="preserve">
 			<source>Link</source>

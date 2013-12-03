@@ -37,6 +37,7 @@ plugin.tx_placements {
 					itemsPerPage ={$plugin.tx_placements.settings.position.list.paginate.itemsPerPage}
 					insertAbove = {$plugin.tx_placements.settings.position.list.paginate.insertAbove}
 					insertBelow = {$plugin.tx_placements.settings.position.list.paginate.insertBelow}
+					showNumberOfPages = {$plugin.tx_placements.settings.position.list.paginate.showNumberOfPages}
 					lessPages = {$plugin.tx_placements.settings.position.list.paginate.lessPages}
 					forcedNumberOfLinks = {$plugin.tx_placements.settings.position.list.paginate.forcedNumberOfLinks}
 					pagesBefore = {$plugin.tx_placements.settings.position.list.paginate.pagesBefore}
@@ -74,18 +75,5 @@ plugin.tx_placements._CSS_DEFAULT_STYLE (
 	input.f3-form-error {
 		background-color:#FF9F9F;
 		border: 1px #FF0000 solid;
-	}
-
-	.tx-placements table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
-
-	.tx-placements table th {
-		font-weight:bold;
-	}
-
-	.tx-placements table td {
-		vertical-align:top;
 	}
 )
