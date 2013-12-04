@@ -18,7 +18,6 @@ plugin.tx_placements {
 	}
 
 	settings {
-		overrideFlexformSettingsIfEmpty = 1
 		security {
 			position {
 				editorGroup = {$plugin.tx_placements.settings.security.position.editorGroup}

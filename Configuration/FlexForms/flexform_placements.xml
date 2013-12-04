@@ -405,7 +405,7 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
-					<settings.position.list.pid>
+					<settings.listPid>
 						<TCEforms>
 							<label>@todo List Pid</label>
 							<config>
@@ -421,8 +421,8 @@
 								</wizards>
 							</config>
 						</TCEforms>
-					</settings.position.list.pid>
-					<settings.position.detail.pid>
+					</settings.listPid>
+					<settings.detailPid>
 						<TCEforms>
 							<label>@todo Detail Pid</label>
 							<config>
@@ -438,8 +438,8 @@
 								</wizards>
 							</config>
 						</TCEforms>
-					</settings.position.detail.pid>
-					<settings.position.back.pid>
+					</settings.detailPid>
+					<settings.backPid>
 						<TCEforms>
 							<label>@todo Back Pid</label>
 							<config>
@@ -455,7 +455,7 @@
 								</wizards>
 							</config>
 						</TCEforms>
-					</settings.position.back.pid>
+					</settings.backPid>
 				</el>
 			</ROOT>
 		</pages>
