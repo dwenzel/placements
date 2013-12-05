@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-02T16:41:41Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-05T09:47:01Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -77,6 +77,38 @@
 			<source>Sorry! Your position could not be updated.</source>
 			<target>Ihr Stellenangebot konnte nicht aktualisiert werden.</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.1" approved="yes" xml:space="preserve">
+			<source>The uploaded file exceeds the servers maximum file size directive.</source>
+			<target>Die Datei war größer als die Einstellungen des Servers erlauben.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.2" approved="yes" xml:space="preserve">
+			<source>The uploaded file exceeds the maximum file size directive that was specified in the HTML form.</source>
+			<target>Die Datei war größer als das HTML-Formular erlaubt.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.3" approved="yes" xml:space="preserve">
+			<source>The file was only partially uploaded.</source>
+			<target>Die Datei wurde nur teilweise hochgeladen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.4" approved="yes" xml:space="preserve">
+			<source>No file was uploaded.</source>
+			<target>Es wurde keine Datei hochgeladen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.6" approved="yes" xml:space="preserve">
+			<source>Missing a temporary folder.</source>
+			<target>Der temporäre Ordner wurde nicht gefunden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.7" approved="yes" xml:space="preserve">
+			<source>Failed to write file to disk.</source>
+			<target>Fehler beim Schreiben der Datei.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.8" approved="yes" xml:space="preserve">
+			<source>File upload stopped by extension.</source>
+			<target>Das Hochladen wurde durch den Server gestoppt.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.unknown" approved="yes" xml:space="preserve">
+			<source>Unknown file upload error.</source>
+			<target>Unbekannter Fehler beim Hochladen der Datei.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.extendedSearchForm.hint" approved="yes" xml:space="preserve">
 			<source>Please enter a keyword or choose any option.</source>
 			<target>Bitte geben Sie einen Suchbegriff ein oder wählen Sie eine der Optionen.</target>
@@ -149,6 +181,10 @@
 			<source>December</source>
 			<target>Dezember</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.noImageProvided" approved="yes" xml:space="preserve">
+			<source>No Image Yet</source>
+			<target>Noch kein Bild</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.required" approved="yes" xml:space="preserve">
 			<source>*</source>
 			<target>*</target>
@@ -156,6 +192,10 @@
 		<trans-unit id="tx_placements.general.save" approved="yes" xml:space="preserve">
 			<source>Save</source>
 			<target>Speichern</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.save-close" approved="yes" xml:space="preserve">
+			<source>Save &amp; Close</source>
+			<target>Speichern &amp; Schließen</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.search" approved="yes" xml:space="preserve">
 			<source>search</source>
@@ -337,6 +377,10 @@
 			<source>ID</source>
 			<target>ID</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.image" approved="yes" xml:space="preserve">
+			<source>Image</source>
+			<target>Bild</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.label" approved="yes" xml:space="preserve">
 			<source>Organization</source>
 			<target>Organisation</target>
@@ -344,6 +388,10 @@
 		<trans-unit id="tx_placements_domain_model_organization.legend.description" approved="yes" xml:space="preserve">
 			<source>Describe your organization.</source>
 			<target>Beschreiben Sie Ihr Unternehmen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.image" approved="yes" xml:space="preserve">
+			<source>Allowed file types: %s&lt;br /&gt;Maximum image size: %s</source>
+			<target>Erlaubte Dateitypen: %s&lt;br /&gt;Maximale Dateigröße: %s</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" approved="yes" xml:space="preserve">
 			<source>Enter external reference</source>

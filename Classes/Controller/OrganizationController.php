@@ -36,6 +36,21 @@ namespace Webfox\Placements\Controller;
 class OrganizationController extends AbstractController {
 
 	/**
+	 * Initialize all actions
+	 */
+	public function initializeAction() {
+		if($this->arguments->hasArgument('newOrganization')) {
+			$this->arguments->getArgument('newOrganization')
+			->getPropertyMappingConfiguration()
+			->setTargetTypeForSubProperty('image', 'array');
+		}
+		if($this->arguments->hasArgument('organization')) {
+			$this->arguments->getArgument('organization')
+			->getPropertyMappingConfiguration()
+			->setTargetTypeForSubProperty('image', 'array');
+		}
+	}
+	/**
 	 * action list
 	 *
 	 * @return void
@@ -84,6 +99,7 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Organization $newOrganization) {
+		$this->updateFileProperty($newOrganization, 'image');
 		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
 	    	$this->organizationRepository->add($newOrganization);
 		$this->flashMessageContainer->add(
@@ -91,6 +107,13 @@ class OrganizationController extends AbstractController {
 				'tx_placements.success.organization.createAction', 'placements'
 			)
 		);
+		if($this->request->hasArgument('save-close')) {
+			$this->redirect('list');
+		} elseif ($this->request->hasArgument('save-reload')) {
+			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+			$persistenceManager->persistAll();
+			$this->redirect('edit', NULL, NULL, array('organization' => $newOrganization));
+		}
 		$this->redirect('list');
 	}
 
@@ -118,13 +141,18 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Organization $organization) {
+		$this->updateFileProperty($organization, 'image');
 		$this->organizationRepository->update($organization);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.organization.updateAction', 'placements'
 			)	
 		);
-		$this->redirect('list');
+		if($this->request->hasArgument('save-close')) {
+			$this->redirect('list');
+		} elseif ($this->request->hasArgument('save-reload')) {
+			$this->redirect('edit', NULL, NULL, array('organization' => $organization));
+		}
 	}
 
 	/**
