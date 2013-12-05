@@ -2,6 +2,32 @@
 <div class="short-info">
 	<h3>{f:translate(key: 'tx_placements.general.information.plural')}</h3>
 	<table>
+		<f:if condition="{position.type}">
+			<tr>
+				<th class="label">{f:translate(key: 'tx_placements_domain_model_position.type')}:</th>
+				<td class="date">{position.type.title}</td>
+			</tr>
+		</f:if>
+		<f:if condition="{position.sectors}">
+			<tr>
+				<th class="label">{f:translate(key: 'tx_placements_domain_model_sector')}:</th>
+				<td class="sectors">
+					<f:for each="{position.sectors}" as="sector" iteration="iteration" >
+						<span class="sector">{sector.title}</span>{f:if(condition: '{iteration.isLast}', then: '', else: ', ')}
+					</f:for>
+				</td>
+			</tr>
+		</f:if>
+		<f:if condition="{position.categories}">
+			<tr>
+				<th class="label">{f:translate(key: 'tx_placements_domain_model_category')}:</th>
+				<td class="category">
+					<f:for each="{position.categories}" as="category" iteration="iteration" >
+						<span class="category">{category.title}</span>{f:if(condition: '{iteration.isLast}', then: '', else: ', ')}
+					</f:for>
+				</td>
+			</tr>
+		</f:if>
 		<f:if condition="{position.entryDate}">
 			<tr>
 				<th class="label">{f:translate(key: 'tx_placements_domain_model_position.entry_date')}:</th>
