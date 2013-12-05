@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-04T17:00:47Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-05T09:47:01Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
-		<trans-unit id="tx_placements.error.upload.1" approved="yes" xml:space="preserve">
-			<source>The uploaded file exceeds the servers maximum file size directive.</source>
-			<target>Die Datei war größer als die Einstellungen des Servers erlauben.</target>
-		</trans-unit>
 		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
@@ -80,6 +76,10 @@
 		<trans-unit id="tx_placements.error.position.updateAction" approved="yes" xml:space="preserve">
 			<source>Sorry! Your position could not be updated.</source>
 			<target>Ihr Stellenangebot konnte nicht aktualisiert werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.1" approved="yes" xml:space="preserve">
+			<source>The uploaded file exceeds the servers maximum file size directive.</source>
+			<target>Die Datei war größer als die Einstellungen des Servers erlauben.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.upload.2" approved="yes" xml:space="preserve">
 			<source>The uploaded file exceeds the maximum file size directive that was specified in the HTML form.</source>
@@ -180,6 +180,10 @@
 		<trans-unit id="tx_placements.general.monthNameLong.12" approved="yes" xml:space="preserve">
 			<source>December</source>
 			<target>Dezember</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.noImageProvided" approved="yes" xml:space="preserve">
+			<source>No Image Yet</source>
+			<target>Noch kein Bild</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.required" approved="yes" xml:space="preserve">
 			<source>*</source>
@@ -384,6 +388,10 @@
 		<trans-unit id="tx_placements_domain_model_organization.legend.description" approved="yes" xml:space="preserve">
 			<source>Describe your organization.</source>
 			<target>Beschreiben Sie Ihr Unternehmen.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.image" approved="yes" xml:space="preserve">
+			<source>Allowed file types: %s&lt;br /&gt;Maximum image size: %s</source>
+			<target>Erlaubte Dateitypen: %s&lt;br /&gt;Maximale Dateigröße: %s</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" approved="yes" xml:space="preserve">
 			<source>Enter external reference</source>

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-04T17:00:47Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-05T09:47:01Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
-		<trans-unit id="tx_placements.error.upload.1" xml:space="preserve">
-			<source>The uploaded file exceeds the servers maximum file size directive.</source>
-		</trans-unit>
 		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 		</trans-unit>
@@ -61,6 +58,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.error.position.updateAction" xml:space="preserve">
 			<source>Sorry! Your position could not be updated.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.1" xml:space="preserve">
+			<source>The uploaded file exceeds the servers maximum file size directive.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.upload.2" xml:space="preserve">
 			<source>The uploaded file exceeds the maximum file size directive that was specified in the HTML form.</source>
@@ -136,6 +136,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.monthNameLong.12" xml:space="preserve">
 			<source>December</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.noImageProvided" xml:space="preserve">
+			<source>No Image Yet</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.required" xml:space="preserve">
 			<source>*</source>
@@ -289,6 +292,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.legend.description" xml:space="preserve">
 			<source>Describe your organization.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.image" xml:space="preserve">
+			<source>Allowed file types: %s&lt;br /&gt;Maximum image size: %s</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" xml:space="preserve">
 			<source>Enter external reference</source>
