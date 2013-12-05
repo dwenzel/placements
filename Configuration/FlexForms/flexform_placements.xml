@@ -407,7 +407,7 @@
 				<el>
 					<settings.listPid>
 						<TCEforms>
-							<label>@todo List Pid</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.listPage</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -424,7 +424,7 @@
 					</settings.listPid>
 					<settings.detailPid>
 						<TCEforms>
-							<label>@todo Detail Pid</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.detailPage</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -441,7 +441,7 @@
 					</settings.detailPid>
 					<settings.backPid>
 						<TCEforms>
-							<label>@todo Back Pid</label>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.backPage</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>

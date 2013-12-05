@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-03T11:33:28Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-05T08:45:15Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
 		<trans-unit id="flexforms_general.applications" xml:space="preserve">
 			<source>Applications</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.backPage" xml:space="preserve">
+			<source>Back Page</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.categories" xml:space="preserve">
 			<source>Categories</source>
@@ -47,11 +50,17 @@
 		<trans-unit id="flexforms_general.constraintsConjunction.or" xml:space="preserve">
 			<source>OR</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.detailPage" xml:space="preserve">
+			<source>Detail Page</source>
+		</trans-unit>
 		<trans-unit id="flexforms_general.entryDate" xml:space="preserve">
 			<source>Entry Date</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.identifier" xml:space="preserve">
 			<source>Identifier</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.listPage" xml:space="preserve">
+			<source>List Page</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.optionGroupOthers" xml:space="preserve">
 			<source>Others</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-03T11:33:28Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-05T08:45:15Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -8,6 +8,10 @@
 		<trans-unit id="flexforms_general.applications" approved="yes" xml:space="preserve">
 			<source>Applications</source>
 			<target>Bewerbungen</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.backPage" approved="yes" xml:space="preserve">
+			<source>Back Page</source>
+			<target>Zurück-Seite</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.categories" approved="yes" xml:space="preserve">
 			<source>Categories</source>
@@ -61,6 +65,10 @@
 			<source>OR</source>
 			<target>ODER</target>
 		</trans-unit>
+		<trans-unit id="flexforms_general.detailPage" approved="yes" xml:space="preserve">
+			<source>Detail Page</source>
+			<target>Detailseite</target>
+		</trans-unit>
 		<trans-unit id="flexforms_general.entryDate" approved="yes" xml:space="preserve">
 			<source>Entry Date</source>
 			<target>Eintrittsdatum</target>
@@ -68,6 +76,10 @@
 		<trans-unit id="flexforms_general.identifier" approved="yes" xml:space="preserve">
 			<source>Identifier</source>
 			<target>Referenz</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.listPage" approved="yes" xml:space="preserve">
+			<source>List Page</source>
+			<target>Listenseite</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.optionGroupOthers" approved="yes" xml:space="preserve">
 			<source>Others</source>
