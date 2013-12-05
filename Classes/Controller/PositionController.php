@@ -134,7 +134,7 @@ class PositionController extends AbstractController {
 					'tx_placements.error.position.createActionNotAllowed', 'placements'
 				)
 			);
-			$this->redirect('list');
+			$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 		} else {
 			$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
 			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
@@ -171,7 +171,7 @@ class PositionController extends AbstractController {
 				'tx_placements.success.position.createAction', 'placements'
 				)
 			);
-		$this->redirect('list');
+		$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 	}
 
 	/**
@@ -188,7 +188,7 @@ class PositionController extends AbstractController {
 					'tx_placements.error.position.editActionNotAllowed', 'placements'
 				)
 			);
-			$this->redirect('list');
+			$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 		} else {
 			$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
 			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
@@ -217,14 +217,13 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Position $position) {
-		//$this->updateStorageProperties($position);
 		$this->positionRepository->update($position);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.position.updateAction', 'placements'
 				)
 		);
-		$this->redirect('list');
+		$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 	}
 
 	/**
@@ -248,7 +247,7 @@ class PositionController extends AbstractController {
 				)
 			);
 		}
-		$this->redirect('list');
+		$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 	}
 
 	/**
@@ -257,9 +256,6 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function quickMenuAction(array $overwriteDemand = NULL) {
-		// get session data
-		//$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_placements_overwriteDemand');
-		
 		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
 		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
@@ -271,7 +267,6 @@ class PositionController extends AbstractController {
 			    'workingHours' => $workingHours,
 			    'sectors' => $sectors,
 				'categories' => $categories,
-			    //'overwriteDemand' => unserialize($sessionData)
 			    'overwriteDemand' => $overwriteDemand
 			    )
 		);
@@ -413,53 +408,8 @@ class PositionController extends AbstractController {
 		    }
 		}
 
-		//store session data
-		/*
-		$sessionData = serialize($overwriteDemand);
-		$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_placements_overwriteDemand', $sessionData);
-		$GLOBALS['TSFE']->fe_user->storeSessionData();
-		*/
 		return $demand;
 	}
-
-	/**
-	 * Update storage properties
-	 *
-	 * @param \Webfox\Placements\Domain\Model\Position $position
-	 */
-	 protected function updateStorageProperties(\Webfox\Placements\Domain\Model\position &$position) {
-		$args = $this->request->getArgument('position');
-		// get sectors
-		if (is_array($args['sector'])) {
-			$choosenSectors = $args['sectors'];
-		} else {
-			$choosenSectors = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $args['sectors']);
-		}
-		foreach ($choosenSectors as $choosenSector) {
-			$sector = $this->sectorRepository->findOneByUid($choosenSector);
-			$sectors = $position->getSectors();
-			if (!$sectors->contains($sector)) {
-				$sectors->attach($sector);
-				$position->setSectors($sectors);
-			}
-		}
-
-		// get categories
-		if (is_array($args['categories'])) {
-			$choosenCategories = $args['categories'];
-		} else {
-			$choosenCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $args['categories']);
-		}
-		foreach ($choosenCategories as $choosenCategory) {
-			$category = $this->categoryRepository->findOneByUid($choosenCategory);
-			$categories = $position->getCategories();
-			if(!$categories->contains($category)) {
-				$categories->attach(category);
-				$position->setCategories($categories);
-			}
-		}
-	 }
-
 
 	/**
 	 * A template method for displaying custom error flash messages, or to

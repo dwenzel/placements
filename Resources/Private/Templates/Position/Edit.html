@@ -12,7 +12,7 @@ This template displays a EDIT form for a position
 		<f:flashMessages class="message"/>
 			<f:render partial="FormErrors" arguments="{object:Position}"/>
 
-			<f:form pageUid="{settings.position.list.pid}" action="update" name="position" object="{position}" >
+			<f:form pageUid="{settings.listPid}" action="update" name="position" object="{position}" >
 				<f:render 
 					partial="Position/FormFields" 
 					arguments="{
@@ -30,7 +30,7 @@ This template displays a EDIT form for a position
 		<div class="navigation">
 			<f:link.action 
 				action="list"
-				pageUid="{settings.position.list.pid}" 
+				pageUid="{settings.listPid}" 
 				class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
 		</div>
 	</div>

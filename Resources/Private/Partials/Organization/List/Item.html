@@ -12,6 +12,7 @@
 		<ps:security.allow action="edit" object="{organization}" matchClient="TRUE">
 			<f:link.action 
 				action="edit" 
+				pageUid="{settings.detailPid}"
 				arguments="{organization: organization}" 
 				class="button edit"
 				title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
@@ -20,6 +21,7 @@
 		<ps:security.allow action="delete" object="{organization}" matchClient="TRUE">
 			<f:link.action 
 				action="delete" 
+				pageUid="{settings.listPid}"
 				arguments="{organization: organization}" 
 				class="button delete"
 				title="{f:translate(key:'tx_placements.general.delete', default: 'Delete')}"
