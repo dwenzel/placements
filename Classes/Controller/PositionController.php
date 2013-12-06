@@ -176,7 +176,9 @@ class PositionController extends AbstractController {
 				'tx_placements.success.position.createAction', 'placements'
 				)
 			);
-		$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
+		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+		$persistenceManager->persistAll();
+		$this->redirect('show', NULL, NULL, array('position'=>$newPosition), $this->settings['detailPid']);
 	}
 
 	/**
@@ -233,7 +235,7 @@ class PositionController extends AbstractController {
 				'tx_placements.success.position.updateAction', 'placements'
 				)
 		);
-		$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
+		$this->redirect('show', NULL, NULL, array('position' => $position), $this->settings['detailPid']);
 	}
 
 	/**
