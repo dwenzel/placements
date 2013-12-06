@@ -360,6 +360,32 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns a single category
+	 * If there are multiple categories only the first one is returned
+	 *
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\Category
+	 */
+	public function getSingleCategory() {
+		$categories = $this->getCategories()->toArray();
+		return (count($categories))? $categories[0]: NULL;
+	}
+
+	/**
+	 * Set single category
+	 * Any category found will be removed beforhand.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
+	 * @return void
+	 */
+	public function setSingleCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category) {
+		$storage = $this->getCategories();
+		if($storage->count()) {
+			$storage->removeAll();
+		}
+		$this->addCategory($category);
+	}
+
+	/**
 	 * Sets the categories
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
