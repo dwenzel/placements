@@ -165,6 +165,11 @@ class PositionController extends AbstractController {
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Position $newPosition) {
 		$newPosition->setClient($this->accessControlService->getFrontendUser()->getClient());
+		$arguments = $this->request->getArguments();
+		if(is_string($arguments['newPosition']['categories'])) {
+			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
+			$newPosition->setSingleCategory($category);
+		}
 	    	$this->positionRepository->add($newPosition);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -217,6 +222,11 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Position $position) {
+		$arguments = $this->request->getArguments();
+		if(is_string($arguments['position']['categories'])) {
+			$category = $this->categoryRepository->findByUid(intval($arguments['position']['categories']));
+			$position->setSingleCategory($category);
+		}
 		$this->positionRepository->update($position);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
