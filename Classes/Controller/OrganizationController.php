@@ -107,12 +107,15 @@ class OrganizationController extends AbstractController {
 				'tx_placements.success.organization.createAction', 'placements'
 			)
 		);
-		if($this->request->hasArgument('save-close')) {
-			$this->redirect('list');
-		} elseif ($this->request->hasArgument('save-reload')) {
+		if($this->request->hasArgument('save-reload') OR 
+			$this->request->hasArgument('save-view' )) {
 			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
 			$persistenceManager->persistAll();
+		}
+		if ($this->request->hasArgument('save-reload')) {
 			$this->redirect('edit', NULL, NULL, array('organization' => $newOrganization));
+		} elseif ($this->request->hasArgument('save-view')) {
+			$this->redirect('show', NULL, NULL, array('organization' => $newOrganization));
 		}
 		$this->redirect('list');
 	}
@@ -148,11 +151,12 @@ class OrganizationController extends AbstractController {
 				'tx_placements.success.organization.updateAction', 'placements'
 			)	
 		);
-		if($this->request->hasArgument('save-close')) {
-			$this->redirect('list');
+		if($this->request->hasArgument('save-view')) {
+			$this->redirect('show', NULL, NULL, array('organization' => $organization));
 		} elseif ($this->request->hasArgument('save-reload')) {
 			$this->redirect('edit', NULL, NULL, array('organization' => $organization));
 		}
+		$this->redirect('list');
 	}
 
 	/**
