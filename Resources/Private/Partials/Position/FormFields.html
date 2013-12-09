@@ -52,13 +52,15 @@
 			<div class="clearfix">
 				<label for="identifier">{f:translate(key: 'tx_placements_domain_model_position.identifier')}</label>
 				<f:form.textfield property="identifier" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.identifier')}" />
-				<label for="entryDate">{f:translate(key: 'tx_placements_domain_model_position.entry_date')}</label>
-				<f:form.textfield 
-					property="entryDate"
-					class="datepicker" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.entryDate')}"
-					value="{position.entryDate->f:format.date(format: '{settings.position.edit.entryDate.format}')}" />
 			</div>
 		</ps:security.allow>
+		<div class="clearfix">
+			<label for="entryDate">{f:translate(key: 'tx_placements_domain_model_position.entry_date')}</label>
+			<f:form.textfield 
+				property="entryDate"
+				class="datepicker" placeholder="{f:translate(key: 'tx_placements_domain_model_position.placeholder.entryDate')}"
+				value="{position.entryDate->f:format.date(format: '{settings.position.edit.entryDate.format}')}" />
+		</div>
 		<div class="clearfix hidden">
 			<label for="fixedTerm">{f:translate(key: 'tx_placements_domain_model_position.fixed_term')}</label>
 			<f:form.checkbox property="fixedTerm" class="fixed-term" value="{position.fixedTerm}" />
