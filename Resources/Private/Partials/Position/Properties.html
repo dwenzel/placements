@@ -31,7 +31,7 @@
 		<f:if condition="{position.entryDate}">
 			<tr>
 				<th class="label">{f:translate(key: 'tx_placements_domain_model_position.entry_date')}:</th>
-				<td class="date">{f:format.date(date:'{position.entryDate}', format:'d. F Y')}</td>
+				<td class="date">{f:format.date(date:'{position.entryDate}', format:'{settings.position.detail.entryDate.format}')}</td>
 			</tr>
 		</f:if>
 		<f:if condition="{position.duration}">
