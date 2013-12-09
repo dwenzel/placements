@@ -10,44 +10,22 @@ This template displays a EDIT form for a position
 
 	<div class="edit-form">
 		<f:flashMessages class="message"/>
-			<f:render partial="FormErrors" arguments="{object:Position}"/>
+		<f:render partial="FormErrors" arguments="{object:Position}"/>
 
-			<f:form pageUid="{settings.listPid}" action="update" name="position" object="{position}" >
-				<f:render 
-					partial="Position/FormFields" 
-					arguments="{
-						settings: settings,
-						position: position,
-						categories: categories,
-						sectors: sectors,
-						workingHours: workingHours,
-						positionTypes: positionTypes,
-						organizations: organizations
-					}" 
-				/>
-				<div class="row-fluid">
-					<div class="span12">
-						<div class="clearfix btn-group pull-right">
-							<f:link.action 
-								action="list"
-								pageUid="{settings.listPid}" 
-								class="btn back"
-								title="{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}"
-							>
-								<i class="fa fa-times"></i>
-							</f:link.action>
-							<f:form.button
-								type="submit"
-								class="btn"
-								title="{f:translate(key: 'tx_placements.general.save-view')}"
-							>
-								<i class="fa fa-save"></i>&nbsp;{f:translate(key: 'tx_placements.general.save')} 
-							</f:form.button>	
-						</div>
-					</div>
-				</div>
-			</f:form>
-		<div class="navigation">
-		</div>
+		<f:form pageUid="{settings.listPid}" action="update" name="position" object="{position}" >
+			<f:render 
+				partial="Position/FormFields" 
+				arguments="{
+					settings: settings,
+					position: position,
+					categories: categories,
+					sectors: sectors,
+					workingHours: workingHours,
+					positionTypes: positionTypes,
+					organizations: organizations
+				}" 
+			/>
+			<f:render partial="Position/FormButtons" />
+		</f:form>
 	</div>
 </f:section>
