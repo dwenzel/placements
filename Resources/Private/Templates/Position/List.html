@@ -36,9 +36,18 @@ This Template creates a list of positions.
 	</pw:paginate>
 </div>
 
-<ps:security.allow action="create" type="position">
-	<f:link.action pageUid="{settings.detailPid}" action="new" class="button new">
-		<f:translate key="tx_placements.new_position" >New Position</f:translate>
-	</f:link.action>
-</ps:security.allow>
+<div class="row-fluid">
+	<div class="span12">
+		<ps:security.allow action="create" type="position">
+			<f:link.action 
+				pageUid="{settings.detailPid}" 
+				action="new" 
+				class="btn new pull-right"
+				title="{f:translate(key: 'tx_placements.new_position')}"
+			>
+				<i class="fa fa-plus"></i>&nbsp;{f:translate(key: 'tx_placements.new_position')}
+			</f:link.action>
+		</ps:security.allow>
+	</div>
+</div>
 </f:section>

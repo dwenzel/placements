@@ -25,13 +25,29 @@ This template displays a EDIT form for a position
 						organizations: organizations
 					}" 
 				/>
-				<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="clearfix btn-group pull-right">
+							<f:link.action 
+								action="list"
+								pageUid="{settings.listPid}" 
+								class="btn back"
+								title="{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}"
+							>
+								<i class="fa fa-times"></i>
+							</f:link.action>
+							<f:form.button
+								type="submit"
+								class="btn"
+								title="{f:translate(key: 'tx_placements.general.save-view')}"
+							>
+								<i class="fa fa-save"></i>&nbsp;{f:translate(key: 'tx_placements.general.save')} 
+							</f:form.button>	
+						</div>
+					</div>
+				</div>
 			</f:form>
 		<div class="navigation">
-			<f:link.action 
-				action="list"
-				pageUid="{settings.listPid}" 
-				class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
 		</div>
 	</div>
 </f:section>
