@@ -67,6 +67,35 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	protected $accessControlService;
 
+	/**
+	 * Request Arguments
+	 * @var \array
+	 */
+	protected $requestArguments = NULL;
+
+	/*
+	 * Referrer Arguments
+	 * @var \array
+	 */
+	protected $referrerArguments = NULL;
+
+	/**
+	 * Initialize Action
+	 */
+	public function initializeAction() {
+		$originalRequestArguments = $this->request->getArguments();
+		$action = $originalRequestArguments['action'];
+		unset($originalRequestArguments['action']);
+		unset($originalRequestArguments['controller']);
+
+		$this->requestArguments = array(
+			'action' => $action ,
+			'pluginName' => $this->request->getPluginName(),
+			'controllerName' => $this->request->getControllerName(),
+			'extensionName' => $this->request->getControllerExtensionName(),
+			'arguments' => $originalRequestArguments,
+		);
+	}
 
 	/**
 	 * Upload file

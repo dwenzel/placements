@@ -64,6 +64,7 @@ class PositionController extends AbstractController {
 	 *
 	 */
 	 public function initializeAction() {
+		parent::initializeAction();
 		$this->organizationRepository->setDefaultOrderings(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
 		if ($this->arguments->hasArgument('position')) {
 			$this->arguments->getArgument('position')
@@ -117,7 +118,12 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(\Webfox\Placements\Domain\Model\Position $position) {
-		$this->view->assign('position', $position);
+		$this->view->assignMultiple(
+			array(
+				'position' => $position,
+				'requestArguments' => $this->requestArguments
+			)
+		);
 	}
 
 	/**
@@ -357,6 +363,7 @@ class PositionController extends AbstractController {
 				'positions' => $positions,
 				'search' => $search,
 				'demand' => $demand,
+				'requestArguments' => $this->requestArguments,
 			)
 		);
 	}

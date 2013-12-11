@@ -1,12 +1,13 @@
 {namespace ps=Webfox\Placements\ViewHelpers}
-
+<f:debug title="requestArguments">{requestArguments}</f:debug>
 <div class="row-fluid list-item">
 <f:comment>titel, organization.title,entryDate,organization.zip organization.city</f:comment>
 	<div class="span4 title">
 		<f:link.action 
 			action="show"
 			pageUid="{settings.detailPid}" 
-			arguments="{position : position}"
+			arguments="{position : position,
+						referrerArguments: requestArguments}"
 		>
 				{position.title}
 		</f:link.action>
