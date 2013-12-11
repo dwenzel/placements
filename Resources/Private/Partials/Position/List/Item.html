@@ -2,7 +2,7 @@
 
 <div class="row-fluid list-item">
 <f:comment>titel, organization.title,entryDate,organization.zip organization.city</f:comment>
-	<div class="span3 title">
+	<div class="span4 title">
 		<f:link.action 
 			action="show"
 			pageUid="{settings.detailPid}" 
@@ -11,12 +11,12 @@
 				{position.title}
 		</f:link.action>
 	</div>
-	<div class="span3 organization title">{position.organization.title}</div>
+	<div class="span2 organization city">{position.city}</div>
 	<div class="span2 date"><f:format.date format="{settings.position.list.entryDate.format}">{position.entryDate}</f:format.date></div>
+	<div class="span2 position-type">{position.type.title}</div>
 	<f:comment>
 		<div class="span2 date"><ps:format.strftime format="%d. %B %Y">{position.entryDate}</ps:format.strftime></div>
 	</f:comment>
-	<div class="span2 organization zip city">{position.zip} {position.city}</div>
 	<div class="span2">
 		<div class="btn-group pull-right">
 			<f:link.action 
