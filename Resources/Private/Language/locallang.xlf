@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-09T14:29:03Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-11T15:31:34Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -85,6 +85,12 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.extendedSearchForm.hint" xml:space="preserve">
 			<source>Please enter a keyword or choose any option.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.extendedSearchForm.placeholder.searchTerm" xml:space="preserve">
+			<source>Enter a search term</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.extendedSearchForm.searchTerm" xml:space="preserve">
+			<source>Search Term</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.backToList" xml:space="preserve">
 			<source>back to list view</source>
