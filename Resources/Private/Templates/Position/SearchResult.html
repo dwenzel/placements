@@ -7,8 +7,8 @@
 		<f:debug title="Demand">{demand}</f:debug>
 		<f:debug title="Search">{search}</f:debug>
 		<f:debug title="Positions">{positions}</f:debug>
+		<f:debug title="request arguments">{requestArguments}</f:debug>
 	</f:if>
-	<f:debug title="request arguments">{requestArguments}</f:debug>
 	<div class="tx-placements search-result">
 		<f:flashMessages class="message" />
 		<f:if condition="{search}">
@@ -27,13 +27,13 @@
 							pagesAfter: '{settings.position.list.paginate.pagesAfter}'
 						}"
 					>
-					<f:for each="{paginatedPositions}" as="position">
-						<f:render 
-							partial="Position/List/Item" 
-							arguments="{position: '{position}', 
-										settings: '{settings}',
-										requestArguments: '{requestArguments}'}" /> 
-					</f:for>
+						<f:for each="{paginatedPositions}" as="position">
+							<f:render 
+								partial="Position/List/Item" 
+								arguments="{position: '{position}', 
+											settings: '{settings}',
+											requestArguments: '{requestArguments}'}" /> 
+						</f:for>
 					</pw:paginate>
 				</div>
 			</f:if>

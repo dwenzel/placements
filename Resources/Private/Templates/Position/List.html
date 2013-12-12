@@ -8,9 +8,9 @@ This Template creates a list of positions.
 <f:if condition="{settings.debug}">
 	<f:debug title="settings">{settings}</f:debug>
 </f:if>
-<f:flashMessages class="message"/>
 
 <div  class="position-list" >
+	<f:flashMessages class="message"/>
 	<f:render partial="Position/List/Head" />
 	<pw:paginate  
 		objects="{positions}" 
