@@ -108,7 +108,12 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 		$positions = $this->positionRepository->findDemanded($demand);	
-		$this->view->assign('positions', $positions);
+		$this->view->assignMultiple(
+			array(
+				'positions' => $positions,
+				'requestArguments' => $this->requestArguments
+			)
+		);
 	}
 
 	/**
@@ -121,7 +126,7 @@ class PositionController extends AbstractController {
 		$this->view->assignMultiple(
 			array(
 				'position' => $position,
-				'requestArguments' => $this->requestArguments
+				'referrerArguments' => $this->referrerArguments
 			)
 		);
 	}
@@ -293,27 +298,21 @@ class PositionController extends AbstractController {
 	/**
 	 * Displays a Simple Search Form
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @param \array $search
 	 * @return void
 	 */
-	public function searchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL) {
-		if (is_null($search)) {
-			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
-		}
+	public function searchFormAction($search = NULL) {
 		$this->view->assign('search', $search);
 	}
 
 	/**
 	 * Displays the Extended Search Form
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @param \array $search
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function extendedSearchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL, array $overwriteDemand = NULL) {
-		if (is_null($search)) {
-			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
-		}
+	public function extendedSearchFormAction($search = NULL, array $overwriteDemand = NULL) {
 		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
 		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
@@ -334,11 +333,11 @@ class PositionController extends AbstractController {
 	/**
 	 * Displays the Search Result
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @param \array $search
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function searchResultAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL, $overwriteDemand = NULL) {
+	public function searchResultAction($search = NULL, $overwriteDemand = NULL) {
 		$demand = $this->createDemandFromSettings($this->settings);
 		if($overwriteDemand) {
 			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
@@ -346,9 +345,11 @@ class PositionController extends AbstractController {
 
 		if (!is_null($search)) {
 			//@todo: throw exception if search fields are not set
-			$search->setFields($this->settings['position']['search']['fields']);
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+			$searchObj->setFields($this->settings['position']['search']['fields']);
+			$searchObj->setSubject($search['subject']);
 		}
-		$demand->setSearch($search);
+		$demand->setSearch($searchObj);
 
 		$positions = $this->positionRepository->findDemanded($demand);
 		if(!count($positions)) {
