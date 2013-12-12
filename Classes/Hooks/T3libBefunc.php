@@ -53,7 +53,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionQuickMenuView = array(
 			'sDEF' => '',
-			'constraints' => 'showClientsPositionsCheckbox,clientsOrganizationsOnly',
+			'constraints' => 'clientsOrganizationsOnly',
 		);
 
 	/**
