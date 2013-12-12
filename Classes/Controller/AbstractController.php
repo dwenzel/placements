@@ -95,6 +95,12 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			'extensionName' => $this->request->getControllerExtensionName(),
 			'arguments' => $originalRequestArguments,
 		);
+		if($this->request->hasArgument('referrerArguments') AND
+			is_array($this->request->getArgument('referrerArguments'))) {
+		    $this->referrerArguments = $this->request->getArgument('referrerArguments');
+		} else {
+		    $this->referrerArguments = NULL;
+		}
 	}
 
 	/**
