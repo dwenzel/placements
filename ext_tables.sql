@@ -15,6 +15,8 @@ CREATE TABLE tx_placements_domain_model_position (
 	duration text NOT NULL,
 	zip varchar(255) DEFAULT '' NOT NULL,
 	city varchar(255) DEFAULT '' NOT NULL,
+	latitude decimal(24,14) DEFAULT '0.00000000000000' NOT NULL,
+	longitude decimal(24,14) DEFAULT '0.00000000000000' NOT NULL,
 	payment text NOT NULL,
 	contact text NOT NULL,
 	link varchar(255) DEFAULT '' NOT NULL,

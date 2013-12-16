@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-11-26T16:56:02Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-16T21:27:38Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -165,9 +165,17 @@
 			<source>Identifier</source>
 			<target>Referenz</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.latitude" approved="yes" xml:space="preserve">
+			<source>latitude</source>
+			<target>Geographische Breite</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.link" approved="yes" xml:space="preserve">
 			<source>Link</source>
 			<target>Link</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.longitude" approved="yes" xml:space="preserve">
+			<source>longitude</source>
+			<target>Geographische Länge</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.organization" approved="yes" xml:space="preserve">
 			<source>Organization</source>

@@ -195,6 +195,44 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getLatitudeReturnsInitialValueForFloat() {
+	    $this->assertNull($this->fixture->getLatitude());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setLatitudeForFloatSetsLatitude() {
+	    $floatValue = 123.4567;
+	    $this->fixture->setLatitude($floatValue);
+	    $this->assertSame(
+		    $floatValue,
+		    $this->fixture->getLatitude()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getLongitudeReturnsInitialValueForFloat() {
+	    $this->assertNull($this->fixture->getLongitude());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setLongitudeForFloatSetsLongitude() {
+	    $floatValue = 123.4567;
+	    $this->fixture->setLongitude($floatValue);
+	    $this->assertSame(
+		    $floatValue,
+		    $this->fixture->getLongitude()
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function getPaymentReturnsInitialValueForString() { }
 
 	/**
