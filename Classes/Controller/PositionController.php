@@ -111,6 +111,30 @@ class PositionController extends AbstractController {
 	}
 
 	/**
+	 * action ajaxList
+	 *
+	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
+	 * @return void
+	 */
+	public function ajaxListAction($overwriteDemand = NULL) {
+		$demand = $this->createDemandFromSettings($this->settings);
+		if($overwriteDemand) {
+		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+		}
+		$positions = $this->positionRepository->findDemanded($demand);
+		if (count($positions)) {
+			$result = array();
+			foreach($positions as $position) {
+				$result[] = array(
+					'uid' => $position->getUid(),
+					'title' => $position->getTitle(),
+				);
+			}
+			return json_encode($result);
+		}
+	}
+
+	/**
 	 * action show
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Position $position
