@@ -10,8 +10,32 @@ This Template creates a list of positions.
 </f:if>
 <f:flashMessages class="message"/>
 
-<div  class="position-list" >
-<div class="jqAjax">klick</div>
+<f:if condition="{settings.showMap}">
+	<script type="text/javascript"><![CDATA[
+		var mapContainer,
+		geocoder,
+		mapData = {},
+		map;
+		]]>
+	</script>
+	<div class="btn-group" id="switch-view">
+		<f:form.button
+			class="btn active"
+			title="@todo: Zeige Listenansicht"
+			value="list-view"
+		>{f:translate(key:'@todo.list-view', default:'List')}</f:form.button>
+		<f:form.button
+			class="btn"
+			title="@todo: Zeige Kartenansicht"
+			value="map-view"
+		>{f:translate(key: '@todo.map-view', default: 'Map')}</f:form.button>
+	</div>
+	<div id="map-view" style="display: none">
+		<div class="jqAjax">klick</div>
+		<div id="map_canvas" style="width:960px;height:600px"></div>
+	</div>
+</f:if>
+<div id="list-view" class="position-list" >
 	<f:render partial="Position/List/Head" />
 	<pw:paginate  
 		objects="{positions}" 
