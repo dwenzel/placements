@@ -125,9 +125,24 @@ class PositionController extends AbstractController {
 		if (count($positions)) {
 			$result = array();
 			foreach($positions as $position) {
+				$type = $position->getType();
+				if ($type) {
+					$typeJson = json_encode(
+						array(
+							'uid' => $type->getUid(),
+							'title' => $type->getTitle(),
+						)
+					);
+				}
 				$result[] = array(
 					'uid' => $position->getUid(),
 					'title' => $position->getTitle(),
+					'summary' => $position->getSummary(),
+					'city' => $position->getCity(),
+					'zip' => $position->getZip(),
+					'latitude' => $position->getLatitude(),
+					'longitude' => $position->getLongitude(),
+					'type' => ($typeJson)? $typeJson: NULL,
 				);
 			}
 			return json_encode($result);
