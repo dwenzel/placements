@@ -118,23 +118,6 @@
 						</TCEforms>
 					</settings.orderDirection>
 
-					<!-- Template Layout -->
-					<settings.templateLayout>
-						<TCEforms>
-							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xml:flexforms_general.templateLayout</label>
-							<config>
-								<type>select</type>
-								<itemsProcFunc>Webfox\Placements\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
-								<items>
-									<numIndex index="0" type="array">
-										<numIndex index="0"></numIndex>
-										<numIndex index="1"></numIndex>
-									</numIndex>
-								</items>
-							</config>
-						</TCEforms>
-					</settings.templateLayout>
-
 				</el>
 			</ROOT>
 		</sDEF>
@@ -459,5 +442,43 @@
 				</el>
 			</ROOT>
 		</pages>
+		
+		<!-- SHEET TEMPLATE -->
+		<template>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.template</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<!-- Template Layout -->
+					<settings.templateLayout>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xml:flexforms_general.templateLayout</label>
+							<config>
+								<type>select</type>
+								<itemsProcFunc>Webfox\Placements\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+								<items>
+									<numIndex index="0" type="array">
+										<numIndex index="0"></numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.templateLayout>
+
+					<settings.showMap>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showMap</label>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.showMap>
+				</el>
+			</ROOT>
+		</template>
 	</sheets>
 </T3DataStructure>
