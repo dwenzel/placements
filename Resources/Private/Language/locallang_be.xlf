@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-05T08:45:15Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-17T10:28:40Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -125,6 +125,9 @@
 		<trans-unit id="flexforms_general.showConjunctionSelector" xml:space="preserve">
 			<source>Show Conjunction Selector</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.showMap" xml:space="preserve">
+			<source>Show Map View</source>
+		</trans-unit>
 		<trans-unit id="flexforms_general.showPositionTypes" xml:space="preserve">
 			<source>Show Position Type Selector</source>
 		</trans-unit>
@@ -133,6 +136,9 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.showWorkingHours" xml:space="preserve">
 			<source>Show Working Hours Selector</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.template" xml:space="preserve">
+			<source>Template</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.templateLayout" xml:space="preserve">
 			<source>Template Layout</source>
