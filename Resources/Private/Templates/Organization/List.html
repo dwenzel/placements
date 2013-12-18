@@ -37,9 +37,12 @@ This Template creates a list of organizations.
 </div>
 
 <ps:security.allow action="create" type="organization">
-	<f:link.action action="new" class="button new">
-		
-		<f:translate key="tx_placements.new_organization" >New Organization</f:translate>
+	<f:link.action 
+		action="new" 
+		class="btn new pull-right"
+		title="{f:translate(key:'tx_placements.new_organization')}"
+	>
+	<i class="fa fa-plus"></i>&nbsp;{f:translate(key:'tx_placements.new_organization')}
 	</f:link.action>
 </ps:security.allow>
 </f:section>

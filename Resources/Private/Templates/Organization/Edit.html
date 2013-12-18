@@ -15,16 +15,14 @@
 				arguments="{
 					organization: organization
 					sectors: sectors,
-					categories: categories
+					categories: categories,
+					settings: settings
 					}"
 			/>
-			<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
+			<f:render
+				partial="FormButtons"
+				arguments="{settings: settings}"
+			/>
 		</f:form>
-		<div class="navigation">
-			<f:link.action 
-				action="list" 
-				pageUid="{settings.organization.list.pid}"
-				class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
-		</div>
 	</div>
 </f:section>

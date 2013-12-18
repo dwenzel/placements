@@ -11,14 +11,7 @@ This Template creates a list of positions.
 <f:flashMessages class="message"/>
 
 <div  class="position-list" >
-	<div class="row-fluid">
-		<div class="span3"><f:translate key="tx_placements_domain_model_position.title" /></div>
-		<div class="span3"><f:translate key="tx_placements_domain_model_position.organization" /></div>
-		<div class="span2"><f:translate key="tx_placements_domain_model_position.entry_date" /></div>
-		<div class="span2"><f:translate key="tx_placements_domain_model_position.city" /></div>
-		<div class="span2"> </div>
-	</div>
-
+	<f:render partial="Position/List/Head" />
 	<pw:paginate  
 		objects="{positions}" 
 		as="paginatedPositions" 
@@ -36,9 +29,18 @@ This Template creates a list of positions.
 	</pw:paginate>
 </div>
 
-<ps:security.allow action="create" type="position">
-	<f:link.action pageUid="{settings.position.detail.pid}" action="new" class="button new">
-		<f:translate key="tx_placements.new_position" >New Position</f:translate>
-	</f:link.action>
-</ps:security.allow>
+<div class="row-fluid">
+	<div class="span12">
+		<ps:security.allow action="create" type="position">
+			<f:link.action 
+				pageUid="{settings.detailPid}" 
+				action="new" 
+				class="btn new pull-right"
+				title="{f:translate(key: 'tx_placements.new_position')}"
+			>
+				<i class="fa fa-plus"></i>&nbsp;{f:translate(key: 'tx_placements.new_position')}
+			</f:link.action>
+		</ps:security.allow>
+	</div>
+</div>
 </f:section>

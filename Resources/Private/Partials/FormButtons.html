@@ -1,0 +1,30 @@
+<div class="row-fluid">
+	<div class="span12">
+		<div class="clearfix btn-group pull-right">
+			<f:link.action 
+				action="list" 
+				pageUid="{settings.listPid}"
+				title="{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}"
+				class="btn back"
+			>
+				<i class="fa fa-times"></i>
+			</f:link.action>
+			<f:form.button 
+				name="save-reload" 
+				value="save-reload" 
+				title="{f:translate(key: 'tx_placements.general.save-reload')}"
+				class="btn"
+			>
+				<i class="fa fa-repeat"></i>
+			</f:form.button>
+			<f:form.button 
+				name="save-view" 
+				value="save-view" 
+				title="{f:translate(key: 'tx_placements.general.save-view')}" 
+				class="btn"
+			>
+				<i class="fa fa-save"></i>&nbsp;{f:translate(key: 'tx_placements.general.save')}
+			</f:form.button>
+		</div>
+	</div>
+</div>
