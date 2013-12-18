@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-02T16:41:41Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-18T12:58:10Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -59,8 +59,38 @@
 		<trans-unit id="tx_placements.error.position.updateAction" xml:space="preserve">
 			<source>Sorry! Your position could not be updated.</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.1" xml:space="preserve">
+			<source>The uploaded file exceeds the servers maximum file size directive.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.2" xml:space="preserve">
+			<source>The uploaded file exceeds the maximum file size directive that was specified in the HTML form.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.3" xml:space="preserve">
+			<source>The file was only partially uploaded.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.4" xml:space="preserve">
+			<source>No file was uploaded.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.6" xml:space="preserve">
+			<source>Missing a temporary folder.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.7" xml:space="preserve">
+			<source>Failed to write file to disk.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.8" xml:space="preserve">
+			<source>File upload stopped by extension.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.upload.unknown" xml:space="preserve">
+			<source>Unknown file upload error.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.extendedSearchForm.hint" xml:space="preserve">
 			<source>Please enter a keyword or choose any option.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.extendedSearchForm.placeholder.searchTerm" xml:space="preserve">
+			<source>Enter a search term</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.extendedSearchForm.searchTerm" xml:space="preserve">
+			<source>Search Term</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.backToList" xml:space="preserve">
 			<source>back to list view</source>
@@ -73,6 +103,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.edit" xml:space="preserve">
 			<source>Edit</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.hint.required" xml:space="preserve">
+			<source>Required fields</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.information.plural" xml:space="preserve">
 			<source>Information</source>
@@ -113,11 +146,23 @@
 		<trans-unit id="tx_placements.general.monthNameLong.12" xml:space="preserve">
 			<source>December</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.noImageProvided" xml:space="preserve">
+			<source>No Image Yet</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.required" xml:space="preserve">
 			<source>*</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.save" xml:space="preserve">
 			<source>Save</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.save-close" xml:space="preserve">
+			<source>Save &amp; Close</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.save-reload" xml:space="preserve">
+			<source>Save &amp; Reload</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.save-view" xml:space="preserve">
+			<source>Save &amp; View</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.search" xml:space="preserve">
 			<source>search</source>
@@ -254,11 +299,23 @@
 		<trans-unit id="tx_placements_domain_model_organization.identifier" xml:space="preserve">
 			<source>ID</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.image" xml:space="preserve">
+			<source>Image</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.label" xml:space="preserve">
 			<source>Organization</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.categories" xml:space="preserve">
+			<source>Select one or more categories.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.legend.description" xml:space="preserve">
 			<source>Describe your organization.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.image" xml:space="preserve">
+			<source>Allowed file types: %s&lt;br /&gt;Maximum image size: %s</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.sectors" xml:space="preserve">
+			<source>Please select a sector.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" xml:space="preserve">
 			<source>Enter external reference</source>
@@ -299,11 +356,26 @@
 		<trans-unit id="tx_placements_domain_model_position.identifier" xml:space="preserve">
 			<source>Reference</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.categories" xml:space="preserve">
+			<source>Please select one or more categories.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.contact" xml:space="preserve">
+			<source>Please provide some contact information.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.description" xml:space="preserve">
 			<source>Describe the position.</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.link" xml:space="preserve">
+			<source>Add an external link.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.payment" xml:space="preserve">
 			<source>Describe the payment.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.positionTypes" xml:space="preserve">
+			<source>This field may be used as search criterion.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.sectors" xml:space="preserve">
+			<source>Please choose a sector.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.title" xml:space="preserve">
 			<source>Enter a title for the position.</source>

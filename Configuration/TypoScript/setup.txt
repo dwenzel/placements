@@ -18,6 +18,8 @@ plugin.tx_placements {
 	}
 
 	settings {
+	    	maxFileSize = 2 MB
+		# @todo: read php upload_max_filesize
 		security {
 			position {
 				editorGroup = {$plugin.tx_placements.settings.security.position.editorGroup}

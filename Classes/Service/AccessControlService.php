@@ -84,12 +84,6 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 			$querySettings->setRespectSysLanguage(FALSE);
 			$this->userRepository->setDefaultQuerySettings($querySettings);
 			$this->frontendUser = $this->userRepository->findOneByUid(intval($GLOBALS['TSFE']->fe_user->user['uid']));
-			//$this->configurationManager = new \TYPO3\CMS\Extbase\Configuration\ConfigurationManager();
-			//$this->configurationManager->initializeObject();
-			/*$this->typoscriptSettings = $this->configurationManager->getConfiguration(
-					\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-				); 
-			*/
 		}
 
 		/**

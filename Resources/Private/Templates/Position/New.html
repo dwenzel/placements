@@ -4,36 +4,31 @@ This template displays a NEW form for a position.
 
 <f:section name="main">
 	<f:if condition="{settings.debug}">
+		<f:debug title="Settings">{settings}</f:debug>
 		<f:debug title="Position Types">{positionTypes}</f:debug>
 		<f:debug title="Categories">{categories}</f:debug>
 		<f:debug title="Position">{position}</f:debug>
 	</f:if>
 
-	<f:flashMessages class="message"/>
 
-		<div class="edit-form">
-			<f:render partial="FormErrors" arguments="{object:Position}"/>
+	<div class="edit-form">
+		<f:flashMessages class="message"/>
+		<f:render partial="FormErrors" arguments="{object:Position}"/>
 
-			<f:form pageUid="{settings.position.list.pid}" action="create" name="newPosition" object="{newPosition}" >
-				<f:render 
-					partial="Position/FormFields" 
-					arguments="{
-						settings: settings,
-						position: position,
-						categories: categories,
-						sectors: sectors,
-						workingHours: workingHours,
-						positionTypes: positionTypes,
-						organizations: organizations
-					}" 
-				/>
-				<f:form.submit value="{f:translate(key: 'tx_placements.general.save')}" />
-			</f:form>
-			<div class="navigation">
-				<f:link.action 
-					pageUid="{settings.position.list.pid}"
-					action="list" 
-					class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
-			</div>
-		</div>
+		<f:form pageUid="{settings.detailPid}" action="create" name="newPosition" object="{newPosition}" >
+			<f:render 
+				partial="Position/FormFields" 
+				arguments="{
+					settings: settings,
+					position: position,
+					categories: categories,
+					sectors: sectors,
+					workingHours: workingHours,
+					positionTypes: positionTypes,
+					organizations: organizations
+				}" 
+			/>
+			<f:render partial="Position/FormButtons" />
+		</f:form>
+	</div>
 </f:section>

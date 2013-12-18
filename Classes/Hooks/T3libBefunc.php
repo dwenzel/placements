@@ -63,7 +63,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionSearchFormView = array(
 			'sDEF' => 'orderBy,orderDirection',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,categories,categoryConjunction,clientsOrganizationsOnly,clientsPositionsOnly,limit',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,categories,categoryConjunction,clientsOrganizationsOnly,clientsPositionsOnly,limit,showClientsPositionsCheckbox',
 		);
 
 	/**
@@ -83,7 +83,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInPositionSearchResultView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,showCategorySelector,categoryConjunction,clientsOrganizationsOnly,clientsPositionsOnly',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,categories,showCategorySelector,categoryConjunction,clientsOrganizationsOnly,clientsPositionsOnly,showClientsPositionsCheckbox',
 		);
 
 	/**
@@ -93,7 +93,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInUserListView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,clientsOrganizationsOnly,clientsPositionsOnly',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,clientsOrganizationsOnly,clientsPositionsOnly,showClientsPositionsCheckbox',
 		);
 
 	/**
@@ -103,7 +103,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInApplicationListView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,clientsOrganizationsOnly,clientsPositionsOnly',
+			'constraints' => 'workingHours,sectors,positionTypes,showWorkingHours,showSectors,showPositionTypes,constraintsConjunction,showConjunctionSelector,showCategorySelector,clientsOrganizationsOnly,clientsPositionsOnly,showClientsPositionsCheckbox',
 		);
 
 	/**
@@ -113,7 +113,7 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInOrganizationListView = array(
 			'sDEF' => '',
-			'constraints' => 'workingHours,positionTypes,showWorkingHours,showPositionTypes,constraintsConjunction,showConjunctionSelector,clientsPositionsOnly',
+			'constraints' => 'workingHours,positionTypes,showWorkingHours,showPositionTypes,constraintsConjunction,showConjunctionSelector,showClientsPositionsCheckbox,clientsPositionsOnly',
 		);
 
 

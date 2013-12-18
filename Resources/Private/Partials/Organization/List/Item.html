@@ -6,24 +6,41 @@
 		<f:link.action 
 			action="show"
 			pageUid="{settings.organization.detail.pid}" 
-			arguments="{organization : organization}"> {organization.title}</f:link.action></div>
+			arguments="{organization : organization}"
+		>
+			{organization.title}
+		</f:link.action>
+	</div>
 	<div class="span2 identifier">{organization.identifier}</div>
 	<div class="span2">
-		<ps:security.allow action="edit" object="{organization}" matchClient="TRUE">
+		<div class="btn-group pull-right">
 			<f:link.action 
-				action="edit" 
-				arguments="{organization: organization}" 
-				class="button edit"
-				title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
-			>{f:translate(key:'tx_placements.general.edit', default: 'Edit')}</f:link.action>
-		</ps:security.allow>
-		<ps:security.allow action="delete" object="{organization}" matchClient="TRUE">
-			<f:link.action 
-				action="delete" 
-				arguments="{organization: organization}" 
-				class="button delete"
-				title="{f:translate(key:'tx_placements.general.delete', default: 'Delete')}"
-			>{f:translate(key:'tx_placements.general.delete', default: 'Delete')}</f:link.action>
-		</ps:security.allow>
+				action="show"
+				pageUid="{settings.organization.detail.pid}" 
+				arguments="{organization : organization}"
+				class="btn"
+				title="{organization.title}"
+			>
+				<i class="fa fa-eye"></i>
+			</f:link.action>
+			<ps:security.allow action="edit" object="{organization}" matchClient="TRUE">
+				<f:link.action 
+					action="edit" 
+					pageUid="{settings.detailPid}"
+					arguments="{organization: organization}" 
+					class="btn edit"
+					title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
+				><i class="fa fa-pencil-square-o"></i></f:link.action>
+			</ps:security.allow>
+			<ps:security.allow action="delete" object="{organization}" matchClient="TRUE">
+				<f:link.action 
+					action="delete" 
+					pageUid="{settings.listPid}"
+					arguments="{organization: organization}" 
+					class="btn delete"
+					title="{f:translate(key:'tx_placements.general.delete', default: 'Delete')}"
+				><i class="fa fa-trash-o"></i></f:link.action>
+			</ps:security.allow>
+		</div>
 	</div>
 </div>

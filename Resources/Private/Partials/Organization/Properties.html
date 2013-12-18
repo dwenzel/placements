@@ -1,29 +1,50 @@
 
 <h2>{organization.title}</h2>
 <div class="long-info">
-	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.identifier')}</div>
-	<div class="identifier">{organization.identifier}</div>
-	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.sector')}</div>
-	<div class="sector-list">
-		<f:for each="{organization.sectors}" as="sector" >
-			<div class="sector">{sector.title}</div>
-		</f:for>
-	</div>
-	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.image')}</div>
-	<f:if condition="{organization.image}">
-		<div class="image">
-			<f:image 
-				src="uploads/tx_placements/{organization.image}" 
-				alt="{organization.title}"
-				width="{settings.organization.detail.image.width}"
-			/>
-		</div>
-	</f:if>
-	<div class="label">{f:translate(key: 'tx_placements_domain_model_organization.description')}</div>
-	<div class="description"><f:format.html>{organization.description}</f:format.html></div>
-	<div class="category-list">
-		<f:for each="{organization.categories}" as="category" >
-			<div class="category">{category.title}</div>
-		</f:for>
-	</div>
+	<table>
+		<f:if condition="{organization.identifier}">
+			<tr>
+				<th class="label">{f:translate(key: 'tx_placements_domain_model_organization.identifier')}</th>
+				<td class="identifier">{organization.identifier}</td>
+			</tr>
+		</f:if>
+		<f:if condition="{organization.sectors}">
+			<tr>
+				<th class="label">{f:translate(key: 'tx_placements_domain_model_sector')}</th>
+				<td class="sector-list">
+					<f:for each="{organization.sectors}" as="sector" iteration="iteration" >
+						<span class="sector">{sector.title}{f:if(condition: '{iteration.isLast}', then: '', else: ', ')}</span>
+					</f:for>
+				</td>
+			</tr>
+		</f:if>
+		<f:if condition="{organization.image}">
+			<tr>
+				<th class="label">{f:translate(key: 'tx_placements_domain_model_organization.image')}</th>
+					<td class="image">
+						<f:image 
+							src="uploads/tx_placements/{organization.image}" 
+							alt="{organization.title}"
+							width="{settings.organization.detail.image.width}"
+						/>
+					</td>
+			</tr>
+		</f:if>
+		<f:if condition="{organization.description}">
+			<tr>
+				<th class="label">{f:translate(key: 'tx_placements_domain_model_organization.description')}</th>
+				<td class="description"><f:format.html>{organization.description}</f:format.html></td>
+			</tr>
+		</f:if>
+		<f:if condition="{organization.categories}">
+			<tr>
+				<th class="label">{f:translate(key: 'tx_placements_domain_model_category')}</th>
+				<td class="category-list">
+					<f:for each="{organization.categories}" as="category" iteration="iteration" >
+						<span class="category">{category.title}{f:if(condition: '{iteration.isLast}', then: '', else: ', ')}</span>
+					</f:for>
+				</td>
+			</tr>
+		</f:if>
+	</table>
 </div>
