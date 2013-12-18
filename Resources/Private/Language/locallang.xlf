@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-11T15:31:34Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-18T11:50:26Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -352,6 +352,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.payment" xml:space="preserve">
 			<source>Describe the payment.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.positionTypes" xml:space="preserve">
+			<source>This field may be used as search criterion.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.title" xml:space="preserve">
 			<source>Enter a title for the position.</source>
