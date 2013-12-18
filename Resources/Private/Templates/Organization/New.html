@@ -18,14 +18,10 @@
 					categories: categories
 					}"
 			/>
-			<f:form.submit name="save-reload" value="{f:translate(key: 'tx_placements.general.save')}" />
-			<f:form.submit name="save-close" value="{f:translate(key: 'tx_placements.general.save-close')}" />
+			<f:render
+				partial="FormButtons"
+				arguments="{settings: settings}"
+			/>
 		</f:form>
-		<div class="navigation">
-			<f:link.action 
-				pageUid="{settings.listPid}"
-				action="list" 
-				class="button back">{f:translate(key:'tx_placements.general.cancel', default: 'cancel')}</f:link.action>
-		</div>
 	</div>
 </f:section>
