@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-18T12:00:39Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-18T12:09:01Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -460,6 +460,10 @@
 		<trans-unit id="tx_placements_domain_model_position.identifier" approved="yes" xml:space="preserve">
 			<source>Reference</source>
 			<target>Referenz</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.categories" approved="yes" xml:space="preserve">
+			<source>Please select one or more categories.</source>
+			<target>Bitte wählen Sie eine oder mehrere Kategorien aus.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.description" approved="yes" xml:space="preserve">
 			<source>Describe the position.</source>
