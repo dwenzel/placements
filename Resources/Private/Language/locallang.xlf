@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-18T12:45:26Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-18T12:58:10Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -103,6 +103,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.edit" xml:space="preserve">
 			<source>Edit</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.hint.required" xml:space="preserve">
+			<source>Required fields</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.information.plural" xml:space="preserve">
 			<source>Information</source>
