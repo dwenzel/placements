@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-18T12:14:59Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-18T12:26:53Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -408,6 +408,10 @@
 		<trans-unit id="tx_placements_domain_model_organization.legend.image" approved="yes" xml:space="preserve">
 			<source>Allowed file types: %s&lt;br /&gt;Maximum image size: %s</source>
 			<target>Erlaubte Dateitypen: %s&lt;br /&gt;Maximale Dateigröße: %s</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.sectors" approved="yes" xml:space="preserve">
+			<source>Please select a sector.</source>
+			<target>Bitte wählen Sie eine Branche.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" approved="yes" xml:space="preserve">
 			<source>Enter external reference</source>
