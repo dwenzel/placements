@@ -29,18 +29,44 @@ $(document).ready(function() {
 			initMap();
 		} 
 	});
-	// initialize map
 });
 
 function initMap() {
+	gm = google.maps;
 	mapContainer = document.getElementById('map_canvas');
-	geocoder = new google.maps.Geocoder();
+	geocoder = new gm.Geocoder();
+	infoWindow = new gm.InfoWindow();
 	mapOptions = {
-		center: new google.maps.LatLng(52.520007,13.404954),
+		center: new gm.LatLng(52.520007,13.404954),
 		zoom: 7,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
+		mapTypeId: gm.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(mapContainer, mapOptions);
+	oms = new OverlappingMarkerSpiderfier(map);
+	oms.addListener('click', function(marker, event) {
+		infoWindow.setContent(marker.note);
+		infoWindow.open(map, marker);
+	});
+	bounds = new gm.LatLngBounds();
+	shadow = new gm.MarkerImage(
+		'https://www.google.com/intl/en_ALL/mapfiles/shadow50.png',
+		new gm.Size(37, 34), // size - for sprite clipping
+		new gm.Point(0, 0), // origin - ditto
+		new gm.Point(10, 34) // anchor - where to meet map location
+	);
+	oms.addListener('spiderfy', function(markers) {
+		for(var i = 0; i < markers.length; i ++) {
+			markers[i].setIcon(iconWithColor(spiderfiedColor));
+			markers[i].setShadow(null);
+		}
+		infoWindow.close();
+	});
+	oms.addListener('unspiderfy', function(markers) {
+		for(var i = 0; i < markers.length; i ++) {
+			markers[i].setIcon(iconWithColor(usualColor));
+			markers[i].setShadow(shadow);
+		}
+	});
 	loadMapData();
 }
 function loadMapData(){
@@ -63,10 +89,9 @@ function loadMapData(){
 		success: function(result) {
 			mapData = result;
 			updatePlaces();
-			//console.log(result);
 		},
 		error: function(error) {
-			console.log(error);               
+			//console.log(error);               
 		},
 		done: function() {
 			updatePlaces();
@@ -75,35 +100,58 @@ function loadMapData(){
 }
 
 function updatePlaces() {
-	//console.log(mapData);
-	for (var i=0; i< mapData.length;i++) {
-		var position = mapData[i];
-		//console.log(position.title);
-		if(position.latitude && position.longitude) {
-			currLatlng = new google.maps.LatLng(parseFloat(position.latitude),parseFloat(position.longitude));
-			var marker = new google.maps.Marker({
-					position: currLatlng,
-					map: map,
-					title: position.title,
-					//icon: currIcon
-				});
-		}else if(position.city) {
-			//console.log(position.city);
-			//var address = position.zip + ',' + position.city;i
-			var address = position.city;
-			console.log(address);
-			geocoder.geocode({ 'address': address}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					var marker = new google.maps.Marker({
-            			map: map,
-            			position: results[0].geometry.location
-					});
-				}else {
-        			console.log("Geocode failed: " + status);
-     			}
-
+	for (var uid=0; uid< mapData.length;uid++) {
+		var place = mapData[uid],
+		    address;
+		if(place.latitude && place.longitude) {
+			address = new google.maps.LatLng(parseFloat(place.latitude),parseFloat(place.longitude));
+			addMarker(address, uid);
+		}else if(place.city) {
+			address = place.city;
+			getLocationData(address, uid, function(locationData, uid) {
+				addMarker(locationData, uid);
 			});
-
 		}
 	}
+}
+
+function getLocationData(address, uid, callback) {
+	geocoder.geocode({ 'address': address}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			callback(results[0].geometry.location, uid);
+     		}
+	});
+}
+function addMarker(position, uid) {
+	var place = mapData[uid],
+	    title = place.title,
+	    note = 
+		'<div class="infoWindow">' +
+			'<div class="title"><strong>' + title + '</strong></div>' +
+			'<div class="city">' + place.city + '</<div>' +
+			'<div class="position-type">' + JSON.parse(place.type).title + '</div>' +
+			'<div class="location">' + place.zip + ' ' + place.city + '</div>' +
+			'<div class="summary">' + place.summary + '</div>' +
+		'</div>';
+	//	'<div class="description">' + place.description + '</div>';
+	marker = new google.maps.Marker({
+		position: position,
+		map: map,
+		note: note,
+		title: title,
+		icon: iconWithColor(usualColor),
+		shadow: shadow
+	});
+	bounds.extend(position);
+	map.fitBounds(bounds);
+	/*google.maps.event.addListener(marker, 'click', function() {
+		content = '<div class="infoWindow">' +
+			'<strong>' + this.title + '</strong>' +
+			this.note  +
+			'</div>';
+		infoWindow.setContent(content);
+		infoWindow.open(this.map, this);
+	});*/
+	oms.addMarker(marker);
+	return marker;
 }
