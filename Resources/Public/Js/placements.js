@@ -55,7 +55,7 @@ function loadMapData(){
 				controller:  'Position',
 				action:      'ajaxList',
 				arguments: {
-					'dummy': 'nil'
+					'overwriteDemand': overwriteDemand,
 				}
 			}
 		},

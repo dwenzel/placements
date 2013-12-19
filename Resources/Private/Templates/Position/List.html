@@ -7,15 +7,16 @@ This Template creates a list of positions.
 <f:section name="main">
 <f:if condition="{settings.debug}">
 	<f:debug title="settings">{settings}</f:debug>
+	<f:debug title="overwriteDemand">{overwriteDemand}</f:debug>
 </f:if>
 <f:flashMessages class="message"/>
-
 <f:if condition="{settings.showMap}">
 	<script type="text/javascript"><![CDATA[
 		var mapContainer,
 		geocoder,
 		mapData = {},
-		map;
+		map,
+		overwriteDemand = ]]>{overwriteDemand->ps:format.json()}<![CDATA[;
 		]]>
 	</script>
 	<div class="btn-group" id="switch-view">
