@@ -96,6 +96,20 @@ class PositionController extends AbstractController {
 	}
 
 	/**
+	 * Initialize ajax list action
+	 */
+	 public function initializeAjaxListAction() {
+	 	if($this->arguments->hasArgument('overwriteDemand')) {
+	 		$this->arguments->getArgument('overwriteDemand')
+	 		->getPropertyMappingConfiguration()
+	 		//->forProperty('overwriteDemand')
+	 		->setTypeConverter(
+	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\ArrayConverter')
+	 			);
+	 	}
+	 }
+
+	/**
 	 * action list
 	 *
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
@@ -107,7 +121,11 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 		$positions = $this->positionRepository->findDemanded($demand);	
-		$this->view->assign('positions', $positions);
+		$this->view->assignMultiple(array(
+			'positions'=> $positions,
+			'overwriteDemand' => $overwriteDemand
+			)
+		);
 	}
 
 	/**
@@ -122,6 +140,7 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 		$positions = $this->positionRepository->findDemanded($demand);
+		\TYPO3\CMS\Core\Utility\DebugUtility::debug($demand);
 		if (count($positions)) {
 			$result = array();
 			foreach($positions as $position) {
