@@ -140,7 +140,6 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 		$positions = $this->positionRepository->findDemanded($demand);
-		\TYPO3\CMS\Core\Utility\DebugUtility::debug($demand);
 		if (count($positions)) {
 			$result = array();
 			foreach($positions as $position) {
