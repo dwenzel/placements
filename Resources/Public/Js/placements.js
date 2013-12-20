@@ -2,15 +2,6 @@
  * placements.js
  * @author Dirk Wenzel 
  */
-/*var mapContainer,
-mapData = {},
-mapWidth = 300,
-mapHeight = 300,
-zoom = 7,
-map = '',
-mapType = google.maps.MapTypeId.SATELLITE
-;
-*/
 $(document).ready(function() {
 	if (!window.location.origin){
 		basePath = window.location.protocol+"//"+window.location.host +"/";
@@ -38,6 +29,11 @@ $(document).ready(function() {
 	} else {
 		initMap();
 	}
+	
+	// Radius Search submit
+	$('#radius-search-submit').click(function(e) {
+		filterPlaces('radius');
+	});
 });
 
 function initMap() {
@@ -109,6 +105,7 @@ function loadMapData(){
 }
 
 function updatePlaces() {
+	allMarkers = [];
 	for (var uid=0; uid< mapData.length;uid++) {
 		var place = mapData[uid],
 		    address;
@@ -155,6 +152,49 @@ function addMarker(position, uid) {
 		bounds.extend(position);
 		map.fitBounds(bounds);
 	}
+	allMarkers.push(marker);
 	oms.addMarker(marker);
 	return marker;
 }
+
+function filterPlaces(criterion) {
+	switch (criterion) {
+		case 'radius':
+			filterByRadius();
+	}
+}
+
+function filterByRadius() {
+	var radius = $('#placements-map-radius').val(),
+	address = $('#placements-map-location').val(),
+	errors = {};
+
+	console.log('address: ', address, 'radius: ', radius);
+	if (address == '') {
+		errors.push('address_field_empty');
+	}else {
+		getLocationData(address, null, function(locationData) {
+			map.panTo(locationData);
+			setHomeMarker(locationData);
+			var currMarkers = {};
+			for(var i = 0; i<allMarkers.length;i++) {
+				var distance = google.maps.computeDistanceBetween(allMarkers[i], locationData);
+				console.log('distance: ', distance);
+			}
+		});
+	}
+}
+
+function setHomeMarker(position) {
+	if(homeMarker) {
+		homeMarker.setPosition(position);
+	} else {
+		homeMarker = new google.maps.Marker({
+			position: position,
+			map: map,
+			title: 'You',
+			animation: google.maps.Animation.DROP
+		});
+	}
+}
+
