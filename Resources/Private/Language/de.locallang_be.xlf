@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-20T11:09:50Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-20T12:16:57Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -72,6 +72,10 @@
 		<trans-unit id="flexforms_general.entryDate" approved="yes" xml:space="preserve">
 			<source>Entry Date</source>
 			<target>Eintrittsdatum</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.fitMapBounds" approved="yes" xml:space="preserve">
+			<source>Fit map boundaries </source>
+			<target>Kartenausschnitt anpassen</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.identifier" approved="yes" xml:space="preserve">
 			<source>Identifier</source>
