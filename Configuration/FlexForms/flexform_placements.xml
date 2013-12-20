@@ -442,7 +442,7 @@
 				</el>
 			</ROOT>
 		</pages>
-		
+
 		<!-- SHEET TEMPLATE -->
 		<template>
 			<ROOT>
@@ -477,6 +477,18 @@
 							</config>
 						</TCEforms>
 					</settings.showMap>
+				</el>
+			</ROOT>
+		</template>
+		
+		<!-- SHEET Map -->
+		<map>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.map</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
 					<settings.mapDisplayType>
 						<TCEforms>
 							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType</label>
@@ -495,6 +507,26 @@
 							</config>
 						</TCEforms>
 					</settings.mapDisplayType>
+					<settings.mapWidth>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.width</label>
+							<config>
+								<type>input</type>
+								<size>5</size>
+								<eval>int,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapWidth>
+					<settings.mapHeight>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.height</label>
+							<config>
+								<type>input</type>
+								<size>5</size>
+								<eval>int,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapHeight>
 					<settings.mapCenterLatitude>
 						<TCEforms>
 							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.latitude</label>
@@ -526,6 +558,6 @@
 					</settings.fitMapBounds>
 				</el>
 			</ROOT>
-		</template>
+		</map>
 	</sheets>
 </T3DataStructure>

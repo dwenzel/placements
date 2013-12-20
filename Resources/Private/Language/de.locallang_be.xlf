@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-20T12:16:57Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-20T12:38:13Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -77,6 +77,10 @@
 			<source>Fit map boundaries </source>
 			<target>Kartenausschnitt anpassen</target>
 		</trans-unit>
+		<trans-unit id="flexforms_general.height" approved="yes" xml:space="preserve">
+			<source>Height</source>
+			<target>Höhe</target>
+		</trans-unit>
 		<trans-unit id="flexforms_general.identifier" approved="yes" xml:space="preserve">
 			<source>Identifier</source>
 			<target>Referenz</target>
@@ -92,6 +96,10 @@
 		<trans-unit id="flexforms_general.longitude" approved="yes" xml:space="preserve">
 			<source>Longitude</source>
 			<target>Geografische Länge</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.map" approved="yes" xml:space="preserve">
+			<source>Map</source>
+			<target>Karte</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.mapDisplayType" approved="yes" xml:space="preserve">
 			<source>Map Display Type</source>
@@ -224,6 +232,10 @@
 		<trans-unit id="flexforms_general.users" approved="yes" xml:space="preserve">
 			<source>Users</source>
 			<target>Benutzer</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.width" approved="yes" xml:space="preserve">
+			<source>Width</source>
+			<target>Breite</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.workingHours" approved="yes" xml:space="preserve">
 			<source>Working Hours</source>
