@@ -18,6 +18,8 @@ This Template creates a list of positions.
 		}
 		var gm,
 		mapDisplayType = ']]>{settings.mapDisplayType}<![CDATA[',
+		mapWidth = ']]>{settings.mapWidth}<![CDATA[',
+		mapHeight = ']]>{settings.mapHeight}<![CDATA[',
 		mapCenterLatitude = ']]>{settings.mapCenterLatitude}<![CDATA[',
 		mapCenterLongitude = ']]>{settings.mapCenterLongitude}<![CDATA[',
 		fitMapBounds = parseInt(']]>{settings.fitMapBounds}<![CDATA['),
@@ -47,7 +49,7 @@ This Template creates a list of positions.
 		</div>
 	</f:if>
 	<div id="map-view" style="{f:if(condition: '{0: settings.mapDisplayType} == {0: \'switchView\'}', then: 'display: none')}">
-		<div id="map_canvas" style="width:960px;height:600px"></div>
+		<div id="map_canvas" style="width:{settings.mapWidth}px;height:{settings.mapHeight}px"></div>
 	</div>
 </f:if>
 <div id="list-view" class="position-list" >
