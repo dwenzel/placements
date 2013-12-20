@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-17T10:28:40Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-20T11:09:50Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -77,9 +77,29 @@
 			<source>Identifier</source>
 			<target>Referenz</target>
 		</trans-unit>
+		<trans-unit id="flexforms_general.latitude" approved="yes" xml:space="preserve">
+			<source>Latitude</source>
+			<target>Geografische Breite</target>
+		</trans-unit>
 		<trans-unit id="flexforms_general.listPage" approved="yes" xml:space="preserve">
 			<source>List Page</source>
 			<target>Listenseite</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.longitude" approved="yes" xml:space="preserve">
+			<source>Longitude</source>
+			<target>Geografische Länge</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType" approved="yes" xml:space="preserve">
+			<source>Map Display Type</source>
+			<target>Kartendarstellung</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType.switchView" approved="yes" xml:space="preserve">
+			<source>switch between list and map</source>
+			<target>zwischen Liste und Karte umschalten</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType.syncWithPagination" approved="yes" xml:space="preserve">
+			<source>sync with pagination</source>
+			<target>mit Paginierung synchronisieren</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.optionGroupOthers" approved="yes" xml:space="preserve">
 			<source>Others</source>

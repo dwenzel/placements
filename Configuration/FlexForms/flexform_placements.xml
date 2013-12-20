@@ -477,6 +477,44 @@
 							</config>
 						</TCEforms>
 					</settings.showMap>
+					<settings.mapDisplayType>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType.switchView</numIndex>
+										<numIndex index="1">switchView</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType.syncWithPagination</numIndex>
+										<numIndex index="1">syncWithPagination</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.mapDisplayType>
+					<settings.mapCenterLatitude>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.latitude</label>
+							<config>
+								<type>input</type>
+								<size>20</size>
+								<eval>float,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapCenterLatitude>
+					<settings.mapCenterLongitude>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.longitude</label>
+							<config>
+								<type>input</type>
+								<size>20</size>
+								<eval>float,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapCenterLongitude>
 				</el>
 			</ROOT>
 		</template>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-17T10:28:40Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-20T11:09:50Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -59,8 +59,23 @@
 		<trans-unit id="flexforms_general.identifier" xml:space="preserve">
 			<source>Identifier</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.latitude" xml:space="preserve">
+			<source>Latitude</source>
+		</trans-unit>
 		<trans-unit id="flexforms_general.listPage" xml:space="preserve">
 			<source>List Page</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.longitude" xml:space="preserve">
+			<source>Longitude</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType" xml:space="preserve">
+			<source>Map Display Type</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType.switchView" xml:space="preserve">
+			<source>switch between list and map</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType.syncWithPagination" xml:space="preserve">
+			<source>sync with pagination</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.optionGroupOthers" xml:space="preserve">
 			<source>Others</source>
