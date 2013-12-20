@@ -19,16 +19,25 @@ $(document).ready(function() {
 		// for webkit browsers
 		basePath = window.location.origin + "/";
 	}
-	$('#switch-view .btn').click(function(e){
-		activeButton = $('#switch-view .btn.active');
-		$('#' + activeButton.attr('value')).hide();
-		activeButton.removeClass('active');
-		$(this).addClass('active');
-		$('#' + this.value).show();
-		if(this.value == 'map-view' && (!map)) {
-			initMap();
-		} 
-	});
+
+	/**
+	 * In switch view map is initial hidden. We
+	 * initialize it when view is switched to map for the first time
+	 */ 
+	if(mapDisplayType == 'switchView') {
+		$('#switch-view .btn').click(function(e){
+			activeButton = $('#switch-view .btn.active');
+			$('#' + activeButton.attr('value')).hide();
+			activeButton.removeClass('active');
+			$(this).addClass('active');
+			$('#' + this.value).show();
+			if(this.value == 'map-view' && (!map)) {
+				initMap();
+			} 
+		});
+	} else {
+		initMap();
+	}
 });
 
 function initMap() {
@@ -37,7 +46,7 @@ function initMap() {
 	geocoder = new gm.Geocoder();
 	infoWindow = new gm.InfoWindow();
 	mapOptions = {
-		center: new gm.LatLng(52.520007,13.404954),
+		center: new gm.LatLng(parseFloat(mapCenterLatitude),parseFloat(mapCenterLongitude)),
 		zoom: 7,
 		mapTypeId: gm.MapTypeId.ROADMAP
 	};
@@ -142,16 +151,10 @@ function addMarker(position, uid) {
 		icon: iconWithColor(usualColor),
 		shadow: shadow
 	});
-	bounds.extend(position);
-	map.fitBounds(bounds);
-	/*google.maps.event.addListener(marker, 'click', function() {
-		content = '<div class="infoWindow">' +
-			'<strong>' + this.title + '</strong>' +
-			this.note  +
-			'</div>';
-		infoWindow.setContent(content);
-		infoWindow.open(this.map, this);
-	});*/
+	if(fitMapBounds) {
+		bounds.extend(position);
+		map.fitBounds(bounds);
+	}
 	oms.addMarker(marker);
 	return marker;
 }

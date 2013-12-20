@@ -6,9 +6,9 @@ This Template creates a list of positions.
 
 <f:section name="main">
 <f:if condition="{settings.debug}">
-	<f:debug title="settings">{settings}</f:debug>
 	<f:debug title="overwriteDemand">{overwriteDemand}</f:debug>
 </f:if>
+	<f:debug title="settings">{settings}</f:debug>
 <f:flashMessages class="message"/>
 <f:if condition="{settings.showMap}">
 	<script type="text/javascript"><![CDATA[
@@ -17,6 +17,10 @@ This Template creates a list of positions.
 			color + '|000000|ffff00';
 		}
 		var gm,
+		mapDisplayType = ']]>{settings.mapDisplayType}<![CDATA[',
+		mapCenterLatitude = ']]>{settings.mapCenterLatitude}<![CDATA[',
+		mapCenterLongitude = ']]>{settings.mapCenterLongitude}<![CDATA[',
+		fitMapBounds = parseInt(']]>{settings.fitMapBounds}<![CDATA['),
 		usualColor = 'eebb22',
 		spiderfiedColor = 'ffee22',
 		shadow,
@@ -28,20 +32,21 @@ This Template creates a list of positions.
 		overwriteDemand = ]]>{overwriteDemand->ps:format.json()}<![CDATA[;
 		]]>
 	</script>
-	<div class="btn-group" id="switch-view">
-		<f:form.button
-			class="btn active"
-			title="@todo: Zeige Listenansicht"
-			value="list-view"
-		>{f:translate(key:'@todo.list-view', default:'List')}</f:form.button>
-		<f:form.button
-			class="btn"
-			title="@todo: Zeige Kartenansicht"
-			value="map-view"
-		>{f:translate(key: '@todo.map-view', default: 'Map')}</f:form.button>
-	</div>
-	<div id="map-view" style="display: none">
-		<div class="jqAjax">klick</div>
+	<f:if condition="{0: '{settings.mapDisplayType}'} == {0: 'switchView'}">
+		<div class="btn-group" id="switch-view">
+			<f:form.button
+				class="btn active"
+				title="@todo: Zeige Listenansicht"
+				value="list-view"
+			>{f:translate(key:'@todo.list-view', default:'List')}</f:form.button>
+			<f:form.button
+				class="btn"
+				title="@todo: Zeige Kartenansicht"
+				value="map-view"
+			>{f:translate(key: '@todo.map-view', default: 'Map')}</f:form.button>
+		</div>
+	</f:if>
+	<div id="map-view" style="{f:if(condition: '{0: settings.mapDisplayType} == {0: \'switchView\'}', then: 'display: none')}">
 		<div id="map_canvas" style="width:960px;height:600px"></div>
 	</div>
 </f:if>
