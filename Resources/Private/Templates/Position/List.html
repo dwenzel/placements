@@ -7,8 +7,8 @@ This Template creates a list of positions.
 <f:section name="main">
 <f:if condition="{settings.debug}">
 	<f:debug title="overwriteDemand">{overwriteDemand}</f:debug>
-</f:if>
 	<f:debug title="settings">{settings}</f:debug>
+</f:if>
 <f:flashMessages class="message"/>
 <f:if condition="{settings.showMap}">
 	<script type="text/javascript"><![CDATA[
@@ -33,6 +33,7 @@ This Template creates a list of positions.
 		map,
 		allMarkers = new Array(),
 		homeMarker,
+		radiusCircle,
 		overwriteDemand = ]]>{overwriteDemand->ps:format.json()}<![CDATA[;
 		]]>
 	</script>
@@ -50,35 +51,45 @@ This Template creates a list of positions.
 			>{f:translate(key: '@todo.map-view', default: 'Map')}</f:form.button>
 		</div>
 	</f:if>
-	<div class="map-filter">
-		<div class="row-fluid">
-			<div class="span7">
-				<label for="placements-map-location">@todo: Umkreissuche</label>
-				<f:form.textfield 
-					id="placements-map-location"
-					name="location" 
-					value="" 
-					class="span3"
-					placeholder="@todo: PLZ/ Ort" 
-				/>
-				<f:form.select 
-					id="placements-map-radius" 
-					name="radius"
-					class="span3"
-					options="{50: '50 km', 100: '100 km', 250: '250 km', 500: '500 km', 1000: '1000 km'}" 
-				/>
-				<f:form.button 
-					id="radius-search-submit"
-					type="submit"
-					class="btn"
-					title="@todo Filter"
-				>
-					<i class="fa fa-filter"></i>
-				</f:form.button>
+	<div id="map-view" style="{f:if(condition: '{0: settings.mapDisplayType} == {0: \'switchView\'}', then: 'display: none')}">
+		<div class="map-filter">
+			<div class="row-fluid">
+				<div class="span7">
+					<label for="placements-map-location">@todo: Umkreissuche</label>
+					<f:form.textfield 
+						id="placements-map-location"
+						name="location" 
+						value="" 
+						class="span3"
+						placeholder="@todo: PLZ/ Ort" 
+					/>
+					<f:form.select 
+						id="placements-map-radius" 
+						name="radius"
+						class="span3"
+						options="{50000: '50 km', 100000: '100 km', 250000: '250 km', 500000: '500 km', 1000000: '1000 km'}" 
+					/>
+					<div class="btn-group">
+						<f:form.button 
+							id="radius-search-submit"
+							type="submit"
+							class="btn"
+							title="@todo Filter"
+						>
+							<i class="fa fa-filter"></i>
+						</f:form.button>
+						<f:form.button 
+							id="radius-search-clear"
+							type="submit"
+							class="btn"
+							title="@todo Clear Filter"
+						>
+						<i class="fa fa-times"></i>
+						</f:form.button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div id="map-view" style="{f:if(condition: '{0: settings.mapDisplayType} == {0: \'switchView\'}', then: 'display: none')}">
 		<div id="map_canvas" style="width:{settings.mapWidth}px;height:{settings.mapHeight}px"></div>
 	</div>
 </f:if>

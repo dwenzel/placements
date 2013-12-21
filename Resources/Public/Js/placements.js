@@ -34,6 +34,10 @@ $(document).ready(function() {
 	$('#radius-search-submit').click(function(e) {
 		filterPlaces('radius');
 	});
+	// clear all filter
+	$('#radius-search-clear').click(function(e) {
+		clearFilter();
+	});
 });
 
 function initMap() {
@@ -134,10 +138,9 @@ function addMarker(position, uid) {
 	    note = 
 		'<div class="infoWindow">' +
 			'<div class="title"><strong>' + title + '</strong></div>' +
-			'<div class="city">' + place.city + '</<div>' +
 			'<div class="position-type">' + JSON.parse(place.type).title + '</div>' +
 			'<div class="location">' + place.zip + ' ' + place.city + '</div>' +
-			'<div class="summary">' + place.summary + '</div>' +
+			//'<div class="summary">' + place.summary + '</div>' +
 		'</div>';
 	//	'<div class="description">' + place.description + '</div>';
 	marker = new google.maps.Marker({
@@ -166,25 +169,54 @@ function filterPlaces(criterion) {
 
 function filterByRadius() {
 	var radius = $('#placements-map-radius').val(),
+
 	address = $('#placements-map-location').val(),
 	errors = {};
 
-	console.log('address: ', address, 'radius: ', radius);
+	//console.log('address: ', address, 'radius: ', radius);
 	if (address == '') {
 		errors.push('address_field_empty');
 	}else {
 		getLocationData(address, null, function(locationData) {
 			map.panTo(locationData);
 			setHomeMarker(locationData);
+			var circleOptions = {
+				strokeColor: "#2875BB",
+				strokeOpacity: 0.8,
+				strokeWeight: 2,
+				fillColor: "#2875BB",
+				fillOpacity: 0.35,
+				map: map,
+				center: locationData,
+				radius: parseInt(radius)
+			};
+			if(radiusCircle) {
+				radiusCircle.setMap(null);
+			}
+			radiusCircle = new google.maps.Circle(circleOptions)
 			var currMarkers = {};
 			for(var i = 0; i<allMarkers.length;i++) {
-				var distance = google.maps.computeDistanceBetween(allMarkers[i], locationData);
-				console.log('distance: ', distance);
+				currMarker = allMarkers[i];
+				var distance = google.maps.geometry.spherical.computeDistanceBetween(currMarker.position, locationData);
+				if (distance > radius) {
+					currMarker.setMap(null);
+				} else {
+					currMarker.setMap(map);
+					currMarker.setAnimation(google.maps.Animation.DROP);
+				}
 			}
+			map.fitBounds(radiusCircle.getBounds());
 		});
 	}
 }
 
+function clearFilter() {
+	radiusCircle.setMap(null);
+	homeMarker.setMap(null);
+	for (var i = 0; i < allMarkers.length; i++) {
+		allMarkers[i].setMap(map);
+	}
+}
 function setHomeMarker(position) {
 	if(homeMarker) {
 		homeMarker.setPosition(position);
