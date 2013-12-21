@@ -29,15 +29,25 @@ $(document).ready(function() {
 	} else {
 		initMap();
 	}
-	
+	$('#placements-map-radius').change(function(e) {
+		if($('#radius-search-submit').hasClass('active')) {
+			filterPlaces('radius');
+		}
+	});
 	// Radius Search submit
 	$('#radius-search-submit').click(function(e) {
-		filterPlaces('radius');
+		if($(this).hasClass('active')) {
+		    clearFilter();
+		} else {
+		    filterPlaces('radius');
+		}
+		$(this).toggleClass('active');
 	});
 	// clear all filter
-	$('#radius-search-clear').click(function(e) {
+	/*$('#radius-search-clear').click(function(e) {
 		clearFilter();
-	});
+		$('#radius-search-submit').toggleClass('active');
+	});*/
 });
 
 function initMap() {
