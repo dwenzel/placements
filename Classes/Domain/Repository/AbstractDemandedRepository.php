@@ -124,8 +124,11 @@ abstract class AbstractDemandedRepository
 
 		if ($respectEnableFields === FALSE) {
 			$query->getQuerySettings()->setRespectEnableFields(FALSE);
-			$constraints[] = $query->equals('deleted', 0);
 		}
+		// we set deleted to 0 here because otherwise our ajax action
+		// will return deleted records too! (Seems the enable fields are only
+		// respected properly in frontend context.)
+		$constraints[] = $query->equals('deleted', 0);
 
 		if (!empty($constraints)) {
 			$query->matching(
