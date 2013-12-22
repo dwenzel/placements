@@ -139,29 +139,29 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
-		$positions = $this->positionRepository->findDemanded($demand);
+		$positions = $this->positionRepository->findDemanded($demand, TRUE);
 		if (count($positions)) {
 			$result = array();
 			foreach($positions as $position) {
 				$type = $position->getType();
 				if ($type) {
 					$typeJson = json_encode(
-						array(
-							'uid' => $type->getUid(),
-							'title' => $type->getTitle(),
-						)
-					);
+							array(
+								'uid' => $type->getUid(),
+								'title' => $type->getTitle(),
+								)
+							);
 				}
 				$result[] = array(
-					'uid' => $position->getUid(),
-					'title' => $position->getTitle(),
-					'summary' => $position->getSummary(),
-					'city' => $position->getCity(),
-					'zip' => $position->getZip(),
-					'latitude' => $position->getLatitude(),
-					'longitude' => $position->getLongitude(),
-					'type' => ($typeJson)? $typeJson: NULL,
-				);
+						'uid' => $position->getUid(),
+						'title' => $position->getTitle(),
+						'summary' => $position->getSummary(),
+						'city' => $position->getCity(),
+						'zip' => $position->getZip(),
+						'latitude' => $position->getLatitude(),
+						'longitude' => $position->getLongitude(),
+						'type' => ($typeJson)? $typeJson: NULL,
+						);
 			}
 			return json_encode($result);
 		}
@@ -227,7 +227,19 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
 			$newPosition->setSingleCategory($category);
 		}
-	    	$this->positionRepository->add($newPosition);
+		if (!is_null($newPosition->getCity()) &&
+				is_null($newPosition->getLatitude()) && 
+				is_null($newPosition->getLongitude())) {
+			$address = '';
+			$address .= ($newPosition->getZip() !='')? $newPosition->getZip() . ' ': NULL;
+			$address .= $newPosition->getCity();
+			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
+			if($location) {
+					$newPosition->setLatitude($location['lat']);
+					$newPosition->setLongitude($location['lng']);
+			}
+		}
+		$this->positionRepository->add($newPosition);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.position.createAction', 'placements'
@@ -285,6 +297,18 @@ class PositionController extends AbstractController {
 		if(is_string($arguments['position']['categories'])) {
 			$category = $this->categoryRepository->findByUid(intval($arguments['position']['categories']));
 			$position->setSingleCategory($category);
+		}
+		if (!is_null($position->getCity()) &&
+				is_null($position->getLatitude()) && 
+				is_null($position->getLongitude())) {
+			$address = '';
+			$address .= ($position->getZip() !='')? $position->getZip() . ' ': NULL;
+			$address .= $position->getCity();
+			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
+			if($location) {
+					$position->setLatitude($location['lat']);
+					$position->setLongitude($location['lng']);
+			}
 		}
 		$this->positionRepository->update($position);
 		$this->flashMessageContainer->add(
