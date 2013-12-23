@@ -503,6 +503,10 @@
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType.syncWithPagination</numIndex>
 										<numIndex index="1">syncWithPagination</numIndex>
 									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType.singleView</numIndex>
+										<numIndex index="1">singleView</numIndex>
+									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
@@ -513,7 +517,7 @@
 							<config>
 								<type>input</type>
 								<size>5</size>
-								<eval>int,trim</eval>
+								<eval>trim</eval>
 							</config>
 						</TCEforms>
 					</settings.mapWidth>
@@ -523,10 +527,23 @@
 							<config>
 								<type>input</type>
 								<size>5</size>
-								<eval>int,trim</eval>
+								<eval>trim</eval>
 							</config>
 						</TCEforms>
 					</settings.mapHeight>
+					<settings.mapInitialZoom>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.initialZoom</label>
+							<config>
+								<type>input</type>
+								<size>1</size>
+								<min>0</min>
+								<max>18</max>
+								<default>7</default>
+								<eval>int,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapInitialZoom>
 					<settings.mapCenterLatitude>
 						<TCEforms>
 							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.latitude</label>
