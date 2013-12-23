@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-20T12:38:13Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-23T12:09:33Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -85,6 +85,10 @@
 			<source>Identifier</source>
 			<target>Referenz</target>
 		</trans-unit>
+		<trans-unit id="flexforms_general.initialZoom" approved="yes" xml:space="preserve">
+			<source>Initial Zoom</source>
+			<target>Anfängliche Auflösung (Zoom)</target>
+		</trans-unit>
 		<trans-unit id="flexforms_general.latitude" approved="yes" xml:space="preserve">
 			<source>Latitude</source>
 			<target>Geografische Breite</target>
@@ -104,6 +108,10 @@
 		<trans-unit id="flexforms_general.mapDisplayType" approved="yes" xml:space="preserve">
 			<source>Map Display Type</source>
 			<target>Kartendarstellung</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType.singleView" approved="yes" xml:space="preserve">
+			<source>Single View</source>
+			<target>Einzelansicht</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.mapDisplayType.switchView" approved="yes" xml:space="preserve">
 			<source>switch between list and map</source>
