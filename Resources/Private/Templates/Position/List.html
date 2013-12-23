@@ -14,7 +14,6 @@ This Template creates a list of positions.
 	<f:render partial="Position/Map" arguments="{settings: settings, overwriteDemand: overwriteDemand}" />
 </f:if>
 <div id="list-view" class="position-list" >
-	<f:render partial="Position/List/Head" />
 	<pw:paginate  
 		objects="{positions}" 
 		as="paginatedPositions" 
@@ -26,6 +25,7 @@ This Template creates a list of positions.
 				pagesBefore: '{settings.position.list.paginate.pagesBefore}',
 				pagesAfter: '{settings.position.list.paginate.pagesAfter}'
 				}" >
+		<f:render partial="Position/List/Head" />
 		<f:for each="{paginatedPositions}" as="position">
 			<f:render partial="Position/List/Item" arguments="{position: '{position}', settings: '{settings}'}" /> 
 		</f:for>
