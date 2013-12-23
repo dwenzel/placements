@@ -110,6 +110,19 @@ class PositionController extends AbstractController {
 	 }
 
 	/**
+	 * Initialize ajax show action
+	 */
+	 public function initializeAjaxShowAction() {
+	 	if($this->arguments->hasArgument('uid')) {
+	 		$this->arguments->getArgument('uid')
+	 		->getPropertyMappingConfiguration()
+	 		->setTypeConverter(
+	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter')
+	 			);
+	 	}
+	 }
+
+	/**
 	 * action list
 	 *
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
@@ -132,7 +145,7 @@ class PositionController extends AbstractController {
 	 * action ajaxList
 	 *
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
-	 * @return void
+	 * @return \string
 	 */
 	public function ajaxListAction($overwriteDemand = NULL) {
 		$demand = $this->createDemandFromSettings($this->settings);
@@ -163,6 +176,38 @@ class PositionController extends AbstractController {
 						'type' => ($typeJson)? $typeJson: NULL,
 						);
 			}
+			return json_encode($result);
+		}
+	}
+
+	/**
+	 * action ajax show
+	 *
+	 * @param \string $uid Uid of postion to show
+	 * @return \string
+	 */
+	public function ajaxShowAction($uid) {
+		$position = $this->positionRepository->findByUid($uid);
+		if ($position) {
+				$type = $position->getType();
+				if ($type) {
+					$typeJson = json_encode(
+							array(
+								'uid' => $type->getUid(),
+								'title' => $type->getTitle(),
+								)
+							);
+				}
+				$result[] = array(
+						'uid' => $position->getUid(),
+						'title' => $position->getTitle(),
+						'summary' => $position->getSummary(),
+						'city' => $position->getCity(),
+						'zip' => $position->getZip(),
+						'latitude' => $position->getLatitude(),
+						'longitude' => $position->getLongitude(),
+						'type' => ($typeJson)? $typeJson: NULL,
+						);
 			return json_encode($result);
 		}
 	}
