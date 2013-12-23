@@ -43,11 +43,6 @@ $(document).ready(function() {
 		}
 		$(this).toggleClass('active');
 	});
-	// clear all filter
-	/*$('#radius-search-clear').click(function(e) {
-		clearFilter();
-		$('#radius-search-submit').toggleClass('active');
-	});*/
 });
 
 function initMap() {
@@ -57,7 +52,7 @@ function initMap() {
 	infoWindow = new gm.InfoWindow();
 	mapOptions = {
 		center: new gm.LatLng(parseFloat(mapCenterLatitude),parseFloat(mapCenterLongitude)),
-		zoom: 7,
+		zoom: initialZoom,
 		mapTypeId: gm.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(mapContainer, mapOptions);
@@ -89,6 +84,13 @@ function initMap() {
 	loadMapData();
 }
 function loadMapData(){
+	var action = 'ajaxList',
+		arguments = {'overwriteDemand': overwriteDemand};
+
+	if(mapDisplayType == 'singleView') {
+		action = 'ajaxShow';
+		arguments = {'uid': singleUid};
+	}
 	$.ajax({
 		async: 'true',
 		url: 'index.php',      
@@ -98,10 +100,8 @@ function loadMapData(){
 			request: {
 				pluginName:  'Placements',
 				controller:  'Position',
-				action:      'ajaxList',
-				arguments: {
-					'overwriteDemand': overwriteDemand,
-				}
+				action:      action,
+				arguments: arguments
 			}
 		},
 		dataType: "json",      
@@ -110,7 +110,7 @@ function loadMapData(){
 			updatePlaces();
 		},
 		error: function(error) {
-			//console.log(error);               
+			errors.push(error);
 		},
 		done: function() {
 			updatePlaces();
@@ -166,6 +166,11 @@ function addMarker(position, uid) {
 		map.fitBounds(bounds);
 	}
 	allMarkers.push(marker);
+	if (mapDisplayType == 'singleView' && 
+		allMarkers.length == 1) {
+		map.setCenter(allMarkers[0].position);
+		//map.setZoom(initialZoom);
+	}
 	oms.addMarker(marker);
 	return marker;
 }
@@ -179,11 +184,8 @@ function filterPlaces(criterion) {
 
 function filterByRadius() {
 	var radius = $('#placements-map-radius').val(),
+		address = $('#placements-map-location').val();
 
-	address = $('#placements-map-location').val(),
-	errors = {};
-
-	//console.log('address: ', address, 'radius: ', radius);
 	if (address == '') {
 		errors.push('address_field_empty');
 	}else {
