@@ -9,6 +9,8 @@
 		mapCenterLatitude = ']]>{settings.mapCenterLatitude}<![CDATA[',
 		mapCenterLongitude = ']]>{settings.mapCenterLongitude}<![CDATA[',
 		fitMapBounds = parseInt(']]>{settings.fitMapBounds}<![CDATA['),
+		limit = parseInt(']]>{settings.limit}<![CDATA['),
+		itemsPerPage = parseInt(']]>{settings.position.list.paginate.itemsPerPage}<![CDATA['),
 		usualColor = 'eebb22',
 		spiderfiedColor = 'ffee22',
 		shadow,
@@ -31,12 +33,12 @@
 			class="btn active"
 			title="@todo: Zeige Listenansicht"
 			value="list-view"
-		>{f:translate(key:'@todo.list-view', default:'List')}</f:form.button>
+		>{f:translate(key:'tx_placements.list-view', default:'List')}</f:form.button>
 		<f:form.button
 			class="btn"
 			title="@todo: Zeige Kartenansicht"
 			value="map-view"
-		>{f:translate(key: '@todo.map-view', default: 'Map')}</f:form.button>
+		>{f:translate(key: 'tx_placements.map-view', default: 'Map')}</f:form.button>
 	</div>
 </f:if>
 <div id="map-view" style="{f:if(condition: '{0: settings.mapDisplayType} == {0: \'switchView\'}', then: 'display: none')}">
@@ -50,13 +52,13 @@
 	<div class="map-filter">
 		<div class="row-fluid">
 			<div class="btn-group span8">
-				<label for="placements-map-location">@todo: Umkreissuche</label>
+				<label for="placements-map-location">{f:translate(key:'tx_placements.proximity-search')}</label>
 				<f:form.textfield 
 					id="placements-map-location"
 					name="location" 
 					value="" 
 					class="span3"
-					placeholder="@todo: PLZ/ Ort" 
+					placeholder="{f:translate(key: 'tx_placements.mapFilter.placeholder.location')}" 
 				/>
 				<f:form.select 
 					id="placements-map-radius" 
@@ -68,7 +70,7 @@
 					id="radius-search-submit"
 					type="submit"
 					class="btn"
-					title="@todo Filter"
+					title="{f:translate(key: 'tx_placements.general.filter')}"
 				>
 					<i class="fa fa-filter"></i>
 				</f:form.button>
