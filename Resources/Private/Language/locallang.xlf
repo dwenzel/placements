@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-11T15:31:34Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-23T14:31:08Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -104,6 +104,9 @@
 		<trans-unit id="tx_placements.general.edit" xml:space="preserve">
 			<source>Edit</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.filter" xml:space="preserve">
+			<source>Filter</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.information.plural" xml:space="preserve">
 			<source>Information</source>
 		</trans-unit>
@@ -182,6 +185,15 @@
 		<trans-unit id="tx_placements.general.update" xml:space="preserve">
 			<source>update</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.list-view" xml:space="preserve">
+			<source>List</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.map-view" xml:space="preserve">
+			<source>Map</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.mapFilter.placeholder.location" xml:space="preserve">
+			<source>Zip / City</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.new_organization" xml:space="preserve">
 			<source>Add Organization</source>
 		</trans-unit>
@@ -196,6 +208,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.paginate_previous" xml:space="preserve">
 			<source>previous</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.proximity-search" xml:space="preserve">
+			<source>Proximity Search</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.quickMenu.hint" xml:space="preserve">
 			<source>Search for positions.</source>
