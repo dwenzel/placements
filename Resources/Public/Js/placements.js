@@ -90,7 +90,7 @@ function loadMapData(){
 		action = 'ajaxList',
 		offset,
 		arguments = {'overwriteDemand': overwriteDemand};
-	if(pagination.firstPageItem && pagination.lastPageItem) {
+	if(typeof(pagination) != 'undefined' && pagination.firstPageItem && pagination.lastPageItem) {
 		if(!arguments.overwriteDemand) {
 			arguments.overwriteDemand = {};
 		}
