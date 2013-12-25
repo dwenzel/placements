@@ -144,5 +144,4 @@ $dispatcher = $objectManager->get('TYPO3\CMS\Extbase\Mvc\Dispatcher');
 $dispatcher->dispatch($request, $response);
  
 echo $response->getContent();
-//die();
 ?>
