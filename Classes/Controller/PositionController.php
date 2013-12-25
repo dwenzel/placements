@@ -538,6 +538,15 @@ class PositionController extends AbstractController {
 		} elseif ($overwriteDemand['clientsPositionOnly'] == '') {
 			$demand->setClients('');
 		}
+		if (isset($overwriteDemand['orderBy']) AND 
+				$overwriteDemand['orderBy'] != '') {
+			$orderDirection = $this->settings['orderDirection'];
+			if(isset($overwriteDemanmd['orderDirection'])  AND 
+				$overwriteDemand['orderDirection'] !='') {
+				$orderDirection = $overwriteDemand['orderDirection'];
+			}
+			$demand->setOrder($overwriteDemand['orderBy'] . '|' . $orderDirection);
+		}
 			
 
 		foreach ($overwriteDemand as $propertyName => $propertyValue) {
