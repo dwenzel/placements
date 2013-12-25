@@ -3,14 +3,16 @@
  * @author Dirk Wenzel 
  */
 $(document).ready(function() {
+	/*
 	if (!window.location.origin){
-		basePath = window.location.protocol+"//"+window.location.host +"/";
+		basePath = window.location.protocol+"//"+window.location.host;
 	}
 	else{
 		// for webkit browsers
-		basePath = window.location.origin + "/";
+		basePath = window.location.origin;
 	}
-
+	url = basePath + window.location.pathname;
+	*/
 	/**
 	 * In switch view map is initial hidden. We
 	 * initialize it when view is switched to map for the first time
@@ -84,16 +86,33 @@ function initMap() {
 	loadMapData();
 }
 function loadMapData(){
-	var action = 'ajaxList',
+	var 
+		action = 'ajaxList',
+		offset,
 		arguments = {'overwriteDemand': overwriteDemand};
-
+	if(pagination.firstPageItem && pagination.lastPageItem) {
+		if(!arguments.overwriteDemand) {
+			arguments.overwriteDemand = {};
+		}
+		//get order from settings or overwriteDemand
+		if(typeof(overwriteDemand == 'undefined') && orderBy !='') {
+			arguments.overwriteDemand.orderBy = orderBy;
+		} else if (typeof(overwriteDemand.orderBy != 'undefined')) {
+			argument.overwriteDemand.orderBy = overwriteDemand.orderBy;
+		}
+		if(orderDirection !='' && (overwriteDemand && !overwriteDemand.orderDirection )) {
+			arguments.overwriteDemand.orderDirection = orderDirection;
+		}
+		arguments.overwriteDemand.offset = parseInt(pagination.firstPageItem) - 1;
+		arguments.overwriteDemand.limit = pagination.lastPageItem - pagination.firstPageItem +1;
+	}
 	if(mapDisplayType == 'singleView') {
 		action = 'ajaxShow';
 		arguments = {'uid': singleUid};
 	}
 	$.ajax({
 		async: 'true',
-		url: 'index.php',      
+		url: 'index.php',     
 		type: 'POST',
 		data: {
 			eID: "placementsAjax",  
@@ -191,7 +210,6 @@ function filterByRadius() {
 	}else {
 		getLocationData(address, null, function(locationData) {
 			map.panTo(locationData);
-			setHomeMarker(locationData);
 			var circleOptions = {
 				strokeColor: "#2875BB",
 				strokeOpacity: 0.8,
@@ -206,6 +224,7 @@ function filterByRadius() {
 				radiusCircle.setMap(null);
 			}
 			radiusCircle = new google.maps.Circle(circleOptions)
+			setHomeMarker(locationData);
 			var currMarkers = {};
 			for(var i = 0; i<allMarkers.length;i++) {
 				currMarker = allMarkers[i];
@@ -231,12 +250,14 @@ function clearFilter() {
 }
 function setHomeMarker(position) {
 	if(homeMarker) {
-		homeMarker.setPosition(position);
+		homeMarker.setCenter(position);
 	} else {
-		homeMarker = new google.maps.Marker({
-			position: position,
+		homeMarker = new google.maps.Circle({
+			strokeColor: "#2875BB",
+			strokeWeight: 8,
+			radius: 500,
+			center: position,
 			map: map,
-			title: 'You',
 			animation: google.maps.Animation.DROP
 		});
 	}
