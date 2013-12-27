@@ -103,6 +103,9 @@ function loadMapData(){
 		if(orderDirection !='' && (overwriteDemand && !overwriteDemand.orderDirection )) {
 			arguments.overwriteDemand.orderDirection = orderDirection;
 		}
+		if(clientsPositionsOnly) {
+			arguments.overwriteDemand.clientsPositionsOnly = clientsPositionsOnly;
+		}
 		arguments.overwriteDemand.offset = parseInt(pagination.firstPageItem) - 1;
 		arguments.overwriteDemand.limit = pagination.lastPageItem - pagination.firstPageItem +1;
 	}
