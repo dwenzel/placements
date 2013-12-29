@@ -88,27 +88,13 @@ function initMap() {
 function loadMapData(){
 	var 
 		action = 'ajaxList',
-		offset,
-		arguments = {'overwriteDemand': overwriteDemand};
+		demand = createDemandFromSettings();
+	demand = overwriteDemandObject(demand, overwriteDemand);
 	if(typeof(pagination) != 'undefined' && pagination.firstPageItem && pagination.lastPageItem) {
-		if(!arguments.overwriteDemand) {
-			arguments.overwriteDemand = {};
-		}
-		//get order from settings or overwriteDemand
-		if(typeof(overwriteDemand == 'undefined') && orderBy !='') {
-			arguments.overwriteDemand.orderBy = orderBy;
-		} else if (typeof(overwriteDemand.orderBy != 'undefined')) {
-			argument.overwriteDemand.orderBy = overwriteDemand.orderBy;
-		}
-		if(orderDirection !='' && (overwriteDemand && !overwriteDemand.orderDirection )) {
-			arguments.overwriteDemand.orderDirection = orderDirection;
-		}
-		if(clientsPositionsOnly) {
-			arguments.overwriteDemand.clientsPositionsOnly = clientsPositionsOnly;
-		}
-		arguments.overwriteDemand.offset = parseInt(pagination.firstPageItem) - 1;
-		arguments.overwriteDemand.limit = pagination.lastPageItem - pagination.firstPageItem +1;
+		demand.offset = parseInt(pagination.firstPageItem) - 1;
+		demand.limit = pagination.lastPageItem - pagination.firstPageItem +1;
 	}
+	arguments = {'overwriteDemand': demand};
 	if(mapDisplayType == 'singleView') {
 		action = 'ajaxShow';
 		arguments = {'uid': singleUid};
@@ -266,3 +252,26 @@ function setHomeMarker(position) {
 	}
 }
 
+function createDemandFromSettings() {
+	demand = {};
+	if(orderDirection !='') {
+		demand.orderDirection = orderDirection;
+	}
+	if(orderBy != '') {
+		demand.orderBy = orderBy;
+	}
+	if(clientsPositionsOnly) {
+		demand.clientsPositionsOnly = clientsPositionsOnly.toString();
+	}
+	if(limit) {
+		demand.limit = limit;
+	}
+	return demand;
+}
+
+function overwriteDemandObject(demand, overwriteDemand) {
+	if (typeof(overwriteDemand) != 'undefined' && overwriteDemand) {
+		$.extend(true,demand, overwriteDemand);
+	}
+	return demand;
+}
