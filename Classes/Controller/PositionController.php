@@ -541,7 +541,7 @@ class PositionController extends AbstractController {
 		if (isset($overwriteDemand['orderBy']) AND 
 				$overwriteDemand['orderBy'] != '') {
 			$orderDirection = $this->settings['orderDirection'];
-			if(isset($overwriteDemanmd['orderDirection'])  AND 
+			if(isset($overwriteDemand['orderDirection'])  AND 
 				$overwriteDemand['orderDirection'] !='') {
 				$orderDirection = $overwriteDemand['orderDirection'];
 			}
