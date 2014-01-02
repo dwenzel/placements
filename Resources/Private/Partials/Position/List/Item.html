@@ -1,12 +1,15 @@
 {namespace ps=Webfox\Placements\ViewHelpers}
-
+<f:if condition="{settings.debug}">
+	<f:debug title="requestArguments">{requestArguments}</f:debug>
+</f:if>
 <div class="row-fluid list-item">
 <f:comment>titel, organization.title,entryDate,organization.zip organization.city</f:comment>
 	<div class="span4 title">
 		<f:link.action 
 			action="show"
 			pageUid="{settings.detailPid}" 
-			arguments="{position : position}"
+			arguments="{position : position,
+					referrerArguments: requestArguments}"
 		>
 				{position.title}
 		</f:link.action>
@@ -22,7 +25,8 @@
 			<f:link.action 
 				action="show"
 				pageUid="{settings.detailPid}" 
-				arguments="{position : position}"
+				arguments="{position : position,
+					referrerArguments: requestArguments}"
 				class="btn"
 				title="{position.title}"
 			>
@@ -32,7 +36,8 @@
 				<f:link.action 
 					pageUid="{settings.detailPid}" 
 					action="edit" 
-					arguments="{position: position}" 
+					arguments="{position : position,
+						referrerArguments: requestArguments}"
 					class="btn edit" 
 					title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
 				><i class="fa fa-pencil-square-o"></i></f:link.action>

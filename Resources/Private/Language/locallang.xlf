@@ -107,6 +107,9 @@
 		<trans-unit id="tx_placements.general.filter" xml:space="preserve">
 			<source>Filter</source>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.hint.required" xml:space="preserve">
+			<source>Required fields</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.information.plural" xml:space="preserve">
 			<source>Information</source>
 		</trans-unit>
@@ -317,11 +320,17 @@
 		<trans-unit id="tx_placements_domain_model_organization.label" xml:space="preserve">
 			<source>Organization</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.categories" xml:space="preserve">
+			<source>Select one or more categories.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.legend.description" xml:space="preserve">
 			<source>Describe your organization.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.legend.image" xml:space="preserve">
 			<source>Allowed file types: %s&lt;br /&gt;Maximum image size: %s</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.sectors" xml:space="preserve">
+			<source>Please select a sector.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" xml:space="preserve">
 			<source>Enter external reference</source>
@@ -362,11 +371,26 @@
 		<trans-unit id="tx_placements_domain_model_position.identifier" xml:space="preserve">
 			<source>Reference</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.categories" xml:space="preserve">
+			<source>Please select one or more categories.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.contact" xml:space="preserve">
+			<source>Please provide some contact information.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.description" xml:space="preserve">
 			<source>Describe the position.</source>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.link" xml:space="preserve">
+			<source>Add an external link.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.payment" xml:space="preserve">
 			<source>Describe the payment.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.positionTypes" xml:space="preserve">
+			<source>This field may be used as search criterion.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.sectors" xml:space="preserve">
+			<source>Please choose a sector.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.title" xml:space="preserve">
 			<source>Enter a title for the position.</source>

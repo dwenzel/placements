@@ -141,6 +141,10 @@
 			<source>Filter</source>
 			<target>Filter</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.hint.required" approved="yes" xml:space="preserve">
+			<source>Required fields</source>
+			<target>Pflichtfelder</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.information.plural" approved="yes" xml:space="preserve">
 			<source>Information</source>
 			<target>Informationen</target>
@@ -421,6 +425,10 @@
 			<source>Organization</source>
 			<target>Organisation</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.categories" approved="yes" xml:space="preserve">
+			<source>Select one or more categories.</source>
+			<target>Wählen Sie eine oder mehrere Kategorien.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.legend.description" approved="yes" xml:space="preserve">
 			<source>Describe your organization.</source>
 			<target>Beschreiben Sie Ihr Unternehmen.</target>
@@ -428,6 +436,10 @@
 		<trans-unit id="tx_placements_domain_model_organization.legend.image" approved="yes" xml:space="preserve">
 			<source>Allowed file types: %s&lt;br /&gt;Maximum image size: %s</source>
 			<target>Erlaubte Dateitypen: %s&lt;br /&gt;Maximale Dateigröße: %s</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_organization.legend.sectors" approved="yes" xml:space="preserve">
+			<source>Please select a sector.</source>
+			<target>Bitte wählen Sie eine Branche.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_organization.placeholder.identifier" approved="yes" xml:space="preserve">
 			<source>Enter external reference</source>
@@ -481,13 +493,33 @@
 			<source>Reference</source>
 			<target>Referenz</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.categories" approved="yes" xml:space="preserve">
+			<source>Please select one or more categories.</source>
+			<target>Bitte wählen Sie eine oder mehrere Kategorien aus.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.contact" approved="yes" xml:space="preserve">
+			<source>Please provide some contact information.</source>
+			<target>Bitte geben Sie Informationen zum Kontakt an.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.description" approved="yes" xml:space="preserve">
 			<source>Describe the position.</source>
 			<target>Beschreiben Sie das Stellenangebot.</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.link" approved="yes" xml:space="preserve">
+			<source>Add an external link.</source>
+			<target>Geben Sie einen Link auf eine externe Website an.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.payment" approved="yes" xml:space="preserve">
 			<source>Describe the payment.</source>
 			<target>Beschreiben Sie die Vergütung.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.positionTypes" approved="yes" xml:space="preserve">
+			<source>This field may be used as search criterion.</source>
+			<target>Diese Feld kann als Suchkriterium verwendet werden.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.sectors" approved="yes" xml:space="preserve">
+			<source>Please choose a sector.</source>
+			<target>Bitte wählen Sie eine Branche aus.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.title" approved="yes" xml:space="preserve">
 			<source>Enter a title for the position.</source>
