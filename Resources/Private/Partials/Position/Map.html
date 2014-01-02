@@ -5,16 +5,6 @@
 	}
 	var 
 		gm,
-		mapDisplayType = ']]>{settings.mapDisplayType}<![CDATA[',
-		initialZoom = parseInt(']]>{settings.mapInitialZoom}<![CDATA['),
-		mapCenterLatitude = ']]>{settings.mapCenterLatitude}<![CDATA[',
-		mapCenterLongitude = ']]>{settings.mapCenterLongitude}<![CDATA[',
-		fitMapBounds = parseInt(']]>{settings.fitMapBounds}<![CDATA['),
-		clientsPositionsOnly = parseInt(']]>{settings.clientsPositionsOnly}<![CDATA['),
-		limit = parseInt(']]>{settings.limit}<![CDATA['),
-		itemsPerPage = parseInt(']]>{settings.position.list.paginate.itemsPerPage}<![CDATA['),
-		orderBy = ']]>{settings.orderBy}<![CDATA[',
-		orderDirection = ']]>{settings.orderDirection}<![CDATA[',
 		usualColor = 'eebb22',
 		spiderfiedColor = 'ffee22',
 		shadow,
@@ -30,6 +20,24 @@
 		overwriteDemand = ]]>{overwriteDemand->ps:format.json()}<![CDATA[;
 		var singleUid = ']]>{singleUid}<![CDATA[';
 		]]>
+		<![CDATA[settings = {
+			mapDisplayType: ']]>{settings.mapDisplayType}<![CDATA[',
+			mapCenterLatitude: ']]>{settings.mapCenterLatitude}<![CDATA[',
+			mapCenterLongitude: ']]>{settings.mapCenterLongitude}<![CDATA[',
+			initialZoom: parseInt(']]>{settings.mapInitialZoom}<![CDATA['),
+			fitMapBounds: parseInt(']]>{settings.fitMapBounds}<![CDATA['),
+		};]]>
+		<![CDATA[demandFromSettings = {
+			constraintsConjunction: ']]>{settings.constraintsConjunction}<![CDATA[',
+			sectors: ']]>{settings.sectors}<![CDATA[',
+			categories: ']]>{settings.categories}<![CDATA[',
+			positionTypes: ']]>{settings.positionTypes}<![CDATA[',
+			workingHours: ']]>{settings.workingHours}<![CDATA[',
+			limit:  parseInt(']]>{settings.limit}<![CDATA['),
+			orderBy:  ']]>{settings.orderBy}<![CDATA[',
+			orderDirection: ']]>{settings.orderDirection}<![CDATA[',
+			clientsPositionsOnly: parseInt(']]>{settings.clientsPositionsOnly}<![CDATA['),
+		};]]>
 </script>
 <f:if condition="{0: '{settings.mapDisplayType}'} == {0: 'switchView'}">
 	<div class="btn-group" id="switch-view">

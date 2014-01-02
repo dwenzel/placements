@@ -17,7 +17,7 @@ $(document).ready(function() {
 	 * In switch view map is initial hidden. We
 	 * initialize it when view is switched to map for the first time
 	 */ 
-	if(mapDisplayType == 'switchView') {
+	if(settings.mapDisplayType == 'switchView') {
 		$('#switch-view .btn').click(function(e){
 			activeButton = $('#switch-view .btn.active');
 			$('#' + activeButton.attr('value')).hide();
@@ -53,8 +53,8 @@ function initMap() {
 	geocoder = new gm.Geocoder();
 	infoWindow = new gm.InfoWindow();
 	mapOptions = {
-		center: new gm.LatLng(parseFloat(mapCenterLatitude),parseFloat(mapCenterLongitude)),
-		zoom: initialZoom,
+		center: new gm.LatLng(parseFloat(settings.mapCenterLatitude),parseFloat(settings.mapCenterLongitude)),
+		zoom: settings.initialZoom,
 		mapTypeId: gm.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(mapContainer, mapOptions);
@@ -88,14 +88,13 @@ function initMap() {
 function loadMapData(){
 	var 
 		action = 'ajaxList',
-		demand = createDemandFromSettings();
-	demand = overwriteDemandObject(demand, overwriteDemand);
+		demand = overwriteDemandObject(demandFromSettings, overwriteDemand);
 	if(typeof(pagination) != 'undefined' && pagination.firstPageItem && pagination.lastPageItem) {
 		demand.offset = parseInt(pagination.firstPageItem) - 1;
 		demand.limit = pagination.lastPageItem - pagination.firstPageItem +1;
 	}
 	arguments = {'overwriteDemand': demand};
-	if(mapDisplayType == 'singleView') {
+	if(settings.mapDisplayType == 'singleView') {
 		action = 'ajaxShow';
 		arguments = {'uid': singleUid};
 	}
@@ -169,15 +168,15 @@ function addMarker(position, uid) {
 		icon: iconWithColor(usualColor),
 		shadow: shadow
 	});
-	if(fitMapBounds) {
+	if(settings.fitMapBounds) {
 		bounds.extend(position);
 		map.fitBounds(bounds);
 	}
 	allMarkers.push(marker);
-	if (mapDisplayType == 'singleView' && 
+	if (settings.mapDisplayType == 'singleView' && 
 		allMarkers.length == 1) {
 		map.setCenter(allMarkers[0].position);
-		//map.setZoom(initialZoom);
+		//map.setZoom(settings.initialZoom);
 	}
 	oms.addMarker(marker);
 	return marker;
@@ -250,23 +249,6 @@ function setHomeMarker(position) {
 			animation: google.maps.Animation.DROP
 		});
 	}
-}
-
-function createDemandFromSettings() {
-	demand = {};
-	if(orderDirection !='') {
-		demand.orderDirection = orderDirection;
-	}
-	if(orderBy != '') {
-		demand.orderBy = orderBy;
-	}
-	if(clientsPositionsOnly) {
-		demand.clientsPositionsOnly = clientsPositionsOnly.toString();
-	}
-	if(limit) {
-		demand.limit = limit;
-	}
-	return demand;
 }
 
 function overwriteDemandObject(demand, overwriteDemand) {
