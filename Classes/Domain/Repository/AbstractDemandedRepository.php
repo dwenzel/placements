@@ -117,10 +117,16 @@ abstract class AbstractDemandedRepository
 
 	protected function generateQuery(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand, $respectEnableFields = TRUE) {
 		$query = $this->createQuery();
-
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-
 		$constraints = $this->createConstraintsFromDemand($query, $demand);
+
+		/**
+		 * We have to get the storage pages here and set the constraint by pid
+		 * in order to avoid records from wrong storage pages from being displayed. 
+		 * For some reasons the persistence manager does not respect the correct
+		 * storage page settings in our ajaxListAction from PositionController (but it
+		 * does for the plugin settings).
+		 */
+		$constraints[] = $query->in('pid', $query->getQuerySettings()->getStoragePageIds());
 
 		if ($respectEnableFields === FALSE) {
 			$query->getQuerySettings()->setRespectEnableFields(FALSE);
