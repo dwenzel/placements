@@ -97,6 +97,33 @@ class PositionController extends AbstractController {
 	}
 
 	/**
+	 * Initialize ajax list action
+	 */
+	 public function initializeAjaxListAction() {
+	 	if($this->arguments->hasArgument('overwriteDemand')) {
+	 		$this->arguments->getArgument('overwriteDemand')
+	 		->getPropertyMappingConfiguration()
+	 		//->forProperty('overwriteDemand')
+	 		->setTypeConverter(
+	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\ArrayConverter')
+	 			);
+	 	}
+	 }
+
+	/**
+	 * Initialize ajax show action
+	 */
+	 public function initializeAjaxShowAction() {
+	 	if($this->arguments->hasArgument('uid')) {
+	 		$this->arguments->getArgument('uid')
+	 		->getPropertyMappingConfiguration()
+	 		->setTypeConverter(
+	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter')
+	 			);
+	 	}
+	 }
+
+	/**
 	 * action list
 	 *
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
@@ -109,11 +136,83 @@ class PositionController extends AbstractController {
 		}
 		$positions = $this->positionRepository->findDemanded($demand);	
 		$this->view->assignMultiple(
-			array(
-				'positions' => $positions,
-				'requestArguments' => $this->requestArguments
+				array(
+					'positions'=> $positions,
+					'overwriteDemand' => $overwriteDemand,
+					'requestArguments' => $this->requestArguments
 			)
 		);
+	}
+
+	/**
+	 * action ajaxList
+	 *
+	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
+	 * @return \string
+	 */
+	public function ajaxListAction($overwriteDemand = NULL) {
+		$demand = $this->createDemandFromSettings($this->settings);
+		if($overwriteDemand) {
+		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+		}
+		$positions = $this->positionRepository->findDemanded($demand, TRUE);
+		if (count($positions)) {
+			$result = array();
+			foreach($positions as $position) {
+				$type = $position->getType();
+				if ($type) {
+					$typeJson = json_encode(
+							array(
+								'uid' => $type->getUid(),
+								'title' => $type->getTitle(),
+								)
+							);
+				}
+				$result[] = array(
+						'uid' => $position->getUid(),
+						'title' => $position->getTitle(),
+						'summary' => $position->getSummary(),
+						'city' => $position->getCity(),
+						'zip' => $position->getZip(),
+						'latitude' => $position->getLatitude(),
+						'longitude' => $position->getLongitude(),
+						'type' => ($typeJson)? $typeJson: NULL,
+						);
+			}
+			return json_encode($result);
+		}
+	}
+
+	/**
+	 * action ajax show
+	 *
+	 * @param \string $uid Uid of postion to show
+	 * @return \string
+	 */
+	public function ajaxShowAction($uid) {
+		$position = $this->positionRepository->findByUid($uid);
+		if ($position) {
+				$type = $position->getType();
+				if ($type) {
+					$typeJson = json_encode(
+							array(
+								'uid' => $type->getUid(),
+								'title' => $type->getTitle(),
+								)
+							);
+				}
+				$result[] = array(
+						'uid' => $position->getUid(),
+						'title' => $position->getTitle(),
+						'summary' => $position->getSummary(),
+						'city' => $position->getCity(),
+						'zip' => $position->getZip(),
+						'latitude' => $position->getLatitude(),
+						'longitude' => $position->getLongitude(),
+						'type' => ($typeJson)? $typeJson: NULL,
+						);
+			return json_encode($result);
+		}
 	}
 
 	/**
@@ -181,7 +280,19 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
 			$newPosition->setSingleCategory($category);
 		}
-	    	$this->positionRepository->add($newPosition);
+		if (!is_null($newPosition->getCity()) &&
+				is_null($newPosition->getLatitude()) && 
+				is_null($newPosition->getLongitude())) {
+			$address = '';
+			$address .= ($newPosition->getZip() !='')? $newPosition->getZip() . ' ': NULL;
+			$address .= $newPosition->getCity();
+			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
+			if($location) {
+					$newPosition->setLatitude($location['lat']);
+					$newPosition->setLongitude($location['lng']);
+			}
+		}
+		$this->positionRepository->add($newPosition);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.position.createAction', 'placements'
@@ -240,6 +351,18 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['position']['categories']));
 			$position->setSingleCategory($category);
 		}
+		if (!is_null($position->getCity()) &&
+				is_null($position->getLatitude()) && 
+				is_null($position->getLongitude())) {
+			$address = '';
+			$address .= ($position->getZip() !='')? $position->getZip() . ' ': NULL;
+			$address .= $position->getCity();
+			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
+			if($location) {
+					$position->setLatitude($location['lat']);
+					$position->setLongitude($location['lng']);
+			}
+		}
 		$this->positionRepository->update($position);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -285,13 +408,13 @@ class PositionController extends AbstractController {
 		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 		//$categories = $this->categoryRepository->findAll();
 		$this->view->assignMultiple(
-			array(
-			    'positionTypes' => $positionTypes,
+				array(
+					'positionTypes' => $positionTypes,
 			    'workingHours' => $workingHours,
 			    'sectors' => $sectors,
-				'categories' => $categories,
+					'categories' => $categories,
 			    'overwriteDemand' => $overwriteDemand
-			    )
+				)
 		);
 	}
 
@@ -419,6 +542,15 @@ class PositionController extends AbstractController {
 							getClient()->getUid());
 		} elseif ($overwriteDemand['clientsPositionOnly'] == '') {
 			$demand->setClients('');
+		}
+		if (isset($overwriteDemand['orderBy']) AND 
+				$overwriteDemand['orderBy'] != '') {
+			$orderDirection = $this->settings['orderDirection'];
+			if(isset($overwriteDemand['orderDirection'])  AND 
+				$overwriteDemand['orderDirection'] !='') {
+				$orderDirection = $overwriteDemand['orderDirection'];
+			}
+			$demand->setOrder($overwriteDemand['orderBy'] . '|' . $orderDirection);
 		}
 			
 

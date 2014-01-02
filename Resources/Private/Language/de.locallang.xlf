@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-18T12:58:10Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-23T14:31:08Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -137,6 +137,10 @@
 			<source>Edit</source>
 			<target>Bearbeiten</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.general.filter" approved="yes" xml:space="preserve">
+			<source>Filter</source>
+			<target>Filter</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.general.hint.required" approved="yes" xml:space="preserve">
 			<source>Required fields</source>
 			<target>Pflichtfelder</target>
@@ -245,6 +249,18 @@
 			<source>update</source>
 			<target>aktualisieren</target>
 		</trans-unit>
+		<trans-unit id="tx_placements.list-view" approved="yes" xml:space="preserve">
+			<source>List</source>
+			<target>Liste</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.map-view" approved="yes" xml:space="preserve">
+			<source>Map</source>
+			<target>Karte</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.mapFilter.placeholder.location" approved="yes" xml:space="preserve">
+			<source>Zip / City</source>
+			<target>PLZ / Ort</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.new_organization" approved="yes" xml:space="preserve">
 			<source>Add Organization</source>
 			<target>Unternehmen hinzufügen</target>
@@ -264,6 +280,10 @@
 		<trans-unit id="tx_placements.paginate_previous" approved="yes" xml:space="preserve">
 			<source>previous</source>
 			<target>zurück</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.proximity-search" approved="yes" xml:space="preserve">
+			<source>Proximity Search</source>
+			<target>Umkreissuche</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.quickMenu.hint" approved="yes" xml:space="preserve">
 			<source>Search for positions.</source>

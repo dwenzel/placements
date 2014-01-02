@@ -7,7 +7,7 @@ if (!defined('TYPO3_MODE')) {
 	'Webfox.' . $_EXTKEY,
 	'Placements',
 	array(
-		'Position' => 'list, show, new, create, edit, update, delete, quickMenu',
+		'Position' => 'list, show, new, create, edit, update, delete, quickMenu,ajaxList',
 		'User' => 'list, show, new, create, edit, update, delete',
 		'Application' => 'list, show, new, create, edit, update, delete',
 		'Organization' => 'list, show, new, create, edit, update, delete',
@@ -27,4 +27,6 @@ if (!defined('TYPO3_MODE')) {
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass'][$_EXTKEY] =
 	'EXT:' . $_EXTKEY . '/Classes/Hooks/T3libBefunc.php:Webfox\Placements\Hooks\T3libBefunc';
 
+# include eid dispatcher
+$TYPO3_CONF_VARS['FE']['eID_include']['placementsAjax'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'Classes/Utility/EidDispatcher.php';
 ?>

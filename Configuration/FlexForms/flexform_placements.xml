@@ -118,23 +118,6 @@
 						</TCEforms>
 					</settings.orderDirection>
 
-					<!-- Template Layout -->
-					<settings.templateLayout>
-						<TCEforms>
-							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xml:flexforms_general.templateLayout</label>
-							<config>
-								<type>select</type>
-								<itemsProcFunc>Webfox\Placements\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
-								<items>
-									<numIndex index="0" type="array">
-										<numIndex index="0"></numIndex>
-										<numIndex index="1"></numIndex>
-									</numIndex>
-								</items>
-							</config>
-						</TCEforms>
-					</settings.templateLayout>
-
 				</el>
 			</ROOT>
 		</sDEF>
@@ -459,5 +442,139 @@
 				</el>
 			</ROOT>
 		</pages>
+
+		<!-- SHEET TEMPLATE -->
+		<template>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.template</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<!-- Template Layout -->
+					<settings.templateLayout>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xml:flexforms_general.templateLayout</label>
+							<config>
+								<type>select</type>
+								<itemsProcFunc>Webfox\Placements\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+								<items>
+									<numIndex index="0" type="array">
+										<numIndex index="0"></numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.templateLayout>
+
+					<settings.showMap>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showMap</label>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.showMap>
+				</el>
+			</ROOT>
+		</template>
+		
+		<!-- SHEET Map -->
+		<map>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.map</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.mapDisplayType>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType.switchView</numIndex>
+										<numIndex index="1">switchView</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType.syncWithPagination</numIndex>
+										<numIndex index="1">syncWithPagination</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.mapDisplayType.singleView</numIndex>
+										<numIndex index="1">singleView</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.mapDisplayType>
+					<settings.mapWidth>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.width</label>
+							<config>
+								<type>input</type>
+								<size>5</size>
+								<eval>trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapWidth>
+					<settings.mapHeight>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.height</label>
+							<config>
+								<type>input</type>
+								<size>5</size>
+								<eval>trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapHeight>
+					<settings.mapInitialZoom>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.initialZoom</label>
+							<config>
+								<type>input</type>
+								<size>1</size>
+								<min>0</min>
+								<max>18</max>
+								<default>7</default>
+								<eval>int,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapInitialZoom>
+					<settings.mapCenterLatitude>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.latitude</label>
+							<config>
+								<type>input</type>
+								<size>20</size>
+								<eval>float,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapCenterLatitude>
+					<settings.mapCenterLongitude>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.longitude</label>
+							<config>
+								<type>input</type>
+								<size>20</size>
+								<eval>float,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapCenterLongitude>
+					<settings.fitMapBounds>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.fitMapBounds</label>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.fitMapBounds>
+				</el>
+			</ROOT>
+		</map>
 	</sheets>
 </T3DataStructure>

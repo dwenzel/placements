@@ -101,6 +101,16 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $city;
 
 	/**
+	 * @var float
+	 */
+	protected $latitude;
+
+	/**
+	 * @var float
+	 */
+	protected $longitude;
+
+	/**
 	 * payment
 	 *
 	 * @var \string
@@ -518,6 +528,44 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setCity($city) {
 		$this->city = $city;
+	}
+
+	/**
+	 * Gets the latitude
+	 *
+	 * @return \float $latitude
+	 */
+	public function getLatitude() {
+	    return $this->latitude;
+	}
+
+	/**
+	 * Sets the latitude
+	 *
+	 * @return \float $latitude
+	 * @return void
+	 */
+	public function setLatitude($latitude) {
+	    $this->latitude = $latitude;
+	}
+
+	/**
+	 * Gets the longitude
+	 *
+	 * @return \float $longitude
+	 */
+	public function getLongitude() {
+	    return $this->longitude;
+	}
+
+	/**
+	 * Sets the longitude
+	 *
+	 * @return \float $longitude
+	 * @return void
+	 */
+	public function setLongitude($longitude) {
+	    $this->longitude = $longitude;
 	}
 
 	/**

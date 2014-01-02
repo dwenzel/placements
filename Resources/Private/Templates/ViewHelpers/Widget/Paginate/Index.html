@@ -6,6 +6,11 @@
 <f:if condition="{configuration.insertAbove}">
 	<f:render section="paginator" arguments="{pagination: pagination,configuration:configuration}" />
 </f:if>
+<f:if condition="{settings.showMap}">
+	<script type="text/javascript"><![CDATA[
+		var pagination =]]>{pagination->p:format.json()}<![CDATA[;]]>
+	</script>
+</f:if>
 
 <f:renderChildren arguments="{contentArguments}" />
 
@@ -23,7 +28,6 @@
 				<p:headerData><link rel="next" href="<f:widget.uri arguments="{currentPage: pagination.nextPage}" />" /></p:headerData>
 			</f:if>
 		</f:if>
-
 		<div class="page-navigation">
 			<f:if condition="{configuration.showNumberOfPages}">
 				<div class="number-of-pages">
