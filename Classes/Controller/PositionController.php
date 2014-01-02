@@ -555,9 +555,7 @@ class PositionController extends AbstractController {
 			
 
 		foreach ($overwriteDemand as $propertyName => $propertyValue) {
-			if(!empty($propertyValue)) {
-				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
-		    }
+			\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 		}
 
 		return $demand;
