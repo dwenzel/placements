@@ -544,6 +544,19 @@
 							</config>
 						</TCEforms>
 					</settings.mapInitialZoom>
+					<settings.mapMaximumZoom>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.maximumZoom</label>
+							<config>
+								<type>input</type>
+								<size>1</size>
+								<min>0</min>
+								<max>21</max>
+								<default>12</default>
+								<eval>int,trim</eval>
+							</config>
+						</TCEforms>
+					</settings.mapMaximumZoom>
 					<settings.mapCenterLatitude>
 						<TCEforms>
 							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.latitude</label>

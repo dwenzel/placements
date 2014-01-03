@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-23T12:09:33Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-03T11:53:08Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -120,6 +120,10 @@
 		<trans-unit id="flexforms_general.mapDisplayType.syncWithPagination" approved="yes" xml:space="preserve">
 			<source>sync with pagination</source>
 			<target>mit Paginierung synchronisieren</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.maximumZoom" approved="yes" xml:space="preserve">
+			<source>Maximum Zoom</source>
+			<target>Größte Auflösung (Zoom)</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.optionGroupOthers" approved="yes" xml:space="preserve">
 			<source>Others</source>

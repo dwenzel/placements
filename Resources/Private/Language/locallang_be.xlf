@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-23T12:09:33Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-01-03T11:53:08Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -91,6 +91,9 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.mapDisplayType.syncWithPagination" xml:space="preserve">
 			<source>sync with pagination</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.maximumZoom" xml:space="preserve">
+			<source>Maximum Zoom</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.optionGroupOthers" xml:space="preserve">
 			<source>Others</source>

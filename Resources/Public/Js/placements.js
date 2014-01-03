@@ -55,6 +55,7 @@ function initMap() {
 	mapOptions = {
 		center: new gm.LatLng(parseFloat(settings.mapCenterLatitude),parseFloat(settings.mapCenterLongitude)),
 		zoom: settings.initialZoom,
+		maxZoom: settings.maximumZoom,
 		mapTypeId: gm.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(mapContainer, mapOptions);
