@@ -17,19 +17,21 @@ $(document).ready(function() {
 	 * In switch view map is initial hidden. We
 	 * initialize it when view is switched to map for the first time
 	 */ 
-	if(settings.mapDisplayType == 'switchView') {
-		$('#switch-view .btn').click(function(e){
-			activeButton = $('#switch-view .btn.active');
-			$('#' + activeButton.attr('value')).hide();
-			activeButton.removeClass('active');
-			$(this).addClass('active');
-			$('#' + this.value).show();
-			if(this.value == 'map-view' && (!map)) {
-				initMap();
-			} 
-		});
-	} else {
-		initMap();
+	if(typeof(settings) != 'undefined') {
+		if(settings.mapDisplayType == 'switchView') {
+			$('#switch-view .btn').click(function(e){
+				activeButton = $('#switch-view .btn.active');
+				$('#' + activeButton.attr('value')).hide();
+				activeButton.removeClass('active');
+				$(this).addClass('active');
+				$('#' + this.value).show();
+				if(this.value == 'map-view' && (!map)) {
+					initMap();
+				} 
+			});
+		} else {
+			initMap();
+		}
 	}
 	$('#placements-map-radius').change(function(e) {
 		if($('#radius-search-submit').hasClass('active')) {
