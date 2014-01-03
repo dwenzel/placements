@@ -14,7 +14,7 @@ if (!empty($settings['includeGoogleMaps'])) {
 }
 if (!empty($settings['includeJavaScript'])) {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
-		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'. $_EXTKEY . '/Resources/Private/TypoScript/javaScript.ts>');
+		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'. $_EXTKEY . '/Resources/Private/TypoScript/javascript.ts>');
 }
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'Webfox.' . $_EXTKEY,
