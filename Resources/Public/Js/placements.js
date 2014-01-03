@@ -92,7 +92,7 @@ function loadMapData(){
 	var 
 		action = 'ajaxList',
 		demand = overwriteDemandObject(demandFromSettings, overwriteDemand);
-	if(typeof(pagination) != 'undefined' && pagination.firstPageItem && pagination.lastPageItem) {
+	if(settings.mapDisplayType == 'listView' && typeof(pagination) != 'undefined' && pagination.firstPageItem && pagination.lastPageItem) {
 		demand.offset = parseInt(pagination.firstPageItem) - 1;
 		demand.limit = pagination.lastPageItem - pagination.firstPageItem +1;
 	}
