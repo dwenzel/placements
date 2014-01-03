@@ -5,9 +5,9 @@ This Template displays a single position.
 <f:section name="main">
 <f:if condition="{settings.debug}">
 	<f:debug title="settings">{settings}</f:debug>
+</f:if>
 	<f:debug title="request arguments">{requestArguments}</f:debug>
 	<f:debug title="referrerArguments">{referrerArguments}</f:debug>
-</f:if>
 	<div class="position-detail">
 		<f:flashMessages class="message"/>
 		<div class="row-fluid">
@@ -33,9 +33,7 @@ This Template displays a single position.
 							pageUid="{settings.backPid}" 
 							title="{f:translate(key:'tx_placements.general.backToList')}"
 							class="btn back pull-right"
-							arguments="{
-									overwriteDemand: '{referrerArguments.arguments.overwriteDemand}',
-									search: '{referrerArguments.arguments.search}'}"
+							arguments="{referrerArguments.arguments}"
 						>
 							<i class="fa fa-times"></i>&nbsp;{f:translate(key:'tx_placements.general.backToList')}
 						</f:link.action>
