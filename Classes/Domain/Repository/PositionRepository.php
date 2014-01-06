@@ -44,15 +44,17 @@ class PositionRepository extends AbstractDemandedRepository {
 	 */
 	protected function createConstraintsFromDemand (\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
 		$constraints = array();
+		$categories = $demand->getCategories();
+		$categoryConjunction = $demand->getCategoryConjunction();
 	
 		// Category constraints
-		if ($demand->getCategories() && $demand->getCategoryConjunction() !== NULL) {
+		if ($categories && !empty($categoryConjunction)) {
 			
 			// @todo get subcategories ($demand->getIncludeSubCategories())
 			$constraints[] = $this->createCategoryConstraint(
 				$query,
-				$demand->getCategories(),
-				$demand->getCategoryConjunction(),
+				$categories,
+				$categoryConjunction,
 				FALSE
 			);
 		}
@@ -225,7 +227,6 @@ class PositionRepository extends AbstractDemandedRepository {
 				$categoryConstraints[] = $query->contains('categories', $category);
 			}
 		}
-
 		if ($categoryConstraints) {
 			switch (strtolower($conjunction)) {
 				case 'or':
