@@ -134,6 +134,15 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
+
+	
+		if (!empty($overwriteDemand['search']['subject'])) {
+			//@todo: throw exception if search fields are not set
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+			$searchObj->setFields($this->settings['position']['search']['fields']);
+			$searchObj->setSubject($overwriteDemand['search']['subject']);
+		}
+		$demand->setSearch($searchObj);
 		$positions = $this->positionRepository->findDemanded($demand);	
 		$this->view->assignMultiple(
 				array(
@@ -155,6 +164,14 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
+
+		if (!empty($overwriteDemand['search']['subject'])) {
+			//@todo: throw exception if search fields are not set
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+			$searchObj->setFields($this->settings['position']['search']['fields']);
+			$searchObj->setSubject($overwriteDemand['search']['subject']);
+		}
+		$demand->setSearch($searchObj);
 		$positions = $this->positionRepository->findDemanded($demand, TRUE);
 		if (count($positions)) {
 			$result = array();
@@ -398,6 +415,7 @@ class PositionController extends AbstractController {
 
 	/**
 	 * Quick Menu action
+	 *
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
@@ -410,10 +428,11 @@ class PositionController extends AbstractController {
 		$this->view->assignMultiple(
 				array(
 					'positionTypes' => $positionTypes,
-			    'workingHours' => $workingHours,
-			    'sectors' => $sectors,
+			    	'workingHours' => $workingHours,
+			    	'sectors' => $sectors,
 					'categories' => $categories,
-			    'overwriteDemand' => $overwriteDemand
+			    	'overwriteDemand' => $overwriteDemand,
+					'search' => $search
 				)
 		);
 	}
