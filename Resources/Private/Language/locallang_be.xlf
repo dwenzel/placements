@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-01-03T11:53:08Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-01-07T14:48:26Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -163,6 +163,9 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.showPositionTypes" xml:space="preserve">
 			<source>Show Position Type Selector</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showSearchField" xml:space="preserve">
+			<source>Show Search Field</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.showSectors" xml:space="preserve">
 			<source>Show Sectors Selector</source>

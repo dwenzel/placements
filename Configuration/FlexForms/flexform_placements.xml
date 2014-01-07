@@ -286,6 +286,15 @@
 							</config>
 						</TCEforms>
 					</settings.clientsPositionsOnly>
+					<settings.showSearchField>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showSearchField</label>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</settings.showSearchField>
 					<settings.limit>
 						<TCEforms>
 							<label>Limit</label>
