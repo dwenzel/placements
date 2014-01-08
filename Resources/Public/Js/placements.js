@@ -39,7 +39,8 @@ $(document).ready(function() {
 		}
 	});
 	// Radius Search submit
-	$('#radius-search-submit').click(function(e) {
+	radiusSubmitBtn = $('#radius-search-submit');
+	$(radiusSubmitBtn).click(function(e) {
 		if($(this).hasClass('active')) {
 		    clearFilter();
 		} else {
@@ -52,15 +53,33 @@ $(document).ready(function() {
 function initMap() {
 	gm = google.maps;
 	mapContainer = document.getElementById('map_canvas');
+	locationInput = document.getElementById('placements-map-location');
+	autocomplete = new gm.places.Autocomplete(locationInput);
 	geocoder = new gm.Geocoder();
 	infoWindow = new gm.InfoWindow();
 	mapOptions = {
-		center: new gm.LatLng(parseFloat(settings.mapCenterLatitude),parseFloat(settings.mapCenterLongitude)),
-		zoom: settings.initialZoom,
-		maxZoom: settings.maximumZoom,
-		mapTypeId: gm.MapTypeId.ROADMAP
-	};
-	map = new google.maps.Map(mapContainer, mapOptions);
+			center: new gm.LatLng(parseFloat(settings.mapCenterLatitude),parseFloat(settings.mapCenterLongitude)),
+			zoom: settings.initialZoom,
+			maxZoom: settings.maximumZoom,
+			mapTypeId: gm.MapTypeId.ROADMAP
+		};
+	map = new gm.Map(mapContainer, mapOptions);
+	
+	// autocomplete
+	autocomplete.bindTo('bounds', map);
+	google.maps.event.addListener(autocomplete, 'place_changed', function () {
+		var place = autocomplete.getPlace();
+		if (!place.geometry) {
+			clearFilter();
+			$(radiusSubmitBtn).removeClass('active');
+			return;
+		} else {
+			filterPlaces('radius');
+			$(radiusSubmitBtn).addClass('active');
+		}
+	});
+
+	// overlapping marker spiderfier
 	oms = new OverlappingMarkerSpiderfier(map);
 	oms.addListener('click', function(marker, event) {
 		infoWindow.setContent(marker.note);
