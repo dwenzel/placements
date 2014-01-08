@@ -54,7 +54,9 @@ function initMap() {
 	gm = google.maps;
 	mapContainer = document.getElementById('map_canvas');
 	locationInput = document.getElementById('placements-map-location');
-	autocomplete = new gm.places.Autocomplete(locationInput);
+	if(locationInput) {
+		autocomplete = new gm.places.Autocomplete(locationInput);
+	}
 	geocoder = new gm.Geocoder();
 	infoWindow = new gm.InfoWindow();
 	mapOptions = {
@@ -66,18 +68,20 @@ function initMap() {
 	map = new gm.Map(mapContainer, mapOptions);
 	
 	// autocomplete
-	autocomplete.bindTo('bounds', map);
-	google.maps.event.addListener(autocomplete, 'place_changed', function () {
-		var place = autocomplete.getPlace();
-		if (!place.geometry) {
-			clearFilter();
-			$(radiusSubmitBtn).removeClass('active');
-			return;
-		} else {
-			filterPlaces('radius');
-			$(radiusSubmitBtn).addClass('active');
-		}
-	});
+	if (typeof(autocomplete) != 'undefined') {
+		autocomplete.bindTo('bounds', map);
+		google.maps.event.addListener(autocomplete, 'place_changed', function () {
+			var place = autocomplete.getPlace();
+			if (!place.geometry) {
+				clearFilter();
+				$(radiusSubmitBtn).removeClass('active');
+				return;
+			} else {
+				filterPlaces('radius');
+				$(radiusSubmitBtn).addClass('active');
+			}
+		});
+	}
 
 	// overlapping marker spiderfier
 	oms = new OverlappingMarkerSpiderfier(map);
@@ -176,12 +180,16 @@ function addMarker(position, uid) {
 	    title = place.title,
 	    note = 
 		'<div class="infoWindow">' +
-			'<div class="title"><strong>' + title + '</strong></div>' +
+			'<div class="title">' +
+				'<strong>' + title + '</strong>&nbsp;' +
+				'<a href="' + singleUri + '&tx_placements_placements[position]=' + place.uid + '">' +
+					'<i class="fa fa-eye"></i>' +
+				'</a>' +
+			'</div>' +
 			'<div class="position-type">' + JSON.parse(place.type).title + '</div>' +
 			'<div class="location">' + place.zip + ' ' + place.city + '</div>' +
 			//'<div class="summary">' + place.summary + '</div>' +
 		'</div>';
-	//	'<div class="description">' + place.description + '</div>';
 	marker = new google.maps.Marker({
 		position: position,
 		map: map,
