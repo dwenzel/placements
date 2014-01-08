@@ -176,15 +176,24 @@ function getLocationData(address, uid, callback) {
 	});
 }
 function addMarker(position, uid) {
-	var place = mapData[uid],
-	    title = place.title,
+	var 
+		place = mapData[uid],
+		title;
+	if (settings.mapDisplayType == 'singleView') {
+		title = '<strong>' + place.title + '</strong>';
+	}
+	else {
+		title = '<a href="' + singleUri + '&tx_placements_placements[position]=' + place.uid + '">' +
+					'<strong>' + place.title + '</strong>&nbsp;' +
+					'<i class="fa fa-eye"></i>' +
+				'</a>';
+	}
+
+	var
 	    note = 
 		'<div class="infoWindow">' +
 			'<div class="title">' +
-				'<strong>' + title + '</strong>&nbsp;' +
-				'<a href="' + singleUri + '&tx_placements_placements[position]=' + place.uid + '">' +
-					'<i class="fa fa-eye"></i>' +
-				'</a>' +
+				title +
 			'</div>' +
 			'<div class="position-type">' + JSON.parse(place.type).title + '</div>' +
 			'<div class="location">' + place.zip + ' ' + place.city + '</div>' +
@@ -194,7 +203,7 @@ function addMarker(position, uid) {
 		position: position,
 		map: map,
 		note: note,
-		title: title,
+		title: place.title,
 		icon: iconWithColor(usualColor),
 		shadow: shadow
 	});
