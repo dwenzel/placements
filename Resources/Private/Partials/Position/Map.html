@@ -1,0 +1,97 @@
+{namespace ps=Webfox\Placements\ViewHelpers}
+<script type="text/javascript"><![CDATA[
+	var iconWithColor = function(color) {
+		return 'http://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|+|' + color + '|000000|ffff00';
+	}
+	var 
+		gm,
+		usualColor = 'eebb22',
+		spiderfiedColor = 'ffee22',
+		shadow,
+		mapContainer,
+		geocoder,
+		bounds,
+		mapData = new Array(),
+		errors = new Array(),
+		map,
+		allMarkers = new Array(),
+		homeMarker,
+		radiusCircle,
+		overwriteDemand = ]]>{overwriteDemand->ps:format.json()}<![CDATA[;
+		singleUid = ']]>{singleUid}<![CDATA[';
+		singleUri = ']]>{f:uri.action(action: 'show', pageUid: '{settings.detailPid}', noCacheHash: 'true')}<![CDATA[';
+		]]>
+		<![CDATA[settings = {
+			mapDisplayType: ']]>{settings.mapDisplayType}<![CDATA[',
+			mapCenterLatitude: ']]>{settings.mapCenterLatitude}<![CDATA[',
+			mapCenterLongitude: ']]>{settings.mapCenterLongitude}<![CDATA[',
+			initialZoom: parseInt(']]>{settings.mapInitialZoom}<![CDATA['),
+			maximumZoom: parseInt(']]>{settings.mapMaximumZoom}<![CDATA['),
+			fitMapBounds: parseInt(']]>{settings.fitMapBounds}<![CDATA['),
+		};]]>
+		<![CDATA[demandFromSettings = {
+			constraintsConjunction: ']]>{settings.constraintsConjunction}<![CDATA[',
+			sectors: ']]>{settings.sectors}<![CDATA[',
+			categories: ']]>{settings.categories}<![CDATA[',
+			positionTypes: ']]>{settings.positionTypes}<![CDATA[',
+			workingHours: ']]>{settings.workingHours}<![CDATA[',
+			limit:  parseInt(']]>{settings.limit}<![CDATA['),
+			orderBy:  ']]>{settings.orderBy}<![CDATA[',
+			orderDirection: ']]>{settings.orderDirection}<![CDATA[',
+			clientsPositionsOnly: parseInt(']]>{settings.clientsPositionsOnly}<![CDATA['),
+		};]]>
+</script>
+<f:if condition="{0: '{settings.mapDisplayType}'} == {0: 'switchView'}">
+	<div class="row-fluid">
+		<div class="pull-right">
+			<div class="btn-group" id="switch-view">
+				<f:form.button
+					class="btn active"
+					value="list-view"
+				>{f:translate(key:'tx_placements.list-view', default:'List')}</f:form.button>
+				<f:form.button
+					class="btn"
+					value="map-view"
+				>{f:translate(key: 'tx_placements.map-view', default: 'Map')}</f:form.button>
+			</div>
+		</div>
+	</div>
+</f:if>
+<div id="map-view" style="{f:if(condition: '{0: settings.mapDisplayType} == {0: \'switchView\'}', then: 'display: none')}">
+	<f:if condition="{settings.mapDisplayType} != 'singleView'">
+		<f:render section="map-filter" />
+	</f:if>
+	<div id="map_canvas" style="width:{settings.mapWidth};height:{settings.mapHeight}"></div>
+</div>
+
+<f:section name="map-filter">
+	<div class="map-filter">
+		<div class="row-fluid">
+			<div class="btn-group span8">
+				<label for="placements-map-location">{f:translate(key:'tx_placements.proximity-search')}</label>
+				<f:form.textfield 
+					id="placements-map-location"
+					name="location" 
+					value="" 
+					class="span3"
+					placeholder="{f:translate(key: 'tx_placements.mapFilter.placeholder.location')}" 
+				/>
+				<f:form.select 
+					id="placements-map-radius" 
+					name="radius"
+					class="span2"
+					options="{50000: '50 km', 100000: '100 km', 250000: '250 km', 500000: '500 km', 1000000: '1000 km'}" 
+				/>
+				<f:form.button 
+					id="radius-search-submit"
+					type="submit"
+					class="btn"
+					title="{f:translate(key: 'tx_placements.general.filter')}"
+				>
+					<i class="fa fa-filter"></i>
+				</f:form.button>
+			</div>
+		</div>
+	</div>
+
+</f:section>

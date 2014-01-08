@@ -1,9 +1,12 @@
+{namespace ps=Webfox\Placements\ViewHelpers}
 <f:layout name="Default" />
 This Template displays a single position.
 
 <f:section name="main">
 <f:if condition="{settings.debug}">
 	<f:debug title="settings">{settings}</f:debug>
+	<f:debug title="request arguments">{requestArguments}</f:debug>
+	<f:debug title="referrerArguments">{referrerArguments}</f:debug>
 </f:if>
 	<div class="position-detail">
 		<f:flashMessages class="message"/>
@@ -12,17 +15,39 @@ This Template displays a single position.
 
 				<f:render partial="Position/Properties" arguments="{position:position}" />
 			</div>
-			<div class="span4">
-				<f:render partial="Position/Organization" arguments="{organization: '{position.organization}'}" />
-			</div>
+			<aside class="span4">
+				<div class="box">
+					<f:render partial="Position/Organization" arguments="{organization: '{position.organization}'}" />
+				</div>
+				<f:if condition="{settings.showMap}">
+					<f:render partial="Position/Map" arguments="{settings: settings, singleUid: '{position.uid}'}" />
+				</f:if>
+			</aside>
 		</div>
 		<div class="row-fluid">
 			<div class="span12">
-				<f:link.action 
-					action="list"
-					pageUid="{settings.backPid}" 
-					title="{f:translate(key:'tx_placements.general.backToList')}"
-					class="btn back pull-right"><i class="fa fa-times"></i>&nbsp;{f:translate(key:'tx_placements.general.backToList')}</f:link.action>
+				<f:if condition="{referrerArguments.action}">
+					<f:then>
+						<f:link.action 
+							action="{referrerArguments.action}"
+							pageUid="{settings.backPid}" 
+							title="{f:translate(key:'tx_placements.general.backToList')}"
+							class="btn back pull-right"
+							arguments="{referrerArguments.arguments}"
+						>
+							<i class="fa fa-times"></i>&nbsp;{f:translate(key:'tx_placements.general.backToList')}
+						</f:link.action>
+					</f:then>
+					<f:else>
+						<f:link.action
+							action="list"
+							pageUid="{settings.backPid}"
+							class="btn back pull-right"
+						>
+							<i class="fa fa-times"></i>&nbsp;{f:translate(key:'tx_placements.general.backToList')}
+						</f:link.action>
+					</f:else>
+				</f:if>
 			</div>
 		</div>
 	</div>

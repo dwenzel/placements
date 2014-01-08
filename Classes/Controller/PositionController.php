@@ -64,6 +64,7 @@ class PositionController extends AbstractController {
 	 *
 	 */
 	 public function initializeAction() {
+		parent::initializeAction();
 		$this->organizationRepository->setDefaultOrderings(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
 		if ($this->arguments->hasArgument('position')) {
 			$this->arguments->getArgument('position')
@@ -96,6 +97,33 @@ class PositionController extends AbstractController {
 	}
 
 	/**
+	 * Initialize ajax list action
+	 */
+	 public function initializeAjaxListAction() {
+	 	if($this->arguments->hasArgument('overwriteDemand')) {
+	 		$this->arguments->getArgument('overwriteDemand')
+	 		->getPropertyMappingConfiguration()
+	 		//->forProperty('overwriteDemand')
+	 		->setTypeConverter(
+	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\ArrayConverter')
+	 			);
+	 	}
+	 }
+
+	/**
+	 * Initialize ajax show action
+	 */
+	 public function initializeAjaxShowAction() {
+	 	if($this->arguments->hasArgument('uid')) {
+	 		$this->arguments->getArgument('uid')
+	 		->getPropertyMappingConfiguration()
+	 		->setTypeConverter(
+	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter')
+	 			);
+	 	}
+	 }
+
+	/**
 	 * action list
 	 *
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
@@ -106,8 +134,102 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
+
+	
+		if (!empty($overwriteDemand['search']['subject'])) {
+			//@todo: throw exception if search fields are not set
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+			$searchObj->setFields($this->settings['position']['search']['fields']);
+			$searchObj->setSubject($overwriteDemand['search']['subject']);
+		}
+		$demand->setSearch($searchObj);
 		$positions = $this->positionRepository->findDemanded($demand);	
-		$this->view->assign('positions', $positions);
+		$this->view->assignMultiple(
+				array(
+					'positions'=> $positions,
+					'overwriteDemand' => $overwriteDemand,
+					'requestArguments' => $this->requestArguments
+			)
+		);
+	}
+
+	/**
+	 * action ajaxList
+	 *
+	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
+	 * @return \string
+	 */
+	public function ajaxListAction($overwriteDemand = NULL) {
+		$demand = $this->createDemandFromSettings($this->settings);
+		if($overwriteDemand) {
+		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+		}
+
+		if (!empty($overwriteDemand['search']['subject'])) {
+			//@todo: throw exception if search fields are not set
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+			$searchObj->setFields($this->settings['position']['search']['fields']);
+			$searchObj->setSubject($overwriteDemand['search']['subject']);
+		}
+		$demand->setSearch($searchObj);
+		$positions = $this->positionRepository->findDemanded($demand, TRUE);
+		if (count($positions)) {
+			$result = array();
+			foreach($positions as $position) {
+				$type = $position->getType();
+				if ($type) {
+					$typeJson = json_encode(
+							array(
+								'uid' => $type->getUid(),
+								'title' => $type->getTitle(),
+								)
+							);
+				}
+				$result[] = array(
+						'uid' => $position->getUid(),
+						'title' => $position->getTitle(),
+						'summary' => $position->getSummary(),
+						'city' => $position->getCity(),
+						'zip' => $position->getZip(),
+						'latitude' => $position->getLatitude(),
+						'longitude' => $position->getLongitude(),
+						'type' => ($typeJson)? $typeJson: NULL,
+						);
+			}
+			return json_encode($result);
+		}
+	}
+
+	/**
+	 * action ajax show
+	 *
+	 * @param \string $uid Uid of postion to show
+	 * @return \string
+	 */
+	public function ajaxShowAction($uid) {
+		$position = $this->positionRepository->findByUid($uid);
+		if ($position) {
+				$type = $position->getType();
+				if ($type) {
+					$typeJson = json_encode(
+							array(
+								'uid' => $type->getUid(),
+								'title' => $type->getTitle(),
+								)
+							);
+				}
+				$result[] = array(
+						'uid' => $position->getUid(),
+						'title' => $position->getTitle(),
+						'summary' => $position->getSummary(),
+						'city' => $position->getCity(),
+						'zip' => $position->getZip(),
+						'latitude' => $position->getLatitude(),
+						'longitude' => $position->getLongitude(),
+						'type' => ($typeJson)? $typeJson: NULL,
+						);
+			return json_encode($result);
+		}
 	}
 
 	/**
@@ -117,7 +239,12 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(\Webfox\Placements\Domain\Model\Position $position) {
-		$this->view->assign('position', $position);
+		$this->view->assignMultiple(
+			array(
+				'position' => $position,
+				'referrerArguments' => $this->referrerArguments
+			)
+		);
 	}
 
 	/**
@@ -170,7 +297,19 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
 			$newPosition->setSingleCategory($category);
 		}
-	    	$this->positionRepository->add($newPosition);
+		if (!is_null($newPosition->getCity()) &&
+				is_null($newPosition->getLatitude()) && 
+				is_null($newPosition->getLongitude())) {
+			$address = '';
+			$address .= ($newPosition->getZip() !='')? $newPosition->getZip() . ' ': NULL;
+			$address .= $newPosition->getCity();
+			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
+			if($location) {
+					$newPosition->setLatitude($location['lat']);
+					$newPosition->setLongitude($location['lng']);
+			}
+		}
+		$this->positionRepository->add($newPosition);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.position.createAction', 'placements'
@@ -229,6 +368,18 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['position']['categories']));
 			$position->setSingleCategory($category);
 		}
+		if (!is_null($position->getCity()) &&
+				is_null($position->getLatitude()) && 
+				is_null($position->getLongitude())) {
+			$address = '';
+			$address .= ($position->getZip() !='')? $position->getZip() . ' ': NULL;
+			$address .= $position->getCity();
+			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
+			if($location) {
+					$position->setLatitude($location['lat']);
+					$position->setLongitude($location['lng']);
+			}
+		}
 		$this->positionRepository->update($position);
 		$this->flashMessageContainer->add(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -264,6 +415,7 @@ class PositionController extends AbstractController {
 
 	/**
 	 * Quick Menu action
+	 *
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
@@ -274,40 +426,35 @@ class PositionController extends AbstractController {
 		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 		//$categories = $this->categoryRepository->findAll();
 		$this->view->assignMultiple(
-			array(
-			    'positionTypes' => $positionTypes,
-			    'workingHours' => $workingHours,
-			    'sectors' => $sectors,
-				'categories' => $categories,
-			    'overwriteDemand' => $overwriteDemand
-			    )
+				array(
+					'positionTypes' => $positionTypes,
+			    	'workingHours' => $workingHours,
+			    	'sectors' => $sectors,
+					'categories' => $categories,
+			    	'overwriteDemand' => $overwriteDemand,
+					'search' => $search
+				)
 		);
 	}
 
 	/**
 	 * Displays a Simple Search Form
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @param \array $search
 	 * @return void
 	 */
-	public function searchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL) {
-		if (is_null($search)) {
-			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
-		}
+	public function searchFormAction($search = NULL) {
 		$this->view->assign('search', $search);
 	}
 
 	/**
 	 * Displays the Extended Search Form
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @param \array $search
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function extendedSearchFormAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL, array $overwriteDemand = NULL) {
-		if (is_null($search)) {
-			$search = $this->objectManager->get('Webfox\\Placements\\Domain\Model\\Dto\Search');
-		}
+	public function extendedSearchFormAction($search = NULL, array $overwriteDemand = NULL) {
 		$positionTypes = $this->positionTypeRepository->findMultipleByUid($this->settings['positionTypes'], 'title');
 		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
@@ -328,11 +475,11 @@ class PositionController extends AbstractController {
 	/**
 	 * Displays the Search Result
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search
+	 * @param \array $search
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
 	 * @return void
 	 */
-	public function searchResultAction(\Webfox\Placements\Domain\Model\Dto\Search $search = NULL, $overwriteDemand = NULL) {
+	public function searchResultAction($search = NULL, $overwriteDemand = NULL) {
 		$demand = $this->createDemandFromSettings($this->settings);
 		if($overwriteDemand) {
 			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
@@ -340,9 +487,11 @@ class PositionController extends AbstractController {
 
 		if (!is_null($search)) {
 			//@todo: throw exception if search fields are not set
-			$search->setFields($this->settings['position']['search']['fields']);
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+			$searchObj->setFields($this->settings['position']['search']['fields']);
+			$searchObj->setSubject($search['subject']);
 		}
-		$demand->setSearch($search);
+		$demand->setSearch($searchObj);
 
 		$positions = $this->positionRepository->findDemanded($demand);
 		if(!count($positions)) {
@@ -357,6 +506,7 @@ class PositionController extends AbstractController {
 				'positions' => $positions,
 				'search' => $search,
 				'demand' => $demand,
+				'requestArguments' => $this->requestArguments,
 			)
 		);
 	}
@@ -412,12 +562,19 @@ class PositionController extends AbstractController {
 		} elseif ($overwriteDemand['clientsPositionOnly'] == '') {
 			$demand->setClients('');
 		}
+		if (isset($overwriteDemand['orderBy']) AND 
+				$overwriteDemand['orderBy'] != '') {
+			$orderDirection = $this->settings['orderDirection'];
+			if(isset($overwriteDemand['orderDirection'])  AND 
+				$overwriteDemand['orderDirection'] !='') {
+				$orderDirection = $overwriteDemand['orderDirection'];
+			}
+			$demand->setOrder($overwriteDemand['orderBy'] . '|' . $orderDirection);
+		}
 			
 
 		foreach ($overwriteDemand as $propertyName => $propertyValue) {
-			if(!empty($propertyValue)) {
-				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
-		    }
+			\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 		}
 
 		return $demand;

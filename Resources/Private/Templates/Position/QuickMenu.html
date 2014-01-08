@@ -19,6 +19,22 @@ This Template creates a quick menu.
 		<f:form name="overwriteDemand" action="list"
 				pageUid="{settings.listPid}">
 			<div class="row-fluid">
+				<f:comment>show search field</f:comment>
+				<f:if condition="{settings.showSearchField}">
+					<div class="span6">
+						<div class="clearfix">
+						<label for="tx-placements-search-input">{f:translate(key: 'tx_placements.extendedSearchForm.searchTerm')}</label>
+							<f:form.textfield
+								id="tx-placements-search-input"
+								name="overwriteDemand[search][subject]"
+								value="{overwriteDemand.search.subject}"
+								class="search"
+								placeholder="{f:translate(key: 'tx_placements.extendedSearchForm.placeholder.searchTerm')}"
+							/>
+						</div>		
+					</div>
+				</f:if>
+						
 				<f:comment>show position types selector</f:comment>
 				<f:if condition="{settings.showPositionTypes}">
 					<div class="span6">

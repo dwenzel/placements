@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-05T08:45:15Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-01-07T14:48:26Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -56,11 +56,44 @@
 		<trans-unit id="flexforms_general.entryDate" xml:space="preserve">
 			<source>Entry Date</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.fitMapBounds" xml:space="preserve">
+			<source>Fit map boundaries </source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.height" xml:space="preserve">
+			<source>Height</source>
+		</trans-unit>
 		<trans-unit id="flexforms_general.identifier" xml:space="preserve">
 			<source>Identifier</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.initialZoom" xml:space="preserve">
+			<source>Initial Zoom</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.latitude" xml:space="preserve">
+			<source>Latitude</source>
+		</trans-unit>
 		<trans-unit id="flexforms_general.listPage" xml:space="preserve">
 			<source>List Page</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.longitude" xml:space="preserve">
+			<source>Longitude</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.map" xml:space="preserve">
+			<source>Map</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType" xml:space="preserve">
+			<source>Map Display Type</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType.singleView" xml:space="preserve">
+			<source>Single View</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType.switchView" xml:space="preserve">
+			<source>switch between list and map</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.mapDisplayType.syncWithPagination" xml:space="preserve">
+			<source>sync with pagination</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.maximumZoom" xml:space="preserve">
+			<source>Maximum Zoom</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.optionGroupOthers" xml:space="preserve">
 			<source>Others</source>
@@ -125,14 +158,23 @@
 		<trans-unit id="flexforms_general.showConjunctionSelector" xml:space="preserve">
 			<source>Show Conjunction Selector</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.showMap" xml:space="preserve">
+			<source>Show Map View</source>
+		</trans-unit>
 		<trans-unit id="flexforms_general.showPositionTypes" xml:space="preserve">
 			<source>Show Position Type Selector</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.showSearchField" xml:space="preserve">
+			<source>Show Search Field</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.showSectors" xml:space="preserve">
 			<source>Show Sectors Selector</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.showWorkingHours" xml:space="preserve">
 			<source>Show Working Hours Selector</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.template" xml:space="preserve">
+			<source>Template</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.templateLayout" xml:space="preserve">
 			<source>Template Layout</source>
@@ -145,6 +187,9 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.users" xml:space="preserve">
 			<source>Users</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.width" xml:space="preserve">
+			<source>Width</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.workingHours" xml:space="preserve">
 			<source>Working Hours</source>
