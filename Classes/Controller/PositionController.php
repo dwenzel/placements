@@ -297,9 +297,11 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
 			$newPosition->setSingleCategory($category);
 		}
+		$lat = $position->getLatitude();
+		$long = $position->getLongitude();
 		if (!is_null($newPosition->getCity()) &&
-				is_null($newPosition->getLatitude()) && 
-				is_null($newPosition->getLongitude())) {
+				empty($lat) && 
+				empty($long)) {
 			$address = '';
 			$address .= ($newPosition->getZip() !='')? $newPosition->getZip() . ' ': NULL;
 			$address .= $newPosition->getCity();
@@ -368,9 +370,11 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['position']['categories']));
 			$position->setSingleCategory($category);
 		}
+		$lat = $position->getLatitude();
+		$long = $position->getLongitude();
 		if (!is_null($position->getCity()) &&
-				is_null($position->getLatitude()) && 
-				is_null($position->getLongitude())) {
+				empty($lat) && 
+				empty($long)) {
 			$address = '';
 			$address .= ($position->getZip() !='')? $position->getZip() . ' ': NULL;
 			$address .= $position->getCity();

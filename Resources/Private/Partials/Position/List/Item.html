@@ -31,24 +31,44 @@
 				title="{position.title}"
 			>
 				<i class="fa fa-eye"></i>
-		</f:link.action>
-			<ps:security.allow action="edit" object="{position}" matchClient="TRUE">
-				<f:link.action 
-					pageUid="{settings.detailPid}" 
-					action="edit" 
-					arguments="{position : position,
-						referrerArguments: requestArguments}"
-					class="btn edit" 
-					title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
-				><i class="fa fa-pencil-square-o"></i></f:link.action>
-			</ps:security.allow>
-			<ps:security.allow action="delete" object="{position}" matchClient="TRUE">
-				<f:link.action 
-					action="delete" 
-					arguments="{position : position}" 
-					class="btn delete" 
-					title="{f:translate(key:'tx_placements.general.delete', default: 'Delete')}"
-				><i class="fa fa-trash-o"></i></f:link.action>
+			</f:link.action>
+			<ps:security.allow action="admin" object="{position}" type="position">
+				<f:then>
+					<f:link.action 
+						pageUid="{settings.detailPid}" 
+						action="edit" 
+						arguments="{position : position,
+							referrerArguments: requestArguments}"
+						class="btn edit" 
+						title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
+					><i class="fa fa-pencil-square-o"></i></f:link.action>
+					<f:link.action 
+						action="delete" 
+						arguments="{position : position}" 
+						class="btn delete" 
+						title="{f:translate(key:'tx_placements.general.delete', default: 'Delete')}"
+					><i class="fa fa-trash-o"></i></f:link.action>
+				</f:then>
+				<f:else>
+					<ps:security.allow action="edit" object="{position}" matchClient="TRUE">
+						<f:link.action 
+							pageUid="{settings.detailPid}" 
+							action="edit" 
+							arguments="{position : position,
+								referrerArguments: requestArguments}"
+							class="btn edit" 
+							title="{f:translate(key:'tx_placements.general.edit', default: 'Edit')}"
+						><i class="fa fa-pencil-square-o"></i></f:link.action>
+					</ps:security.allow>
+					<ps:security.allow action="delete" object="{position}" matchClient="TRUE">
+						<f:link.action 
+							action="delete" 
+							arguments="{position : position}" 
+							class="btn delete" 
+							title="{f:translate(key:'tx_placements.general.delete', default: 'Delete')}"
+						><i class="fa fa-trash-o"></i></f:link.action>
+					</ps:security.allow>
+				</f:else>
 			</ps:security.allow>
 		</div>
 	</div>
