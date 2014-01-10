@@ -55,6 +55,10 @@
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.quickMenu</numIndex>
 										<numIndex index="1">Position->quickMenu</numIndex>
 									</numIndex>
+									<numIndex index="10">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.positionCount</numIndex>
+										<numIndex index="1">Position->count</numIndex>
+									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
