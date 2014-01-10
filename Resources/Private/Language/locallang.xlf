@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-12-23T14:31:08Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-01-10T15:28:35Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.count.positions.result" xml:space="preserve">
+			<source>There are %s positions.</source>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 		</trans-unit>
@@ -100,6 +103,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements.general.delete" xml:space="preserve">
 			<source>Delete</source>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.display" xml:space="preserve">
+			<source>show</source>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.edit" xml:space="preserve">
 			<source>Edit</source>
