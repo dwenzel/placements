@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-07T14:48:26Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-10T15:03:05Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -156,6 +156,10 @@
 		<trans-unit id="flexforms_general.pages" approved="yes" xml:space="preserve">
 			<source>Pages</source>
 			<target>Seiten</target>
+		</trans-unit>
+		<trans-unit id="flexforms_general.positionCount" approved="yes" xml:space="preserve">
+			<source>Positions Count</source>
+			<target>Anzahl Stellenangebote</target>
 		</trans-unit>
 		<trans-unit id="flexforms_general.positionTypes" approved="yes" xml:space="preserve">
 			<source>Position Types</source>

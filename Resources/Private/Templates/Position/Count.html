@@ -1,0 +1,33 @@
+{namespace pw=Webfox\Placements\ViewHelpers\Widget}
+{namespace ps=Webfox\Placements\ViewHelpers}
+<f:layout name="Default" />
+
+This Template show the number of positions.
+
+<f:section name="main">
+<f:if condition="{settings.debug}">
+	<f:debug title="demand">{demand}</f:debug>
+	<f:debug title="settings">{settings}</f:debug>
+</f:if>
+<f:flashMessages class="message"/>
+<div class="position-count" >
+	<f:translate key="tx_placements.count.positions.result" arguments="{count: '{count}'}" />
+	<f:link.action
+		action="list"
+		pageUid="{settings.listPid}"
+		arguments="{overwriteDemand: '{
+						positionTypes: \'{demand.positionTypes}\',
+						workingHours: \'{demand.workingHours}\',
+						sectors: \'{demand.sectors}\',
+						constraintsConjunction: \'{demand.constraintsConjunction}\',
+						categories: \'{demand.categories}\',
+						clientsPositionsOnly: \'{demand.clientsPositionsOnly}\',
+						categoryConjunction: \'{demand.categoryConjunction}\',
+						limit: \'{demand.limit}\',
+						offset: \'{demand.offset}\'
+			}'}"
+		class="btn"
+	><i class="fa fa-eye">&nbsp</i>{f:translate(key: 'tx_placements.general.display')}</f:link.action>
+</div>
+
+</f:section>

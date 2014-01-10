@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-23T14:31:08Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-10T15:28:35Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="tx_placements.count.positions.result" approved="yes" xml:space="preserve">
+			<source>There are %s positions.</source>
+			<target>Es gibt %s Stellenangebote.</target>
+		</trans-unit>
 		<trans-unit id="tx_placements.error.newOrganization.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a name for your organization.</source>
 			<target>Bitte geben Sie einen Namen für Ihr Unternehmen an.</target>
@@ -132,6 +136,10 @@
 		<trans-unit id="tx_placements.general.delete" approved="yes" xml:space="preserve">
 			<source>Delete</source>
 			<target>Löschen</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.general.display" approved="yes" xml:space="preserve">
+			<source>show</source>
+			<target>anzeigen</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.general.edit" approved="yes" xml:space="preserve">
 			<source>Edit</source>
