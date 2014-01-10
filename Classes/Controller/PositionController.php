@@ -201,6 +201,36 @@ class PositionController extends AbstractController {
 	}
 
 	/**
+	 * action count
+	 *
+	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
+	 * @return void
+	 */
+	public function countAction($overwriteDemand = NULL) {
+		$demand = $this->createDemandFromSettings($this->settings);
+		if($overwriteDemand) {
+		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+		}
+
+	
+		if (!empty($overwriteDemand['search']['subject'])) {
+			//@todo: throw exception if search fields are not set
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+			$searchObj->setFields($this->settings['position']['search']['fields']);
+			$searchObj->setSubject($overwriteDemand['search']['subject']);
+		}
+		$demand->setSearch($searchObj);
+		$count = $this->positionRepository->countDemanded($demand);	
+		$this->view->assignMultiple(
+				array(
+					'count'=> $count,
+					'demand' => $demand,
+					'requestArguments' => $this->requestArguments
+			)
+		);
+	}
+
+	/**
 	 * action ajax show
 	 *
 	 * @param \string $uid Uid of postion to show
