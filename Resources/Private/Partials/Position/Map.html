@@ -59,7 +59,7 @@
 </f:if>
 <div id="map-view" style="{f:if(condition: '{0: settings.mapDisplayType} == {0: \'switchView\'}', then: 'display: none')}">
 	<f:if condition="{settings.mapDisplayType} != 'singleView'">
-		<f:render section="map-filter" />
+		<f:comment><f:render section="map-filter" /></f:comment>
 	</f:if>
 	<div id="map_canvas" style="width:{settings.mapWidth};height:{settings.mapHeight}"></div>
 </div>
@@ -68,17 +68,18 @@
 	<div class="map-filter">
 		<div class="row-fluid">
 			<div class="btn-group span8">
-				<label for="placements-map-location">{f:translate(key:'tx_placements.proximity-search')}</label>
+				<label for="tx-placements-search-location">{f:translate(key:'tx_placements.proximity-search')}</label>
 				<f:form.textfield 
-					id="placements-map-location"
+					id="tx-placements-search-location"
 					name="location" 
-					value="" 
+					value="{overwriteDemand.search.location}" 
 					class="span3"
 					placeholder="{f:translate(key: 'tx_placements.mapFilter.placeholder.location')}" 
 				/>
 				<f:form.select 
-					id="placements-map-radius" 
+					id="tx-placements-search-radius" 
 					name="radius"
+					value="{overwriteDemand.search.radius}"
 					class="span2"
 					options="{50000: '50 km', 100000: '100 km', 250000: '250 km', 500000: '500 km', 1000000: '1000 km'}" 
 				/>
