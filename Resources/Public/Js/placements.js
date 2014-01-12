@@ -195,7 +195,7 @@ function addMarker(position, uid) {
 		icon: iconWithColor(usualColor),
 		shadow: shadow
 	});
-	if(settings.fitMapBounds && typeof(radiusCircle) == 'undefined' || !radiusCircle.getBounds() ) {
+	if(settings.fitMapBounds && typeof(radiusCircle) == 'undefined' ) {
 		bounds.extend(position);
 		map.fitBounds(bounds);
 	}
