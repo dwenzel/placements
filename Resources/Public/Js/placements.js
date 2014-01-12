@@ -42,21 +42,6 @@ $(document).ready(function() {
 			initMap();
 		}
 	}
-	$('#tx-placements-search-radius').change(function(e) {
-		//if($('#radius-search-submit').hasClass('active')) {
-			filterPlaces('radius');
-		//}
-	});
-	// Radius Search submit
-	radiusSubmitBtn = $('#radius-search-submit');
-	$(radiusSubmitBtn).click(function(e) {
-		if($(this).hasClass('active')) {
-		    clearFilter();
-		} else {
-		    filterPlaces('radius');
-		}
-		$(this).toggleClass('active');
-	});
 });
 
 function initMap() {
