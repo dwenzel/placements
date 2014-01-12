@@ -64,11 +64,9 @@ function initMap() {
 			var place = autocomplete.getPlace();
 			if (!place.geometry) {
 				clearFilter();
-				$(radiusSubmitBtn).removeClass('active');
 				return;
 			} else {
 				filterPlaces('radius');
-				$(radiusSubmitBtn).addClass('active');
 			}
 		});
 	}
@@ -197,7 +195,7 @@ function addMarker(position, uid) {
 		icon: iconWithColor(usualColor),
 		shadow: shadow
 	});
-	if(settings.fitMapBounds) {
+	if(settings.fitMapBounds && typeof(radiusCircle) == 'undefined' || !radiusCircle.getBounds() ) {
 		bounds.extend(position);
 		map.fitBounds(bounds);
 	}
