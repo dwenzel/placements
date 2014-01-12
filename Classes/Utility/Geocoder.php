@@ -38,6 +38,43 @@ Class Geocoder {
 			return false;
 		}
 	}
+
+	// calculate destination lat/lng given a starting point, bearing, and distance
+	public function destination($lat,$lng, $bearing, $distance,$units="km") {
+    $radius = strcasecmp($units, "km") ? 3963.19 : 6378.137;
+    $rLat = deg2rad($lat);
+    $rLon = deg2rad($lng);
+    $rBearing = deg2rad($bearing);
+    $rAngDist = $distance / $radius;
+
+    $rLatB = asin(sin($rLat) * cos($rAngDist) + 
+        cos($rLat) * sin($rAngDist) * cos($rBearing));
+
+    $rLonB = $rLon + atan2(sin($rBearing) * sin($rAngDist) * cos($rLat), 
+                           cos($rAngDist) - sin($rLat) * sin($rLatB));
+
+    return array("lat" => rad2deg($rLatB), "lng" => rad2deg($rLonB));
+	}
+	
+	// calculate bounding box
+	public function getBoundsByRadius($lat,$lng, $distance,$units="km") {
+		return array("N" => self::destination($lat,$lng,   0, $distance,$units),
+			"E" => self::destination($lat,$lng,  90, $distance,$units),
+			"S" => self::destination($lat,$lng, 180, $distance,$units),
+			"W" => self::destination($lat,$lng, 270, $distance,$units));
+	}
+
+	// calculate distance between two lat/lon coordinates
+	function distance($latA,$lonA, $latB,$lonB, $units="km") {
+		$radius = strcasecmp($units, "km") ? 3963.19 : 6378.137;
+		$rLatA = deg2rad($latA);
+		$rLatB = deg2rad($latB);
+		$rHalfDeltaLat = deg2rad(($latB - $latA) / 2);
+		$rHalfDeltaLon = deg2rad(($lonB - $lonA) / 2);
+		
+		return 2 * $radius * asin(sqrt(pow(sin($rHalfDeltaLat), 2) +
+			cos($rLatA) * cos($rLatB) * pow(sin($rHalfDeltaLon), 2)));
+	}
 }
  
 ?>
