@@ -135,15 +135,42 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 
+		if (!empty($overwriteDemand['search'])) {
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+		}
 	
 		if (!empty($overwriteDemand['search']['subject'])) {
 			//@todo: throw exception if search fields are not set
-			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
 			$searchObj->setFields($this->settings['position']['search']['fields']);
 			$searchObj->setSubject($overwriteDemand['search']['subject']);
 		}
+		if (!empty($overwriteDemand['search']['location'])) {
+			$searchObj->setLocation($overwriteDemand['search']['location']);
+			$searchObj->setRadius($overwriteDemand['search']['radius']);
+			$searchObj->setBounds($overwriteDemand['search']['bounds']);
+		}
 		$demand->setSearch($searchObj);
 		$positions = $this->positionRepository->findDemanded($demand);	
+		if ($searchObj AND $searchObj->getRadius() AND $searchObj->getLocation()) {
+			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($searchObj->getLocation());
+			$distance = $searchObj->getRadius()/1000;
+		}
+		if ($geoLocation) {
+			foreach($positions as $key => $position) {
+				$currDist = \Webfox\Placements\Utility\Geocoder::distance(
+					$geoLocation['lat'], 
+					$geoLocation['lng'],
+					$position->getLatitude(),
+					$position->getLongitude()
+				);
+				//echo('dist: ' . $currDist . '<br/>');
+				if ($currDist > $distance) {
+					//echo('remove uid:' . $position->getUid() . ' title: ' . $position->getTitle()); 
+					//@todo: unset doesn't work. How to remove entries from a query result?
+					$positions->offsetUnset($key);
+				}
+			}
+		}
 		$this->view->assignMultiple(
 				array(
 					'positions'=> $positions,
@@ -165,11 +192,19 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 
+		if (!empty($overwriteDemand['search'])) {
+			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+		}
+	
 		if (!empty($overwriteDemand['search']['subject'])) {
 			//@todo: throw exception if search fields are not set
-			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
 			$searchObj->setFields($this->settings['position']['search']['fields']);
 			$searchObj->setSubject($overwriteDemand['search']['subject']);
+		}
+		if (!empty($overwriteDemand['search']['location'])) {
+			$searchObj->setLocation($overwriteDemand['search']['location']);
+			$searchObj->setRadius($overwriteDemand['search']['radius']);
+			$searchObj->setBounds($overwriteDemand['search']['bounds']);
 		}
 		$demand->setSearch($searchObj);
 		$positions = $this->positionRepository->findDemanded($demand, TRUE);
