@@ -155,20 +155,30 @@ class PositionController extends AbstractController {
 			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($searchObj->getLocation());
 			$distance = $searchObj->getRadius()/1000;
 		}
+		//@todo Move this into the repository class (filterByRadius)
 		if ($geoLocation) {
-			foreach($positions as $key => $position) {
+			$positionUids = array();
+			foreach($positions as $position) {
 				$currDist = \Webfox\Placements\Utility\Geocoder::distance(
 					$geoLocation['lat'], 
 					$geoLocation['lng'],
 					$position->getLatitude(),
 					$position->getLongitude()
 				);
-				//echo('dist: ' . $currDist . '<br/>');
-				if ($currDist > $distance) {
-					//echo('remove uid:' . $position->getUid() . ' title: ' . $position->getTitle()); 
-					//@todo: unset doesn't work. How to remove entries from a query result?
-					$positions->offsetUnset($key);
+				if ($currDist <= $distance) {
+					$positionUids[] = $position->getUid();
 				}
+			}
+			if (count($positionUids)) {
+				$orderings = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('|', $demand->getOrder(), FALSE, 0);
+				$sortField = $orderings[0];
+				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+				if($orderings[1] == 'desc') {
+					$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+				}
+				$positions = $this->positionRepository->findMultipleByUid(
+					implode(',', $positionUids), $sortField, $sortOrder
+				);
 			}
 		}
 		$this->view->assignMultiple(
