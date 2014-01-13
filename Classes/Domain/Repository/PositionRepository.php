@@ -58,7 +58,6 @@ class PositionRepository extends AbstractDemandedRepository {
 				FALSE
 			);
 		}
-
 		$constraintsConjunction = $demand->getConstraintsConjunction();
 		// Position type constraints
 		if ($demand->getPositionTypes()) {
@@ -278,6 +277,42 @@ class PositionRepository extends AbstractDemandedRepository {
 
 		return $constraint;
 	}
+
+	/**
+	 * Returns a query result filtered by radius around a given location
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $queryResult A query result containing positions
+	 * @param \array $geoLocation An array describing a geolocation by lat and lng
+	 * @param \integer $distance Distance in meter
+	 * @return \TYPO3\CMS\Extbase\Persitence\Generic\QueryResult $queryResult A query result containing positions
+	 */
+		public function filterByRadius($queryResult, $geoLocation, $distance) {
+			$positionUids = array();
+			foreach($queryResult as $position) {
+				$currDist = \Webfox\Placements\Utility\Geocoder::distance(
+					$geoLocation['lat'], 
+					$geoLocation['lng'],
+					$position->getLatitude(),
+					$position->getLongitude()
+				);
+				if ($currDist <= $distance) {
+					$positionUids[] = $position->getUid();
+				}
+			}
+			if (count($positionUids)) {
+				//@todo: we could get the orderings from the query result. 
+				// but the have another form then the method findMultipleByUid expects
+				$orderings = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('|', $demand->getOrder(), FALSE, 0);
+				$sortField = $orderings[0];
+				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+				if($orderings[1] == 'desc') {
+					$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+				}
+				$positions = $this->positionRepository->findMultipleByUid(
+					implode(',', $positionUids), $sortField, $sortOrder
+				);
+			}
+		}
 
 }
 ?>
