@@ -60,15 +60,6 @@ function initMap() {
 	// autocomplete
 	if (typeof(autocomplete) != 'undefined') {
 		autocomplete.bindTo('bounds', map);
-		google.maps.event.addListener(autocomplete, 'place_changed', function () {
-			var place = autocomplete.getPlace();
-			if (!place.geometry) {
-				clearFilter();
-				return;
-			} else {
-				filterPlaces('radius');
-			}
-		});
 	}
 
 	// overlapping marker spiderfier
