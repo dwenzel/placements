@@ -58,7 +58,6 @@ class PositionRepository extends AbstractDemandedRepository {
 				FALSE
 			);
 		}
-
 		$constraintsConjunction = $demand->getConstraintsConjunction();
 		// Position type constraints
 		if ($demand->getPositionTypes()) {
@@ -120,19 +119,51 @@ class PositionRepository extends AbstractDemandedRepository {
 		// Search constraints
 		if ($demand->getSearch()) {
 			$searchConstraints = array();
+			$locationConstraints = array();
 			$search = $demand->getSearch();
-			$searchFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $search->getFields(), TRUE);
-			if (count($searchFields) === 0) {
-				throw new \UnexpectedValueException('No search fields given', 1382608407);
-			}
 			$subject = $search->getSubject();
+
 			if(!empty($subject)) {
+				// search text in specified search fields
+				$searchFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $search->getFields(), TRUE);
+				if (count($searchFields) === 0) {
+					throw new \UnexpectedValueException('No search fields given', 1382608407);
+				}
 				foreach($searchFields as $field) {
 					$searchConstraints[] = $query->like($field, '%' . $subject . '%');
-                }
-            }
+				}
+			}
+
+			// search by bounding box
+			$bounds = $search->getBounds();
+			$location = $search->getLocation();
+			$radius = $search->getRadius();
+
+			if(!empty($location)
+					AND !empty($radius)
+					AND empty($bounds)) {
+					$geoCoder = new \Webfox\Placements\Utility\Geocoder;
+					$geoLocation = $geoCoder::getLocation($location);
+					if ($geoLocation) {
+						$bounds = $geoCoder::getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius/1000);
+					}
+			}
+			if($bounds AND
+					!empty($bounds['N']) AND
+					!empty($bounds['S']) AND
+					!empty($bounds['W']) AND
+					!empty($bounds['E'])) {
+						$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
+						$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
+						$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
+						$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
+			}
+					
 			if(count($searchConstraints)) {
 				$constraints[] = $query->logicalOr($searchConstraints);
+			}
+			if(count($locationConstraints)) {
+				$constraints[] = $query->logicalAnd($locationConstraints);
 			}
 		}
 
@@ -245,6 +276,36 @@ class PositionRepository extends AbstractDemandedRepository {
 		}
 
 		return $constraint;
+	}
+
+	/**
+	 * Returns a query result filtered by radius around a given location
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $queryResult A query result containing positions
+	 * @param \array $geoLocation An array describing a geolocation by lat and lng
+	 * @param \integer $distance Distance in meter
+	 * @return \TYPO3\CMS\Extbase\Persitence\Generic\QueryResult $queryResult A query result containing positions
+	 */
+	public function filterByRadius($queryResult, $geoLocation, $distance) {
+		$positionUids = array();
+		foreach($queryResult as $position) {
+			$currDist = \Webfox\Placements\Utility\Geocoder::distance(
+				$geoLocation['lat'], 
+				$geoLocation['lng'],
+				$position->getLatitude(),
+				$position->getLongitude()
+			);
+			if ($currDist <= $distance) {
+				$positionUids[] = $position->getUid();
+			}
+		}
+		$orderings = $queryResult->getQuery()->getOrderings();
+		$sortField = array_shift(array_keys($orderings));
+		$sortOrder = array_shift(array_values($orderings));
+		$positions = self::findMultipleByUid(
+			implode(',', $positionUids), $sortField, $sortOrder
+		);
+		return $positions;
 	}
 
 }

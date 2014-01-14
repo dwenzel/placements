@@ -2,6 +2,7 @@
  * placements.js
  * @author Dirk Wenzel 
  */
+var locationInput, radiusInput;
 $(document).ready(function() {
 	/*
 	if (!window.location.origin){
@@ -17,6 +18,11 @@ $(document).ready(function() {
 	 * In switch view map is initial hidden. We
 	 * initialize it when view is switched to map for the first time
 	 */ 
+	locationInput = document.getElementById('tx-placements-search-location');
+	radiusInput = document.getElementById('tx-placements-search-radius');
+	if(locationInput) {
+		autocomplete = new google.maps.places.Autocomplete(locationInput);
+	}
 	if(typeof(settings) != 'undefined') {
 		if(settings.mapDisplayType == 'switchView') {
 			$('#switch-view .btn').click(function(e){
@@ -27,36 +33,20 @@ $(document).ready(function() {
 				$('#' + this.value).show();
 				if(this.value == 'map-view' && (!map)) {
 					initMap();
+					if(locationInput.val != '') {
+						filterPlaces('radius');
+					}
 				} 
 			});
 		} else {
 			initMap();
 		}
 	}
-	$('#placements-map-radius').change(function(e) {
-		if($('#radius-search-submit').hasClass('active')) {
-			filterPlaces('radius');
-		}
-	});
-	// Radius Search submit
-	radiusSubmitBtn = $('#radius-search-submit');
-	$(radiusSubmitBtn).click(function(e) {
-		if($(this).hasClass('active')) {
-		    clearFilter();
-		} else {
-		    filterPlaces('radius');
-		}
-		$(this).toggleClass('active');
-	});
 });
 
 function initMap() {
 	gm = google.maps;
 	mapContainer = document.getElementById('map_canvas');
-	locationInput = document.getElementById('placements-map-location');
-	if(locationInput) {
-		autocomplete = new gm.places.Autocomplete(locationInput);
-	}
 	geocoder = new gm.Geocoder();
 	infoWindow = new gm.InfoWindow();
 	mapOptions = {
@@ -70,17 +60,6 @@ function initMap() {
 	// autocomplete
 	if (typeof(autocomplete) != 'undefined') {
 		autocomplete.bindTo('bounds', map);
-		google.maps.event.addListener(autocomplete, 'place_changed', function () {
-			var place = autocomplete.getPlace();
-			if (!place.geometry) {
-				clearFilter();
-				$(radiusSubmitBtn).removeClass('active');
-				return;
-			} else {
-				filterPlaces('radius');
-				$(radiusSubmitBtn).addClass('active');
-			}
-		});
 	}
 
 	// overlapping marker spiderfier
@@ -207,7 +186,7 @@ function addMarker(position, uid) {
 		icon: iconWithColor(usualColor),
 		shadow: shadow
 	});
-	if(settings.fitMapBounds) {
+	if(settings.fitMapBounds && typeof(radiusCircle) == 'undefined' ) {
 		bounds.extend(position);
 		map.fitBounds(bounds);
 	}
@@ -229,8 +208,8 @@ function filterPlaces(criterion) {
 }
 
 function filterByRadius() {
-	var radius = $('#placements-map-radius').val(),
-		address = $('#placements-map-location').val();
+	var radius = $(radiusInput).val(),
+		address = $(locationInput).val();
 
 	if (address == '') {
 		errors.push('address_field_empty');

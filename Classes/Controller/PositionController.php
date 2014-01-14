@@ -135,20 +135,26 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 
-	
-		if (!empty($overwriteDemand['search']['subject'])) {
-			//@todo: throw exception if search fields are not set
-			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
-			$searchObj->setFields($this->settings['position']['search']['fields']);
-			$searchObj->setSubject($overwriteDemand['search']['subject']);
+		if (!empty($overwriteDemand['search'])) {
+			$searchObj = $this->getSearchObject(
+				$overwriteDemand['search'], 
+				$this->settings['position']['search']
+			);
+			$demand->setSearch($searchObj);
 		}
-		$demand->setSearch($searchObj);
 		$positions = $this->positionRepository->findDemanded($demand);	
+		if ($searchObj AND $searchObj->getRadius() AND $searchObj->getLocation()) {
+			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($searchObj->getLocation());
+			$distance = $searchObj->getRadius()/1000;
+		}
+		if ($geoLocation) {
+			$positions = $this->positionRepository->filterByRadius($positions, $geoLocation, $distance);
+		}
 		$this->view->assignMultiple(
-				array(
-					'positions'=> $positions,
-					'overwriteDemand' => $overwriteDemand,
-					'requestArguments' => $this->requestArguments
+			array(
+				'positions'=> $positions,
+				'overwriteDemand' => $overwriteDemand,
+				'requestArguments' => $this->requestArguments
 			)
 		);
 	}
@@ -165,14 +171,22 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 
-		if (!empty($overwriteDemand['search']['subject'])) {
-			//@todo: throw exception if search fields are not set
-			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
-			$searchObj->setFields($this->settings['position']['search']['fields']);
-			$searchObj->setSubject($overwriteDemand['search']['subject']);
+		if (!empty($overwriteDemand['search'])) {
+			$searchObj = $this->getSearchObject(
+				$overwriteDemand['search'], 
+				$this->settings['position']['search']
+			);
+			$demand->setSearch($searchObj);
 		}
-		$demand->setSearch($searchObj);
+
 		$positions = $this->positionRepository->findDemanded($demand, TRUE);
+		if ($searchObj AND $searchObj->getRadius() AND $searchObj->getLocation()) {
+			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($searchObj->getLocation());
+			$distance = $searchObj->getRadius()/1000;
+		}
+		if ($geoLocation) {
+			$positions = $this->positionRepository->filterByRadius($positions, $geoLocation, $distance);
+		}
 		if (count($positions)) {
 			$result = array();
 			foreach($positions as $position) {
@@ -612,6 +626,29 @@ class PositionController extends AbstractController {
 		}
 
 		return $demand;
+	}
+
+	/** 
+	 * Returns a search object from an array
+	 *
+	 * @param \array $search An array with search request
+	 * @param \array $settings An array with search settings
+	 * @return \Webfox\Placements\Domain\Model\Dto\Search
+	 */
+	public function getSearchObject($search, $settings) {
+		$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+	
+		if (!empty($search['subject'])) {
+			//@todo: throw exception if search fields are not set
+			$searchObj->setFields($settings['fields']);
+			$searchObj->setSubject($search['subject']);
+		}
+		if (!empty($search['location'])) {
+			$searchObj->setLocation($search['location']);
+			$searchObj->setRadius($search['radius']);
+			$searchObj->setBounds($search['bounds']);
+		}
+		return $searchObj;
 	}
 
 	/**

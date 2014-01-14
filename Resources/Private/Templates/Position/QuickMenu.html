@@ -18,6 +18,27 @@ This Template creates a quick menu.
 		<br><br>
 		<f:form name="overwriteDemand" action="list"
 				pageUid="{settings.listPid}">
+			<f:if condition="{settings.showRadiusSearch}">
+				<div class="row-fluid">
+						<div class="btn-group span6">
+							<label for="tx-placements-search-location">{f:translate(key:'tx_placements.proximity-search')}</label>
+						<f:form.textfield 
+							id="tx-placements-search-location"
+								name="overwriteDemand[search][location]" 
+								value="{overwriteDemand.search.location}" 
+								class="search"
+								placeholder="{f:translate(key: 'tx_placements.mapFilter.placeholder.location')}" 
+				/>
+						<f:form.select 
+							id="tx-placements-search-radius" 
+							name="overwriteDemand[search][radius]"
+							value="{overwriteDemand.search.radius}"
+							class="span2"
+							options="{50000: '50 km', 100000: '100 km', 250000: '250 km', 500000: '500 km', 1000000: '1000 km'}" 
+						/>
+					</div>
+				</div>
+			</f:if>
 			<div class="row-fluid">
 				<f:comment>show search field</f:comment>
 				<f:if condition="{settings.showSearchField}">
