@@ -121,6 +121,7 @@ class PositionRepository extends AbstractDemandedRepository {
 			$searchConstraints = array();
 			$locationConstraints = array();
 			$search = $demand->getSearch();
+			$subject = $search->getSubject();
 
 			if(!empty($subject)) {
 				// search text in specified search fields
@@ -128,7 +129,6 @@ class PositionRepository extends AbstractDemandedRepository {
 				if (count($searchFields) === 0) {
 					throw new \UnexpectedValueException('No search fields given', 1382608407);
 				}
-				$subject = $search->getSubject();
 				foreach($searchFields as $field) {
 					$searchConstraints[] = $query->like($field, '%' . $subject . '%');
 				}
@@ -286,33 +286,27 @@ class PositionRepository extends AbstractDemandedRepository {
 	 * @param \integer $distance Distance in meter
 	 * @return \TYPO3\CMS\Extbase\Persitence\Generic\QueryResult $queryResult A query result containing positions
 	 */
-		public function filterByRadius($queryResult, $geoLocation, $distance) {
-			$positionUids = array();
-			foreach($queryResult as $position) {
-				$currDist = \Webfox\Placements\Utility\Geocoder::distance(
-					$geoLocation['lat'], 
-					$geoLocation['lng'],
-					$position->getLatitude(),
-					$position->getLongitude()
-				);
-				if ($currDist <= $distance) {
-					$positionUids[] = $position->getUid();
-				}
-			}
-			if (count($positionUids)) {
-				//@todo: we could get the orderings from the query result. 
-				// but the have another form then the method findMultipleByUid expects
-				$orderings = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('|', $demand->getOrder(), FALSE, 0);
-				$sortField = $orderings[0];
-				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
-				if($orderings[1] == 'desc') {
-					$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
-				}
-				$positions = $this->positionRepository->findMultipleByUid(
-					implode(',', $positionUids), $sortField, $sortOrder
-				);
+	public function filterByRadius($queryResult, $geoLocation, $distance) {
+		$positionUids = array();
+		foreach($queryResult as $position) {
+			$currDist = \Webfox\Placements\Utility\Geocoder::distance(
+				$geoLocation['lat'], 
+				$geoLocation['lng'],
+				$position->getLatitude(),
+				$position->getLongitude()
+			);
+			if ($currDist <= $distance) {
+				$positionUids[] = $position->getUid();
 			}
 		}
+		$orderings = $queryResult->getQuery()->getOrderings();
+		$sortField = array_shift(array_keys($orderings));
+		$sortOrder = array_shift(array_values($orderings));
+		$positions = self::findMultipleByUid(
+			implode(',', $positionUids), $sortField, $sortOrder
+		);
+		return $positions;
+	}
 
 }
 ?>
