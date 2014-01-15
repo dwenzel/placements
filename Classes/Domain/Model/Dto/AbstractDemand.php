@@ -78,6 +78,16 @@ class AbstractDemand
 	protected $offset;
 
 	/**
+	* @var \array
+	*/
+	protected $geoLocation;
+
+	/**
+	 * @var \integer
+	 */
+	protected $radius;
+
+	/**
 	 * Set search object
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Dto\Search $search A search object
@@ -245,6 +255,44 @@ class AbstractDemand
 	 */
 	public function getOffset() {
 		return $this->offset;
+	}
+
+	/**
+	 * Set geo location
+	 *
+	 * @param \array $geoLocation Geo location: center around which to search for
+	 * @return void
+	 */
+	public function setGeoLocation($geoLocation) {
+		$this->geoLocation = $geoLocation;
+	}
+
+	/**
+	 * Get geo location
+	 *
+	 * @return \array
+	 */
+	public function getGeoLocation() {
+		return $this->geoLocation;
+	}
+
+	/**
+	 * Set radius
+	 *
+	 * @param \integer $radius 
+	 * @return void
+	 */
+	public function setRadius($radius) {
+		$this->radius = (int)$radius;
+	}
+
+	/**
+	 * Get radius
+	 *
+	 * @return \integer
+	 */
+	public function getRadius() {
+		return $this->radius;
 	}
 
 }
