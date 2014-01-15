@@ -278,35 +278,5 @@ class PositionRepository extends AbstractDemandedRepository {
 		return $constraint;
 	}
 
-	/**
-	 * Returns a query result filtered by radius around a given location
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $queryResult A query result containing positions
-	 * @param \array $geoLocation An array describing a geolocation by lat and lng
-	 * @param \integer $distance Distance in meter
-	 * @return \TYPO3\CMS\Extbase\Persitence\Generic\QueryResult $queryResult A query result containing positions
-	 */
-	public function filterByRadius($queryResult, $geoLocation, $distance) {
-		$positionUids = array();
-		foreach($queryResult as $position) {
-			$currDist = \Webfox\Placements\Utility\Geocoder::distance(
-				$geoLocation['lat'], 
-				$geoLocation['lng'],
-				$position->getLatitude(),
-				$position->getLongitude()
-			);
-			if ($currDist <= $distance) {
-				$positionUids[] = $position->getUid();
-			}
-		}
-		$orderings = $queryResult->getQuery()->getOrderings();
-		$sortField = array_shift(array_keys($orderings));
-		$sortOrder = array_shift(array_values($orderings));
-		$positions = self::findMultipleByUid(
-			implode(',', $positionUids), $sortField, $sortOrder
-		);
-		return $positions;
-	}
-
 }
 ?>

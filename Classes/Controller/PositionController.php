@@ -135,21 +135,7 @@ class PositionController extends AbstractController {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
 
-		if (!empty($overwriteDemand['search'])) {
-			$searchObj = $this->getSearchObject(
-				$overwriteDemand['search'], 
-				$this->settings['position']['search']
-			);
-			$demand->setSearch($searchObj);
-		}
 		$positions = $this->positionRepository->findDemanded($demand);	
-		if ($searchObj AND $searchObj->getRadius() AND $searchObj->getLocation()) {
-			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($searchObj->getLocation());
-			$distance = $searchObj->getRadius()/1000;
-		}
-		if ($geoLocation) {
-			$positions = $this->positionRepository->filterByRadius($positions, $geoLocation, $distance);
-		}
 		$this->view->assignMultiple(
 			array(
 				'positions'=> $positions,
@@ -170,23 +156,7 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
-
-		if (!empty($overwriteDemand['search'])) {
-			$searchObj = $this->getSearchObject(
-				$overwriteDemand['search'], 
-				$this->settings['position']['search']
-			);
-			$demand->setSearch($searchObj);
-		}
-
 		$positions = $this->positionRepository->findDemanded($demand, TRUE);
-		if ($searchObj AND $searchObj->getRadius() AND $searchObj->getLocation()) {
-			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($searchObj->getLocation());
-			$distance = $searchObj->getRadius()/1000;
-		}
-		if ($geoLocation) {
-			$positions = $this->positionRepository->filterByRadius($positions, $geoLocation, $distance);
-		}
 		if (count($positions)) {
 			$result = array();
 			foreach($positions as $position) {
@@ -620,6 +590,25 @@ class PositionController extends AbstractController {
 			$demand->setOrder($overwriteDemand['orderBy'] . '|' . $orderDirection);
 		}
 			
+		if (!empty($overwriteDemand['search'])) {
+			$searchObj = $this->getSearchObject(
+				$overwriteDemand['search'], 
+				$this->settings['position']['search']
+			);
+			$demand->setSearch($searchObj);
+			unset($overwriteDemand['search']);
+		}
+
+		// demand for geoLocation and radius
+		if ($demand->getSearch() AND 
+				$demand->getSearch()->getRadius() 
+				AND $demand->getSearch()->getLocation()) {
+			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($demand->getSearch()->getLocation());
+			if($geoLocation) {
+				$demand->setGeoLocation($geoLocation);
+				$demand->setRadius($searchObj->getRadius());
+			}
+		}
 
 		foreach ($overwriteDemand as $propertyName => $propertyValue) {
 			\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);

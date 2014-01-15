@@ -70,8 +70,46 @@ abstract class AbstractDemandedRepository
 	 */
 	public function findDemanded(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand, $respectEnableFields = TRUE) {
 		$query = $this->generateQuery($demand, $respectEnableFields);
+		$objects = $query->execute();
+		if ($objects->count() AND 
+				$demand->getRadius() AND 
+				$demand->getGeoLocation()) {
+			$objects = $this->filterByRadius($objects, 
+					$demand->getGeoLocation(), 
+					$demand->getRadius()/1000
+				);
+		}
+		return $objects;
+	}
 
-		return $query->execute();
+	/**
+	 * Returns a query result filtered by radius around a given location
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $queryResult A query result containing objects
+	 * @param \array $geoLocation An array describing a geolocation by lat and lng
+	 * @param \integer $distance Distance in meter
+	 * @return \TYPO3\CMS\Extbase\Persitence\Generic\QueryResult $queryResult A query result containing objects
+	 */
+	public function filterByRadius($queryResult, $geoLocation, $distance) {
+		$objectUids = array();
+		foreach($queryResult as $object) {
+			$currDist = \Webfox\Placements\Utility\Geocoder::distance(
+				$geoLocation['lat'], 
+				$geoLocation['lng'],
+				$object->getLatitude(),
+				$object->getLongitude()
+			);
+			if ($currDist <= $distance) {
+				$objectUids[] = $object->getUid();
+			}
+		}
+		$orderings = $queryResult->getQuery()->getOrderings();
+		$sortField = array_shift(array_keys($orderings));
+		$sortOrder = array_shift(array_values($orderings));
+		$objects = self::findMultipleByUid(
+			implode(',', $objectUids), $sortField, $sortOrder
+		);
+		return $objects;
 	}
 
 	/**
