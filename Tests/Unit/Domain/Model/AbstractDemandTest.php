@@ -56,7 +56,9 @@ class AbstractDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getOrderReturnsInitialValueForString() { }
+	public function getOrderReturnsInitialValueForString() {
+		$this->assertNull($this->fixture->getOrder());
+	}
 
 	/**
 	 * @test
@@ -73,7 +75,9 @@ class AbstractDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getOrderByReturnsInitialValueForString() { }
+	public function getOrderByReturnsInitialValueForString() {
+		$this->assertNull($this->fixture->getOrder());
+	}
 
 	/**
 	 * @test
@@ -162,5 +166,39 @@ class AbstractDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		);
 	}
 	
+	/**
+	 * @test
+	 */
+	public function getGeoLocationReturnsInitialValueForGeoLocation() {
+		$this->assertNull($this->fixture->getGeoLocation());
+	}
+
+	/**
+	 * @test
+	 */
+	public function setGeoLocationForArraySetsGeoLocation() {
+		$array = array ('lat' => 0.5, 'lng' => 0.7);
+
+		$this->fixture->setGeoLocation($array);
+		$this->assertSame($array, $this->fixture->getGeoLocation());
+	}
+
+	/**
+	 * @test
+	 */
+	public function getRadiusReturnsInitialValueForRadius () {
+		$this->assertNull($this->fixture->getRadius());
+	}
+
+	/**
+	 * @test
+	 */
+	public function setRadiusForIntegerSetsRadius () {
+		$intVal = 12345;
+
+		$this->fixture->setRadius($intVal);
+		$this->assertSame($intVal, $this->fixture->getRadius());
+	}
+		
 }
 ?>
