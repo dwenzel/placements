@@ -311,8 +311,8 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
 			$newPosition->setSingleCategory($category);
 		}
-		$lat = $position->getLatitude();
-		$long = $position->getLongitude();
+		$lat = $newPosition->getLatitude();
+		$long = $newPosition->getLongitude();
 		if (!is_null($newPosition->getCity()) &&
 				empty($lat) && 
 				empty($long)) {
