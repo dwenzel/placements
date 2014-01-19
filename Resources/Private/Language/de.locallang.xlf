@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-10T15:28:35Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-19T19:12:12Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -260,6 +260,10 @@
 		<trans-unit id="tx_placements.list-view" approved="yes" xml:space="preserve">
 			<source>List</source>
 			<target>Liste</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.list.position.message.noPositionFound" approved="yes" xml:space="preserve">
+			<source>Sorry! We could not find any position for your query.</source>
+			<target>Zu Ihrer Anfrage wurden keine Stellenangebote gefunden.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.map-view" approved="yes" xml:space="preserve">
 			<source>Map</source>
