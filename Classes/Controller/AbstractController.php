@@ -104,6 +104,21 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
+	 * Creates a Message object and adds it to the FlashMessageQueue.
+	 * 
+	 * From TYPO3 version 6.2 \TYPO3\CMS\Extbase\Mvc\Controller\ActionController implements addFlashMessage and this method can be removed.
+	 * 
+	 * @param string $messageBody Message body
+	 * @param string $messageTitle Optional message title
+	 * @param integer $severity Optional severity, must be one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
+	 * @param boolean $storeInSession Optional, defines whether the message should be stored in the session (default) or not
+	 * @return void
+	 */
+	public function addFlashMessage($messageBody, $messageTitle = '', $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK, $storeInSession = TRUE) {
+		$this->controllerContext->getFlashMessageQueue()->addMessage(new \TYPO3\CMS\Core\Messaging\FlashMessage($messageBody, $messageTitle, $severity));
+	} 
+
+	/**
 	 * Upload file
 	 */
 	protected function uploadFile(&$fileName, $fileTmpName ) {
