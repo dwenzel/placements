@@ -73,20 +73,6 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 		protected $typoscriptSettings;
 
 		/**
-		 * Constructor
-		 * @return AccessControlService
-		 */
-		public function __construct() {
-			$this->userRepository = new \Webfox\Placements\Domain\Repository\UserRepository();
-			$query = $this->userRepository->createQuery();
-			$querySettings = $query->getQuerySettings();
-			$querySettings->setRespectStoragePage(FALSE);
-			$querySettings->setRespectSysLanguage(FALSE);
-			$this->userRepository->setDefaultQuerySettings($querySettings);
-			$this->frontendUser = $this->userRepository->findOneByUid(intval($GLOBALS['TSFE']->fe_user->user['uid']));
-		}
-
-		/**
 		 * Get Typoscript Settings
 		 *
 		 * @return \array
@@ -106,7 +92,8 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 		 * @return \Webfox\Placements\Domain\Model\User
 		 */
 		public function getFrontendUser() {
-			if ($this->frontendUser == NULL) {
+			if ($this->hasLoggedInFrontendUser() AND
+					$this->frontendUser == NULL) {
 				$this->frontendUser = $this->userRepository->findOneByUid(intval($GLOBALS['TSFE']->fe_user->user['uid']));
 			}
 			return $this->frontendUser;
@@ -126,7 +113,7 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 		 * @return \boolean
 		 */
 		public function hasLoggedInClient() {
-			if($this->hasLoggedInFrontendUser()) {
+			if($this->getFrontendUser()) {
 				return $this->getFrontendUser()->getClient() !== NULL ? TRUE : FALSE;
 			} else {
 				return FALSE;
@@ -209,7 +196,7 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 				foreach($tsAccessGroups as $tsAccessGroup) {
 						$accessGroup = $this->frontendUserGroupRepository->findByUid($tsAccessGroup);
 						if ($accessGroup != NULL && 
-							$this->frontendUser->getUsergroup()->contains($accessGroup)) {
+							$this->getFrontendUser()->getUsergroup()->contains($accessGroup)) {
 								return TRUE;	
 						}
 				}
