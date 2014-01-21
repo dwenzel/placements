@@ -7,6 +7,7 @@
  * IMPORTANT Use this script only in Extensions with namespaces
  *
  * Klaus Heuer <klaus.heuer@t3-developer.com>
+ * Dirk Wenzel <wenzel@webfox01.de>
  *
  * This script is part of the TYPO3 project. The TYPO3 project is
  * free software; you can redistribute it and/or modify
@@ -23,9 +24,13 @@
  * GNU General Public License for more details.
  *
  * This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ */
  
-/** ************************************************************
+/**
+ * Eid Dispatcher 
+ * originally written by Klaus Heuer
+ * adapted by Dirk Wenzel
+ *
  * Usage of this script:
  *
  * - Copy this script in your Extension Dir in the Folder Classes
@@ -81,10 +86,16 @@ $ajax = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('request');
 $ajax['vendor'] = 'Webfox';
 $ajax['extensionName'] = 'Placements';
          
+ 
+/**
+ * @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager
+ */
+$objectManager = new TYPO3\CMS\Extbase\Object\ObjectManager;
+ 
 /**
  * @var $TSFE \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
  */
-$TSFE = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController', $TYPO3_CONF_VARS, 0, 0);
+$TSFE = $objectManager->get('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController', $TYPO3_CONF_VARS, 0, 0);
 \TYPO3\CMS\Frontend\Utility\EidUtility::initLanguage();
  
 // Get FE User Information
@@ -99,7 +110,7 @@ $TSFE->initTemplate();
 $TSFE->getConfigArray();
 \TYPO3\CMS\Core\Core\Bootstrap::getInstance()->loadConfigurationAndInitialize();
  
-$TSFE->cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
+$TSFE->cObj = $objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 $TSFE->settingLanguage();
 $TSFE->settingLocale();
  
@@ -107,12 +118,6 @@ $TSFE->settingLocale();
  * Initialize Database
  */
 \TYPO3\CMS\Frontend\Utility\EidUtility::connectDB();
- 
-/**
- * @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager
- */
-$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
- 
  
 /**
  * Initialize Extbase bootstap
@@ -123,7 +128,7 @@ $bootstrapConf['pluginName'] = $ajax['pluginName'];
 $bootstrap = new TYPO3\CMS\Extbase\Core\Bootstrap();
 $bootstrap->initialize($bootstrapConf);
  
-$bootstrap->cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tslib_cObj');
+$bootstrap->cObj = $objectManager->get('tslib_cObj');
  
 /**
  * Build the request
@@ -137,7 +142,7 @@ $request->setControllerName($ajax['controller']);
 $request->setControllerActionName($ajax['action']);
 $request->setArguments($ajax['arguments']);
  
-$response = $objectManager->create('TYPO3\CMS\Extbase\Mvc\ResponseInterface');
+$response = $objectManager->get('TYPO3\CMS\Extbase\Mvc\ResponseInterface');
  
 $dispatcher = $objectManager->get('TYPO3\CMS\Extbase\Mvc\Dispatcher');
  

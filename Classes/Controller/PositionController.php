@@ -134,8 +134,15 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
-
+		
 		$positions = $this->positionRepository->findDemanded($demand);	
+		if(!$positions->count()) {
+			$this->addFlashMessage(
+					\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+						'tx_placements.list.position.message.noPositionFound', 'placements'
+					)
+				);
+		}
 		$this->view->assignMultiple(
 			array(
 				'positions'=> $positions,
@@ -270,7 +277,7 @@ class PositionController extends AbstractController {
 	 */
 	public function newAction(\Webfox\Placements\Domain\Model\Position $newPosition = NULL) {
 		if(!$this->accessControlService->isAllowedToCreate('position')) {
-			$this->flashMessageContainer->add(
+			$this->addFlashMessage(
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 					'tx_placements.error.position.createActionNotAllowed', 'placements'
 				)
@@ -326,7 +333,7 @@ class PositionController extends AbstractController {
 			}
 		}
 		$this->positionRepository->add($newPosition);
-		$this->flashMessageContainer->add(
+		$this->addFlashMessage(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.position.createAction', 'placements'
 				)
@@ -345,7 +352,7 @@ class PositionController extends AbstractController {
 	 */
 	public function editAction(\Webfox\Placements\Domain\Model\Position $position) {
 		if(!$this->accessControlService->isAllowedToEdit('position')) {
-			$this->flashMessageContainer->add(
+			$this->addFlashMessage(
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 					'tx_placements.error.position.editActionNotAllowed', 'placements'
 				)
@@ -399,7 +406,7 @@ class PositionController extends AbstractController {
 			}
 		}
 		$this->positionRepository->update($position);
-		$this->flashMessageContainer->add(
+		$this->addFlashMessage(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.position.updateAction', 'placements'
 				)
@@ -416,13 +423,13 @@ class PositionController extends AbstractController {
 	public function deleteAction(\Webfox\Placements\Domain\Model\Position $position) {
 		if($this->accessControlService->isAllowedToDelete('position')) {
 			$this->positionRepository->remove($position);
-			$this->flashMessageContainer->add(
+			$this->addFlashMessage(
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 					'tx_placements.success.position.deleteAction', 'placements'
 				)
 			);
 		} else {
-			$this->flashMessageContainer->add(
+			$this->addFlashMessage(
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 					'tx_placements.error.position.deleteActionNotAllowed', 'placements'
 				)
@@ -513,7 +520,7 @@ class PositionController extends AbstractController {
 
 		$positions = $this->positionRepository->findDemanded($demand);
 		if(!count($positions)) {
-			$this->flashMessageContainer->add(
+			$this->addFlashMessage(
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				    'tx_placements.search.position.message.noSearchResult', 'placements'
 				    )
