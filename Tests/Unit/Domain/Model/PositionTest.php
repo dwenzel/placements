@@ -56,7 +56,11 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getTitleReturnsInitialValueForString() { }
+	public function getTitleReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getTitle()
+		);
+	}
 
 	/**
 	 * @test
@@ -73,7 +77,11 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getIdentifierReturnsInitialValueForString() { }
+	public function getIdentifierReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getIdentifier()
+		);
+	}
 
 	/**
 	 * @test
@@ -90,7 +98,11 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getSummaryReturnsInitialValueForString() { }
+	public function getSummaryReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getSummary()
+		);
+	}
 
 	/**
 	 * @test
@@ -107,7 +119,11 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getDescriptionReturnsInitialValueForString() { }
+	public function getDescriptionReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getDescription()
+		);
+	}
 
 	/**
 	 * @test
@@ -124,27 +140,58 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getEntryDateReturnsInitialValueForDateTime() { }
+	public function getEntryDateReturnsInitialValueForDateTime() {
+		$this->assertNull(
+			$this->fixture->getEntryDate()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setEntryDateForDateTimeSetsEntryDate() { }
+	public function setEntryDateForDateTimeSetsEntryDate() {
+		$dateTime = new \DateTime('NOW');
+		$this->fixture->setEntryDate($dateTime);
+
+		$this->assertSame(
+			$dateTime,
+			$this->fixture->getEntryDate()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function getFixedTermReturnsInitialValueForOolean() { }
+	public function getFixedTermReturnsInitialValueForBoolean() {
+		$this->assertFalse($this->fixture->getFixedTerm());
+	}
 
 	/**
 	 * @test
 	 */
-	public function setFixedTermForOoleanSetsFixedTerm() { }
+	public function setFixedTermForBooleanSetsFixedTerm() {
+		$this->fixture->setFixedTerm(TRUE);
+
+		$this->assertTrue(
+			$this->fixture->getFixedTerm()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function getDurationReturnsInitialValueForString() { }
+	public function isFixedTermReturnsInitialValueForBoolean() {
+		$this->assertFalse($this->fixture->isFixedTerm());
+	}
+
+	/**
+	 * @test
+	 */
+	public function getDurationReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getDuration()
+		);
+	}
 
 	/**
 	 * @test
@@ -161,7 +208,11 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getZipReturnsInitialValueForString() { }
+	public function getZipReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getZip()
+		);
+	}
 
 	/**
 	 * @test
@@ -178,7 +229,11 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getCityReturnsInitialValueForString() { }
+	public function getCityReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getCity()
+		);
+	}
 
 	/**
 	 * @test
@@ -196,7 +251,9 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getLatitudeReturnsInitialValueForFloat() {
-	    $this->assertNull($this->fixture->getLatitude());
+		$this->assertNull(
+			$this->fixture->getLatitude()
+		);
 	}
 	
 	/**
@@ -215,25 +272,31 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getLongitudeReturnsInitialValueForFloat() {
-	    $this->assertNull($this->fixture->getLongitude());
+		$this->assertNull(
+			$this->fixture->getLongitude()
+		);
 	}
 	
 	/**
 	 * @test
 	 */
 	public function setLongitudeForFloatSetsLongitude() {
-	    $floatValue = 123.4567;
-	    $this->fixture->setLongitude($floatValue);
-	    $this->assertSame(
-		    $floatValue,
-		    $this->fixture->getLongitude()
+		$floatValue = 123.4567;
+		$this->fixture->setLongitude($floatValue);
+		$this->assertSame(
+			$floatValue,
+			$this->fixture->getLongitude()
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function getPaymentReturnsInitialValueForString() { }
+	public function getPaymentReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getPayment()
+		);
+	}
 
 	/**
 	 * @test
@@ -250,7 +313,11 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getContactReturnsInitialValueForString() { }
+	public function getContactReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getContact()
+		);
+	}
 
 	/**
 	 * @test
@@ -267,7 +334,11 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getLinkReturnsInitialValueForString() { }
+	public function getLinkReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getLink()
+		);
+	}
 
 	/**
 	 * @test
@@ -284,32 +355,68 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getOrganizationReturnsInitialValueForOrganization() { }
+	public function getOrganizationReturnsInitialValueForOrganization() {
+		$this->assertNull(
+			$this->fixture->getOrganization()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setOrganizationForOrganizationSetsOrganization() { }
+	public function setOrganizationForOrganizationSetsOrganization() {
+		$organization = new \Webfox\Placements\Domain\Model\Organization();
+		$this->fixture->setOrganization($organization);
+
+		$this->assertSame(
+			$organization,
+			$this->fixture->getOrganization()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function getClientReturnsInitialValueForClient() { }
+	public function getClientReturnsInitialValueForClient() {
+		$this->assertNull(
+			$this->fixture->getClient()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setClientForClientSetsClient() { }
+	public function setClientForClientSetsClient() {
+		$client = new \Webfox\Placements\Domain\Model\Client();
+		$this->fixture->setClient($client);
+
+		$this->assertSame(
+			$client,
+			$this->fixture->getClient()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function getTypeReturnsInitialValueForPositionType() { }
+	public function getTypeReturnsInitialValueForPositionType() {
+		$this->assertNull(
+			$this->fixture->getType()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setTypeForPositionTypeSetsType() { }
+	public function setTypeForPositionTypeSetsType() {
+		$positionType = new \Webfox\Placements\Domain\Model\PositionType();
+		$this->fixture->setType($positionType);
+
+		$this->assertSame(
+			$positionType,
+			$this->fixture->getType()
+		);
+	}
 	
 	/**
 	 * @test
@@ -337,6 +444,31 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		);
 	}
 	
+	/**
+	 * @test
+	 */
+	public function getSingleCategoryReturnsInitialValueForCategory() { 
+		$this->assertNull(
+			$this->fixture->getSingleCategory()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setSingleCategoryForObjectStorageContainingCategorySetsCategory() {
+		$categoryA = new \Webfox\Placements\Domain\Model\Category;
+		$categoryB = new \Webfox\Placements\Domain\Model\Category;
+
+		$this->fixture->addCategory($categoryA);
+		$this->fixture->setSingleCategory($categoryB);
+
+		$this->assertSame(
+			$categoryB,
+			$this->fixture->getSingleCategory()
+		);
+	}
+
 	/**
 	 * @test
 	 */
@@ -372,12 +504,24 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getWorkingHoursReturnsInitialValueForWorkingHours() { }
+	public function getWorkingHoursReturnsInitialValueForWorkingHours() {
+		$this->assertNull(
+			$this->fixture->getWorkingHours()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setWorkingHoursForWorkingHoursSetsWorkingHours() { }
+	public function setWorkingHoursForWorkingHoursSetsWorkingHours() {
+		$wHours = new \Webfox\Placements\Domain\Model\WorkingHours();
+		$this->fixture->setWorkingHours($wHours);
+
+		$this->assertSame(
+			$wHours,
+			$this->fixture->getWorkingHours()
+		);
+	}
 	
 	/**
 	 * @test
