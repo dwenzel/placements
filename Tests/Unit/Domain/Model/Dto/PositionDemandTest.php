@@ -176,6 +176,48 @@ class PositionDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getCategoryConjunction()
 		);
 	}
-	
+
+	/**
+	 * @test
+	 */
+	public function getClientsReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getClients()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setClientsForStringSetsClients() {
+		$this->fixture->setClients('1,2,3,4');
+
+		$this->assertSame(
+			'1,2,3,4',
+			$this->fixture->getClients()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getClientsPositionsOnlyReturnsInitialValueForBoolean() {
+		$this->assertNull(
+			$this->fixture->getClientsPositionsOnly()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setClientsPositionsOnlyForBooleanSetsClientsPositionsOnly() {
+		$this->fixture->setClientsPositionsOnly(TRUE);
+
+		$this->assertSame(
+			TRUE,
+			$this->fixture->getClientsPositionsOnly()
+		);
+	}
+
 }
 ?>
