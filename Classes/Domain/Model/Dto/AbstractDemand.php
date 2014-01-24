@@ -43,7 +43,7 @@ class AbstractDemand
 	protected $status;
 
 	/**
-	 * @var \TYPO3\CMS\Domain\Model\FrontendUser
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
 	protected $frontendUser;
 

@@ -102,7 +102,7 @@ class OrganizationController extends AbstractController {
 		$this->updateFileProperty($newOrganization, 'image');
 		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
 	    	$this->organizationRepository->add($newOrganization);
-		$this->flashMessageContainer->add(
+		$this->addFlashMessage(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.organization.createAction', 'placements'
 			)
@@ -146,7 +146,7 @@ class OrganizationController extends AbstractController {
 	public function updateAction(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$this->updateFileProperty($organization, 'image');
 		$this->organizationRepository->update($organization);
-		$this->flashMessageContainer->add(
+		$this->addFlashMessage(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.organization.updateAction', 'placements'
 			)	
@@ -167,7 +167,7 @@ class OrganizationController extends AbstractController {
 	 */
 	public function deleteAction(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$this->organizationRepository->remove($organization);
-		$this->flashMessageContainer->add(
+		$this->addFlashMessage(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.organization.deleteAction', 'placements'
 			)

@@ -194,6 +194,85 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getSectors()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getClientReturnsInitialValueForClient() {
+		$this->assertNull(
+			$this->fixture->getClient()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setClientForClientsSetsClient() {
+		$client = new \Webfox\Placements\Domain\Model\Client();
+		$this->fixture->setClient($client);
+
+		$this->assertSame(
+			$client,
+			$this->fixture->getClient()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getCategoriesReturnsInitialValueForCategory() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getCategories()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setCategoriesForObjectStorageContainingCategorySetsCategories() { 
+		$category = new \Webfox\Placements\Domain\Model\Category();
+		$objectStorageHoldingExactlyOneCategory = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneCategory->attach($category);
+		$this->fixture->setCategories($objectStorageHoldingExactlyOneCategory);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneCategory,
+			$this->fixture->getCategories()
+		);
+	}
 	
+	/**
+	 * @test
+	 */
+	public function addCategoryToObjectStorageHoldingCategories() {
+		$category = new \Webfox\Placements\Domain\Model\Category();
+		$objectStorageHoldingExactlyOneCategory = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneCategory->attach($category);
+		$this->fixture->addCategory($category);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneCategory,
+			$this->fixture->getCategories()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeCategoryFromObjectStorageHoldingCategories() {
+		$category = new \Webfox\Placements\Domain\Model\Category();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$localObjectStorage->attach($category);
+		$localObjectStorage->detach($category);
+		$this->fixture->addCategory($category);
+		$this->fixture->removeCategory($category);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getCategories()
+		);
+	}
 }
 ?>

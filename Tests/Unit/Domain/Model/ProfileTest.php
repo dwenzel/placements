@@ -56,12 +56,23 @@ class ProfileTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getUserReturnsInitialValueForUser() { }
+	public function getUserReturnsInitialValueForUser() {
+		$this->assertNull(
+			$this->fixture->getUser()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setUserForUserSetsUser() { }
+	public function setUserForUserSetsUser() {
+		$user = new \Webfox\Placements\Domain\Model\User();
+		$this->fixture->setUser($user);
+		$this->assertSame(
+			$user,
+			$this->fixture->getUser()
+		);
+	}
 	
 }
 ?>
