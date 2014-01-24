@@ -390,7 +390,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setSingleCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category = NULL) {
 		$storage = $this->getCategories();
 		if($storage->count()) {
-			$storage->removeAll();
+			$storage->removeAll($storage);
 		}
 		if($category !== NULL) {
 			$this->addCategory($category);

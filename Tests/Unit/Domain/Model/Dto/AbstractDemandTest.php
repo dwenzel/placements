@@ -75,6 +75,47 @@ class AbstractDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function getStatusReturnsInitialValueForInteger() {
+		$this->assertNull(
+			$this->fixture->getStatus()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setStatusForIntegerSetsStatus() {
+		$this->fixture->setStatus(3);
+		$this->assertSame(
+			3,
+			$this->fixture->getStatus()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFrontendUserReturnsInitialValueForObject() { 
+		$this->assertNull(
+			$this->fixture->getFrontendUser()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setFrontendUserForObjectSetsFrontendUser() { 
+		$frontendUser = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser();
+		$this->fixture->setFrontendUser($frontendUser);
+		$this->assertSame(
+			$frontendUser,
+			$this->fixture->getFrontendUser()
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function getOrderByReturnsInitialValueForString() {
 		$this->assertNull($this->fixture->getOrder());
 	}
@@ -111,22 +152,42 @@ class AbstractDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getStoragePageReturnsInitialValueForInteger() { }
+	public function getStoragePageReturnsInitialValueForInteger() {
+		$this->assertNull(
+			$this->fixture->getStoragePage()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setStoragePageForIntegerSetsStoragePage() { }
+	public function setStoragePageForIntegerSetsStoragePage() {
+		$this->fixture->setStoragePage(123);
+		$this->assertSame(
+			123,
+			$this->fixture->getStoragePage()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function getLimitReturnsInitialValueForInteger() { }
+	public function getLimitReturnsInitialValueForInteger() {
+		$this->assertNull(
+			$this->fixture->getLimit()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setLimitForIntegerSetsLimit() { }
+	public function setLimitForIntegerSetsLimit() {
+		$this->fixture->setLimit(999);
+		$this->assertSame(
+			999,
+			$this->fixture->getLimit()
+		);
+	}
 	
 	/**
 	 * @test

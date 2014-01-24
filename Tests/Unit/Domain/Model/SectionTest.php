@@ -56,27 +56,55 @@ class SectionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getBeginReturnsInitialValueForDateTime() { }
+	public function getBeginReturnsInitialValueForDateTime() {
+		$this->assertNull(
+			$this->fixture->getBegin()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setBeginForDateTimeSetsBegin() { }
+	public function setBeginForDateTimeSetsBegin() {
+		$date = new \DateTime('NOW');
+		$this->fixture->setBegin($date);
+		
+		$this->assertSame(
+			$date,
+			$this->fixture->getBegin()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function getEndReturnsInitialValueForDateTime() { }
+	public function getEndReturnsInitialValueForDateTime() {
+		$this->assertNull(
+			$this->fixture->getEnd()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setEndForDateTimeSetsEnd() { }
+	public function setEndForDateTimeSetsEnd() {
+		$date = new \DateTime('NOW');
+		$this->fixture->setEnd($date);
+		
+		$this->assertSame(
+			$date,
+			$this->fixture->getEnd()
+		);
+	}
 	
 	/**
 	 * @test
 	 */
-	public function getPositionReturnsInitialValueForString() { }
+	public function getPositionReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getPosition()
+		);
+	}
 
 	/**
 	 * @test
@@ -93,7 +121,11 @@ class SectionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getDescriptionReturnsInitialValueForString() { }
+	public function getDescriptionReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getDescription()
+		);
+	}
 
 	/**
 	 * @test
