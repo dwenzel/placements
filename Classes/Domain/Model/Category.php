@@ -34,14 +34,19 @@ namespace Webfox\Placements\Domain\Model;
  *
  */
 class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category {
+	/**
+	 * Category Repository
+	 * @var \Webfox\Placements\Domain\Repository\CategoryRepository
+	 * @inject
+	 */
+	protected $categoryRepository;
 	
 	/**
 	 * Returns all child categories of this
 	 * @return \array an array of \Webfox\Placements\Domain\Model\Category objects
 	 */
 	public function getChildren() {
-		$categoryRepository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Webfox\\Placements\\Domain\\Repository\\CategoryRepository');
-		$children = $categoryRepository->findAllChildren($this);
+		$children = $this->categoryRepository->findAllChildren($this);
 		return $children;
 	}
 

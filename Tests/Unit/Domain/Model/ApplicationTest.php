@@ -56,7 +56,9 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getIntroductionReturnsInitialValueForString() { }
+	public function getIntroductionReturnsInitialValueForString() {
+		$this->assertNull($this->fixture->getIntroduction());
+	}
 
 	/**
 	 * @test
@@ -73,7 +75,9 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getTextReturnsInitialValueForString() { }
+	public function getTextReturnsInitialValueForString() {
+		$this->assertNull($this->fixture->getText());
+	}
 
 	/**
 	 * @test
@@ -90,7 +94,9 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getFileReturnsInitialValueForString() { }
+	public function getFileReturnsInitialValueForString() {
+		$this->assertNull($this->fixture->getFile());
+	}
 
 	/**
 	 * @test
@@ -107,12 +113,21 @@ class ApplicationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getPositionReturnsInitialValueForPosition() { }
+	public function getPositionReturnsInitialValueForPosition() {
+		$this->assertNull($this->fixture->getPosition());
+	}
 
 	/**
 	 * @test
 	 */
-	public function setPositionForPositionSetsPosition() { }
+	public function setPositionForPositionSetsPosition() {
+		$position = new \Webfox\Placements\Domain\Model\Position();
+		$this->fixture->setPosition($position);
+		$this->assertSame(
+			$position, 
+			$this->fixture->getPosition()
+		);
+	}
 	
 	/**
 	 * @test
