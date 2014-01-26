@@ -16,6 +16,7 @@ This Template displays a single position.
 				<f:render partial="Position/Properties" arguments="{position:position}" />
 			</div>
 			<aside class="span4">
+
 				<f:if condition="{referrerArguments.action}">
 					<f:then>
 						<f:link.action 
@@ -38,8 +39,6 @@ This Template displays a single position.
 						</f:link.action>
 					</f:else>
 				</f:if>
-	
-
 
 				<div class="box">
 					<f:render partial="Position/Organization" arguments="{organization: '{position.organization}'}" />
