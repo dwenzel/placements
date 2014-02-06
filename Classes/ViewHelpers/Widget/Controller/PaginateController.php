@@ -86,15 +86,27 @@ class PaginateController extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetCont
 	 * @return void
 	 */
 	public function initializeAction() {
+		
 		$this->objects = $this->widgetConfiguration['objects'];
+		
 		$this->configuration = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule(
 								$this->configuration,
 								(array)$this->widgetConfiguration['configuration'], TRUE);
-		$this->numberOfPages = (integer)ceil(count($this->objects) / (integer)$this->configuration['itemsPerPage']);
-		$this->pagesBefore = (integer)$this->configuration['pagesBefore'];
-		$this->pagesAfter = (integer)$this->configuration['pagesAfter'];
+		
+		if( (integer)$this->configuration['itemsPerPage']) > 0 )	
+			$this->numberOfPages = (integer)ceil(count($this->objects) / (integer)$this->configuration['itemsPerPage']);
+		
+		if((integer)$this->configuration['pagesBefore'] > 0 )
+			$this->pagesBefore = (integer)$this->configuration['pagesBefore'];
+		
+		if((integer)$this->configuration['pagesAfter'] > 0 )
+			$this->pagesAfter = (integer)$this->configuration['pagesAfter'];
+		
 		$this->lessPages = (boolean)$this->configuration['lessPages'];
-		$this->forcedNumberOfLinks = (integer)$this->configuration['forcedNumberOfLinks'];
+		
+		if((integer)$this->configuration['forcedNumberOfLinks'] > 0 )
+			$this->forcedNumberOfLinks = (integer)$this->configuration['forcedNumberOfLinks'];
+		
 		$this->templatePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->configuration['templatePath']);
 	}
 
