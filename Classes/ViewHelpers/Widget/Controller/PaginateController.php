@@ -93,7 +93,7 @@ class PaginateController extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetCont
 								$this->configuration,
 								(array)$this->widgetConfiguration['configuration'], TRUE);
 		
-		if( (integer)$this->configuration['itemsPerPage']) > 0 )	
+		if( (integer)$this->configuration['itemsPerPage'] > 0 )	
 			$this->numberOfPages = (integer)ceil(count($this->objects) / (integer)$this->configuration['itemsPerPage']);
 		
 		if((integer)$this->configuration['pagesBefore'] > 0 )
