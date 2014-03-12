@@ -77,7 +77,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Referrer Arguments
 	 * @var \array
 	 */
-	protected $referrerArguments = NULL;
+	protected $referrerArguments = array();
 
 	/**
 	 * Initialize Action
@@ -99,7 +99,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			is_array($this->request->getArgument('referrerArguments'))) {
 		    $this->referrerArguments = $this->request->getArgument('referrerArguments');
 		} else {
-		    $this->referrerArguments = NULL;
+		    $this->referrerArguments = array();
 		}
 	}
 
