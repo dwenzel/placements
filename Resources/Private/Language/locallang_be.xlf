@@ -185,10 +185,16 @@
 		<trans-unit id="flexforms_general.title" xml:space="preserve">
 			<source>Title</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.tstamp" xml:space="preserve">
+			<source>Timestamp</source>
+		</trans-unit>
 		<trans-unit id="flexforms_general.type" xml:space="preserve">
 			<source>Position Type</source>
 		</trans-unit>
-		<trans-unit id="flexforms_general.users" xml:space="preserve">
+        <trans-unit id="flexforms_general.uid" xml:space="preserve">
+			<source>Uid</source>
+		</trans-unit>
+        <trans-unit id="flexforms_general.users" xml:space="preserve">
 			<source>Users</source>
 		</trans-unit>
 		<trans-unit id="flexforms_general.width" xml:space="preserve">
@@ -196,6 +202,9 @@
 		</trans-unit>
 		<trans-unit id="flexforms_general.workingHours" xml:space="preserve">
 			<source>Working Hours</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.zip" xml:space="preserve">
+			<source>Zip</source>
 		</trans-unit>
 		</body>
 	</file>
