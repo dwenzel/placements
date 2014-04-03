@@ -8,16 +8,16 @@
 .. include:: _IncludedDirectives.rst
 
 =================
-Extension Name
+Placement Service
 =================
 
 :Extension name: Placement Service
 :Extension key: placements
-:Version: 0.1.0-dev
+:Version: 0.8.0-dev
 :Description: manuals covering TYPO3 extension "Placement Service"
 :Language: en
 :Author: Dirk Wenzel, Michael Kasten
-:Creation: 2013-11-06
+:Creation: 2014-03-25
 :Generation: 15:50
 :Licence: Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
 
@@ -45,8 +45,15 @@ The content of this document is related to TYPO3, a GNU/GPL CMS/Framework availa
 
 What does it do?
 =================
+Placements Service aims to be a complete and comfortable tool for managing job offers and applications.
+It suitable for small and medium sized companies as well as for bigger organizations or employment service provider.
 
-In this chapter should be given a brief overview of the extension. What does it do? What problem does it solve? Who is interested in this? Basically, this section includes everything people need to know to decide whether they should go on with this extension.
+Jobs offers can be managed through the TYPO3 backend or the frontend. They are displayed in list and single view. Both views can be configured to show a Google map with job offers. 
+A highly configurable menu allows filtering the search results by type, sector, working time or search word. It also features a radius search for a given location.
+
+Registrated users may add, edit or remove job offers and organizations in frontend. A fine grained access controll service provides multi-client capability too.
+
+Future releases of these extension will include messaging about new jobs and application, match making and editable user profiles.
 
 .. figure:: Images/IntroductionPackage.png
 		:width: 500px
