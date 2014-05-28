@@ -5,16 +5,16 @@ if (!defined('TYPO3_MODE')) {
 $settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
 if (!empty($settings['includeJQuery'])) {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
-		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:placements/Resources/Private/TypoScript/jQuery.ts>');
+		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Resources/Private/TypoScript/jQuery.ts">');
 }
 
 if (!empty($settings['includeGoogleMaps'])) {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
-		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'. $_EXTKEY . '/Resources/Private/TypoScript/googleMaps.ts>');
+		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'. $_EXTKEY . '/Resources/Private/TypoScript/googleMaps.ts">');
 }
 if (!empty($settings['includeJavaScript'])) {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
-		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'. $_EXTKEY . '/Resources/Private/TypoScript/javascript.ts>');
+		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'. $_EXTKEY . '/Resources/Private/TypoScript/javascript.ts">');
 }
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'Webfox.' . $_EXTKEY,
