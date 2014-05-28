@@ -108,7 +108,7 @@ $TSFE->checkAlternativeIdMethods();
 $TSFE->determineId();
 $TSFE->initTemplate();
 $TSFE->getConfigArray();
-\TYPO3\CMS\Core\Core\Bootstrap::getInstance()->loadConfigurationAndInitialize();
+\TYPO3\CMS\Core\Core\Bootstrap::getInstance();
  
 $TSFE->cObj = $objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 $TSFE->settingLanguage();
