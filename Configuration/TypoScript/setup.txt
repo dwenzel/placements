@@ -3,11 +3,6 @@ plugin.tx_placements {
 		templateRootPath = {$plugin.tx_placements.view.templateRootPath}
 		partialRootPath = {$plugin.tx_placements.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_placements.view.layoutRootPath}
-		widget {
-			Webfox\Placements\ViewHelpers\Widget\PaginateViewHelper {
-				templateRootPath = {$plugin.tx_placements.view.templateRootPath}
-			}
-		}
 	}
 	persistence {
 		storagePid = {$plugin.tx_placements.persistence.storagePid}
@@ -18,7 +13,7 @@ plugin.tx_placements {
 	}
 
 	settings {
-	    	maxFileSize = 2 MB
+		maxFileSize = 2 MB
 		# @todo: read php upload_max_filesize
 		security {
 			position {
@@ -46,6 +41,19 @@ plugin.tx_placements {
 					pagesAfter = {$plugin.tx_placements.settings.position.list.paginate.pagesAfter}
 					templatePath =
 					prevNextHeaderTags = {$plugin.tx_placements.settings.position.list.paginate.prevNextHeaderTags}
+				}
+			}
+			organization {
+				list {
+					paginate {
+						itemsPerPage ={$plugin.tx_placements.settings.organization.list.paginate.itemsPerPage}
+						insertAbove = {$plugin.tx_placements.settings.organization.list.paginate.insertAbove}
+						insertBelow = {$plugin.tx_placements.settings.organization.list.paginate.insertBelow}
+						showNumberOfPages = {$plugin.tx_placements.settings.organization.list.paginate.showNumberOfPages}
+						lessPages = {$plugin.tx_placements.settings.organization.list.paginate.lessPages}
+						maximumNumberOfLinks = {$plugin.tx_placements.settings.organization.list.paginate.maximumNumberOfLinks}
+						pagesBefore = {$plugin.tx_placements.settings.organization.list.paginate.pagesBefore}
+						pagesAfter = {$plugin.tx_placements.settings.organization.list.paginate.pagesAfter}
 				}
 			}
 			detail {
