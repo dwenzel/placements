@@ -56,11 +56,13 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		if ($this->settings['clientsOrganizationsOnly'] AND
-			$this->accessControlService->hasLoggedInClient()) {
+		$demand = $this->createDemandFromSettings($this->settings);
+		if ($this->settings['clientsOrganizationsOnly'] 
+				AND $this->accessControlService->hasLoggedInClient()) {
 			$organizations = $this->organizationRepository->findByClient($this->accessControlService->getFrontendUser()->getClient());
+			}
 		} else {
-			$organizations = $this->organizationRepository->findAll();
+			// @todo: show all if allowed 
 		}
 		$this->view->assign('organizations', $organizations);
 	}
@@ -187,5 +189,26 @@ class OrganizationController extends AbstractController {
 	 	'tx_placements.error'.'.organization.'. $this->actionMethodName, 'placements');
 	 }
 
+	 /**
+	 	* Create demand from settings
+	 	*
+	 	* @param \array $settings
+	 	* @return \Webfox\Placements\Domain\Model\Dto\OrganizationDemand
+	 	*/
+	 public function createDemandFromSettings($settings) {
+	 	 \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('createDemandFromSettings', 'placements', 1, $settings);
+	 	 $demand = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\OrganizationDemand');
+	 	 (isset($settings['sectors']))? $demand->setSectors($settings['sectors']) : NULL;
+	 	 (isset($settings['categories'])) ? $demand->setCategories($settings['categories']) : NULL;
+	 	 (isset($settings['clients'])) ? $demand->setClients($settings['clients']) : NULL;
+	 	 (isset($settings['clientsOrganizationsOnly']))? $demand->setClientsOrganizationsOnly($settings['clientsOrganizationsOnly']) : NULL;
+	 	 if((isset($settings['orderBy'])) AND (isset($settings['orderDirection']))) {
+	 	 	$demand->setOrder($settings['orderBy'] . '|' . $settings['orderDirection']);
+	 	 }
+	 	 (isset($settings['constraintsConjunction']))? $demand->setConstraintsConjunction($settings['constraintsConjunction']) : NULL;
+	 	 (isset($this->settings['categoryConjunction'])) ? $demand->setCategoryConjunction($settings['categoryConjunction']) : NULL;
+	 	 (isset($settings['limit']))? $demand->setLimit($settings['limit']) : NULL;
+	 	 return $demand;
+	 }
 }
 ?>
