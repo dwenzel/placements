@@ -60,7 +60,6 @@ class OrganizationController extends AbstractController {
 		if ($this->settings['clientsOrganizationsOnly'] 
 				AND $this->accessControlService->hasLoggedInClient()) {
 			$organizations = $this->organizationRepository->findByClient($this->accessControlService->getFrontendUser()->getClient());
-			}
 		} else {
 			// @todo: show all if allowed 
 		}
