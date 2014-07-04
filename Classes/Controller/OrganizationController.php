@@ -205,7 +205,7 @@ class OrganizationController extends AbstractController {
 	 	 	$demand->setOrder($settings['orderBy'] . '|' . $settings['orderDirection']);
 	 	 }
 	 	 (isset($settings['constraintsConjunction']))? $demand->setConstraintsConjunction($settings['constraintsConjunction']) : NULL;
-	 	 (isset($this->settings['categoryConjunction'])) ? $demand->setCategoryConjunction($settings['categoryConjunction']) : NULL;
+	 	 (isset($settings['categoryConjunction'])) ? $demand->setCategoryConjunction($settings['categoryConjunction']) : NULL;
 	 	 (isset($settings['limit']))? $demand->setLimit($settings['limit']) : NULL;
 	 	 return $demand;
 	 }
