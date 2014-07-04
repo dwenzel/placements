@@ -34,12 +34,7 @@ plugin.tx_placements {
 					itemsPerPage ={$plugin.tx_placements.settings.position.list.paginate.itemsPerPage}
 					insertAbove = {$plugin.tx_placements.settings.position.list.paginate.insertAbove}
 					insertBelow = {$plugin.tx_placements.settings.position.list.paginate.insertBelow}
-					showNumberOfPages = {$plugin.tx_placements.settings.position.list.paginate.showNumberOfPages}
-					lessPages = {$plugin.tx_placements.settings.position.list.paginate.lessPages}
 					maximumNumberOfLinks = {$plugin.tx_placements.settings.position.list.paginate.maximumNumberOfLinks}
-					pagesBefore = {$plugin.tx_placements.settings.position.list.paginate.pagesBefore}
-					pagesAfter = {$plugin.tx_placements.settings.position.list.paginate.pagesAfter}
-					templatePath =
 					prevNextHeaderTags = {$plugin.tx_placements.settings.position.list.paginate.prevNextHeaderTags}
 				}
 			}
@@ -49,11 +44,8 @@ plugin.tx_placements {
 						itemsPerPage ={$plugin.tx_placements.settings.organization.list.paginate.itemsPerPage}
 						insertAbove = {$plugin.tx_placements.settings.organization.list.paginate.insertAbove}
 						insertBelow = {$plugin.tx_placements.settings.organization.list.paginate.insertBelow}
-						showNumberOfPages = {$plugin.tx_placements.settings.organization.list.paginate.showNumberOfPages}
-						lessPages = {$plugin.tx_placements.settings.organization.list.paginate.lessPages}
 						maximumNumberOfLinks = {$plugin.tx_placements.settings.organization.list.paginate.maximumNumberOfLinks}
-						pagesBefore = {$plugin.tx_placements.settings.organization.list.paginate.pagesBefore}
-						pagesAfter = {$plugin.tx_placements.settings.organization.list.paginate.pagesAfter}
+					}
 				}
 			}
 			detail {
