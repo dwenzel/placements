@@ -44,9 +44,10 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 	protected $fixture;
 
 	public function setUp() {
-		$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
-	//		$this->fixture = $objectManager->get('Webfox\Placements\Controller\OrganizationController');
-		$this->fixture = new \Webfox\Placements\Controller\OrganizationController();
+		//$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
+		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
+		$this->fixture = $this->getAccessibleMock(
+			'Webfox\\Placements\\Controller\\OrganizationController', array('dummy'), array(), '', FALSE);
 		$this->organizationRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\OrganizationRepository', array(), array(), '', FALSE
 		);
@@ -65,43 +66,41 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$settings = array(
 			'foo' => 'bar'
 		);
-		$demand = new \Webfox\Placements\Domain\Model\Dto\OrganizationDemand();
+		$mockDemand = $this->getMock(
+				'\Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('Webfox\\Placements\\Domain\\Model\\Dto\\OrganizationDemand')
+			->will($this->returnValue($mockDemand));
 		
 		$this->assertEquals(
 			$this->fixture->createDemandFromSettings($settings),
-			$demand
+			$mockDemand
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function createDemandFromSettingsCreatesDemandFromValidSettings() {
+	public function createDemandFromSettingsCreatesDemandFromSettings() {
 		$settings = array(
-			'sectors' => 'foo',
-			'categories' => '1,2,3',
-			'clients' => '1,2,3',
+			'notSettableProperty' => 'foo',
 			'clientsOrganizationsOnly' => TRUE,
 			'orderBy' => 'bar',
 			'orderDirection' => 'foo',
-			'constraintsConjunction' => 'AND',
-			'categoryConjunction' => 'NOR',
-			'limit' => 5
+			'constraintsConjunction' => 'AND'
 		);
-		$demand = new \Webfox\Placements\Domain\Model\Dto\OrganizationDemand();
-		$demand->setSectors('foo');
-		$demand->setCategories('1,2,3');
-		$demand->setClients('1,2,3');
-		$demand->setClientsOrganizationsOnly(TRUE);
-		$demand->setOrder('bar|foo');
-		$demand->setConstraintsConjunction('AND');
-		$demand->setCategoryConjunction('NOR');
-		$demand->setLimit(5);
-
-		$this->assertEquals(
-			$this->fixture->createDemandFromSettings($settings),
-			$demand
-		);
+		$mockDemand = $this->getAccessibleMock(
+				'\Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('Webfox\\Placements\\Domain\\Model\\Dto\\OrganizationDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setOrder')->with('bar|foo');
+		$mockDemand->expects($this->exactly(2))->method('setClientsOrganizationsOnly')->with(TRUE);
+		$mockDemand->expects($this->once())->method('setConstraintsConjunction')->with('AND');
+		$mockDemand->expects($this->never())->method('setNotSettableProperty');
+		$this->fixture->createDemandFromSettings($settings);
 	}
 
 }
