@@ -44,7 +44,7 @@ class OrganizationRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = $this->getMock(
+		$this->fixture = $this->getAccessibleMock(
 			'Webfox\\Placements\\Domain\\Repository\\OrganizationRepository',
 			array('dummy'), array(), '', FALSE);
 	}
@@ -53,6 +53,18 @@ class OrganizationRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		unset($this->fixture);
 	}
 
+	/**
+	 * @test
+	 */
+	public function createConstraintsFromDemandReturnsInitiallyEmptyArray() {
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+				array(), array(), '', FALSE);
+		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
+		$this->assertSame(
+			array(),
+			$this->fixture->_call('createConstraintsFromDemand', $mockQuery, $mockDemand)
+		);
+	}
 	/**
 	 * @test
 	 */
