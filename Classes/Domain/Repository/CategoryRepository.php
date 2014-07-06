@@ -59,4 +59,4 @@ class CategoryRepository extends AbstractDemandedRepository {
 	}
 
 }
-?>
+
