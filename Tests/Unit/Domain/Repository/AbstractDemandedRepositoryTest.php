@@ -44,10 +44,9 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = $this->getMockBuilder(
-			'Webfox\\Placements\\Domain\\Repository\\AbstractDemandedRepository')
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
+		$this->fixture = $this->getAccessibleMock(
+			'Webfox\\Placements\\Domain\\Repository\\AbstractDemandedRepository',
+			array('createConstraintsFromDemand'), array(), '', FALSE);
 	}
 
 	public function tearDown() {
@@ -64,7 +63,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 
 		$this->assertEquals(
 				array(),
-				$this->fixture->createOrderingsFromDemand($mockDemand)
+				$this->fixture->_call('createOrderingsFromDemand', $mockDemand)
 		);
 	}
 
@@ -82,7 +81,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 					'bar' => 'ASC',
 					'foo' => 'DESC'
 				),
-				$this->fixture->createOrderingsFromDemand($mockDemand)
+				$this->fixture->_call('createOrderingsFromDemand', $mockDemand)
 		);
 	
 	}

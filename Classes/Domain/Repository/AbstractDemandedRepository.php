@@ -58,7 +58,7 @@ abstract class AbstractDemandedRepository
 	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
 	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
-	public function createOrderingsFromDemand(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
+	protected function createOrderingsFromDemand(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
 		$orderings = array();
 
 		//@todo validate order (orderAllowed)
