@@ -57,13 +57,11 @@ class OrganizationController extends AbstractController {
 	 */
 	public function listAction() {
 		$demand = $this->createDemandFromSettings($this->settings);
-		if ($this->settings['clientsOrganizationsOnly'] 
-				AND $this->accessControlService->hasLoggedInClient()) {
-			$organizations = $this->organizationRepository->findByClient($this->accessControlService->getFrontendUser()->getClient());
-		} else {
-			// @todo: show all if allowed 
-		}
-		$this->view->assign('organizations', $organizations);
+		$variables = array (
+			'organizations' => $this->organizationRepository->findDemanded($demand),
+			'settings' => $this->settings
+		);
+		$this->view->assignMultiple($variables);
 	}
 
 	/**
