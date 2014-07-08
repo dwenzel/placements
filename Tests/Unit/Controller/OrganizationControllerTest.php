@@ -324,5 +324,45 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 		$this->fixture->deleteAction($mockOrganization);
 	}
+
+	/**
+	 * @test
+	 * @expectedException \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+	 */
+	public function createActionCreatesOrganization() {
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$mockRequest = $this->getMock(
+				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('dummy'), array(), '', FALSE);
+		$mockRequest->_set('pluginName', 'Placements');
+		$mockRequest->_set('controllerName', 'OrganisationController');
+		$mockRequest->_set('arguments', array(
+					'newOrganization' => $mockOrganisation,
+					'save-reload' => TRUE));
+		$this->fixture->_set('request', $mockRequest);
+		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array(), array(), '', FALSE);
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')
+			->will($this->returnValue($mockPersistenceManager));
+		$mockUser = $this->getMock('Webfox\Placements\Domain\Model\User');
+		$mockClient = $this->getMock('Webfox\Placements\Domain\Model\Client');
+		$mockMessageQueue = $this->getMock(
+			'\TYPO3\CMS\Core\Messaging\FlashMessageQueue', array(), array(), '', FALSE);
+		$this->fixture->_get('accessControlService')->expects($this->once())
+			->method('getFrontendUser')
+			->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())
+			->method('getClient')
+			->will($this->returnValue($mockClient));
+		$this->fixture->_get('organizationRepository')->expects($this->once())
+			->method('add')
+			->with($mockOrganization);
+		$this->fixture->_get('controllerContext')->expects($this->once())
+			->method('getFlashMessageQueue')
+			->will($this->returnValue($mockMessageQueue));
+
+		$this->fixture->createAction($mockOrganization);
+	}
 }
 ?>
