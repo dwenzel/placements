@@ -53,12 +53,20 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$organizationRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\OrganizationRepository', array(), array(), '', FALSE
 		);
+		$sectorRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\SectorRepository', array(), array(), '', FALSE
+		);
+		$categoryRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\CategoryRepository', array(), array(), '', FALSE
+		);
 		$accessControlService = $this->getMock(
 				'Webfox\\Placements\\Service\\AccessControlService',
 				array(), array(), '', FALSE);
 		$this->fixture->_set('accessControlService', $accessControlService);
 		$this->fixture->_set('objectManager', $objectManager);
 		$this->fixture->_set('organizationRepository', $organizationRepository);
+		$this->fixture->_set('sectorRepository', $sectorRepository);
+		$this->fixture->_set('categoryRepository', $categoryRepository);
 		$this->fixture->_set('configurationManager', $configurationManager);
 		$this->fixture->_set('view',$view);
 	}
@@ -217,6 +225,60 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 				));
 
 		$this->fixture->listAction();
+	}
+
+	/**
+	 * @test
+	 */
+	public function showActionAssignsVariablesToView() {
+		$settings = array(
+			'foo' => 'bar'
+		);
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$this->fixture->_set('settings', $settings);
+		$this->fixture->_get('view')->expects($this->once())
+			->method('assignMultiple')
+			->with(
+				array(
+					'organization' => $mockOrganization,
+					'settings' => $settings
+				));
+
+		$this->fixture->showAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 */
+	public function newActionAssignsVariablesToView() {
+		$settings = array(
+			'sectors' => '1,5,6',
+			'categories' => '12,7,9'
+		);
+		$mockResult = $this->getMock(
+				'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+				array(), array(), '', FALSE);
+		$this->fixture->_set('settings', $settings);
+		$this->fixture->_get('sectorRepository')->expects($this->once())
+			->method('findMultipleByUid')
+			->with('1,5,6')
+			->will($this->returnValue($mockResult));
+		$this->fixture->_get('categoryRepository')->expects($this->once())
+			->method('findMultipleByUid')
+			->with('12,7,9')
+			->will($this->returnValue($mockResult));
+		$this->fixture->_get('view')->expects($this->once())
+			->method('assignMultiple')
+			->with(
+				array(
+					'newOrganization' => NULL,
+					'sectors' => $mockResult,
+					'categories' => $mockResult,
+					'settings' => $settings
+				));
+
+		$this->fixture->newAction();
 	}
 }
 ?>
