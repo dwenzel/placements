@@ -34,5 +34,17 @@ namespace Webfox\Placements\Domain\Repository;
  *
  */
 class SectorRepository extends AbstractDemandedRepository {
+	/**
+	* Returns an array of query constraints from a given demand object
+	*
+	* @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query A query object
+	* @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand A demand object
+	* @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	*/
+	protected function createConstraintsFromDemand (\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
+	//@todo implement constraints
+		$constraints = array();
+		return $constraints;
+	}
 }
-?>
+
