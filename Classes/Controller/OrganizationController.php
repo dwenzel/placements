@@ -205,13 +205,22 @@ class OrganizationController extends AbstractController {
 					$settings[$property]);
 			}
 		}
-		// we set clientOrganizationsOnly directly since Reflection ObjectAccess seem to miss boolean values (TRUE is cast to 1?)
-		(isset($settings['clientsOrganizationsOnly']))? $demand->setClientsOrganizationsOnly($settings['clientsOrganizationsOnly']) : NULL;
+		if(isset($settings['clientsOrganizationsOnly'])) {
+			// we set clientOrganizationsOnly directly since Reflection ObjectAccess seem to miss boolean values (TRUE is cast to 1?)
+			$demand->setClientsOrganizationsOnly($settings['clientsOrganizationsOnly']);
+			if($this->accessControlService->hasLoggedInClient()) {
+				$clientId = $this->accessControlService->getFrontendUser()
+										->getClient()->getUid();
+				$demand->setClients((string)$clientId);
+			} else {
+				$demand->setClients('');
+			}
+		}
 		// @todo implement OrderDemand to get rid of this string juggling
-	 	 if((isset($settings['orderBy'])) AND (isset($settings['orderDirection']))) {
-	 	 	$demand->setOrder($settings['orderBy'] . '|' . $settings['orderDirection']);
-	 	 }
-	 	 return $demand;
-	 }
+		if((isset($settings['orderBy'])) AND (isset($settings['orderDirection']))) {
+			$demand->setOrder($settings['orderBy'] . '|' . $settings['orderDirection']);
+		}
+		return $demand;
+	}
 }
 ?>
