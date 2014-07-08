@@ -59,6 +59,12 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$categoryRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\CategoryRepository', array(), array(), '', FALSE
 		);
+		$flashMessageContainer = $this->getMock(
+				'\TYPO3\CMS\Extbase\Mvc\Controller\FlashMessageContainer', array(), array(), '', FALSE
+		);
+		$controllerContext = $this->getMock(
+				'\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext', array(), array(), '', FALSE
+		);
 		$accessControlService = $this->getMock(
 				'Webfox\\Placements\\Service\\AccessControlService',
 				array(), array(), '', FALSE);
@@ -68,6 +74,8 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$this->fixture->_set('sectorRepository', $sectorRepository);
 		$this->fixture->_set('categoryRepository', $categoryRepository);
 		$this->fixture->_set('configurationManager', $configurationManager);
+		$this->fixture->_set('flashMessageContainer', $flashMessageContainer);
+		$this->fixture->_set('controllerContext', $controllerContext);
 		$this->fixture->_set('view',$view);
 	}
 
@@ -178,43 +186,25 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 	/**
 	 * @test
 	 */
-	public function listActionCallsCreateDemandFromSettings() {
-		$this->markTestSkipped();
+	public function listActionCallsFindDemandedAndAssignsVariables() {
 		$settings = array(
-			'foo' => 'bar'
-		);
-		$this->fixture->_set('settings', $settings);
-		$demand = new \Webfox\Placements\Domain\Model\Dto\OrganizationDemand();
-		$this->fixture->_get('objectManager')->expects($this->once())
-			->method('get')->will($this->returnValue($demand));
-		//@todo method call is not detected:
-		$this->fixture->expects($this->once())
-			->method('createDemandFromSettings')
-			->with($settings)
-			->will($this->returnValue($demand));
-		$this->fixture->_get('organizationRepository')->expects($this->once())
-			->method('findDemanded');
-
-		$this->fixture->listAction();
-	}
-
-	/**
-	 * @test
-	 */
-	public function listActionCallsFindDemanded() {
-		$settings = array(
-			'foo' => 'bar'
+			'foo' => 'bar',
+			'categories' => '15,3'
 		);
 		$mockResult = $this->getMock(
 				'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
 				array(), array(), '', FALSE);
 		$this->fixture->_set('settings', $settings);
 		$demand = new \Webfox\Placements\Domain\Model\Dto\OrganizationDemand();
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
 		$this->fixture->_get('objectManager')->expects($this->once())
-			->method('get')->will($this->returnValue($demand));
+			->method('get')->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())
+			->method('setCategories')
+			->with('15,3');
 		$this->fixture->_get('organizationRepository')->expects($this->once())
 			->method('findDemanded')
-			->with($demand)
+			->with($mockDemand)
 			->will($this->returnValue($mockResult));
 		$this->fixture->_get('view')->expects($this->once())
 			->method('assignMultiple')
@@ -279,6 +269,60 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 				));
 
 		$this->fixture->newAction();
+	}
+
+	/**
+	 * @test
+	 */
+	public function editActionAssignsVariablesToView() {
+		$settings = array(
+			'sectors' => '1,5,6',
+			'categories' => '12,7,9'
+		);
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$mockResult = $this->getMock(
+				'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+				array(), array(), '', FALSE);
+		$this->fixture->_set('settings', $settings);
+		$this->fixture->_get('sectorRepository')->expects($this->once())
+			->method('findMultipleByUid')
+			->with('1,5,6')
+			->will($this->returnValue($mockResult));
+		$this->fixture->_get('categoryRepository')->expects($this->once())
+			->method('findMultipleByUid')
+			->with('12,7,9')
+			->will($this->returnValue($mockResult));
+		$this->fixture->_get('view')->expects($this->once())
+			->method('assignMultiple')
+			->with(
+				array(
+					'organization' => $mockOrganization,
+					'sectors' => $mockResult,
+					'categories' => $mockResult,
+					'settings' => $settings
+				));
+
+		$this->fixture->editAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 * @expectedException \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+	 */
+	public function deleteActionRemovesOrganization() {
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$mockMessageQueue = $this->getMock(
+			'\TYPO3\CMS\Core\Messaging\FlashMessageQueue', array(), array(), '', FALSE);
+		$this->fixture->_get('organizationRepository')->expects($this->once())
+			->method('remove')
+			->with($mockOrganization);
+		$this->fixture->_get('controllerContext')->expects($this->once())
+			->method('getFlashMessageQueue')
+			->will($this->returnValue($mockMessageQueue));
+
+		$this->fixture->deleteAction($mockOrganization);
 	}
 }
 ?>
