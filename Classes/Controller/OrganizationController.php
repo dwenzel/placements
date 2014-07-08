@@ -138,6 +138,7 @@ class OrganizationController extends AbstractController {
 			'organization'=> $organization,
 			'sectors' => $sectors,
 			'categories' => $categories,
+			'settings' => $this->settings
 		));
 	}
 
