@@ -44,19 +44,23 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 	protected $fixture;
 
 	public function setUp() {
-		//$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
+		$configurationManager = $this->getMock(
+				'TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+		$view = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
 			'Webfox\\Placements\\Controller\\OrganizationController', array('dummy'), array(), '', FALSE);
-		$this->organizationRepository = $this->getMock(
+		$organizationRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\OrganizationRepository', array(), array(), '', FALSE
 		);
 		$accessControlService = $this->getMock(
 				'Webfox\\Placements\\Service\\AccessControlService',
 				array(), array(), '', FALSE);
 		$this->fixture->_set('accessControlService', $accessControlService);
-		$this->fixture->injectObjectManager($objectManager);
-		$this->fixture->injectOrganizationRepository($this->organizationRepository);
+		$this->fixture->_set('objectManager', $objectManager);
+		$this->fixture->_set('organizationRepository', $organizationRepository);
+		$this->fixture->_set('configurationManager', $configurationManager);
+		$this->fixture->_set('view',$view);
 	}
 
 	public function tearDown() {
@@ -161,6 +165,58 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 			->method('setClients')
 			->with('5');
 		$this->fixture->createDemandFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function listActionCallsCreateDemandFromSettings() {
+		$this->markTestSkipped();
+		$settings = array(
+			'foo' => 'bar'
+		);
+		$this->fixture->_set('settings', $settings);
+		$demand = new \Webfox\Placements\Domain\Model\Dto\OrganizationDemand();
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')->will($this->returnValue($demand));
+		//@todo method call is not detected:
+		$this->fixture->expects($this->once())
+			->method('createDemandFromSettings')
+			->with($settings)
+			->will($this->returnValue($demand));
+		$this->fixture->_get('organizationRepository')->expects($this->once())
+			->method('findDemanded');
+
+		$this->fixture->listAction();
+	}
+
+	/**
+	 * @test
+	 */
+	public function listActionCallsFindDemanded() {
+		$settings = array(
+			'foo' => 'bar'
+		);
+		$mockResult = $this->getMock(
+				'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+				array(), array(), '', FALSE);
+		$this->fixture->_set('settings', $settings);
+		$demand = new \Webfox\Placements\Domain\Model\Dto\OrganizationDemand();
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')->will($this->returnValue($demand));
+		$this->fixture->_get('organizationRepository')->expects($this->once())
+			->method('findDemanded')
+			->with($demand)
+			->will($this->returnValue($mockResult));
+		$this->fixture->_get('view')->expects($this->once())
+			->method('assignMultiple')
+			->with(
+				array(
+					'organizations' => $mockResult,
+					'settings' => $settings
+				));
+
+		$this->fixture->listAction();
 	}
 }
 ?>
