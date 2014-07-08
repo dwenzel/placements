@@ -71,7 +71,11 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(\Webfox\Placements\Domain\Model\Organization $organization) {
-		$this->view->assign('organization', $organization);
+		$this->view->assignMultiple(
+				array(
+					'organization' => $organization,
+					'settings' => $this->settings
+				));
 	}
 
 	/**
@@ -88,6 +92,7 @@ class OrganizationController extends AbstractController {
 			'newOrganization' => $newOrganization,
 			'sectors' => $sectors,
 			'categories' => $categories,
+			'settings' => $this->settings
 		));
 	}
 
