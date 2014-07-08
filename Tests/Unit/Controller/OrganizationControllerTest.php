@@ -51,6 +51,10 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$this->organizationRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\OrganizationRepository', array(), array(), '', FALSE
 		);
+		$accessControlService = $this->getMock(
+				'Webfox\\Placements\\Service\\AccessControlService',
+				array(), array(), '', FALSE);
+		$this->fixture->_set('accessControlService', $accessControlService);
 		$this->fixture->injectObjectManager($objectManager);
 		$this->fixture->injectOrganizationRepository($this->organizationRepository);
 	}
@@ -102,6 +106,61 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$mockDemand->expects($this->never())->method('setNotSettableProperty');
 		$this->fixture->createDemandFromSettings($settings);
 	}
+	
+	/**
+	 * @test
+	 */
+	public function createDemandFromSettingsSetsClientsToEmptyStringIfNoClientLoggedIn() {
+		$settings = array(
+			'clientsOrganizationsOnly' => TRUE,
+		);
+		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('Webfox\\Placements\\Domain\\Model\\Dto\\OrganizationDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->exactly(2))->method('setClientsOrganizationsOnly')->with(TRUE);
+		$this->fixture->_get('accessControlService')
+			->expects($this->once())
+			->method('hasLoggedInClient')
+			->will($this->returnValue(FALSE));
+		$mockDemand->expects($this->once())
+			->method('setClients')
+			->with('');
+		$this->fixture->createDemandFromSettings($settings);
+	}
 
+	/**
+	 * @test
+	 */
+	public function createDemandFromSettingSetsClientsForStringIfClientIsLoggedIn() {
+		$settings = array(
+			'clientsOrganizationsOnly' => TRUE
+		);
+		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
+		$mockUser = $this->getMock('Webfox\Placements\Domain\Model\User');
+		$mockClient = $this->getMock('Webfox\Placements\Domain\Model\Client');
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->will($this->returnValue($mockDemand));
+		$this->fixture->_get('accessControlService')
+			->expects($this->once())
+			->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+		$this->fixture->_get('accessControlService')
+			->expects($this->once())
+			->method('getFrontendUser')
+			->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())
+			->method('getClient')
+			->will($this->returnValue($mockClient));
+		$mockClient->expects($this->once())
+			->method('getUid')
+			->will($this->returnValue(5));
+		$mockDemand->expects($this->once())
+			->method('setClients')
+			->with('5');
+		$this->fixture->createDemandFromSettings($settings);
+	}
 }
 ?>
