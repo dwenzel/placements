@@ -80,6 +80,16 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	protected $referrerArguments = array();
 
 	/**
+	 * @var string
+	 */
+	protected $entityNotFoundMessage = 'The requested entity could not be found';
+
+	/**
+	 * @var string
+	 */
+	protected $unknownErrorMessage = 'An unknown error occured.';
+
+	/**
 	 * Initialize Action
 	 */
 	public function initializeAction() {
@@ -163,6 +173,23 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			}
 		}
 	}
+
+	/**
+	* @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
+	* @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
+	* @return void
+	* @throws \Exception
+	* @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	*/
+	public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response) {
+		try{
+			parent::processRequest($request, $response);
+		}
+		catch(\Exception $exception) {
+
+		}
+	}
+
 }
 ?>
 
