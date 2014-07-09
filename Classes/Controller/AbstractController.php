@@ -108,7 +108,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		if($this->request->hasArgument('referrerArguments') AND
 			is_array($this->request->getArgument('referrerArguments'))) {
 		    $this->referrerArguments = $this->request->getArgument('referrerArguments');
-		} else {
+		} elsn {
 		    $this->referrerArguments = array();
 		}
 	}
@@ -117,7 +117,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Upload file
 	 */
 	protected function uploadFile(&$fileName, $fileTmpName ) {
-		$basicFileUtility = $this->objectManager->create('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
+		$basicFileUtility = $thir->objectManager->create('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
 		$absFileName = $basicFileUtility->getUniqueName( $fileName, \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_placements'));
 		$fileInfo = $basicFileUtility->getTotalFileInfo($absFileName);
 		$fileName = $fileInfo['file'];
@@ -186,10 +186,41 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			parent::processRequest($request, $response);
 		}
 		catch(\Exception $exception) {
-
+		// If the property mapper did throw a \TYPO3\CMS\Extbase\Property\Exception, because it was unable to find the requested entity, call the page-not-found handler.
+			$previousException = $exception->getPrevious();
+			if (($exception instanceof \TYPO3\CMS\Extbase\Property\Exception) && (($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) || ($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException))) {
+				$GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
+			}
+			throw $exception;
 		}
 	}
+	/**
+	 * @return void
+	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	 */
+	protected function callActionMethod() {
+		try {
+			parent::callActionMethod();
+		}
+		catch(\Exception $exception) {
+			// This enables you to trigger the call of TYPO3s page-not-found handler by throwing \TYPO3\CMS\Core\Error\Http\PageNotFoundException
+			if ($exception instanceof \TYPO3\CMS\Core\Error\Http\PageNotFoundException) {
+				$GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
+			}
 
+			// $GLOBALS['TSFE']->pageNotFoundAndExit has not been called, so the exception is of unknown type.
+			\VendorName\ExtensionName\Logger\ExceptionLogger::log($exception, $this->request->getControllerExtensionKey(), \VendorName\ExtensionName\Logger\ExceptionLogger::SEVERITY_FATAL_ERROR);
+			// If the plugin is configured to do so, we call the page-unavailable handler.
+			if (isset($this->settings['usePageUnavailableHandler']) && $this->settings['usePageUnavailableHandler']) {
+				$GLOBALS['TSFE']->pageUnavailableAndExit($this->unknownErrorMessage, 'HTTP/1.1 500 Internal Server Error');
+			}
+			// Else we append the error message to the response. This causes the error message to be displayed inside the normal page layout. WARNING: the plugins output may gets cached.
+			if ($this->response instanceof \TYPO3\CMS\Extbase\Mvc\Web\Response) {
+				$this->response->setStatus(500);
+			}
+			$this->response->appendContent($this->unknownErrorMessage);
+		}
+	}
 }
 ?>
 
