@@ -108,7 +108,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		if($this->request->hasArgument('referrerArguments') AND
 			is_array($this->request->getArgument('referrerArguments'))) {
 		    $this->referrerArguments = $this->request->getArgument('referrerArguments');
-		} elsn {
+		} else {
 		    $this->referrerArguments = array();
 		}
 	}
@@ -117,7 +117,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Upload file
 	 */
 	protected function uploadFile(&$fileName, $fileTmpName ) {
-		$basicFileUtility = $thir->objectManager->create('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
+		$basicFileUtility = $this->objectManager->create('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
 		$absFileName = $basicFileUtility->getUniqueName( $fileName, \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_placements'));
 		$fileInfo = $basicFileUtility->getTotalFileInfo($absFileName);
 		$fileName = $fileInfo['file'];
@@ -186,7 +186,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			parent::processRequest($request, $response);
 		}
 		catch(\Exception $exception) {
-		// If the property mapper did throw a \TYPO3\CMS\Extbase\Property\Exception, because it was unable to find the requested entity, call the page-not-found handler.
+			// If the property mapper did throw a \TYPO3\CMS\Extbase\Property\Exception, because it was unable to find the requested entity, call the page-not-found handler.
 			$previousException = $exception->getPrevious();
 			if (($exception instanceof \TYPO3\CMS\Extbase\Property\Exception) && (($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) || ($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException))) {
 				$GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
@@ -194,6 +194,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			throw $exception;
 		}
 	}
+
 	/**
 	 * @return void
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
