@@ -45,7 +45,11 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\Placements\Domain\Model\Position();
+		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
+		$this->fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('dummy'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $objectManager);
 	}
 
 	public function tearDown() {
@@ -59,5 +63,34 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$this->markTestIncomplete();
 	}
 
+	/**
+	 * @test
+	 */
+	public function processRequestHandlesTargetNotFoundException() {
+		$this->markTestSkipped();
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$mockRequest = $this->getMock(
+				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('dummy'), array(), '', FALSE);
+		$mockRequest->_set('pluginName', 'Placements');
+		$mockRequest->_set('controllerName', 'PositionController');
+		$mockRequest->_set('arguments', array(
+					'position' => $mockPosition,));
+		$this->fixture->_set('request', $mockRequest);
+		
+		$mockResponse = $this->getMock(
+			'\TYPO3\CMS\Extbase\Mvc\ResponseInterface');
+		$mockUriBuilder = $this->getMock(
+			'TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
+
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder')
+			->will($this->returnValue($mockUriBuilder));
+		$this->fixture->expects($this->once())
+			->method('mapRequestArgumentsToControllerArguments');
+
+		$this->fixture->processRequest($mockRequest, $mockResponse);
+	}
 }
 ?>
