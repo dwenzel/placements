@@ -104,21 +104,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
-	 * Provides a method addFlashMessage which is not available before
-	 * TYPO3 version 6.2
-	 * This method can be removed if version 6.1 is not supported anymore.
-	 * 
-	 * @param string $name
-	 * @param array $arguments
-	 * @return void
-	 */
-	public function __call($name, array $arguments) {
-		if($name == 'addFlashMessage') {
-			$this->controllerContext->getFlashMessageQueue()->addMessage(new \TYPO3\CMS\Core\Messaging\FlashMessage(current($arguments)));
-		}
-	}
-
-	/**
 	 * Upload file
 	 */
 	protected function uploadFile(&$fileName, $fileTmpName ) {
