@@ -116,12 +116,13 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	/**
 	 * Upload file
 	 */
-	protected function uploadFile(&$fileName, $fileTmpName ) {
+	protected function uploadFile($fileName, $fileTmpName ) {
 		$basicFileUtility = $this->objectManager->get('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
 		$absFileName = $basicFileUtility->getUniqueName( $fileName, \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_placements'));
 		$fileInfo = $basicFileUtility->getTotalFileInfo($absFileName);
-		$fileName = $fileInfo['file'];
-		\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($fileTmpName, $absFileName); 
+		$realFileName = $fileInfo['file'];
+		\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($fileTmpName, $absFileName);
+		return $realFileName;
 	}
 
 	/**
@@ -138,8 +139,8 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			
 			if (is_array($file) AND !$file['error'] ) {
 				$fileName = $file['name'];
-				$this->uploadFile($fileName, $file['tmp_name']);
-				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($object, $propertyName, $fileName);
+				$realFileName = $this->uploadFile($fileName, $file['tmp_name']);
+				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($object, $propertyName, $realFileName);
 			} else {
 				$object->_memorizeCleanState($propertyName);
 				if($file['error']) {
