@@ -53,11 +53,11 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		//$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\Placements\\Controller\\AbstractController', array('dummy'), array(), '', FALSE);
+			'\Webfox\Placements\Controller\AbstractController', array('dummy'), array(), '', FALSE);
 	/*	$this->abstractRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository', array(), array(), '', FALSE
 		);*/
-		$this->fixture->injectObjectManager($objectManager);
+		$this->fixture->_set('objectManager', $objectManager);
 	}
 
 	public function tearDown() {
@@ -160,5 +160,107 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$mockController->_call('handleEntityNotFoundError', 'redirectToPage, 1, 301');
 	}
 
+	/**
+	 * @test
+	 */
+	public function initializeActionSetsReferrerArgumentsInitiallyToEmptyArray() {
+		$arguments = array(
+			'action' => 'foo',
+			'controller' => 'bar'
+		);
+		$mockRequest = $this->getMock(
+				'TYPO3\CMS\Extbase\Mvs\Web\Request',
+				array(
+					'getArguments',
+					'getPluginName',
+					'getControllerName',
+					'getControllerExtensionName',
+					'hasArgument'));
+		$this->fixture->_set('request', $mockRequest);
+		$mockRequest->expects($this->once())
+			->method('getArguments')
+			->will($this->returnValue($arguments));
+		$mockRequest->expects($this->once())
+			->method('hasArgument')
+			->with('referrerArguments')
+			->will($this->returnValue(FALSE));
+		$this->fixture->_call('initializeAction');
+		$this->assertSame(
+			array(),
+			$this->fixture->_get('referrerArguments')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeActionSetsReferrerArguments() {
+		$originalRequestArguments = array(
+			'action' => 'foo',
+			'controller' => 'bar',
+			'arguments' => array(
+				'referrerArguments' => array(
+					'foo' => 'bar'
+				)
+			)
+		);
+		$result = array(
+			'foo' => 'bar'
+		);
+		$mockRequest = $this->getMock(
+				'TYPO3\CMS\Extbase\Mvs\Web\Request',
+				array(
+					'getArguments',
+					'getPluginName',
+					'getControllerName',
+					'getControllerExtensionName',
+					'hasArgument',
+					'getArgument'));
+		$this->fixture->_set('request', $mockRequest);
+		$mockRequest->expects($this->once())
+			->method('getArguments')
+			->will($this->returnValue($originalRequestArguments));
+		$mockRequest->expects($this->once())
+			->method('hasArgument')
+			->with('referrerArguments')
+			->will($this->returnValue(TRUE));
+		$mockRequest->expects($this->exactly(2))
+			->method('getArgument')
+			->with('referrerArguments')
+			->will($this->returnValue($originalRequestArguments['arguments']['referrerArguments']));
+
+		$this->fixture->_call('initializeAction');
+		$this->assertSame(
+			$result,
+			$this->fixture->_get('referrerArguments')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function uploadFileHandlesUpload() {
+		$fileName = 'foo.bar';
+		$fileTmpName = 'xyz';
+		$mockFileUtility = $this->getMock(
+			'TYPO3\CMS\Core\Utility\File\BasicFileUtility');
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('TYPO3\CMS\Core\Utility\File\BasicFileUtility')
+			->will($this->returnValue($mockFileUtility));
+		$mockFileUtility->expects($this->once())
+			->method('getUniqueName')
+			->with($fileName, \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_placements'))
+			->will($this->returnValue('foo1.bar'));
+		$mockFileUtility->expects($this->once())
+			->method('getTotalFileInfo')
+			->with('foo1.bar')
+			->will($this->returnValue( array(
+						'file' => 'realFileName')));
+		$this->assertSame(
+			'realFileName',
+			$this->fixture->_call('uploadFile', $fileName, $fileTmpName)
+		);
+	}
 }
 ?>

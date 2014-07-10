@@ -45,10 +45,30 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	protected $fixture;
 
 	public function setUp() {
-		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
 			'\Webfox\Placements\Controller\PositionController',
 			array('dummy'), array(), '', FALSE);
+		$positionRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository', array(), array(), '', FALSE
+		);
+		$view = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+		$flashMessageContainer = $this->getMock(
+				'\TYPO3\CMS\Extbase\Mvc\Controller\FlashMessageContainer', array(), array(), '', FALSE
+		);
+		$controllerContext = $this->getMock(
+				'\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext', array(), array(), '', FALSE
+		);
+		$accessControlService = $this->getMock(
+				'Webfox\\Placements\\Service\\AccessControlService',
+				array(), array(), '', FALSE);
+		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments');
+		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
+		$this->fixture->_set('positionRepository', $positionRepository);
+		$this->fixture->_set('view',$view);
+		$this->fixture->_set('configurationManager', $configurationManager);
+		$this->fixture->_set('flashMessageContainer', $flashMessageContainer);
+		$this->fixture->_set('controllerContext', $controllerContext);
+		$this->fixture->_set('arguments', $mockArguments);
 		$this->fixture->_set('objectManager', $objectManager);
 	}
 
@@ -58,39 +78,137 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
-	 */
-	public function dummyMethod() {
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * @test
+	 * @expectedException \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException
 	 */
 	public function processRequestHandlesTargetNotFoundException() {
 		$this->markTestSkipped();
-		$mockOrganization = $this->getMock(
-			'Webfox\Placements\Domain\Model\Organization');
+		$fixture = $this->getMock('Webfox\Placements\Controller\PositionController',
+				array());
+		$mockPosition = $this->getMock(
+			'Webfox\Placements\Domain\Model\Position');
 		$mockRequest = $this->getMock(
 				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('dummy'), array(), '', FALSE);
 		$mockRequest->_set('pluginName', 'Placements');
 		$mockRequest->_set('controllerName', 'PositionController');
-		$mockRequest->_set('arguments', array(
-					'position' => $mockPosition,));
+		$mockRequest->_set('controllerActionName', 'show');
+		/*$mockRequest->_set('arguments', array(
+					'position' => $mockPosition,));*/
 		$this->fixture->_set('request', $mockRequest);
 		
 		$mockResponse = $this->getMock(
 			'\TYPO3\CMS\Extbase\Mvc\ResponseInterface');
 		$mockUriBuilder = $this->getMock(
 			'TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
-
+/*
 		$this->fixture->_get('objectManager')->expects($this->once())
 			->method('get')
 			->with('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder')
-			->will($this->returnValue($mockUriBuilder));
+			->will($this->returnValue($mockUriBuilder));*/
+		$this->fixture->expects($this->any())
+			->method('processRequest')
+			->will($this->throwException(new \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException()));
 		$this->fixture->expects($this->once())
+			->method('handleEntityNotFoundError');
+		$fixture->expects($this->once())
 			->method('mapRequestArgumentsToControllerArguments');
-
+		//$this->fixture->showAction($mockPosition);
 		$this->fixture->processRequest($mockRequest, $mockResponse);
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeAjaxShowActionSetsTypConverterForUid() {
+		$mockArgument = $this->getMock(
+			'TYPO3\CMS\Extbase\Mvc\Controller\Argument', array(), array(), '', FALSE);
+		$mockMappingConfiguration = $this->getMock(
+			'TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration');
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->will($this->returnValue($this->getMock('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter')));
+		$this->fixture->_get('arguments')->expects($this->once())
+			->method('hasArgument')
+			->with('uid')
+			->will($this->returnValue(TRUE));
+		$this->fixture->_get(arguments)->expects($this->once())
+			->method('getArgument')
+			->with('uid')
+			->will($this->returnValue($mockArgument));
+		$mockArgument->expects($this->once())
+			->method('getPropertyMappingConfiguration')
+			->will($this->returnValue($mockMappingConfiguration));
+		$mockMappingConfiguration->expects($this->once())
+			->method('setTypeConverter');
+		$this->fixture->initializeAjaxShowAction();
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeAjaxListActionSetsTypConverterForOverwriteDemand() {
+		$mockArgument = $this->getMock(
+			'TYPO3\CMS\Extbase\Mvc\Controller\Argument', array(), array(), '', FALSE);
+		$mockMappingConfiguration = $this->getMock(
+			'TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration');
+		$mockConverter = $this->getMock('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\ArrayConverter');
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->will($this->returnValue($mockConverter));
+		$this->fixture->_get('arguments')->expects($this->once())
+			->method('hasArgument')
+			->with('overwriteDemand')
+			->will($this->returnValue(TRUE));
+		$this->fixture->_get(arguments)->expects($this->once())
+			->method('getArgument')
+			->with('overwriteDemand')
+			->will($this->returnValue($mockArgument));
+		$mockArgument->expects($this->once())
+			->method('getPropertyMappingConfiguration')
+			->will($this->returnValue($mockMappingConfiguration));
+		$mockMappingConfiguration->expects($this->once())
+			->method('setTypeConverter')
+			->with($mockConverter);
+		$this->fixture->initializeAjaxListAction();
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function listActionCallsFindDemandedAndAssignsVariables() {
+		$overwriteDemand = array(
+			'foo' => 'bar',
+		);
+		$mockResult = $this->getMock(
+				'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+				array(), array(), '', FALSE);
+		$this->fixture->_set('settings', $settings);
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
+		$mockMessageQueue = $this->getMock(
+			'\TYPO3\CMS\Core\Messaging\FlashMessageQueue', array(), array(), '', FALSE);
+	/*	$this->fixture->expects($this->once())
+			->method('overwriteDemandObject')
+			->with($mockDemand, $overwriteDemand)
+			->will($this->returnValue($mockDemand));*/
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')->will($this->returnValue($mockDemand));
+		$this->fixture->_get('positionRepository')->expects($this->once())
+			->method('findDemanded')
+			->with($mockDemand)
+			->will($this->returnValue($mockResult));
+		$this->fixture->_get('controllerContext')->expects($this->once())
+			->method('getFlashMessageQueue')
+			->will($this->returnValue($mockMessageQueue));
+		$this->fixture->_get('view')->expects($this->once())
+			->method('assignMultiple')
+			->with(
+				array(
+					'positions' => $mockResult,
+					'overwriteDemand' => $overwriteDemand,
+					'requestArguments' => null
+				));
+
+		$this->fixture->listAction($overwriteDemand);
 	}
 }
 ?>
