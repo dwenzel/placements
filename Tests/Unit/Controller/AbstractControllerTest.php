@@ -160,5 +160,81 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$mockController->_call('handleEntityNotFoundError', 'redirectToPage, 1, 301');
 	}
 
+	/**
+	 * @test
+	 */
+	public function initializeActionSetsReferrerArgumentsInitiallyToEmptyArray() {
+		$arguments = array(
+			'action' => 'foo',
+			'controller' => 'bar'
+		);
+		$mockRequest = $this->getMock(
+				'TYPO3\CMS\Extbase\Mvs\Web\Request',
+				array(
+					'getArguments',
+					'getPluginName',
+					'getControllerName',
+					'getControllerExtensionName',
+					'hasArgument'));
+		$this->fixture->_set('request', $mockRequest);
+		$mockRequest->expects($this->once())
+			->method('getArguments')
+			->will($this->returnValue($arguments));
+		$mockRequest->expects($this->once())
+			->method('hasArgument')
+			->with('referrerArguments')
+			->will($this->returnValue(FALSE));
+		$this->fixture->_call('initializeAction');
+		$this->assertSame(
+			array(),
+			$this->fixture->_get('referrerArguments')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeActionSetsReferrerArguments() {
+		$originalRequestArguments = array(
+			'action' => 'foo',
+			'controller' => 'bar',
+			'arguments' => array(
+				'referrerArguments' => array(
+					'foo' => 'bar'
+				)
+			)
+		);
+		$result = array(
+			'foo' => 'bar'
+		);
+		$mockRequest = $this->getMock(
+				'TYPO3\CMS\Extbase\Mvs\Web\Request',
+				array(
+					'getArguments',
+					'getPluginName',
+					'getControllerName',
+					'getControllerExtensionName',
+					'hasArgument',
+					'getArgument'));
+		$this->fixture->_set('request', $mockRequest);
+		$mockRequest->expects($this->once())
+			->method('getArguments')
+			->will($this->returnValue($originalRequestArguments));
+		$mockRequest->expects($this->once())
+			->method('hasArgument')
+			->with('referrerArguments')
+			->will($this->returnValue(TRUE));
+		$mockRequest->expects($this->exactly(2))
+			->method('getArgument')
+			->with('referrerArguments')
+			->will($this->returnValue($originalRequestArguments['arguments']['referrerArguments']));
+
+		$this->fixture->_call('initializeAction');
+		$this->assertSame(
+			$result,
+			$this->fixture->_get('referrerArguments')
+		);
+	}
+
 }
 ?>
