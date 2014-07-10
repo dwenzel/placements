@@ -7,41 +7,53 @@
 .. Includes roles, substitutions, ...
 .. include:: _IncludedDirectives.rst
 
-=================
-Extension Name
-=================
+.. _start:
 
-:Extension name: Placement Service
-:Extension key: placements
-:Version: 0.1.0-dev
-:Description: manuals covering TYPO3 extension "Placement Service"
-:Language: en
-:Author: Dirk Wenzel, Michael Kasten
-:Creation: 2013-11-06
-:Generation: 15:50
-:Licence: Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
+======================================
+Placements Service: Manage job offers.
+======================================
 
-The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org
-<http://www.typo3.org/>`_
+.. only:: html
+  :Classification:
+    placements
 
-**Table of Contents**
+  :Extension name: 
+    Placement Service
+
+  :Extension key: 
+    placements
+
+  :Version: 
+    |release|
+  :Description: 
+    manuals covering TYPO3 extension "Placement Service"
+
+  :Language: 
+    en
+
+  :Author: 
+    Dirk Wenzel, Michael Kasten
+
+  :Rendered: 
+    |today|
+
+  :Licence: 
+    Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
+
+  The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_
+
+  **Table of Contents**
+
 
 .. toctree::
-	:maxdepth: 2
+	:maxdepth: 5
 
 	ProjectInformation
 	UserManual
 	AdministratorManual
-	TyposcriptReference
+	Configuration/Index
 	DeveloperCorner
-	RestructuredtextHelp
 
-.. STILL TO ADD IN THIS DOCUMENT
-	@todo: add section about how screenshots can be automated. Pointer to PhantomJS could be added.
-	@todo: explain how documentation can be rendered locally and remotely.
-	@todo: explain what files should be versionned and what not (_build, Makefile, conf.py, ...)
-
-.. include:: ../Readme.rst
 
 What does it do?
 =================
