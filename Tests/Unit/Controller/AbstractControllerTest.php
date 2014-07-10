@@ -262,5 +262,229 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			$this->fixture->_call('uploadFile', $fileName, $fileTmpName)
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertySetsPropertyForProperFileValue() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController', array('uploadFile'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'name' => 'foo',
+			'tmp_name' => 'bar',
+			'error' => null
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->once())
+			->method('uploadFile')
+			->with($fileProperty['name'], $fileProperty['tmp_name'])
+			->will($this->returnValue('realFileName'));
+		$mockObject->expects($this->once())
+			->method('setImage')
+			->with('realFileName');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorMessageForMaximumServerFileSize() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'name' => 'foo',
+			'tmp_name' => 'bar',
+			'error' => 1
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->never())
+			->method('uploadFile');
+		$mockObject->expects($this->once())
+			->method('_memorizeCleanState')
+			->with('image');
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('The uploaded file exceeds the servers maximum file size directive.');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorMessageForMaximumServerFormFileSize() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'name' => 'foo',
+			'tmp_name' => 'bar',
+			'error' => 2
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->never())
+			->method('uploadFile');
+		$mockObject->expects($this->once())
+			->method('_memorizeCleanState')
+			->with('image');
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('The uploaded file exceeds the maximum file size directive that was specified in the HTML form.');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorMessageForPartialFileUpload() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'name' => 'foo',
+			'tmp_name' => 'bar',
+			'error' => 3
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->never())
+			->method('uploadFile');
+		$mockObject->expects($this->once())
+			->method('_memorizeCleanState')
+			->with('image');
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('The file was only partially uploaded.');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorMessageForNoFileUploaded() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'error' => 4
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('No file was uploaded.');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorMessageForMissingTempFolder() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'error' => 6
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('Missing a temporary folder.');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorMessageForFailedWriteToDisk() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'error' => 7
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('Failed to write file to disk.');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorMessageForFileUploadStoppedByExtension() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'error' => 8
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('File upload stopped by extension.');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorMessageForUnknownError() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'error' => 99
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage')
+			->will($this->returnValue($fileProperty));
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('Unknown file upload error.');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
 }
 ?>
