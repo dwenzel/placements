@@ -117,7 +117,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Upload file
 	 */
 	protected function uploadFile(&$fileName, $fileTmpName ) {
-		$basicFileUtility = $this->objectManager->create('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
+		$basicFileUtility = $this->objectManager->get('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
 		$absFileName = $basicFileUtility->getUniqueName( $fileName, \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_placements'));
 		$fileInfo = $basicFileUtility->getTotalFileInfo($absFileName);
 		$fileName = $fileInfo['file'];
