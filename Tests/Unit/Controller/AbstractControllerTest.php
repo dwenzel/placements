@@ -42,8 +42,14 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @var \Webfox\Placements\Controller\AbstractController
 	 */
 	protected $fixture;
+	/**
+	* @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+	*/
+	protected $tsfe = NULL;
 
 	public function setUp() {
+		$this->tsfe = $this->getAccessibleMock('tslib_fe', array('pageNotFoundAndExit'), array(), '', FALSE);
+		$GLOBALS['TSFE'] = $this->tsfe;
 		//$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
@@ -64,5 +70,95 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function dummy() {
 			$this->markTestIncomplete();
 	}
+
+	/**
+	 * @test
+	 */
+	public function emptyHandleEntityNotFoundErrorConfigurationReturnsNull() {
+		$result = $this->fixture->_call('handleEntityNotFoundError', '');
+		$this->assertNull($result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function invalidHandleEntityNotFoundErrorConfigurationReturnsNull() {
+		$result = $this->fixture->_call('handleEntityNotFoundError', 'baz');
+		$this->assertNull($result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function handleEntityNotFoundErrorConfigurationRedirectsToListView() {
+		$mockController = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController', array('redirect'));
+		$mockController->expects($this->once())
+			->method('redirect')
+			->with('list');
+		$mockController->_call('handleEntityNotFoundError', 'redirectToListView');
+	}
+
+	/**
+	 * @test
+	 */
+	public function handleEntityNotFoundErrorConfigurationCallsPageNotFoundHandler() {
+		$this->tsfe->expects($this->once())
+			->method('pageNotFoundAndExit')
+			->with($this->fixture->_get('entityNotFoundMessage'));
+		$this->fixture->_call('handleEntityNotFoundError', 'pageNotFoundHandler');
+	}
+
+	/**
+	 * @test
+	 * @expectedException \InvalidArgumentException	 
+	 */
+	public function handleEntityNotFoundErrorConfigurationWithTooLessOptionsForRedirectToPageThrowsError() {
+		$this->fixture->_call('handleEntityNotFoundError', 'redirectToPage');
+	}
+
+	/**
+	 * @test
+	 * @expectedException \InvalidArgumentException	 
+	 */
+	public function handleEntityNotFoundErrorConfigurationWithTooManyOptionsForRedirectToPageThrowsError() {
+		$this->fixture->_call('handleEntityNotFoundError', 'redirectToPage, arg1, arg2, arg3');
+	}
+
+	/**
+	 * @test
+	 */
+	public function handleEntityNotFoundErrorConfigurationRedirectsToCorrectPage() {
+		$mockController = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController', array('redirectToUri'));
+		$mockUriBuilder = $this->getAccessibleMock('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
+		$mockController->_set('uriBuilder', $mockUriBuilder);
+		$mockUriBuilder->expects($this->once())
+			->method('setTargetPageUid')
+			->with('55');
+		$mockUriBuilder->expects($this->once())
+			->method('build');
+		$mockController->_call('handleEntityNotFoundError', 'redirectToPage, 55');
+	}
+
+	/**
+	 * @test
+	 */
+	public function handleEntityNotFoundErrorConfigurationRedirectsToCorrectPageWithStatus() {
+		$mockController = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController', array('redirectToUri'));
+		$mockUriBuilder = $this->getAccessibleMock('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
+		$mockController->_set('uriBuilder', $mockUriBuilder);
+		$mockUriBuilder->expects($this->once())
+			->method('setTargetPageUid')
+			->with('1');
+		$mockUriBuilder->expects($this->once())
+			->method('build');
+		$mockController->expects($this->once())
+			->method('redirectToUri')
+			->with(null, 0, '301');
+		$mockController->_call('handleEntityNotFoundError', 'redirectToPage, 1, 301');
+	}
+
 }
 ?>
