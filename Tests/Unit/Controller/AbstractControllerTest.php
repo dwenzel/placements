@@ -53,11 +53,11 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		//$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\Placements\\Controller\\AbstractController', array('dummy'), array(), '', FALSE);
+			'\Webfox\Placements\Controller\AbstractController', array('dummy'), array(), '', FALSE);
 	/*	$this->abstractRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository', array(), array(), '', FALSE
 		);*/
-		$this->fixture->injectObjectManager($objectManager);
+		$this->fixture->_set('objectManager', $objectManager);
 	}
 
 	public function tearDown() {
@@ -236,5 +236,31 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function uploadFileHandlesUpload() {
+		$fileName = 'foo.bar';
+		$fileTmpName = 'xyz';
+		$mockFileUtility = $this->getMock(
+			'TYPO3\CMS\Core\Utility\File\BasicFileUtility');
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('TYPO3\CMS\Core\Utility\File\BasicFileUtility')
+			->will($this->returnValue($mockFileUtility));
+		$mockFileUtility->expects($this->once())
+			->method('getUniqueName')
+			->with($fileName, \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_placements'))
+			->will($this->returnValue('foo1.bar'));
+		$mockFileUtility->expects($this->once())
+			->method('getTotalFileInfo')
+			->with('foo1.bar')
+			->will($this->returnValue( array(
+						'file' => 'realFileName')));
+		$this->assertSame(
+			'realFileName',
+			$this->fixture->_call('uploadFile', $fileName, $fileTmpName)
+		);
+	}
 }
 ?>
