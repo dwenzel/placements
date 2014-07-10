@@ -145,11 +145,11 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				$object->_memorizeCleanState($propertyName);
 				$error = $file['error'];
 				$knownErrorCodes = array(1,2,3,4,6,7,8);
+				$key = 'tx_placements.error.upload.unknown';
 				if(in_array($error, $knownErrorCodes)) {
 							$key = 'tx_placements.error.upload.' . $file['error'];
-				} elseif ($error) {
-							$key = 'tx_placements.error.upload.unknown';
 				}
+
 				$errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'placements');
 				if($errorMessage) {
 					$this->addFlashMessage($errorMessage);

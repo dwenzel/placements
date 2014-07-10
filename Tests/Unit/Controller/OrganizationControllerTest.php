@@ -358,7 +358,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$this->fixture->_get('organizationRepository')->expects($this->once())
 			->method('add')
 			->with($mockOrganization);
-		$this->fixture->_get('controllerContext')->expects($this->once())
+		$this->fixture->_get('controllerContext')->expects($this->any())
 			->method('getFlashMessageQueue')
 			->will($this->returnValue($mockMessageQueue));
 
