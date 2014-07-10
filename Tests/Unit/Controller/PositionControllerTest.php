@@ -78,31 +78,40 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @expectedException \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException
 	 */
 	public function processRequestHandlesTargetNotFoundException() {
 		$this->markTestSkipped();
-		$mockOrganization = $this->getMock(
-			'Webfox\Placements\Domain\Model\Organization');
+		$fixture = $this->getMock('Webfox\Placements\Controller\PositionController',
+				array());
+		$mockPosition = $this->getMock(
+			'Webfox\Placements\Domain\Model\Position');
 		$mockRequest = $this->getMock(
 				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('dummy'), array(), '', FALSE);
 		$mockRequest->_set('pluginName', 'Placements');
 		$mockRequest->_set('controllerName', 'PositionController');
-		$mockRequest->_set('arguments', array(
-					'position' => $mockPosition,));
+		$mockRequest->_set('controllerActionName', 'show');
+		/*$mockRequest->_set('arguments', array(
+					'position' => $mockPosition,));*/
 		$this->fixture->_set('request', $mockRequest);
 		
 		$mockResponse = $this->getMock(
 			'\TYPO3\CMS\Extbase\Mvc\ResponseInterface');
 		$mockUriBuilder = $this->getMock(
 			'TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
-
+/*
 		$this->fixture->_get('objectManager')->expects($this->once())
 			->method('get')
 			->with('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder')
-			->will($this->returnValue($mockUriBuilder));
+			->will($this->returnValue($mockUriBuilder));*/
+		$this->fixture->expects($this->any())
+			->method('processRequest')
+			->will($this->throwException(new \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException()));
 		$this->fixture->expects($this->once())
+			->method('handleEntityNotFoundError');
+		$fixture->expects($this->once())
 			->method('mapRequestArgumentsToControllerArguments');
-
+		//$this->fixture->showAction($mockPosition);
 		$this->fixture->processRequest($mockRequest, $mockResponse);
 	}
 
