@@ -486,5 +486,66 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->with('Unknown file upload error.');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
 	}
+
+	/**
+	 * @test
+	 */
+	public function createSearchObjectReturnsInitiallyEmptySearchObject() {
+		$mockSearchObject = $this->getMock('Webfox\Placements\Domain\Model\Dto\Search');
+		$emptySearch = array();
+		$emptySettings = array();
+
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('Webfox\Placements\Domain\Model\Dto\Search')
+			->will($this->returnValue($mockSearchObject));
+
+		$this->assertSame(
+			$mockSearchObject,
+			$this->fixture->createSearchObject($emptySearch, $emptySettings)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createSearchObjectSearchFields() {
+		$mockSearchObject = $this->getMock('Webfox\Placements\Domain\Model\Dto\Search',
+			array());
+		$searchRequest = array(
+			'subject' => 'foo',
+			'location' => 'bar',
+			'radius' => 50000,
+			'bounds' => array('baz')
+		);
+		$settings = array(
+			'fields' => 'foo,bar'
+		);
+
+		$expectedSearchObject = $this->getAccessibleMock('Webfox\Placements\Domain\Model\Dto\Search');
+		$expectedSearchObject->_set('fields', $settings['fields']);
+		$expectedSearchObject->_set('subject', $searchRequest['subject']);
+
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('Webfox\Placements\Domain\Model\Dto\Search')
+			->will($this->returnValue($mockSearchObject));
+		$mockSearchObject->expects($this->once())
+			->method('setFields')
+			->with('foo,bar');
+		$mockSearchObject->expects($this->once())
+			->method('setSubject')
+			->with('foo');
+		$mockSearchObject->expects($this->once())
+			->method('setLocation')
+			->with('bar');
+		$mockSearchObject->expects($this->once())
+			->method('setRadius')
+			->with(50000);
+		$mockSearchObject->expects($this->once())
+			->method('setBounds')
+			->with(array('baz'));
+		$result = $this->fixture->createSearchObject($searchRequest, $settings);
+	}
 }
 ?>
