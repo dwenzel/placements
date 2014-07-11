@@ -224,6 +224,27 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
+	 * Creates a search object from given settings
+	 *
+	 * @param \array $searchRequest An array with the search request
+	 * @param \array $settings Settings for search
+	 * @return \Webfox\Placements\Domain\Model\Dto\Search $search
+	 */
+	public function createSearchObject($searchRequest, $settings) {
+		$searchObject = $this->objectManager->get('Webfox\Placements\Domain\Model\Dto\Search');
+
+		if(isset($searchRequest['subject']) AND isset($settings['fields'])) {
+			$searchObject->setFields($settings['fields']);
+			$searchObject->setSubject($searchRequest['subject']);
+		}
+		if (isset($searchRequest['location']) AND isset($searchRequest['radius']) AND isset($searchRequest['bounds'])) {
+			$searchObject->setLocation($searchRequest['location']);
+			$searchObject->setRadius($searchRequest['radius']);
+			$searchObject->setBounds($searchRequest['bounds']);
+		}
+		return $searchObject;
+	}
+	/**
 	 * @return void
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
