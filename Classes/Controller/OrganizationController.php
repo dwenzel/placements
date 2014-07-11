@@ -105,13 +105,13 @@ class OrganizationController extends AbstractController {
 	public function createAction(\Webfox\Placements\Domain\Model\Organization $newOrganization) {
 		$this->updateFileProperty($newOrganization, 'image');
 		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
-	    	$this->organizationRepository->add($newOrganization);
+		$this->organizationRepository->add($newOrganization);
 		$this->addFlashMessage(
 			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
 				'tx_placements.success.organization.createAction', 'placements'
 			)
 		);
-		if($this->request->hasArgument('save-reload') OR 
+	if($this->request->hasArgument('save-reload') OR 
 			$this->request->hasArgument('save-view' )) {
 			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
 			$persistenceManager->persistAll();

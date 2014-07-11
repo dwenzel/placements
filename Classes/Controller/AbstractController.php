@@ -143,33 +143,18 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($object, $propertyName, $realFileName);
 			} else {
 				$object->_memorizeCleanState($propertyName);
-				if($file['error']) {
-					switch($file['error']) {
-						case 1:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.1', 'placements');
-							break;
-						case 2:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.2', 'placements');
-							break;
-						case 3:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.3', 'placements');
-							break;
-						case 4:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.4', 'placements');
-							break;
-						case 6:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.6', 'placements');
-							break;
-						case 7:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.7', 'placements');
-							break;
-						case 8:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.8', 'placements');
-							break;
-						default:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.unknown', 'placements');
-					}
-					$this->flashMessageContainer->add($errMsg);
+				$error = $file['error'];
+				$knownErrorCodes = array(1,2,3,4,6,7,8);
+				$key = 'tx_placements.error.upload.unknown';
+				if(in_array($error, $knownErrorCodes)) {
+							$key = 'tx_placements.error.upload.' . $file['error'];
+				}
+
+				$errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'placements');
+				if($errorMessage) {
+					$this->addFlashMessage($errorMessage);
+				} else {
+					$this->addFlashMessage($key);
 				}
 			}
 		}
