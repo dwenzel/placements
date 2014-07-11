@@ -596,7 +596,7 @@ class PositionController extends AbstractController {
 		}
 			
 		if (!empty($overwriteDemand['search'])) {
-			$searchObj = $this->getSearchObject(
+			$searchObj = $this->createSearchObject(
 				$overwriteDemand['search'], 
 				$this->settings['position']['search']
 			);
@@ -620,29 +620,6 @@ class PositionController extends AbstractController {
 		}
 
 		return $demand;
-	}
-
-	/** 
-	 * Returns a search object from an array
-	 *
-	 * @param \array $search An array with search request
-	 * @param \array $settings An array with search settings
-	 * @return \Webfox\Placements\Domain\Model\Dto\Search
-	 */
-	public function getSearchObject($search, $settings) {
-		$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
-	
-		if (!empty($search['subject'])) {
-			//@todo: throw exception if search fields are not set
-			$searchObj->setFields($settings['fields']);
-			$searchObj->setSubject($search['subject']);
-		}
-		if (!empty($search['location'])) {
-			$searchObj->setLocation($search['location']);
-			$searchObj->setRadius($search['radius']);
-			$searchObj->setBounds($search['bounds']);
-		}
-		return $searchObj;
 	}
 
 	/**
