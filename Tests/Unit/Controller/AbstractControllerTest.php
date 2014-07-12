@@ -509,7 +509,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	/**
 	 * @test
 	 */
-	public function createSearchObjectSearchFields() {
+	public function createSearchObjectSetsSearchFields() {
 		$mockSearchObject = $this->getMock('Webfox\Placements\Domain\Model\Dto\Search',
 			array());
 		$searchRequest = array(
