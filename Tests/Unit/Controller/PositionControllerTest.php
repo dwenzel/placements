@@ -210,5 +210,131 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 		$this->fixture->listAction($overwriteDemand);
 	}
+
+	/**
+	 * @test
+	 */
+	public function ajaxListActionReturnsInitialliyEmptyResult() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Controller\PositionController',
+				array('createDemandFromSettings'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $this->getMock(
+				'\Webfox\Placements\Domain\Repository\PositionRepository', array(), array(), '', FALSE));
+		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\PositionDemand');
+		$mockResult = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+				array(), array(), '', FALSE);
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->with(NULL)->will($this->returnValue($mockDemand));
+		$fixture->_get('positionRepository')->expects($this->once())->method('findDemanded')->with($mockDemand, TRUE)
+			->will($this->returnValue($mockResult));
+		$this->assertSame(
+				'[]',
+				$fixture->ajaxListAction()
+		);
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function ajaxListActionReturnsCorrectResult() {
+		$this->markTestSkipped();
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Controller\PositionController',
+				array('createDemandFromSettings', 'overwriteDemandObject'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $this->getMock(
+				'\Webfox\Placements\Domain\Repository\PositionRepository', array(), array(), '', FALSE));
+		$overwriteDemand = array('foo' => 'bar');
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
+		$mockQueryResult = $this->getMock(
+				'\TYPO3\CMS\Extbase\Persistence\QueryResultInterface');
+		$mockPosition = $this->getMock('\Webfox\Placements\Domain\Model\Position');
+		$type = $this->getMock('\Webfox\Placements\Domain\Model\PositionType');
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->with(NULL)->will($this->returnValue($mockDemand));
+		$fixture->expects($this->once())->method('overwriteDemandObject')
+			->with($mockDemand, $overwriteDemand)->will($this->returnValue($mockDemand));
+		$fixture->_get('positionRepository')->expects($this->once())->method('findDemanded')->with($mockDemand, TRUE)
+			->will($this->returnValue($mockQueryResult));
+		$mockQueryResult->expects($this->any())->method('getFirst')
+			->will($this->returnValue($mockPosition));
+		$mockPosition->expects($this->once())->method('getType')->will($this->returnValue($type));
+		$type->expects($this->once())->method('getUid')->will($this->returnValue(99));
+		$type->expects($this->once())->method('getTitle')->will($this->returnValue('foo'));
+		$mockPosition->expects($this->once())->method('getUid')->will($this->returnValue(1));
+		$mockPosition->expects($this->once())->method('getTitle')->will($this->returnValue('bar'));
+		$mockPosition->expects($this->once())->method('getSummary')->will($this->returnValue('baz'));
+		$mockPosition->expects($this->once())->method('getCity')->will($this->returnValue('Leipzig'));
+		$mockPosition->expects($this->once())->method('getZip')->will($this->returnValue('1234'));
+		$mockPosition->expects($this->once())->method('getLatitude')->will($this->returnValue(1.2));
+		$mockPosition->expects($this->once())->method('getLongitude')->will($this->returnValue(2.3));
+		$expectedResult = json_encode(
+			array(
+				array(
+					'uid' => 1,
+					'title' => 'foo',
+					'summary' => 'bar',
+					'city' => 'Leipzig',
+					'zip' => 1234,
+					'latitude' => 1.2,
+					'longitude' => 2.3,
+					'type' => array(
+						'uid' => 99,
+						'title' => 'foo'
+					)
+				)
+			)
+		);
+		/*$this->assertSame(
+				$expectedResult,*/
+				$fixture->ajaxListAction($overwriteDemand);
+	//	);
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function ajaxShowActionReturnsCorrectResult() {
+		$position = $this->getMock('\Webfox\Placements\Domain\Model\Position');
+		$type = $this->getMock('\Webfox\Placements\Domain\Model\PositionType');
+
+		$position->expects($this->once())->method('getType')->will($this->returnValue($type));
+		$type->expects($this->once())->method('getUid')->will($this->returnValue(1));
+		$type->expects($this->once())->method('getTitle')->will($this->returnValue('foo'));
+		$this->fixture->_get('positionRepository')->expects($this->once())
+			->method('findByUid')
+			->with(99)
+			->will($this->returnValue($position));
+
+		$position->expects($this->once())->method('getUid')->will($this->returnValue(99));
+		$position->expects($this->once())->method('getTitle')->will($this->returnValue('bar'));
+		$position->expects($this->once())->method('getSummary')->will($this->returnValue('baz'));
+		$position->expects($this->once())->method('getCity')->will($this->returnValue('Leipzig'));
+		$position->expects($this->once())->method('getZip')->will($this->returnValue(123));
+		$position->expects($this->once())->method('getLatitude')->will($this->returnValue(1.2));
+		$position->expects($this->once())->method('getLongitude')->will($this->returnValue(3.4));
+		$expectedResult = json_encode(
+			array(
+				array(
+					'uid' => 99,
+					'title' => 'bar',
+					'summary' => 'baz',
+					'city' => 'Leipzig',
+					'zip' => 123,
+					'latitude' => 1.2,
+					'longitude' => 3.4,
+					'type' => array(
+						'uid' => 1,
+						'title' => 'foo'
+					)
+				)
+			)
+		);
+
+		$this->assertSame(
+			$expectedResult,
+			$this->fixture->ajaxShowAction(99)
+		);
+	}
+
 }
 ?>
