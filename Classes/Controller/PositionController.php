@@ -168,12 +168,10 @@ class PositionController extends AbstractController {
 		foreach($positions as $position) {
 			$type = $position->getType();
 			if ($type) {
-				$typeJson = json_encode(
-						array(
-							'uid' => $type->getUid(),
-							'title' => $type->getTitle(),
-							)
-						);
+				$typeArray = array(
+					'uid' => $type->getUid(),
+					'title' => $type->getTitle(),
+				);
 			}
 			$result[] = array(
 					'uid' => $position->getUid(),
@@ -183,7 +181,7 @@ class PositionController extends AbstractController {
 					'zip' => $position->getZip(),
 					'latitude' => $position->getLatitude(),
 					'longitude' => $position->getLongitude(),
-					'type' => ($typeJson)? $typeJson: NULL,
+					'type' => ($typeArray)? $typeArray: NULL,
 					);
 		}
 		return json_encode($result);
@@ -230,12 +228,10 @@ class PositionController extends AbstractController {
 		if ($position) {
 				$type = $position->getType();
 				if ($type) {
-					$typeJson = json_encode(
-							array(
-								'uid' => $type->getUid(),
-								'title' => $type->getTitle(),
-								)
-							);
+					$typeArray = array(
+						'uid' => $type->getUid(),
+						'title' => $type->getTitle(),
+					);
 				}
 				$result[] = array(
 						'uid' => $position->getUid(),
@@ -245,7 +241,7 @@ class PositionController extends AbstractController {
 						'zip' => $position->getZip(),
 						'latitude' => $position->getLatitude(),
 						'longitude' => $position->getLongitude(),
-						'type' => ($typeJson)? $typeJson: NULL,
+						'type' => ($typeArray)? $typeArray: NULL,
 						);
 			return json_encode($result);
 		}
