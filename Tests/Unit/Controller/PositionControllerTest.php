@@ -176,30 +176,38 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @test
 	 */
 	public function listActionCallsFindDemandedAndAssignsVariables() {
+		$fixture = $this->getAccessibleMock(
+				'Webfox\\Placements\\Controller\PositionController', 
+				array('createDemandFromSettings', 'overwriteDemandObject', 'addFlashMessage'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $this->getMock('Webfox\\Placements\\Domain\\Repository\\PositionRepository', array('findDemanded'), array(), '', FALSE));
 		$overwriteDemand = array(
 			'foo' => 'bar',
 		);
+		$settings = array('foo' => 'bar');
+		$fixture->_set('settings', $settings);
+		$fixture->_set('view', $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView'));
 		$mockResult = $this->getMock(
 				'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
-				array(), array(), '', FALSE);
-		$this->fixture->_set('settings', $settings);
-		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
-		$mockMessageQueue = $this->getMock(
-			'\TYPO3\CMS\Core\Messaging\FlashMessageQueue', array(), array(), '', FALSE);
-	/*	$this->fixture->expects($this->once())
+				array('count'), array(), '', FALSE);
+		$fixture->_set('settings', $settings);
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\\PositionDemand', array(), array(), '', FALSE);
+		$fixture->expects($this->once())
+			->method('createDemandFromSettings')
+			->with($settings)
+			->will($this->returnValue($mockDemand));
+		$fixture->expects($this->once())
 			->method('overwriteDemandObject')
 			->with($mockDemand, $overwriteDemand)
-			->will($this->returnValue($mockDemand));*/
-		$this->fixture->_get('objectManager')->expects($this->once())
-			->method('get')->will($this->returnValue($mockDemand));
-		$this->fixture->_get('positionRepository')->expects($this->once())
+			->will($this->returnValue($mockDemand));
+		$fixture->expects($this->once())->method('overwriteDemandObject')->will($this->returnValue($mockDemand));
+		$fixture->_get('positionRepository')->expects($this->once())
 			->method('findDemanded')
 			->with($mockDemand)
 			->will($this->returnValue($mockResult));
-		$this->fixture->_get('controllerContext')->expects($this->once())
-			->method('getFlashMessageQueue')
-			->will($this->returnValue($mockMessageQueue));
-		$this->fixture->_get('view')->expects($this->once())
+		$mockResult->expects($this->once())->method('count')->will($this->returnValue(0));
+		$fixture->expects($this->once())
+			->method('addFlashMessage');
+		$fixture->_get('view')->expects($this->once())
 			->method('assignMultiple')
 			->with(
 				array(
@@ -208,7 +216,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 					'requestArguments' => null
 				));
 
-		$this->fixture->listAction($overwriteDemand);
+		$fixture->listAction($overwriteDemand);
 	}
 
 	/**
