@@ -226,6 +226,8 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->with(NULL)->will($this->returnValue($mockDemand));
 		$fixture->_get('positionRepository')->expects($this->once())->method('findDemanded')->with($mockDemand, TRUE)
 			->will($this->returnValue($mockResult));
+		$mockResult->expects($this->once())->method('toArray')
+			->will($this->returnValue(array()));
 		$this->assertSame(
 				'[]',
 				$fixture->ajaxListAction()
@@ -237,28 +239,28 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @test
 	 */
 	public function ajaxListActionReturnsCorrectResult() {
-		$this->markTestSkipped();
 		$fixture = $this->getAccessibleMock('\Webfox\Placements\Controller\PositionController',
 				array('createDemandFromSettings', 'overwriteDemandObject'), array(), '', FALSE);
 		$fixture->_set('positionRepository', $this->getMock(
-				'\Webfox\Placements\Domain\Repository\PositionRepository', array(), array(), '', FALSE));
+				'Webfox\\Placements\\Domain\\Repository\\PositionRepository', array('findDemanded'), array(), '', FALSE));
 		$overwriteDemand = array('foo' => 'bar');
 		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
 		$mockQueryResult = $this->getMock(
-				'\TYPO3\CMS\Extbase\Persistence\QueryResultInterface');
-		$mockPosition = $this->getMock('\Webfox\Placements\Domain\Model\Position');
-		$type = $this->getMock('\Webfox\Placements\Domain\Model\PositionType');
+				'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QueryResult',
+				array('toArray'), array(), '', FALSE);
+		$mockPosition = $this->getMock('Webfox\\Placements\\Domain\\Model\\Position');
+		$mockType = $this->getMock('Webfox\Placements\Domain\Model\PositionType');
 		$fixture->expects($this->once())->method('createDemandFromSettings')
 			->with(NULL)->will($this->returnValue($mockDemand));
 		$fixture->expects($this->once())->method('overwriteDemandObject')
 			->with($mockDemand, $overwriteDemand)->will($this->returnValue($mockDemand));
 		$fixture->_get('positionRepository')->expects($this->once())->method('findDemanded')->with($mockDemand, TRUE)
 			->will($this->returnValue($mockQueryResult));
-		$mockQueryResult->expects($this->any())->method('getFirst')
-			->will($this->returnValue($mockPosition));
-		$mockPosition->expects($this->once())->method('getType')->will($this->returnValue($type));
-		$type->expects($this->once())->method('getUid')->will($this->returnValue(99));
-		$type->expects($this->once())->method('getTitle')->will($this->returnValue('foo'));
+		$mockQueryResult->expects($this->once())->method('toArray')
+			->will($this->returnValue(array($mockPosition)));
+		$mockPosition->expects($this->once())->method('getType')->will($this->returnValue($mockType));
+		$mockType->expects($this->once())->method('getUid')->will($this->returnValue(99));
+		$mockType->expects($this->once())->method('getTitle')->will($this->returnValue('foo'));
 		$mockPosition->expects($this->once())->method('getUid')->will($this->returnValue(1));
 		$mockPosition->expects($this->once())->method('getTitle')->will($this->returnValue('bar'));
 		$mockPosition->expects($this->once())->method('getSummary')->will($this->returnValue('baz'));
@@ -270,10 +272,10 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			array(
 				array(
 					'uid' => 1,
-					'title' => 'foo',
-					'summary' => 'bar',
+					'title' => 'bar',
+					'summary' => 'baz',
 					'city' => 'Leipzig',
-					'zip' => 1234,
+					'zip' => '1234',
 					'latitude' => 1.2,
 					'longitude' => 2.3,
 					'type' => array(
@@ -283,10 +285,10 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 				)
 			)
 		);
-		/*$this->assertSame(
-				$expectedResult,*/
-				$fixture->ajaxListAction($overwriteDemand);
-	//	);
+		$this->assertSame(
+				$expectedResult,
+				$fixture->ajaxListAction($overwriteDemand)
+		);
 
 	}
 
@@ -295,11 +297,11 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 */
 	public function ajaxShowActionReturnsCorrectResult() {
 		$position = $this->getMock('\Webfox\Placements\Domain\Model\Position');
-		$type = $this->getMock('\Webfox\Placements\Domain\Model\PositionType');
+		$mockType = $this->getMock('\Webfox\Placements\Domain\Model\PositionType');
 
-		$position->expects($this->once())->method('getType')->will($this->returnValue($type));
-		$type->expects($this->once())->method('getUid')->will($this->returnValue(1));
-		$type->expects($this->once())->method('getTitle')->will($this->returnValue('foo'));
+		$position->expects($this->once())->method('getType')->will($this->returnValue($mockType));
+		$mockType->expects($this->once())->method('getUid')->will($this->returnValue(1));
+		$mockType->expects($this->once())->method('getTitle')->will($this->returnValue('foo'));
 		$this->fixture->_get('positionRepository')->expects($this->once())
 			->method('findByUid')
 			->with(99)
