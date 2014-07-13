@@ -163,7 +163,7 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
-		$positions = $this->positionRepository->findDemanded($demand, TRUE);
+		$positions = $this->positionRepository->findDemanded($demand, TRUE)->toArray();
 		$result = array();
 		foreach($positions as $position) {
 			$type = $position->getType();
