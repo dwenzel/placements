@@ -202,11 +202,9 @@ class PositionController extends AbstractController {
 	
 		if (!empty($overwriteDemand['search']['subject'])) {
 			//@todo: throw exception if search fields are not set
-			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
-			$searchObj->setFields($this->settings['position']['search']['fields']);
-			$searchObj->setSubject($overwriteDemand['search']['subject']);
+			$searchObject = $this->createSearchObject($overwriteDemand['search'], $this->settings['position']['search']);
+			$demand->setSearch($searchObject);
 		}
-		$demand->setSearch($searchObj);
 		$count = $this->positionRepository->countDemanded($demand);	
 		$this->view->assignMultiple(
 				array(
