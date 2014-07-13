@@ -338,5 +338,56 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function countActionCallsFindDemandedAndAssignsVariables() {
+		$fixture = $this->getAccessibleMock('Webfox\\Placements\\Controller\\PositionController',
+			array('createDemandFromSettings', 'overwriteDemandObject', 'createSearchObject'), array(), '', FALSE);
+		$mockRepository = $this->getMock('Webfox\\Placements\\Domain\\Repository\\PositionRepository', array('countDemanded'), array(), '', FALSE);
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\\PositionDemand');
+		$fixture->_set('positionRepository', $mockRepository);
+		$fixture->_set('view', $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView'));
+		$overwriteDemand = array(
+			'search' => array(
+				'subject' => 'bar'
+			)
+		);
+		$settings = array(
+			'position' => array(
+				'search' => array(
+					'fields' => 'foo'
+				)
+			)
+		);
+		$mockResult = $this->getMock(
+				'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+				array(), array(), '', FALSE);
+		$fixture->_set('settings', $settings);
+		$mockSearchObject = $this->getMock('\Webfox\Placements\Domain\Model\Dto\Search');
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->with($settings)->will($this->returnValue($mockDemand));
+		$fixture->expects($this->once())->method('overwriteDemandObject')
+			->with($mockDemand, $overwriteDemand)->will($this->returnValue($mockDemand));
+		$fixture->expects($this->once())->method('createSearchObject')
+			->with($overwriteDemand['search'], $settings['position']['search'])
+			->will($this->returnValue($mockSearchObject));
+		$mockDemand->expects($this->once())->method('setSearch')->with($mockSearchObject);
+		$fixture->_get('positionRepository')->expects($this->once())
+			->method('countDemanded')
+			->with($mockDemand)
+			->will($this->returnValue(1));
+		$fixture->_get('view')->expects($this->once())
+			->method('assignMultiple')
+			->with(
+				array(
+					'count' => 1,
+					'demand' => $mockDemand,
+					'requestArguments' => null
+				));
+
+		$fixture->countAction($overwriteDemand);
+	}
+
 }
 ?>
