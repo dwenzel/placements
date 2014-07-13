@@ -70,6 +70,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$this->fixture->_set('controllerContext', $controllerContext);
 		$this->fixture->_set('arguments', $mockArguments);
 		$this->fixture->_set('objectManager', $objectManager);
+		$this->fixture->_set('accessControlService', $accessControlService);
 	}
 
 	public function tearDown() {
@@ -395,6 +396,46 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 				));
 
 		$fixture->countAction($overwriteDemand);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandFromSettingsCreatesDemand() {
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\MOdel\\Dto\\PositionDemand');
+		$settings = array(
+			'orderBy' => 'foo',
+			'orderDirection' => 'bar',
+			'positionTypes' => '1,2,3',
+			'workingHours' => 'baz',
+			'categories' => '5,6',
+			'sectors' => '7',
+			'constraintsConjunction' => 'AND',
+			'categoryConjunction' => 'OR',
+			'clientsPositionsOnly' => TRUE,
+			'limit' => '5'
+		);
+		$mockUser = $this->getMock('Webfox\\Placements\\Domain\\Model\\User');
+		$mockClient = $this->getMock('Webfox\\Placements\\Domain\\Model\\Client');
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\Placements\\Domain\\Model\\Dto\\PositionDemand')
+			->will($this->returnValue($mockDemand));
+		$this->fixture->_get('accessControlService')->expects($this->once())->method('hasLoggedInClient')->will($this->returnValue(TRUE));
+		$this->fixture->_get('accessControlService')->expects($this->once())->method('getFrontendUser')->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())->method('getClient')->will($this->returnValue($mockClient));
+		$mockClient->expects($this->once())->method('getUid')->will($this->returnValue(1));
+		$mockDemand->expects($this->once())->method('setOrder')->with('foo|bar');
+		$mockDemand->expects($this->once())->method('setPositionTypes')->with('1,2,3');
+		$mockDemand->expects($this->once())->method('setWorkingHours')->with('baz');
+		$mockDemand->expects($this->once())->method('setCategories')->with('5,6');
+		$mockDemand->expects($this->once())->method('setSectors')->with('7');
+		$mockDemand->expects($this->once())->method('setConstraintsConjunction')->with('AND');
+		$mockDemand->expects($this->once())->method('setCategoryConjunction')->with('OR');
+		$mockDemand->expects($this->once())->method('setClients')->with(1);
+		$mockDemand->expects($this->once())->method('setClientsPositionsOnly')->with(TRUE);
+		$mockDemand->expects($this->once())->method('setLimit')->with('5');
+
+		$this->fixture->createDemandFromSettings($settings);
 	}
 
 }
