@@ -516,7 +516,6 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			'subject' => 'foo',
 			'location' => 'bar',
 			'radius' => 50000,
-			'bounds' => array('baz')
 		);
 		$settings = array(
 			'fields' => 'foo,bar'
@@ -542,9 +541,6 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$mockSearchObject->expects($this->once())
 			->method('setRadius')
 			->with(50000);
-		$mockSearchObject->expects($this->once())
-			->method('setBounds')
-			->with(array('baz'));
 		$result = $this->fixture->createSearchObject($searchRequest, $settings);
 	}
 }
