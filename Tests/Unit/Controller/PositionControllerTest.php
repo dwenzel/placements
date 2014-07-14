@@ -438,5 +438,98 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$this->fixture->createDemandFromSettings($settings);
 	}
 
+	/*
+	* @test
+	*/
+	public function overwriteDemandObjectSetsEmptyStringForClients() {
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
+		$overwriteDemand = array(
+			'clientsPositionsOnly' => FALSE
+		);
+		$this->fixture->_get('accessControlService')->expects($this->once())
+			->method('hasLoggedInClient')
+			->will($this->returnValue(FALSE));
+		$mockDemand->expects($this->once())->method('setClient')->with('');
+
+		$this->fixture->overwriteDemandObject($mockDemand, $overwriteDemand);
+	}
+
+	/*
+	* @test
+	*/
+	public function overwriteDemandObjectSetsClients() {
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
+		$overwriteDemand = array(
+			'clientsPositionsOnly' => TRUE
+		);
+		$mockUser = $this->getMock('Webfox\\Placementst\\Domain\\Model\User');
+		$mockClient = $this->getMock('Webfox\\Placementst\\Domain\\Model\Client');
+		$this->fixture->_get('accessControlService')->expects($this->once())
+			->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+		$this->fixture->_get('accessControlServicer')->expects($this->once())
+			->method('getFrontendUser')->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())->method('getClient')->will($this->returnValue($mockClient));
+		$mockClient->expects($this->once())->method('getUid')->will($this->returnValue(1));
+		$mockDemand->expects($this->once())->method('setClient')->with('1');
+
+		$this->fixture->overwriteDemandObject($mockDemand, $overwriteDemand);
+	}
+
+	/*
+	* @test
+	*/
+	public function overwriteDemandObjectSetsOrderByWithOrderDirectionFromSettings() {
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
+		$overwriteDemand = array(
+			'orderBy' => 'foo'
+		);
+		$settings = array(
+			'orderDirection' => 'asc'
+		);
+		$this->fixture->_set('settings', $settings);
+		$mockDemand->expects($this->once())->method('setOrder')->with('foo|asc');
+
+		$this->fixture->overwriteDemandObject($mockDemand, $overwriteDemand);
+	}
+
+	/*
+	* @test
+	*/
+	public function overwriteDemandObjectOverwritesOrderDirectionFromSettings() {
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
+		$overwriteDemand = array(
+			'orderBy' => 'foo',
+			'orderDirection' => 'desc'
+		);
+		$settings = array(
+			'orderDirection' => 'asc'
+		);
+		$this->fixture->_set('settings', $settings);
+		$mockDemand->expects($this->once())->method('setOrder')->with('foo|desc');
+
+		$this->fixture->overwriteDemandObject($mockDemand, $overwriteDemand);
+	}
+
+	/*
+	* @test
+	*/
+	public function overwriteDemandObjectCreatesSearchObjectAndSetsSearch() {
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
+		$overwriteDemand = array(
+			'search' => 'foo'
+		);
+		$settings = array(
+			'position' => array('search' => 'bar')
+		);
+		$mockSearch = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
+		$this->fixture->_set('settings', $settings);
+		$mockDemand->expects($this->once())->method('createSearchObject')
+			->with($overwriteDemand['search'], $settings['position']['search'])
+			->will($this->returnValue($mockSeach));
+		$mockDemand->expects($this->once())->method('setSearch')->with($mockSearch);
+
+		$this->fixture->overwriteDemandObject($mockDemand, $overwriteDemand);
+	}
 }
 ?>
