@@ -163,17 +163,15 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
-		$positions = $this->positionRepository->findDemanded($demand, TRUE);
+		$positions = $this->positionRepository->findDemanded($demand, TRUE)->toArray();
 		$result = array();
 		foreach($positions as $position) {
 			$type = $position->getType();
 			if ($type) {
-				$typeJson = json_encode(
-						array(
-							'uid' => $type->getUid(),
-							'title' => $type->getTitle(),
-							)
-						);
+				$typeArray = array(
+					'uid' => $type->getUid(),
+					'title' => $type->getTitle(),
+				);
 			}
 			$result[] = array(
 					'uid' => $position->getUid(),
@@ -183,7 +181,7 @@ class PositionController extends AbstractController {
 					'zip' => $position->getZip(),
 					'latitude' => $position->getLatitude(),
 					'longitude' => $position->getLongitude(),
-					'type' => ($typeJson)? $typeJson: NULL,
+					'type' => ($typeArray)? $typeArray: NULL,
 					);
 		}
 		return json_encode($result);
@@ -204,11 +202,9 @@ class PositionController extends AbstractController {
 	
 		if (!empty($overwriteDemand['search']['subject'])) {
 			//@todo: throw exception if search fields are not set
-			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
-			$searchObj->setFields($this->settings['position']['search']['fields']);
-			$searchObj->setSubject($overwriteDemand['search']['subject']);
+			$searchObject = $this->createSearchObject($overwriteDemand['search'], $this->settings['position']['search']);
+			$demand->setSearch($searchObject);
 		}
-		$demand->setSearch($searchObj);
 		$count = $this->positionRepository->countDemanded($demand);	
 		$this->view->assignMultiple(
 				array(
@@ -230,12 +226,10 @@ class PositionController extends AbstractController {
 		if ($position) {
 				$type = $position->getType();
 				if ($type) {
-					$typeJson = json_encode(
-							array(
-								'uid' => $type->getUid(),
-								'title' => $type->getTitle(),
-								)
-							);
+					$typeArray = array(
+						'uid' => $type->getUid(),
+						'title' => $type->getTitle(),
+					);
 				}
 				$result[] = array(
 						'uid' => $position->getUid(),
@@ -245,7 +239,7 @@ class PositionController extends AbstractController {
 						'zip' => $position->getZip(),
 						'latitude' => $position->getLatitude(),
 						'longitude' => $position->getLongitude(),
-						'type' => ($typeJson)? $typeJson: NULL,
+						'type' => ($typeArray)? $typeArray: NULL,
 						);
 			return json_encode($result);
 		}
@@ -596,7 +590,7 @@ class PositionController extends AbstractController {
 		}
 			
 		if (!empty($overwriteDemand['search'])) {
-			$searchObj = $this->getSearchObject(
+			$searchObj = $this->createSearchObject(
 				$overwriteDemand['search'], 
 				$this->settings['position']['search']
 			);
@@ -620,29 +614,6 @@ class PositionController extends AbstractController {
 		}
 
 		return $demand;
-	}
-
-	/** 
-	 * Returns a search object from an array
-	 *
-	 * @param \array $search An array with search request
-	 * @param \array $settings An array with search settings
-	 * @return \Webfox\Placements\Domain\Model\Dto\Search
-	 */
-	public function getSearchObject($search, $settings) {
-		$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
-	
-		if (!empty($search['subject'])) {
-			//@todo: throw exception if search fields are not set
-			$searchObj->setFields($settings['fields']);
-			$searchObj->setSubject($search['subject']);
-		}
-		if (!empty($search['location'])) {
-			$searchObj->setLocation($search['location']);
-			$searchObj->setRadius($search['radius']);
-			$searchObj->setBounds($search['bounds']);
-		}
-		return $searchObj;
 	}
 
 	/**
