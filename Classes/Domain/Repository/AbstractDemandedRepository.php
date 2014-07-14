@@ -43,6 +43,12 @@ abstract class AbstractDemandedRepository
 	protected $storageBackend;
 
 	/**
+	 * @var \Webfox\Placements\Utility\Geocoder
+	 * @inject
+	 */
+	protected $geoCoder;
+
+	/**
 	 * Returns an array of constraints created from a given demand object.
 	 * 
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
@@ -115,8 +121,8 @@ abstract class AbstractDemandedRepository
 	 */
 	public function filterByRadius($queryResult, $geoLocation, $distance) {
 		$objectUids = array();
-		foreach($queryResult as $object) {
-			$currDist = \Webfox\Placements\Utility\Geocoder::distance(
+		foreach($queryResult->toArray() as $object) {
+			$currDist = $this->geoCoder->distance(
 				$geoLocation['lat'], 
 				$geoLocation['lng'],
 				$object->getLatitude(),
@@ -129,7 +135,7 @@ abstract class AbstractDemandedRepository
 		$orderings = $queryResult->getQuery()->getOrderings();
 		$sortField = array_shift(array_keys($orderings));
 		$sortOrder = array_shift(array_values($orderings));
-		$objects = self::findMultipleByUid(
+		$objects = $this->findMultipleByUid(
 			implode(',', $objectUids), $sortField, $sortOrder
 		);
 		return $objects;
