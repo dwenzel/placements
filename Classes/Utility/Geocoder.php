@@ -23,8 +23,14 @@ namespace Webfox\Placements\Utility;
  * This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-Class Geocoder {
+Class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
 	static private $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+	}
 
 	/**
 	 * Get Geolocation encoded from Google Maps geocode service.
@@ -33,16 +39,27 @@ Class Geocoder {
 	 * @return \array Array containing geolocation information
 	 */
 	public function getLocation($address){
-		$url = self::$url.urlencode($address);
+		$url = $this->url.urlencode($address);
 		
-		$resp_json = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($url);
-		$resp = json_decode($resp_json, true);
-
-		if($resp['status']='OK'){
-			return $resp['results'][0]['geometry']['location'];
+		$response_json = $this->getUrl($url); 
+		$response = json_decode($response_json, true);
+		if($response['status'] == 'OK'){
+			return $response['results'][0]['geometry']['location'];
 		}else{
-			return false;
+			return FALSE;
 		}
+	}
+
+	/**
+	 * Get url
+	 * Wrapper for GeneralUtility::getUrl to make it testable.
+	 *
+	 * @param \string $url File/Url to fetch
+	 * @return mixed Response
+	 * @codeCoverageIgnore
+	 */
+	public function getUrl($url) {
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($url);
 	}
 
 	/**
@@ -53,6 +70,7 @@ Class Geocoder {
 	 * @param \integer $distance Distance
 	 * @param \string $units Units: default km. Any other value will result in computing with mile based constants.
 	 * @return \array An array with lat and lng values
+	 * @codeCoverageIgnore
 	 */
 	public function destination($lat,$lng, $bearing, $distance, $units="km") {
     $radius = strcasecmp($units, "km") ? 3963.19 : 6378.137;
@@ -78,12 +96,13 @@ Class Geocoder {
 	 * @param \float $distance Distance around location
 	 * @param \string $units Unit: default km. Any other value will result in computing with mile based constants.
 	 * @return \array An array describing a bounding box
+	 * @codeCoverageIgnore
 	 */
 	public function getBoundsByRadius($lat, $lng, $distance, $units="km") {
-		return array("N" => self::destination($lat,$lng,   0, $distance,$units),
-			"E" => self::destination($lat,$lng,  90, $distance,$units),
-			"S" => self::destination($lat,$lng, 180, $distance,$units),
-			"W" => self::destination($lat,$lng, 270, $distance,$units));
+		return array("N" => $this->destination($lat,$lng,   0, $distance,$units),
+			"E" => $this->destination($lat,$lng,  90, $distance,$units),
+			"S" => $this->destination($lat,$lng, 180, $distance,$units),
+			"W" => $this->destination($lat,$lng, 270, $distance,$units));
 	}
 
 	/**
@@ -95,6 +114,7 @@ Class Geocoder {
 	 * @param \float $lonB Longitude of location B
 	 * @param \string $units Units: default km. Any other value will result in computing with mile based constants.
 	 * @return \float
+	 * @codeCoverageIgnore
 	 */
 	public function distance($latA,$lonA, $latB,$lonB, $units="km") {
 		$radius = strcasecmp($units, "km") ? 3963.19 : 6378.137;
