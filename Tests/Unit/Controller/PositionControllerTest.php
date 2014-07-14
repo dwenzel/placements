@@ -516,8 +516,14 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	*/
 	public function overwriteDemandObjectCreatesSearchObjectAndSetsSearch() {
 		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
+		$mockGeoCoder = $this->getMock('Webfox\\Placements\\Utility\\GeoCoder');
 		$overwriteDemand = array(
-			'search' => 'foo'
+			'search' => array(
+				'subject' => 'foo',
+				'location' => 'bar',
+				'radius' => 1000,
+				'bounds' => 'baz'
+			)
 		);
 		$settings = array(
 			'position' => array('search' => 'bar')
@@ -528,7 +534,18 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->with($overwriteDemand['search'], $settings['position']['search'])
 			->will($this->returnValue($mockSeach));
 		$mockDemand->expects($this->once())->method('setSearch')->with($mockSearch);
-
+		$mockDemand->expects($this->any())->method('getSearch')
+			->will($this->returnValue($mockSearch));
+		$mockSearch->expects($this->any())->method('getRadius')
+			->will($this->returnValue($overwriteDemand['search']['radius']));
+		$mockSearch->expects($this->once())->method('setRadius')
+			->with($overwriteDemand['search']['radius']);
+		$mockSearch->expects($this->once())->method('getLocation')
+			->will($this->returnValue($overwriteDemand['search']['location']));
+		/*@todo: we expect the static method GeoLocation::getLocation to return false
+			We should probably try and make this a non static method */
+		$mockSearch->expects($this->once())->method('setGeoLocation')
+			->with(FALSE);
 		$this->fixture->overwriteDemandObject($mockDemand, $overwriteDemand);
 	}
 }
