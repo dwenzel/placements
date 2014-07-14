@@ -237,10 +237,9 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			$searchObject->setFields($settings['fields']);
 			$searchObject->setSubject($searchRequest['subject']);
 		}
-		if (isset($searchRequest['location']) AND isset($searchRequest['radius']) AND isset($searchRequest['bounds'])) {
+		if (isset($searchRequest['location']) AND isset($searchRequest['radius'])) {
 			$searchObject->setLocation($searchRequest['location']);
 			$searchObject->setRadius($searchRequest['radius']);
-			$searchObject->setBounds($searchRequest['bounds']);
 		}
 		return $searchObject;
 	}

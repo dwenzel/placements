@@ -200,7 +200,7 @@ class PositionController extends AbstractController {
 		}
 
 	
-		if (!empty($overwriteDemand['search']['subject'])) {
+		if (!empty($overwriteDemand['search'])) {
 			//@todo: throw exception if search fields are not set
 			$searchObject = $this->createSearchObject($overwriteDemand['search'], $this->settings['position']['search']);
 			$demand->setSearch($searchObject);
