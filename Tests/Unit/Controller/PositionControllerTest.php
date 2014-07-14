@@ -544,8 +544,8 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$mockSearch->expects($this->any())->method('getRadius')
 			->will($this->returnValue($overwriteDemand['search']['radius']));
 		$mockSearch->expects($this->any())->method('getLocation')
-			->will($this->returnValue($overwriteDemand['search']['location']));
-		/*@todo: we expect the static method GeoLocation::getLocation to return false
+			->will($this->returnValue(FALSE));
+		/*@todo: we have to return FALSE in order to avoid calling  the static method GeoLocation::getLocation. This fails in phpunit 4.x!
 			We should probably try and make this a non static method 
 		$mockSearch->expects($this->once())->method('setRadius')
 			->with($overwriteDemand['search']['radius']);
