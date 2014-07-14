@@ -26,7 +26,13 @@ namespace Webfox\Placements\Utility;
 Class Geocoder {
 	static private $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
 
-	static public function getLocation($address){
+	/**
+	 * Get Geolocation encoded from Google Maps geocode service.
+	 *
+	 * @param \string $address An address to encode.
+	 * @return \array Array containing geolocation information
+	 */
+	public function getLocation($address){
 		$url = self::$url.urlencode($address);
 		
 		$resp_json = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($url);
@@ -39,8 +45,16 @@ Class Geocoder {
 		}
 	}
 
-	// calculate destination lat/lng given a starting point, bearing, and distance
-	public function destination($lat,$lng, $bearing, $distance,$units="km") {
+	/**
+	 * calculate destination lat/lng given a starting point, bearing, and distance
+	 *
+	 * @param \float $lat Latitude
+	 * @param \float $lng Longitude
+	 * @param \integer $distance Distance
+	 * @param \string $units Units: default km. Any other value will result in computing with mile based constants.
+	 * @return \array An array with lat and lng values
+	 */
+	public function destination($lat,$lng, $bearing, $distance, $units="km") {
     $radius = strcasecmp($units, "km") ? 3963.19 : 6378.137;
     $rLat = deg2rad($lat);
     $rLon = deg2rad($lng);
@@ -56,16 +70,33 @@ Class Geocoder {
     return array("lat" => rad2deg($rLatB), "lng" => rad2deg($rLonB));
 	}
 	
-	// calculate bounding box
-	public function getBoundsByRadius($lat,$lng, $distance,$units="km") {
+	/**
+	 * calculate bounding box
+	 *
+	 * @param \float $lat Latitude of location
+	 * @param \float $lng Longitude of location
+	 * @param \float $distance Distance around location
+	 * @param \string $units Unit: default km. Any other value will result in computing with mile based constants.
+	 * @return \array An array describing a bounding box
+	 */
+	public function getBoundsByRadius($lat, $lng, $distance, $units="km") {
 		return array("N" => self::destination($lat,$lng,   0, $distance,$units),
 			"E" => self::destination($lat,$lng,  90, $distance,$units),
 			"S" => self::destination($lat,$lng, 180, $distance,$units),
 			"W" => self::destination($lat,$lng, 270, $distance,$units));
 	}
 
-	// calculate distance between two lat/lon coordinates
-	function distance($latA,$lonA, $latB,$lonB, $units="km") {
+	/**
+	 * calculate distance between two lat/lon coordinates
+	 *
+	 * @param \float $latA Latitude of location A
+	 * @param \float $lonA Longitude of location A
+	 * @param \float $latB Latitude of location B
+	 * @param \float $lonB Longitude of location B
+	 * @param \string $units Units: default km. Any other value will result in computing with mile based constants.
+	 * @return \float
+	 */
+	public function distance($latA,$lonA, $latB,$lonB, $units="km") {
 		$radius = strcasecmp($units, "km") ? 3963.19 : 6378.137;
 		$rLatA = deg2rad($latA);
 		$rLatB = deg2rad($latB);
