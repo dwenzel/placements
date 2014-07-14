@@ -318,7 +318,7 @@ class PositionController extends AbstractController {
 			$address = '';
 			$address .= ($newPosition->getZip() !='')? $newPosition->getZip() . ' ': NULL;
 			$address .= $newPosition->getCity();
-			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
+			$location = $this->geoCoder->getLocation($address);
 			if($location) {
 					$newPosition->setLatitude($location['lat']);
 					$newPosition->setLongitude($location['lng']);
@@ -391,7 +391,7 @@ class PositionController extends AbstractController {
 			$address = '';
 			$address .= ($position->getZip() !='')? $position->getZip() . ' ': NULL;
 			$address .= $position->getCity();
-			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
+			$location = $this->geoCoder->getLocation($address);
 			if($location) {
 					$position->setLatitude($location['lat']);
 					$position->setLongitude($location['lng']);
@@ -602,7 +602,7 @@ class PositionController extends AbstractController {
 		if ($demand->getSearch() AND 
 				$demand->getSearch()->getRadius() 
 				AND $demand->getSearch()->getLocation()) {
-			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($demand->getSearch()->getLocation());
+			$geoLocation = $this->geoCoder->getLocation($demand->getSearch()->getLocation());
 			if($geoLocation) {
 				$demand->setGeoLocation($geoLocation);
 				$demand->setRadius($searchObj->getRadius());
