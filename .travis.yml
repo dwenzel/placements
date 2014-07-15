@@ -44,8 +44,8 @@ after_script:
 #- source build-environment/update-gh-pages.sh
 matrix: 
   include: 
-#  - env: DB=mysql TYPO3=master INTEGRATION=master-placements COVERAGE=1
-#    php: 5.5
+  - env: DB=mysql TYPO3=master INTEGRATION=master-placements COVERAGE=1
+    php: 5.5
 services: 
 #- memcached
 env: 
@@ -55,4 +55,4 @@ env:
   - DB=mysql TYPO3=master INTEGRATION=master-placements COVERAGE=0
 php: 
 - 5.3
-#- 5.4
+- 5.4
