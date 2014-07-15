@@ -39,15 +39,15 @@ namespace Webfox\Placements\Tests;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class GeoCoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Webfox\Placements\Utility\Geocoder
+	 * @var
 	 */
 	protected $fixture;
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock('\Webfox\Placements\Utility\Geocoder',
-				array('getUrl'));
+				array('getUrl'), array(), '', FALSE);
 	}
 
 	public function tearDown() {
