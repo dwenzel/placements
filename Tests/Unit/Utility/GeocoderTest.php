@@ -164,15 +164,5 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->_call('getLocation', 'bogus')
 		);
 	}
-
-	/**
-	 * @test
-	 */
-	public function testReturnsFoo() {
-		$this->assertSame(
-			'foo',
-			$this->fixture->test()
-		);
-	}
 }
 ?>

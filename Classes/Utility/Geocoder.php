@@ -32,10 +32,6 @@ class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
 	public function __construct() {
 	}
 
-	public function test() {
-		return 'foo';
-	}
-
 	/**
 	 * Get Geolocation encoded from Google Maps geocode service.
 	 *
