@@ -23,7 +23,7 @@ namespace Webfox\Placements\Utility;
  * This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-Class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
+class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
 	static private $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
 
 	/**
