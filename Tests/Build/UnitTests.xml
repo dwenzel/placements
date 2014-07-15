@@ -10,11 +10,11 @@
 	stopOnIncomplete="false"
 	stopOnSkipped="false"
 	strict="false"
-	verbose="false">
+	verbose="true">
 
 	<testsuites>
 		<testsuite name="EXT:placements tests">
-			<directory>../Unit/</directory>
+			<directory>../Unit/Utility/</directory>
 		</testsuite>
 	</testsuites>
 
