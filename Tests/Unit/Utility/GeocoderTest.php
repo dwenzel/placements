@@ -46,8 +46,8 @@ class GeoCoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = $this->getMock('Webfox\\Placements\\Utility\\Geocoder',
-				array('dummy'));
+		$this->fixture = $this->getAccessibleMock('\Webfox\Placements\Utility\Geocoder',
+				array('getUrl'));
 	}
 
 	public function tearDown() {
@@ -137,7 +137,7 @@ class GeoCoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		$this->fixture->expects($this->once())->method('getUrl')
 			->will($this->returnValue($response));
 
-		$result = $this->fixture->getLocation('bogus');
+		$result = $this->fixture->_call('getLocation', 'bogus');
 		$this->assertSame(
 				FALSE,
 				$result
@@ -159,7 +159,7 @@ class GeoCoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 		$this->assertSame(
 			$result,
-			$this->fixture->getLocation('bogus')
+			$this->fixture->_call('getLocation', 'bogus')
 		);
 	}
 }
