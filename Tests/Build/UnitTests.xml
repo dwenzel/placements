@@ -14,7 +14,7 @@
 
 	<testsuites>
 		<testsuite name="EXT:placements tests">
-			<directory>../Unit/Utility/</directory>
+			<directory>../Unit/</directory>
 		</testsuite>
 	</testsuites>
 
