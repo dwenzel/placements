@@ -1,9 +1,18 @@
 script: 
 #- phpCodeSniff
 - if [[ "$COVERAGE" == "0" ]]; then php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; fi
-- if [[ "$COVERAGE" == "1" ]]; then php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit --process-isolation  --bootstrap typo3/sysext/core/Build/FunctionalTestsBootstrap.php typo3conf/ext/placements/Tests/Functional/; fi
-- if [[ "$COVERAGE" == "1" ]]; then php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit --coverage-clover=$PWD/build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; fi
-- if [[ "$COVERAGE" == "1" ]]; then php vendor/bin/coveralls -v; fi
+#- if [[ "$COVERAGE" == "1" ]]; then php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit --process-isolation  --bootstrap typo3/sysext/core/Build/FunctionalTestsBootstrap.php typo3conf/ext/placements/Tests/Functional/; fi
+  - >
+    if [[ "$COVERAGE" == "1" ]]; then
+      echo;
+      echo "Running unit tests";
+      php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit --coverage-clover=$PWD/build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; 
+      ls -la $PWD/build/artifacts/coverage
+
+      echo;
+      echo "Running coveralls"
+      php vendor/bin/coveralls -v; 
+    fi
 language: php
 before_script: 
 #- sudo apt-get update && sudo apt-get install git
@@ -23,11 +32,18 @@ before_script:
 #- if [[ "$COVERAGE" == "1" ]]; then curl -s http://getcomposer.org/installer | php; fi
 #- if [[ "$COVERAGE" == "1" ]]; then php composer.phar install --dev --no-interaction; fi
 - wget http://getcomposer.org/composer.phar
-- php composer.phar install --dev --no-interaction
-- if [[ "$COVERAGE" == "1" ]]; then export COVERALLS_SERVICE_NAME=travis-ci; fi
-- if [[ "$COVERAGE" == "1" ]]; then cp -R placements/.git .; fi
-- if [[ "$COVERAGE" == "1" ]]; then mv placements/.coveralls.yml ./; fi
-- if [[ "$COVERAGE" == "1" ]]; then php composer.phar update satooshi/php-coveralls --dev; fi
+- > 
+  if [[ "$COVERAGE" == "0" ]]; then
+    composer.phar install;
+  fi
+- > 
+  if [[ "$COVERAGE" == "1" ]]; then 
+    php composer.phar install --dev --no-interaction
+    export COVERALLS_SERVICE_NAME=travis-ci; 
+    cp -R placements/.git .;
+    mv placements/.coveralls.yml ./;
+    php composer.phar update satooshi/php-coveralls --dev; 
+  fi
 - git clone --single-branch --branch $TYPO3 --depth 1 git://git.typo3.org/TYPO3CMS/Distributions/Introduction.git build-environment/Introduction
 - mv core/typo3 .
 - if [[ -d core/t3lib ]]; then mv core/t3lib . ; fi
