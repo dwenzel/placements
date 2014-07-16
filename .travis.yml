@@ -1,8 +1,8 @@
 script: 
 #- phpCodeSniff
-- if [[ "$COVERAGE" == "0" ]]; then php $PWD/typo3/cli_dispatch.phpsh phpunit -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; fi
+- if [[ "$COVERAGE" == "0" ]]; then php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; fi
 - if [[ "$COVERAGE" == "1" ]]; then php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit --process-isolation  --bootstrap typo3/sysext/core/Build/FunctionalTestsBootstrap.php typo3conf/ext/placements/Tests/Functional/; fi
-- if [[ "$COVERAGE" == "1" ]]; then php $PWD/typo3/cli_dispatch.phpsh phpunit --coverage-clover=build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; fi
+- if [[ "$COVERAGE" == "1" ]]; then php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit --coverage-clover=build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; fi
 - if [[ "$COVERAGE" == "1" ]]; then php vendor/bin/coveralls -v; fi
 language: php
 before_script: 
