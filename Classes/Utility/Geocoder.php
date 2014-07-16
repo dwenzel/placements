@@ -24,7 +24,7 @@ namespace Webfox\Placements\Utility;
  * ************************************************************* */
 
 class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
-	static private $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
+	public static $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
 
 	/**
 	 * Constructor
