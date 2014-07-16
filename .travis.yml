@@ -20,8 +20,10 @@ before_script:
 #- installPhpModule -y memcache
 #- if [[ "$TRAVIS_PHP_VERSION" == "5.3" ]]; then installPhpModule -y apc; fi
 - if [[ "$COVERAGE" == "1" ]]; then mv build-environment/composer.json ./; fi
-- if [[ "$COVERAGE" == "1" ]]; then curl -s http://getcomposer.org/installer | php; fi
-- if [[ "$COVERAGE" == "1" ]]; then php composer.phar install --dev --no-interaction; fi
+#- if [[ "$COVERAGE" == "1" ]]; then curl -s http://getcomposer.org/installer | php; fi
+#- if [[ "$COVERAGE" == "1" ]]; then php composer.phar install --dev --no-interaction; fi
+- wget http://getcomposer.org/composer.phar
+- php composer.phar install
 - if [[ "$COVERAGE" == "1" ]]; then export COVERALLS_SERVICE_NAME=travis-ci; fi
 - if [[ "$COVERAGE" == "1" ]]; then cp -R placements/.git .; fi
 - if [[ "$COVERAGE" == "1" ]]; then mv placements/.coveralls.yml ./; fi
