@@ -47,7 +47,7 @@ before_script:
 - wget http://getcomposer.org/composer.phar
 - > 
   if [[ "$COVERAGE" == "0" ]]; then
-    composer.phar install;
+    php composer.phar install;
   fi
 - > 
   if [[ "$COVERAGE" == "1" ]]; then 
