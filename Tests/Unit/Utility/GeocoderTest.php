@@ -132,6 +132,12 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
+	public function classHasStaticAttributeUrl() {
+		$this->assertClassHasStaticAttribute('url', 'Webfox\Placements\Utility\Geocoder');
+	}
+	/**
+	 * @test
+	 */
 	public function getLocationReturnsFalseForInvalidRequest() {
 		$this->markTestSkipped();
 		$response = $this->getGoogleMapsGeocodeApiResponse('invalid_request');
