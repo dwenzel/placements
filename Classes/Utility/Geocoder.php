@@ -24,12 +24,26 @@ namespace Webfox\Placements\Utility;
  * ************************************************************* */
 
 class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
-	public static $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
+	/**
+	 * Service Url
+	 *
+	 * @var \string Base Url for geocoding service.
+	 */
+	protected $serviceUrl = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
+	}
+
+	/**
+	 * Returns the base url of the geocoding service
+	 *
+	 * @return \string
+	 */
+	public function getServiceUrl() {
+		return $this->serviceUrl;
 	}
 
 	/**
@@ -39,7 +53,7 @@ class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
 	 * @return \array Array containing geolocation information
 	 */
 	public function getLocation($address){
-		$url = $this->url.urlencode($address);
+		$url = $this->serviceUrl . urlencode($address);
 		
 		$response_json = $this->getUrl($url); 
 		$response = json_decode($response_json, true);
