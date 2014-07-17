@@ -26,8 +26,8 @@ script:
     echo;
     echo "Running unit tests";
     #php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit -coverage-clover=$PWD/build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; 
-    $PWD/typo3/cli_dispatch.phpsh phpunit -coverage-clover=build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
-    ls -la $PWD/build/artifacts/coverage
+    $PWD/typo3/cli_dispatch.phpsh phpunit --coverage-clover=build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
+    #ls -la $PWD/build/artifacts/coverage
   fi
 - >
   if [[ "$COVERAGE" == "1" ]]; then
@@ -53,10 +53,10 @@ before_script:
 #- if [[ "$COVERAGE" == "1" ]]; then curl -s http://getcomposer.org/installer | php; fi
 #- if [[ "$COVERAGE" == "1" ]]; then php composer.phar install --dev --no-interaction; fi
 - wget http://getcomposer.org/composer.phar
-- > 
-  if [[ "$COVERAGE" == "0" ]]; then
-    php composer.phar install;
-  fi
+#- > 
+#  if [[ "$COVERAGE" == "0" ]]; then
+#    php composer.phar install;
+#  fi
 - > 
   if [[ "$COVERAGE" == "1" ]]; then 
     php composer.phar install --dev --no-interaction
