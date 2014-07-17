@@ -91,6 +91,18 @@
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.entryDate</numIndex>
 										<numIndex index="1">entryDate</numIndex>
 									</numIndex>
+									<numIndex index="5">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.uid</numIndex>
+										<numIndex index="1">uid</numIndex>
+									</numIndex>
+									<numIndex index="6">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.tstamp</numIndex>
+										<numIndex index="1">tstamp</numIndex>
+									</numIndex>
+									<numIndex index="7">
+										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.zip</numIndex>
+										<numIndex index="1">zip</numIndex>
+									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
