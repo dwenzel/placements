@@ -60,7 +60,7 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @param \string $response Which result should be returned
 	 * @return \string Mocked response json
 	 */
-	private function getGoogleMapsGeocodeApiResponse($response) {
+	public function getGoogleMapsGeocodeApiResponse($response) {
 		if($response == 'success') {
 			$result = '{
    			"results" : [
