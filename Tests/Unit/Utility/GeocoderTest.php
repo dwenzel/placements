@@ -133,9 +133,10 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getServiceUrlReturnsInitialValueForString() {
+		$fixture = new \Webfox\Placements\Utility\Geocoder();
 		$this->assertSame(
 				'http://maps.google.com/maps/api/geocode/json?sensor=false&address=',
-				$this->fixture->getServiceUrl()
+				$fixture->getServiceUrl()
 		);
 	}
 
