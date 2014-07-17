@@ -28,6 +28,7 @@ script:
     #php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit -coverage-clover=$PWD/build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; 
     $PWD/typo3/cli_dispatch.phpsh phpunit -coverage-clover=build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
     ls -la $PWD/build/artifacts/coverage
+  fi
 - >
   if [[ "$COVERAGE" == "1" ]]; then
     echo;
