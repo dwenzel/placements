@@ -23,7 +23,7 @@ namespace Webfox\Placements\Utility;
  * This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
+class Geocoder {
 	/**
 	 * Service Url
 	 *
