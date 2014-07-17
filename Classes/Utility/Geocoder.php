@@ -32,12 +32,6 @@ class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
 	protected $serviceUrl = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
 
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Returns the base url of the geocoding service
 	 *
 	 * @return \string
