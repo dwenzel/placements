@@ -1,11 +1,11 @@
 language: php
 php: 
 - 5.3
-#- 5.4
-#matrix: 
-#  include: 
-#    - env: DB=mysql TYPO3=master INTEGRATION=master-placements COVERAGE=1
-#      php: 5.5
+- 5.4
+matrix: 
+  include: 
+    - env: DB=mysql TYPO3=master INTEGRATION=master-placements COVERAGE=1
+      php: 5.5
 services: 
 - memcached
 env: 
@@ -36,6 +36,7 @@ script:
     php vendor/bin/coveralls -v; 
   fi
 before_script: 
+- composer self-update
 - cd ..
 - mkdir -p build/artifacts/coverage
 - mkdir build/artifacts/logs
