@@ -69,6 +69,13 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	/**
 	 * @test
 	 */
+	public function classHasAttributeGeoCoder() {
+			$this->assertClassHasAttribute('geoCoder', '\Webfox\Placements\Controller\AbstractController');
+	}
+
+	/**
+	 * @test
+	 */
 	public function emptyHandleEntityNotFoundErrorConfigurationReturnsNull() {
 		$result = $this->fixture->_call('handleEntityNotFoundError', '');
 		$this->assertNull($result);
