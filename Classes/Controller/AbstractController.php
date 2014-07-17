@@ -67,6 +67,15 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	protected $accessControlService;
 
+
+	/**
+	 * Geocoder Utility
+	 *
+	 * @var \Webfox\Placements\Utility\Geocoder
+	 * @inject
+	 */
+	protected $geoCoder;
+
 	/**
 	 * Request Arguments
 	 * @var \array
