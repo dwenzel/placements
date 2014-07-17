@@ -83,7 +83,29 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 				),
 				$this->fixture->_call('createOrderingsFromDemand', $mockDemand)
 		);
-	
+	}
+
+	/**
+	 * @test
+	 */
+	public function filterByRadiusReturnsInitiallyEmptyArray() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\\Placements\\Domain\\Repository\\AbstractDemandedRepository',
+			array('findMultipleByUid', 'createConstraintsFromDemand'), Array(), '', FALSE);
+		$mockQueryResult = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QueryResult', array('getQuery', 'toArray'), array(), '', FALSE);
+		$mockQuery = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query', array('getOrderings'), array(), '', FALSE);
+		$mockGeoCoder = $this->getMock('Webfox\\Placements\\Utility\\Geocoder', array('distance'));
+
+		$fixture->_set('geoCoder', $mockGeoCoder);
+		$mockQueryResult->expects($this->once())->method('toArray')
+			->will($this->returnValue(array()));
+		$mockQueryResult->expects($this->once())->method('getQuery')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())->method('getOrderings')
+			->will($this->returnValue(array('foo' => 'ASC')));
+		$fixture->expects($this->once())->method('findMultipleByUid')
+			->will($this->returnValue($mockQueryResult));
+		$fixture->filterByRadius($mockQueryResult, array(), 1000);
 	}
 }
 ?>

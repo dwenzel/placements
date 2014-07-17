@@ -26,7 +26,7 @@ namespace Webfox\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class Tx_Placements_Controller_PositionController.
+ * Test case for class \Webfox\Placements\Controller\PositionController.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -36,7 +36,7 @@ namespace Webfox\Placements\Tests;
  * @subpackage Placement Service
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\Placements\Controller\PositionController
  */
 class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -347,6 +347,53 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		);
 	}
 
+
+	/**
+	 * @test
+	 * @covers ::showAction
+	 */
+	public function showActionAssignsVariables() {
+		$mockPosition = $this->getMock('Webfox\Placements\Domain\Model\Position');
+		$referrerArguments = array('foo' => 'bar');
+
+		$this->fixture->_set('referrerArguments', $referrerArguments);
+		$this->fixture->_get('view')->expects($this->once())
+			->method('assignMultiple')
+			->with(
+					array(
+						'position' => $mockPosition, 
+						'referrerArguments' => $referrerArguments
+					)
+			);
+
+		$this->fixture->showAction($mockPosition);
+	}
+
+	/**
+	 * @test
+	 * @covers ::newAction
+	 */
+	public function newActionRedirectsIfUserIsNotAllowedToCreatePosition() {
+		$settings = array('listPid' => 99);
+
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('addFlashMessage', 'redirect'), array(), '', FALSE);
+		$accessControlService = $this->getMock(
+				'Webfox\\Placements\\Service\\AccessControlService',
+				array(), array(), '', FALSE);
+		$fixture->_set('settings', $settings);
+		$fixture->_set('accessControlService', $accessControlService);
+		$fixture->_get('accessControlService')->expects($this->once())
+			->method('isAllowedToCreate')->with('position')
+			->will($this->returnValue(FALSE));
+		$fixture->expects($this->once())->method('addFlashMessage');
+		$fixture->expects($this->once())->method('redirect')
+			->with('list', NULL, NULL, NULL, 99);
+
+		$fixture->newAction();
+	}
+
 	/**
 	 * @test
 	 */
@@ -440,6 +487,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsEmptyStringForClients() {
 		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
@@ -456,6 +504,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsClients() {
 		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
@@ -480,6 +529,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsOrderByWithOrderDirectionFromSettings() {
 		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
@@ -497,6 +547,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectOverwritesOrderDirectionFromSettings() {
 		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
@@ -515,12 +566,15 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectCreatesSearchObjectAndSetsSearch() {
 		$fixture = $this->getAccessibleMock('Webfox\\Placements\\Controller\PositionController',
 			array('createSearchObject'));
-		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand');
-		$mockGeoCoder = $this->getMock('Webfox\\Placements\\Utility\\GeoCoder');
+		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\PositionDemand',
+				array('setRadius', 'setGeoLocation', 'setSearch', 'getSearch'));
+		$mockGeoCoder = $this->getMock('Webfox\\Placements\\Utility\\GeoCoder', array('getLocation'));
+		$fixture->_set('geoCoder', $mockGeoCoder);
 		$overwriteDemand = array(
 			'search' => array(
 				'subject' => 'foo',
@@ -529,6 +583,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 				'bounds' => 'baz'
 			)
 		);
+		$geoLocation = array('foo' => 'bar');
 		$settings = array(
 			'position' => array('search' => 'bar')
 		);
@@ -544,13 +599,13 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$mockSearch->expects($this->any())->method('getRadius')
 			->will($this->returnValue($overwriteDemand['search']['radius']));
 		$mockSearch->expects($this->any())->method('getLocation')
-			->will($this->returnValue(FALSE));
-		/*@todo: we have to return FALSE in order to avoid calling  the static method GeoLocation::getLocation. This fails in phpunit 4.x!
-			We should probably try and make this a non static method 
-		$mockSearch->expects($this->once())->method('setRadius')
+			->will($this->returnValue('baz'));
+		$mockGeoCoder->expects($this->once())->method('getLocation')
+			->will($this->returnValue($geoLocation));
+		$mockDemand->expects($this->once())->method('setRadius')
 			->with($overwriteDemand['search']['radius']);
-		$mockSearch->expects($this->once())->method('setGeoLocation')
-			->with(TRUE);*/
+		$mockDemand->expects($this->once())->method('setGeoLocation')
+			->with($geoLocation);
 		$fixture->_call('overwriteDemandObject', $mockDemand, $overwriteDemand);
 	}
 }
