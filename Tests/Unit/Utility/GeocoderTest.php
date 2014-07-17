@@ -132,15 +132,27 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function classHasStaticAttributeUrl() {
-		$this->markTestSkipped();
-		$this->assertClassHasStaticAttribute('url', 'Webfox\Placements\Utility\Geocoder');
+	public function getServiceUrlReturnsInitialValueForString() {
+		$this->assertSame(
+				'http://maps.google.com/maps/api/geocode/json?sensor=false&address=',
+				$this->fixture->getServiceUrl()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLocationBuildsCorrectUrl() {
+		$expectedUrl = $this->fixture->getServiceUrl() . 'bogus';
+		$this->fixture->expects($this->once())->method('getUrl')
+			->with($expectedUrl);
+		$this->fixture->getLocation('bogus');
 	}
 	/**
 	 * @test
 	 */
 	public function getLocationReturnsFalseForInvalidRequest() {
-		$this->markTestSkipped();
+		//$this->markTestSkipped();
 		$response = $this->getGoogleMapsGeocodeApiResponse('invalid_request');
 		$this->fixture->expects($this->once())->method('getUrl')
 			->will($this->returnValue($response));
@@ -156,7 +168,7 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getLocationReturnsLocationForValidRequest() {
-		$this->markTestSkipped();
+		//$this->markTestSkipped();
 		$response = $this->getGoogleMapsGeocodeApiResponse('success');
 		$result = array(
 			'lat' => 51.3396955,
