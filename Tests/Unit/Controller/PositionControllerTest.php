@@ -371,6 +371,31 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::newAction
+	 */
+	public function newActionRedirectsIfUserIsNotAllowedToCreatePosition() {
+		$settings = array('listPid' => 99);
+
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('addFlashMessage', 'redirect'), array(), '', FALSE);
+		$accessControlService = $this->getMock(
+				'Webfox\\Placements\\Service\\AccessControlService',
+				array(), array(), '', FALSE);
+		$fixture->_set('settings', $settings);
+		$fixture->_set('accessControlService', $accessControlService);
+		$fixture->_get('accessControlService')->expects($this->once())
+			->method('isAllowedToCreate')->with('position')
+			->will($this->returnValue(FALSE));
+		$fixture->expects($this->once())->method('addFlashMessage');
+		$fixture->expects($this->once())->method('redirect')
+			->with('list', NULL, NULL, NULL, 99);
+
+		$fixture->newAction();
+	}
+
+	/**
+	 * @test
 	 */
 	public function countActionCallsFindDemandedAndAssignsVariables() {
 		$fixture = $this->getAccessibleMock('Webfox\\Placements\\Controller\\PositionController',
