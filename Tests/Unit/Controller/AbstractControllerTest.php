@@ -42,21 +42,16 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @var \Webfox\Placements\Controller\AbstractController
 	 */
 	protected $fixture;
+
 	/**
 	* @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
 	*/
 	protected $tsfe = NULL;
 
 	public function setUp() {
-		$this->tsfe = $this->getAccessibleMock('tslib_fe', array('pageNotFoundAndExit'), array(), '', FALSE);
-		$GLOBALS['TSFE'] = $this->tsfe;
-		//$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
 			'\Webfox\Placements\Controller\AbstractController', array('dummy'), array(), '', FALSE);
-	/*	$this->abstractRepository = $this->getMock(
-			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository', array(), array(), '', FALSE
-		);*/
 		$this->fixture->_set('objectManager', $objectManager);
 	}
 
@@ -69,6 +64,13 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 */
 	public function dummy() {
 			$this->markTestIncomplete();
+	}
+
+	/**
+	 * @test
+	 */
+	public function classHasAttributeGeoCoder() {
+			$this->assertClassHasAttribute('geoCoder', '\Webfox\Placements\Controller\AbstractController');
 	}
 
 	/**
@@ -103,6 +105,8 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @test
 	 */
 	public function handleEntityNotFoundErrorConfigurationCallsPageNotFoundHandler() {
+		$this->tsfe = $this->getAccessibleMock('tslib_fe', array('pageNotFoundAndExit'), array(), '', FALSE);
+		$GLOBALS['TSFE'] = $this->tsfe;
 		$this->tsfe->expects($this->once())
 			->method('pageNotFoundAndExit')
 			->with($this->fixture->_get('entityNotFoundMessage'));
@@ -276,7 +280,6 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			'tmp_name' => 'bar',
 			'error' => null
 		);
-
 		$mockObject->expects($this->any())
 			->method('getImage')
 			->will($this->returnValue($fileProperty));
