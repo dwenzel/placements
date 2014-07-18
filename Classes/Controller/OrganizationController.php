@@ -107,9 +107,7 @@ class OrganizationController extends AbstractController {
 		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
 		$this->organizationRepository->add($newOrganization);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.createAction', 'placements'
-			)
+			$this->translate('tx_placements.success.organization.createAction')
 		);
 	if($this->request->hasArgument('save-reload') OR 
 			$this->request->hasArgument('save-view' )) {
@@ -152,9 +150,7 @@ class OrganizationController extends AbstractController {
 		$this->updateFileProperty($organization, 'image');
 		$this->organizationRepository->update($organization);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.updateAction', 'placements'
-			)	
+			$this->translate('tx_placements.success.organization.updateAction')	
 		);
 		if($this->request->hasArgument('save-view')) {
 			$this->redirect('show', NULL, NULL, array('organization' => $organization));
@@ -173,9 +169,7 @@ class OrganizationController extends AbstractController {
 	public function deleteAction(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$this->organizationRepository->remove($organization);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.deleteAction', 'placements'
-			)
+			$this->translate('tx_placements.success.organization.deleteAction')
 		);
 		$this->redirect('list');
 	}
@@ -188,8 +182,7 @@ class OrganizationController extends AbstractController {
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
-		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-	 	'tx_placements.error'.'.organization.'. $this->actionMethodName, 'placements');
+		return $this->translate('tx_placements.error'.'.organization.'. $this->actionMethodName);
 	 }
 
 	 /**
