@@ -111,8 +111,7 @@ class OrganizationController extends AbstractController {
 		);
 	if($this->request->hasArgument('save-reload') OR 
 			$this->request->hasArgument('save-view' )) {
-			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-			$persistenceManager->persistAll();
+			$this->persistenceManager->persistAll();
 		}
 		if ($this->request->hasArgument('save-reload')) {
 			$this->redirect('edit', NULL, NULL, array('organization' => $newOrganization));
