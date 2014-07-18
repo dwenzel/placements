@@ -179,7 +179,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function listActionCallsFindDemandedAndAssignsVariables() {
 		$fixture = $this->getAccessibleMock(
 				'Webfox\\Placements\\Controller\PositionController', 
-				array('createDemandFromSettings', 'overwriteDemandObject', 'addFlashMessage'), array(), '', FALSE);
+				array('createDemandFromSettings', 'overwriteDemandObject', 'addFlashMessage', 'translate'), array(), '', FALSE);
 		$fixture->_set('positionRepository', $this->getMock('Webfox\\Placements\\Domain\\Repository\\PositionRepository', array('findDemanded'), array(), '', FALSE));
 		$overwriteDemand = array(
 			'foo' => 'bar',
@@ -207,7 +207,12 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->will($this->returnValue($mockResult));
 		$mockResult->expects($this->once())->method('count')->will($this->returnValue(0));
 		$fixture->expects($this->once())
-			->method('addFlashMessage');
+			->method('addFlashMessage')
+			->with('foo');
+		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.list.position.message.noPositionFound')
+			->will($this->returnValue('foo'));
 		$fixture->_get('view')->expects($this->once())
 			->method('assignMultiple')
 			->with(
