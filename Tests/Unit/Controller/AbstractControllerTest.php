@@ -525,6 +525,31 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	/**
 	 * @test
 	 */
+	public function updateFilePropertyAddsErrorAddsKeyIfErrorMessageNotTranslated() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage', 'translate'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'error' => 99
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage');
+		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.unknown')
+			->will($this->returnValue(NULL));
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('tx_placements.error.upload.unknown');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
 	public function createSearchObjectReturnsInitiallyEmptySearchObject() {
 		$mockSearchObject = $this->getMock('Webfox\Placements\Domain\Model\Dto\Search');
 		$emptySearch = array();
