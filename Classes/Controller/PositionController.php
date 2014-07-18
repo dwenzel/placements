@@ -138,10 +138,8 @@ class PositionController extends AbstractController {
 		$positions = $this->positionRepository->findDemanded($demand);	
 		if(!$positions->count()) {
 			$this->addFlashMessage(
-					\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-						'tx_placements.list.position.message.noPositionFound', 'placements'
-					)
-				);
+					$this->translate('tx_placements.list.position.message.noPositionFound')
+			);
 		}
 		$this->view->assignMultiple(
 			array(
@@ -270,9 +268,7 @@ class PositionController extends AbstractController {
 	public function newAction(\Webfox\Placements\Domain\Model\Position $newPosition = NULL) {
 		if(!$this->accessControlService->isAllowedToCreate('position')) {
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-					'tx_placements.error.position.createActionNotAllowed', 'placements'
-				)
+				$this->translate('tx_placements.error.position.createActionNotAllowed')
 			);
 			$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 		} else {
@@ -326,9 +322,7 @@ class PositionController extends AbstractController {
 		}
 		$this->positionRepository->add($newPosition);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.position.createAction', 'placements'
-				)
+			$this->translate('tx_placements.success.position.createAction')
 			);
 		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
 		$persistenceManager->persistAll();
@@ -345,9 +339,7 @@ class PositionController extends AbstractController {
 	public function editAction(\Webfox\Placements\Domain\Model\Position $position) {
 		if(!$this->accessControlService->isAllowedToEdit('position')) {
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-					'tx_placements.error.position.editActionNotAllowed', 'placements'
-				)
+				$this->translate('tx_placements.error.position.editActionNotAllowed')
 			);
 			$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 		} else {
@@ -399,9 +391,7 @@ class PositionController extends AbstractController {
 		}
 		$this->positionRepository->update($position);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.position.updateAction', 'placements'
-				)
+			$this->translate('tx_placements.success.position.updateAction')
 		);
 		$this->redirect('show', NULL, NULL, array('position' => $position), $this->settings['detailPid']);
 	}
@@ -416,15 +406,11 @@ class PositionController extends AbstractController {
 		if($this->accessControlService->isAllowedToDelete('position')) {
 			$this->positionRepository->remove($position);
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-					'tx_placements.success.position.deleteAction', 'placements'
-				)
+				$this->translate('tx_placements.success.position.deleteAction')
 			);
 		} else {
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-					'tx_placements.error.position.deleteActionNotAllowed', 'placements'
-				)
+				$this->translate('tx_placements.error.position.deleteActionNotAllowed')
 			);
 		}
 		$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
@@ -513,10 +499,8 @@ class PositionController extends AbstractController {
 		$positions = $this->positionRepository->findDemanded($demand);
 		if(!count($positions)) {
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				    'tx_placements.search.position.message.noSearchResult', 'placements'
-				    )
-				);
+				$this->translate('tx_placements.search.position.message.noSearchResult')
+			);
 		}
 		$this->view->assignMultiple(
 			array(
@@ -624,8 +608,7 @@ class PositionController extends AbstractController {
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
-		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-	 	'tx_placements.error'.'.position.'. $this->actionMethodName, 'placements');
+		return $this->translate('tx_placements.error'.'.position.'. $this->actionMethodName);
 	 }
 
 }
