@@ -159,7 +159,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 							$key = 'tx_placements.error.upload.' . $file['error'];
 				}
 
-				$errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'placements');
+				$errorMessage = $this->translate($key);
 				if($errorMessage) {
 					$this->addFlashMessage($errorMessage);
 				} else {
@@ -251,6 +251,17 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			$searchObject->setRadius($searchRequest['radius']);
 		}
 		return $searchObject;
+	}
+
+	/**
+	 * Translate a given key
+	 *
+	 * @param \string $key
+	 * @param \string $extension
+	 * @param \array $arguments
+	 */
+	public function translate($key, $extension='placements', $arguments=NULL) {
+		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, $extension, $arguments);
 	}
 	/**
 	 * @return void
