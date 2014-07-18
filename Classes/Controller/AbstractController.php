@@ -259,6 +259,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @param \string $key
 	 * @param \string $extension
 	 * @param \array $arguments
+	 * @codeCoverageIgnore
 	 */
 	public function translate($key, $extension='placements', $arguments=NULL) {
 		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, $extension, $arguments);
