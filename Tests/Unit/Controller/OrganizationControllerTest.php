@@ -49,7 +49,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 				'TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 		$view = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\Placements\\Controller\\OrganizationController', array('dummy'), array(), '', FALSE);
+			'Webfox\\Placements\\Controller\\OrganizationController', array('translate'), array(), '', FALSE);
 		$organizationRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\OrganizationRepository', array(), array(), '', FALSE
 		);
@@ -321,6 +321,8 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$this->fixture->_get('controllerContext')->expects($this->once())
 			->method('getFlashMessageQueue')
 			->will($this->returnValue($mockMessageQueue));
+		$this->fixture->expects($this->once())->method('translate')
+			->will($this->returnValue('foo'));
 
 		$this->fixture->deleteAction($mockOrganization);
 	}
