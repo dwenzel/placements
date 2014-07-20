@@ -94,7 +94,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 			array('dummy'), array(), '', FALSE);
 		$mockArguments = $this->getMock(
 			'\TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
-			array('hasArgument', 'getArgument'), array(), '', FALSE);
+			array(), array(), '', FALSE);
 		$fixture->_set('arguments', $mockArguments);
 		$mockArgument = $this->getMock(
 			'\TYPO3\CMS\Extbase\Mvc\Controller\Argument',
