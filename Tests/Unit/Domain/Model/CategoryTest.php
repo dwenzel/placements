@@ -50,8 +50,14 @@ class CategoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		 * we have to use the object manager for creating in order to make
 		 * the dependency injection in model work
 		 */
-		$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
-		$this->fixture = $objectManager->create('Webfox\Placements\Domain\Model\Category');
+		//$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
+		//$this->fixture = $objectManager->get('Webfox\Placements\Domain\Model\Category');
+		$this->fixture = $this->getAccessibleMock('Webfox\Placements\Domain\Model\Category',
+				array('dummy'), array(), '', FALSE);
+		$categoryRepository = $this->getMock(
+				'Webfox\Placements\Domain\Repository\CategoryRepository', 
+				array('findAllChildren'), array(), '', FALSE);
+		$this->fixture->_set('categoryRepository', $categoryRepository);
 	}
 
 	public function tearDown() {
@@ -63,6 +69,9 @@ class CategoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function getChildrenReturnsInitialValueForObjectStorage() {
 		$result = array();
+		$this->fixture->_get('categoryRepository')->expects($this->once())
+			->method('findAllChildren')
+			->will($this->returnValue(array()));
 		$this->assertSame(
 			$result,
 			$this->fixture->getChildren()

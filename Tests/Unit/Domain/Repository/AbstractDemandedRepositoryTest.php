@@ -91,9 +91,10 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 	public function filterByRadiusReturnsInitiallyEmptyArray() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\\Placements\\Domain\\Repository\\AbstractDemandedRepository',
-			array('findMultipleByUid', 'createConstraintsFromDemand'), Array(), '', FALSE);
-		$mockQueryResult = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QueryResult', array('getQuery', 'toArray'), array(), '', FALSE);
-		$mockQuery = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query', array('getOrderings'), array(), '', FALSE);
+			array('findMultipleByUid', 'createConstraintsFromDemand'), array(), '', FALSE);
+		$mockQueryResult = $this->getMock('TYPO3\CMS\Extbase\Persistence\Generic\QueryResult', array(), array(), '', FALSE);
+		$mockQuery = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
+			array(), array(), '', FALSE);
 		$mockGeoCoder = $this->getMock('Webfox\\Placements\\Utility\\Geocoder', array('distance'));
 
 		$fixture->_set('geoCoder', $mockGeoCoder);

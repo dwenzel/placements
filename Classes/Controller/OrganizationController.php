@@ -107,21 +107,19 @@ class OrganizationController extends AbstractController {
 		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
 		$this->organizationRepository->add($newOrganization);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.createAction', 'placements'
-			)
+			$this->translate('tx_placements.success.organization.createAction')
 		);
+		$redirectParams = array('list');
 	if($this->request->hasArgument('save-reload') OR 
 			$this->request->hasArgument('save-view' )) {
-			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-			$persistenceManager->persistAll();
+			$this->persistenceManager->persistAll();
 		}
 		if ($this->request->hasArgument('save-reload')) {
-			$this->redirect('edit', NULL, NULL, array('organization' => $newOrganization));
+			$redirectParams = array('edit', NULL, NULL, array('organization' => $newOrganization));
 		} elseif ($this->request->hasArgument('save-view')) {
-			$this->redirect('show', NULL, NULL, array('organization' => $newOrganization));
+			$redirectParams = array('show', NULL, NULL, array('organization' => $newOrganization));
 		}
-		$this->redirect('list');
+		call_user_func_array(array($this, 'redirect'), $redirectParams);
 	}
 
 	/**
@@ -152,16 +150,15 @@ class OrganizationController extends AbstractController {
 		$this->updateFileProperty($organization, 'image');
 		$this->organizationRepository->update($organization);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.updateAction', 'placements'
-			)	
+			$this->translate('tx_placements.success.organization.updateAction')	
 		);
+		$redirectParams = array('list');
 		if($this->request->hasArgument('save-view')) {
-			$this->redirect('show', NULL, NULL, array('organization' => $organization));
+			$redirectParams = array('show', NULL, NULL, array('organization' => $organization));
 		} elseif ($this->request->hasArgument('save-reload')) {
-			$this->redirect('edit', NULL, NULL, array('organization' => $organization));
+			$redirectParams = array('edit', NULL, NULL, array('organization' => $organization));
 		}
-		$this->redirect('list');
+		call_user_func_array(array($this, 'redirect'), $redirectParams);
 	}
 
 	/**
@@ -173,9 +170,7 @@ class OrganizationController extends AbstractController {
 	public function deleteAction(\Webfox\Placements\Domain\Model\Organization $organization) {
 		$this->organizationRepository->remove($organization);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.deleteAction', 'placements'
-			)
+			$this->translate('tx_placements.success.organization.deleteAction')
 		);
 		$this->redirect('list');
 	}
@@ -188,8 +183,7 @@ class OrganizationController extends AbstractController {
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
-		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-	 	'tx_placements.error'.'.organization.'. $this->actionMethodName, 'placements');
+		return $this->translate('tx_placements.error'.'.organization.'. $this->actionMethodName);
 	 }
 
 	 /**

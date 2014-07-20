@@ -179,17 +179,18 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function listActionCallsFindDemandedAndAssignsVariables() {
 		$fixture = $this->getAccessibleMock(
 				'Webfox\\Placements\\Controller\PositionController', 
-				array('createDemandFromSettings', 'overwriteDemandObject', 'addFlashMessage'), array(), '', FALSE);
+				array('createDemandFromSettings', 'overwriteDemandObject', 'addFlashMessage', 'translate'), array(), '', FALSE);
 		$fixture->_set('positionRepository', $this->getMock('Webfox\\Placements\\Domain\\Repository\\PositionRepository', array('findDemanded'), array(), '', FALSE));
 		$overwriteDemand = array(
 			'foo' => 'bar',
 		);
 		$settings = array('foo' => 'bar');
 		$fixture->_set('settings', $settings);
-		$fixture->_set('view', $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView'));
+		$fixture->_set('view', $this->getMock('TYPO3\CMS\Fluid\View\TemplateView', 
+				array(), array(), '', FALSE));
 		$mockResult = $this->getMock(
-				'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
-				array('count'), array(), '', FALSE);
+				'TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+				array(), array(), '', FALSE);
 		$fixture->_set('settings', $settings);
 		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\\PositionDemand', array(), array(), '', FALSE);
 		$fixture->expects($this->once())
@@ -207,7 +208,12 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->will($this->returnValue($mockResult));
 		$mockResult->expects($this->once())->method('count')->will($this->returnValue(0));
 		$fixture->expects($this->once())
-			->method('addFlashMessage');
+			->method('addFlashMessage')
+			->with('foo');
+		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.list.position.message.noPositionFound')
+			->will($this->returnValue('foo'));
 		$fixture->_get('view')->expects($this->once())
 			->method('assignMultiple')
 			->with(
@@ -255,8 +261,8 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$overwriteDemand = array('foo' => 'bar');
 		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
 		$mockQueryResult = $this->getMock(
-				'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QueryResult',
-				array('toArray'), array(), '', FALSE);
+				'TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+				array(), array(), '', FALSE);
 		$mockPosition = $this->getMock('Webfox\\Placements\\Domain\\Model\\Position');
 		$mockType = $this->getMock('Webfox\Placements\Domain\Model\PositionType');
 		$fixture->expects($this->once())->method('createDemandFromSettings')
@@ -377,17 +383,21 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$settings = array('listPid' => 99);
 
 		$fixture = $this->getAccessibleMock(
-			'\Webfox\Placements\Controller\PositionController',
-			array('addFlashMessage', 'redirect'), array(), '', FALSE);
+			'Webfox\Placements\Controller\PositionController',
+			array('addFlashMessage', 'redirect', 'translate'), array(), '', FALSE);
 		$accessControlService = $this->getMock(
-				'Webfox\\Placements\\Service\\AccessControlService',
-				array(), array(), '', FALSE);
+				'Webfox\Placements\Service\AccessControlService',
+				array('isAllowedToCreate'), array(), '', FALSE);
 		$fixture->_set('settings', $settings);
 		$fixture->_set('accessControlService', $accessControlService);
-		$fixture->_get('accessControlService')->expects($this->once())
+		$accessControlService->expects($this->once())
 			->method('isAllowedToCreate')->with('position')
 			->will($this->returnValue(FALSE));
-		$fixture->expects($this->once())->method('addFlashMessage');
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.position.createActionNotAllowed')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
 		$fixture->expects($this->once())->method('redirect')
 			->with('list', NULL, NULL, NULL, 99);
 
@@ -403,7 +413,8 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$mockRepository = $this->getMock('Webfox\\Placements\\Domain\\Repository\\PositionRepository', array('countDemanded'), array(), '', FALSE);
 		$mockDemand = $this->getMock('Webfox\\Placements\\Domain\\Model\\Dto\\PositionDemand');
 		$fixture->_set('positionRepository', $mockRepository);
-		$fixture->_set('view', $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView'));
+		$fixture->_set('view', $this->getMock(
+			'TYPO3\\CMS\Fluid\View\TemplateView', array(), array(), '', FALSE));
 		$overwriteDemand = array(
 			'search' => array(
 				'subject' => 'bar'
