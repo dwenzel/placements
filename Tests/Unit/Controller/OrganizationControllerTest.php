@@ -34,6 +34,7 @@ namespace Webfox\Placements\Tests;
  *
  * @package TYPO3
  * @subpackage Ajax Map
+ * @coversDefaultClass \Webfox\Placements\Controller\OrganizationController
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  */
@@ -85,6 +86,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsCreatesEmptyDemandFromInvalidSettings() {
 		$settings = array(
@@ -105,6 +107,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsCreatesDemandFromSettings() {
 		$settings = array(
@@ -129,6 +132,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 	
 	/**
 	 * @test
+	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsClientsToEmptyStringIfNoClientLoggedIn() {
 		$settings = array(
@@ -152,6 +156,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingSetsClientsForStringIfClientIsLoggedIn() {
 		$settings = array(
@@ -185,6 +190,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::listAction
 	 */
 	public function listActionCallsFindDemandedAndAssignsVariables() {
 		$settings = array(
@@ -219,6 +225,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::showAction
 	 */
 	public function showActionAssignsVariablesToView() {
 		$settings = array(
@@ -240,6 +247,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::newAction
 	 */
 	public function newActionAssignsVariablesToView() {
 		$settings = array(
@@ -273,6 +281,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::editAction
 	 */
 	public function editActionAssignsVariablesToView() {
 		$settings = array(
@@ -309,6 +318,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 	/**
 	 * @test
 	 * @expectedException \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+	 * @covers ::deleteAction
 	 */
 	public function deleteActionRemovesOrganization() {
 		$mockOrganization = $this->getMock(
@@ -329,6 +339,7 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::createAction
 	 */
 	public function createActionCreatesOrganization() {
 		$fixture = $this->getAccessibleMock(
@@ -386,6 +397,117 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 			->will($this->returnValue(FALSE));
 		$fixture->expects($this->once())->method('redirect')
 			->with('list');
+		$fixture->createAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createAction
+	 */
+	public function createActionPersistsAllAndRedirectsForSaveReload() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\OrganizationController',
+			array('updateFileProperty', 'translate', 'addFlashMessage', 'redirect'),
+			array(), '', FALSE);
+
+		$mockRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('add'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockRepository);
+
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+
+		$mockRequest = $this->getMock(
+				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('hasArgument'), array(), '', FALSE);
+		$mockRequest->_set('pluginName', 'Placements');
+		$mockRequest->_set('controllerName', 'OrganisationController');
+		$fixture->_set('request', $mockRequest);
+
+		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
+		$fixture->_set('persistenceManager', $mockPersistenceManager);
+
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('getFrontendUser'));
+		$fixture->_set('accessControlService', $mockAccessControlService);
+
+		$mockUser = $this->getMock('Webfox\Placements\Domain\Model\User');
+		$mockClient = $this->getMock('Webfox\Placements\Domain\Model\Client');
+
+		$fixture->expects($this->once())->method('updateFileProperty');
+
+		$mockAccessControlService->expects($this->once())
+			->method('getFrontendUser')
+			->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())
+			->method('getClient')
+			->will($this->returnValue($mockClient));
+		$mockRepository->expects($this->once())
+			->method('add');
+		$fixture->expects($this->once())->method('translate')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage');
+		$mockRequest->expects($this->any())->method('hasArgument')
+			->with('save-reload')
+			->will($this->returnValue(TRUE));
+		$mockPersistenceManager->expects($this->once())->method('persistAll');
+		$fixture->expects($this->once())->method('redirect')
+			->with('edit', NULL, NULL, array('organization' => $mockOrganization));
+		$fixture->createAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createAction
+	 */
+	public function createActionRedirectsForSaveView() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\OrganizationController',
+			array('updateFileProperty', 'translate', 'addFlashMessage', 'redirect'),
+			array(), '', FALSE);
+
+		$mockRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('add'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockRepository);
+
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+
+		$mockRequest = $this->getMock(
+				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('hasArgument'), array(), '', FALSE);
+		$fixture->_set('request', $mockRequest);
+
+		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
+		$fixture->_set('persistenceManager', $mockPersistenceManager);
+
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('getFrontendUser'));
+		$fixture->_set('accessControlService', $mockAccessControlService);
+
+		$mockUser = $this->getMock('Webfox\Placements\Domain\Model\User');
+		$mockClient = $this->getMock('Webfox\Placements\Domain\Model\Client');
+
+		$fixture->expects($this->once())->method('updateFileProperty');
+
+		$mockAccessControlService->expects($this->once())
+			->method('getFrontendUser')
+			->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())
+			->method('getClient')
+			->will($this->returnValue($mockClient));
+		$mockRepository->expects($this->once())
+			->method('add');
+		$fixture->expects($this->once())->method('translate')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage');
+		$mockRequest->expects($this->any())->method('hasArgument')
+			->will($this->onConsecutiveCalls(FALSE, TRUE, FALSE, TRUE));
+		$mockPersistenceManager->expects($this->once())->method('persistAll');
+		$fixture->expects($this->once())->method('redirect')
+			->with('show', NULL, NULL, array('organization' => $mockOrganization));
 		$fixture->createAction($mockOrganization);
 	}
 }
