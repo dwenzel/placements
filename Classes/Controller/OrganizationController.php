@@ -109,16 +109,17 @@ class OrganizationController extends AbstractController {
 		$this->addFlashMessage(
 			$this->translate('tx_placements.success.organization.createAction')
 		);
+		$redirectParams = array('list');
 	if($this->request->hasArgument('save-reload') OR 
 			$this->request->hasArgument('save-view' )) {
 			$this->persistenceManager->persistAll();
 		}
 		if ($this->request->hasArgument('save-reload')) {
-			$this->redirect('edit', NULL, NULL, array('organization' => $newOrganization));
+			$redirectParams = array('edit', NULL, NULL, array('organization' => $newOrganization));
 		} elseif ($this->request->hasArgument('save-view')) {
-			$this->redirect('show', NULL, NULL, array('organization' => $newOrganization));
+			$redirectParams = array('show', NULL, NULL, array('organization' => $newOrganization));
 		}
-		$this->redirect('list');
+		call_user_func_array(array($this, 'redirect'), $redirectParams);
 	}
 
 	/**
