@@ -86,6 +86,37 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionSetsTargetTypeForSubPropertyImage() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\OrganizationController',
+			array('dummy'), array(), '', FALSE);
+		$mockArguments = $this->getMock(
+			'\TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
+			array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$fixture->_set('arguments', $mockArguments);
+		$mockArgument = $this->getMock(
+			'\TYPO3\CMS\Extbase\Mvc\Controller\Argument',
+			array('getPropertyMappingConfiguration'), array(), '', FALSE);
+		$mockMappingConfiguration = $this->getMock(
+			'\TYPO3\CMS\Extbase\Property\MappingConfiguration',
+			array('setTargetTypeForSubProperty'), array(), '', FALSE);
+		$mockArguments->expects($this->exactly(2))->method('hasArgument')
+			->will($this->returnValue(TRUE));
+		$mockArguments->expects($this->exactly(2))->method('getArgument')
+			->will($this->returnValue($mockArgument));
+		$mockArgument->expects($this->exactly(2))->method('getPropertyMappingConfiguration')
+			->will($this->returnValue($mockMappingConfiguration));
+		$mockMappingConfiguration->expects($this->exactly(2))->method('setTargetTypeForSubProperty')
+			->with('image', 'array');
+
+		$fixture->initializeAction();
+
+	}
+
+	/**
+	 * @test
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsCreatesEmptyDemandFromInvalidSettings() {
@@ -473,7 +504,6 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 			'Webfox\Placements\Controller\OrganizationController',
 			array('updateFileProperty', 'translate', 'addFlashMessage', 'redirect'),
 			array(), '', FALSE);
-			//array(), array(), '', FALSE);
 
 		$mockRepository = $this->getMock(
 			'Webfox\Placements\Domain\Repository\OrganizationRepository',
@@ -636,6 +666,21 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$fixture->expects($this->once())->method('redirect')
 			->with('show', NULL, NULL, array('organization' => $mockOrganization));
 		$fixture->createAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getErrorFlashMessage
+	 */
+	public function getErrorFlashMessageReturnsTranslatedErrorMessageForAction() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\OrganizationController',
+			array('translate'), array(), '', FALSE);
+		$fixture->_set('actionMethodName', 'foo');
+
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.organization.foo');
+		$fixture->_call('getErrorFlashMessage');
 	}
 }
 ?>
