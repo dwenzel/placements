@@ -36,6 +36,7 @@ namespace Webfox\Placements\Tests;
  * @subpackage Ajax Map
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @coversDefaultClass \Webfox\Placements\Domain\Repository\AbstractDemandedRepository
  */
 class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -55,6 +56,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 
 	/**
 	 * @test
+	 * @covers ::createOrderingsFromDemand
 	 */
 	public function createOrderingsFromDemandReturnsInitiallyEmptyArray() {
 		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
@@ -69,6 +71,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 
 	/**
 	 * @test
+	 * @covers ::createOrderingsFromDemand
 	 */
 	public function createOrderingsFromDemandCreatesOrderings() {
 		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
@@ -87,6 +90,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 
 	/**
 	 * @test
+	 * @covers ::filterByRadius
 	 */
 	public function filterByRadiusReturnsInitiallyEmptyArray() {
 		$fixture = $this->getAccessibleMock(
@@ -105,6 +109,58 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 		$mockQuery->expects($this->once())->method('getOrderings')
 			->will($this->returnValue(array('foo' => 'ASC')));
 		$fixture->expects($this->once())->method('findMultipleByUid')
+			->will($this->returnValue($mockQueryResult));
+		$fixture->filterByRadius($mockQueryResult, array(), 1000);
+	}
+
+	/**
+	 * @test
+	 * @covers ::filterByRadius
+	 */
+	public function filterByRadiusReturnsFilteredResult() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\\Placements\\Domain\\Repository\\AbstractDemandedRepository',
+			array('findMultipleByUid', 'createConstraintsFromDemand'), array(), '', FALSE);
+		$mockQueryResult = $this->getMock('TYPO3\CMS\Extbase\Persistence\Generic\QueryResult', array(), array(), '', FALSE);
+		$mockQuery = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
+			array(), array(), '', FALSE);
+		$mockGeoCoder = $this->getMock('Webfox\\Placements\\Utility\\Geocoder', array('distance'));
+		$fixture->_set('geoCoder', $mockGeoCoder);
+
+		$mockObjectWithinRadius = $this->getMock(
+			'Webfox\Placements\Domain\Model\Position',
+			array('getLatitude', 'getLongitude', 'getUid'), array(), '', FALSE);
+		$mockObjectBeyondRadius = $this->getMock(
+			'Webfox\Placements\Domain\Model\Position',
+			array('getLatitude', 'getLongitude', 'getUid'), array(), '', FALSE);
+		$mockObjectWithinRadius->expects($this->once())
+			->method('getLatitude')
+			->will($this->returnValue(1.2));
+		$mockObjectWithinRadius->expects($this->once())
+			->method('getLongitude')
+			->will($this->returnValue(3.4));
+
+		$mockObjectBeyondRadius->expects($this->once())
+			->method('getLatitude')
+			->will($this->returnValue(5.6));
+		$mockObjectBeyondRadius->expects($this->once())
+			->method('getLongitude')
+			->will($this->returnValue(7.8));
+
+		$mockGeoCoder->expects($this->exactly(2))->method('distance')
+			->will($this->onConsecutiveCalls(500, 5000));
+		$mockObjectWithinRadius->expects($this->once())
+			->method('getUid')->will($this->returnValue(1));
+		$mockObjectBeyondRadius->expects($this->never())
+			->method('getUid');
+		$mockQueryResult->expects($this->once())->method('toArray')
+			->will($this->returnValue(array($mockObjectWithinRadius, $mockObjectBeyondRadius)));
+		$mockQueryResult->expects($this->once())->method('getQuery')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())->method('getOrderings')
+			->will($this->returnValue(array('foo' => 'ASC')));
+		$fixture->expects($this->once())->method('findMultipleByUid')
+			->with(1, 'foo', 'ASC')
 			->will($this->returnValue($mockQueryResult));
 		$fixture->filterByRadius($mockQueryResult, array(), 1000);
 	}
