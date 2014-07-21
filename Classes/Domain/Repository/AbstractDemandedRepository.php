@@ -103,10 +103,11 @@ abstract class AbstractDemandedRepository
 		if ($objects->count() AND 
 				$demand->getRadius() AND 
 				$demand->getGeoLocation()) {
-			$objects = $this->filterByRadius($objects, 
-					$demand->getGeoLocation(), 
+			$objects = $this->filterByRadius(
+					$objects,
+					$demand->getGeoLocation(),
 					$demand->getRadius()/1000
-				);
+			);
 		}
 		return $objects;
 	}
