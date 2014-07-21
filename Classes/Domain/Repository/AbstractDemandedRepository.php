@@ -118,7 +118,7 @@ abstract class AbstractDemandedRepository
 	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $queryResult A query result containing objects
 	 * @param \array $geoLocation An array describing a geolocation by lat and lng
 	 * @param \integer $distance Distance in meter
-	 * @return \TYPO3\CMS\Extbase\Persitence\Generic\QueryResult $queryResult A query result containing objects
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $queryResult A query result containing objects
 	 */
 	public function filterByRadius($queryResult, $geoLocation, $distance) {
 		$objectUids = array();
