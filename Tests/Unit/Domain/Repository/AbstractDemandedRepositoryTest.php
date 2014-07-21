@@ -90,6 +90,72 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 
 	/**
 	 * @test
+	 * @covers ::findDemanded
+	 */
+	public function findDemandedGeneratesQueryAndReturnsQueryResult() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository',
+			array('generateQuery', 'createConstraintsFromDemand'), array(), '', FALSE);
+		$mockDemand = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\DemandInterface');
+		$mockQuery = $this->getMock(
+			'\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array(), array(), '', FALSE);
+		$mockQueryResult = $this->getMock('TYPO3\CMS\Extbase\Persistence\Generic\QueryResult', array(), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('generateQuery')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())->method('execute')
+			->will($this->returnValue($mockQueryResult));
+		$mockQueryResult->expects($this->once())->method('count')
+			->will($this->returnValue(0));
+
+		$this->assertSame(
+			$mockQueryResult,
+			$fixture->findDemanded($mockDemand)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::findDemanded
+	 */
+	public function findDemandedFiltersByRadius() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository',
+			array('generateQuery', 'createConstraintsFromDemand', 'filterByRadius'),
+			array(), '', FALSE);
+		$mockDemand = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\DemandInterface',
+			array('getRadius', 'getGeoLocation'), array(), '', FALSE);
+		$mockQuery = $this->getMock(
+			'\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array(), array(), '', FALSE);
+		$mockQueryResult = $this->getMock('TYPO3\CMS\Extbase\Persistence\Generic\QueryResult', array(), array(), '', FALSE);
+		$geoLocation = array('foo' => 'bar');
+
+		$fixture->expects($this->once())->method('generateQuery')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())->method('execute')
+			->will($this->returnValue($mockQueryResult));
+		$mockQueryResult->expects($this->once())->method('count')
+			->will($this->returnValue(1));
+		$mockDemand->expects($this->exactly(2))->method('getRadius')
+			->will($this->returnValue(50000));
+		$mockDemand->expects($this->exactly(2))->method('getGeoLocation')
+			->will($this->returnValue($geoLocation));
+		$fixture->expects($this->once())->method('filterByRadius')
+			->with($mockQueryResult, $geoLocation, 50)
+			->will($this->returnValue($mockQueryResult));
+
+		$this->assertSame(
+			$mockQueryResult,
+			$fixture->findDemanded($mockDemand)
+		);
+	}
+
+	/**
+	 * @test
 	 * @covers ::filterByRadius
 	 */
 	public function filterByRadiusReturnsInitiallyEmptyArray() {
