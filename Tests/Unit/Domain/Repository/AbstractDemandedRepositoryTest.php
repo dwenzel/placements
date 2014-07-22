@@ -90,6 +90,24 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 
 	/**
 	 * @test
+	 * @covers ::createOrderingsFromDemand
+	 */
+	public function createOrderingsFromDemandSetsDefaultOrderDirectionWhenMissing() {
+		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
+		$mockDemand->expects($this->exactly(2))
+			->method('getOrder')
+			->will($this->returnValue('foo|'));
+
+		$this->assertEquals(
+				array(
+					'foo' => 'ASC'
+				),
+				$this->fixture->_call('createOrderingsFromDemand', $mockDemand)
+		);
+	}
+
+	/**
+	 * @test
 	 * @covers ::findDemanded
 	 */
 	public function findDemandedGeneratesQueryAndReturnsQueryResult() {
