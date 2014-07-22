@@ -156,6 +156,133 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 
 	/**
 	 * @test
+	 * @covers ::generateQuery
+	 */
+	public function generateQueryCreatesQuery() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository',
+			array('createQuery', 'createConstraintsFromDemand', 'createOrderingsFromDemand'), array(), '', FALSE);
+		$mockDemand = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\DemandInterface',
+			array('getLimit', 'getOffset'), array(), '', FALSE);
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array(
+				'getQuerySettings',
+				'in',
+				'matching',
+				'logicalAnd',
+				'setOrderings',
+				'setLimit',
+				'setOffset',
+				'__wakeup'
+			),
+			array(), '', FALSE);
+		$mockQuerySettings = $this->getMock(
+				'\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings',
+				array('getStoragePageIds', 'setRespectEnableFields'), array(), '', FALSE);
+		$storagePageIds = array(1,5);
+		$orderings = array('foo' => 'bar');
+		$limit = 100;
+		$offset = 10;
+		$constraints = array('baz' => 'foo');
+		$fixture->expects($this->once())->method('createQuery')
+			->will($this->returnValue($mockQuery));
+		$fixture->expects($this->once())->method('createConstraintsFromDemand')
+			->with($mockQuery, $mockDemand);
+		$mockQuery->expects($this->exactly(2))->method('getQuerySettings')
+			->will($this->returnValue($mockQuerySettings));
+		$mockQuerySettings->expects($this->once())->method('getStoragePageIds')
+			->will($this->returnValue($storagePageIds));
+		$mockQuery->expects($this->once())->method('in')
+			->with('pid', $storagePageIds)
+			->will($this->returnValue($constraints));
+		$mockQuerySettings->expects($this->once())->method('setRespectEnableFields')
+			->with(FALSE);
+		$fixture->expects($this->once())->method('createOrderingsFromDemand')
+			->with($mockDemand)->will($this->returnValue($orderings));
+		$mockQuery->expects($this->once())->method('logicalAnd')
+			->with(array($constraints))
+			->will($this->returnValue($constraints));
+		$mockQuery->expects($this->once())->method('matching')
+			->with($constraints);
+		$mockQuery->expects($this->once())->method('setOrderings')
+			->with($orderings);
+		$mockDemand->expects($this->exactly(2))->method('getLimit')
+			->will($this->returnValue($limit));
+		$mockQuery->expects($this->once())->method('setLimit')
+			->with($limit);
+		$mockDemand->expects($this->exactly(2))->method('getOffset')
+			->will($this->returnValue($offset));
+		$mockQuery->expects($this->once())->method('setOffset')
+			->with($offset);
+
+		$fixture->_call('generateQuery', $mockDemand, FALSE);
+	}
+
+	/**
+	 * @test
+	 * @covers ::generateQuery
+	 */
+	public function generateQueryRespectsEnableFields() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository',
+			array('createQuery', 'createConstraintsFromDemand', 'createOrderingsFromDemand'), array(), '', FALSE);
+		$mockDemand = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\DemandInterface',
+			array('getLimit', 'getOffset'), array(), '', FALSE);
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array(
+				'getQuerySettings',
+				'in',
+				'equals',
+				'matching',
+				'logicalAnd',
+				'setOrderings',
+				'setLimit',
+				'setOffset',
+				'__wakeup'
+			),
+			array(), '', FALSE);
+		$mockQuerySettings = $this->getMock(
+				'\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings',
+				array('getStoragePageIds', 'setRespectEnableFields'), array(), '', FALSE);
+		$storagePageIds = array(1,5);
+		$orderings = array('foo' => 'bar');
+		$limit = 100;
+		$offset = 10;
+		$fixture->expects($this->once())->method('createQuery')
+			->will($this->returnValue($mockQuery));
+		$fixture->expects($this->once())->method('createConstraintsFromDemand')
+			->with($mockQuery, $mockDemand);
+		$mockQuery->expects($this->once())->method('getQuerySettings')
+			->will($this->returnValue($mockQuerySettings));
+		$mockQuerySettings->expects($this->once())->method('getStoragePageIds')
+			->will($this->returnValue($storagePageIds));
+		$mockQuery->expects($this->once())->method('in')
+			->with('pid', $storagePageIds);
+		$fixture->expects($this->once())->method('createOrderingsFromDemand')
+			->with($mockDemand)->will($this->returnValue($orderings));
+		$mockQuery->expects($this->exactly(2))->method('equals')
+			->with($this->logicalOr(
+						$this->equalTo('deleted', 0),
+						$this->equalTo('hidden', 0)
+				));
+		$mockQuery->expects($this->once())->method('setOrderings')
+			->with($orderings);
+		$mockDemand->expects($this->exactly(2))->method('getLimit')
+			->will($this->returnValue($limit));
+		$mockQuery->expects($this->once())->method('setLimit')
+			->with($limit);
+		$mockDemand->expects($this->exactly(2))->method('getOffset')
+			->will($this->returnValue($offset));
+		$mockQuery->expects($this->once())->method('setOffset')
+			->with($offset);
+
+		$fixture->_call('generateQuery', $mockDemand);
+	}
+
+	/**
+	 * @test
 	 * @covers ::filterByRadius
 	 */
 	public function filterByRadiusReturnsInitiallyEmptyArray() {
@@ -189,7 +316,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 			array('findMultipleByUid', 'createConstraintsFromDemand'), array(), '', FALSE);
 		$mockQueryResult = $this->getMock('TYPO3\CMS\Extbase\Persistence\Generic\QueryResult', array(), array(), '', FALSE);
 		$mockQuery = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-			array(), array(), '', FALSE);
+			array('__wakeup', 'getOrderings'), array(), '', FALSE);
 		$mockGeoCoder = $this->getMock('Webfox\\Placements\\Utility\\Geocoder', array('distance'));
 		$fixture->_set('geoCoder', $mockGeoCoder);
 
@@ -241,7 +368,13 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 			array('createQuery', 'createConstraintsFromDemand'), array(), '', FALSE);
 		$recordList = '1,5,7';
 		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
-			array('matching', 'in', 'execute', 'setOrderings'), array(), '', FALSE);
+			array(
+				'matching',
+				'in',
+				'execute',
+				'setOrderings',
+				'__wakeup'
+			), array(), '', FALSE);
 
 		$fixture->expects($this->once())->method('createQuery')
 			->will($this->returnValue($mockQuery));
@@ -264,7 +397,13 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 			array('createQuery', 'createConstraintsFromDemand'), array(), '', FALSE);
 		$recordList = '1,5,7';
 		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
-			array('matching', 'in', 'execute', 'setOrderings'), array(), '', FALSE);
+			array(
+				'__wakeup',
+				'matching',
+				'in',
+				'execute',
+				'setOrderings'
+			), array(), '', FALSE);
 
 		$fixture->expects($this->once())->method('createQuery')
 			->will($this->returnValue($mockQuery));
