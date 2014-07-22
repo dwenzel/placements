@@ -412,5 +412,26 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 
 		$fixture->findMultipleByUid($recordList);
 	}
+
+	/**
+	 * @test
+	 * @covers ::countDemanded
+	 */
+	public function countDemandedFindsDemandedAndReturnsCount() {
+		$fixture = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository',
+			array('findDemanded', 'createConstraintsFromDemand'), array(), '', FALSE);
+		$mockDemand = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\AbstractDemand');
+		$mockResult = $this->getMock(
+			'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
+			array('count', '__wakeup'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('findDemanded')
+			->with($mockDemand)
+			->will($this->returnValue($mockResult));
+
+		$fixture->countDemanded($mockDemand);
+	}
 }
 ?>
