@@ -230,5 +230,48 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseT
 			->will($this->returnValue($mockQueryResult));
 		$fixture->filterByRadius($mockQueryResult, array(), 1000);
 	}
+
+	/**
+	 * @test
+	 * @covers ::findMultipleByUid
+	 */
+	public function findMultipleByUidCreatesQuery () {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository',
+			array('createQuery', 'createConstraintsFromDemand'), array(), '', FALSE);
+		$recordList = '1,5,7';
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('matching', 'in', 'execute', 'setOrderings'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('createQuery')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())->method('matching');
+		$mockQuery->expects($this->once())->method('in')
+			->with('uid', array(1,5,7));
+		$mockQuery->expects($this->once())->method('setOrderings');
+
+		$mockQuery->expects($this->once())->method('execute');
+		$fixture->findMultipleByUid($recordList);
+	}
+
+	/**
+	 * @test
+	 * @covers ::findMultipleByUid
+	 */
+	public function findMultipleByUidSetsDefaultOrderings () {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository',
+			array('createQuery', 'createConstraintsFromDemand'), array(), '', FALSE);
+		$recordList = '1,5,7';
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('matching', 'in', 'execute', 'setOrderings'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('createQuery')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())->method('setOrderings')
+			->with(array('uid' => 'ASC'));
+
+		$fixture->findMultipleByUid($recordList);
+	}
 }
 ?>
