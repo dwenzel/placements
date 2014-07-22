@@ -26,7 +26,7 @@ namespace Webfox\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class Webfox\Placements\Domain\Repository\CategoryRepository.
+ * Test case for class Webfox\Placements\Domain\Repository\SectorRepository.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -36,17 +36,17 @@ namespace Webfox\Placements\Tests;
  * @subpackage Placements
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
- * @coversDefaultClass \Webfox\Placements\Domain\Repository\CategoryRepository
+ * @coversDefaultClass \Webfox\Placements\Domain\Repository\SectorRepository
  */
-class CategoryRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class SectorRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Webfox\Placements\Domain\Repository\CategoryRepository
+	 * @var \Webfox\Placements\Domain\Repository\SectorRepository
 	 */
 	protected $fixture;
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock(
-			'\Webfox\Placements\Domain\Repository\CategoryRepository',
+			'\Webfox\Placements\Domain\Repository\SectorRepository',
 			array('dummy'), array(), '', FALSE);
 	}
 
@@ -61,42 +61,11 @@ class CategoryRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function createConstraintsFromDemandReturnsInitiallyEmptyArray() {
 		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
 				array(), array(), '', FALSE);
-		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\CategoryDemand');
+		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\AbstractDemand');
 		$this->assertSame(
 			array(),
 			$this->fixture->_call('createConstraintsFromDemand', $mockQuery, $mockDemand)
 		);
-	}
-
-	/**
-	 * @test
-	 * @covers ::findAllChildren
-	 */
-	public function findAllChildrenReturnsArrayWithAllChildren() {
-		$fixture = $this->getAccessibleMock(
-			'\Webfox\Placements\Domain\Repository\CategoryRepository',
-			array('createQuery'), array(), '', FALSE);
-		$mockQuery = $this->getMock(
-			'\TYPO3\CMS\Extbase\Persistence\Generic\QueryInterface',
-			array('matching', 'equals', 'setOrderings', 'execute', '__wakeup'), array(), '', FALSE);
-		$mockCategory = $this->getMock(
-			'\Webfox\Placements\Domain\Model\Category', array(), array(), '', FALSE);
-		$mockResult = $this->getMock(
-			'\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult',
-			array('toArray', '__wakeup'), array(), '', FALSE);
-
-		$fixture->expects($this->once())->method('createQuery')
-			->will($this->returnValue($mockQuery));
-		$mockQuery->expects($this->once())->method('matching');
-		$mockQuery->expects($this->once())->method('equals')
-			->with('parent', $mockCategory);
-		$mockQuery->expects($this->once())->method('setOrderings')
-			->with(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
-		$mockQuery->expects($this->once())->method('execute')
-			->will($this->returnValue($mockResult));
-		$mockResult->expects($this->once())->method('toArray');
-
-		$fixture->findAllChildren($mockCategory);
 	}
 }
 ?>
