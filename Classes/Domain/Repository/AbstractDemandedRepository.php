@@ -213,15 +213,7 @@ abstract class AbstractDemandedRepository
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function countDemanded(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
-		$query = $this->createQuery();
-
-		if ($constraints = $this->createConstraintsFromDemand($query, $demand)) {
-			$query->matching(
-				$query->logicalAnd($constraints)
-			);
-		}
-
-		$result = $query->execute();
+		$result = $this->findDemanded($demand);
 		return $result->count();
 	}
 }
