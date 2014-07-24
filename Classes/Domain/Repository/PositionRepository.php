@@ -142,11 +142,7 @@ class PositionRepository extends AbstractDemandedRepository {
 			if(!empty($location)
 					AND !empty($radius)
 					AND empty($bounds)) {
-					$geoCoder = new \Webfox\Placements\Utility\Geocoder;
-					$geoLocation = $geoCoder::getLocation($location);
-					if ($geoLocation) {
-						$bounds = $geoCoder::getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius/1000);
-					}
+					$bounds = $this->geoCoder->getBoundsByRadius($location['lat'], $location['lng'], $radius/1000);
 			}
 			if($bounds AND
 					!empty($bounds['N']) AND
