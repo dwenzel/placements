@@ -51,7 +51,7 @@ class PositionRepository extends AbstractDemandedRepository {
 		if ($categories && !empty($categoryConjunction)) {
 			
 			// @todo get subcategories ($demand->getIncludeSubCategories())
-			$constraints[] = $this->createCategoryConstraint(
+			$constraints[] = $this->createCategoryConstraints(
 				$query,
 				$categories,
 				$categoryConjunction,
@@ -191,7 +191,7 @@ class PositionRepository extends AbstractDemandedRepository {
 	 * @param  \boolean $includeSubCategories
 	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint|null
 	 */
-	protected function createCategoryConstraint(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $categories, $conjunction, $includeSubCategories = FALSE) {
+	protected function createCategoryConstraints(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $categories, $conjunction, $includeSubCategories = FALSE) {
 		$constraint = NULL;
 		$categoryConstraints = array();
 
