@@ -476,9 +476,161 @@ class PositionRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::createConstraintsFromDemand
 	 */
-	public function dummy() {
-		$this->markTestIncomplete();	
+	public function createConstraintsFromDemandCallsCreateCategoryConstraints() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository',
+			array('createCategoryConstraints'), array(), '', FALSE);
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('__wakeup', 'equals', 'logicalOr'), array(), '', FALSE);
+
+		$mockDemand = $this->getMock(
+				'\Webfox\Placements\Domain\Model\Dto\PositionDemand',
+				array('getCategories', 'getCategoryConjunction'), array(), '', FALSE);
+		$categories = '1,3,5';
+		$categoryConjunction = 'foo';
+
+		$mockDemand->expects($this->once())->method('getCategories')
+			->will($this->returnValue($categories));
+		$mockDemand->expects($this->once())->method('getCategoryConjunction')
+			->will($this->returnValue($categoryConjunction));
+
+		$fixture->expects($this->once())->method('createCategoryConstraints')
+			->with($mockQuery, $categories, $categoryConjunction, FALSE);
+
+		$fixture->_call('createConstraintsFromDemand',$mockQuery, $mockDemand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCategoryConstraints
+	 */
+	public function createCategoryConstraintsReturnsNullForEmptyConjunction() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository',
+			array('dummy'), array(), '', FALSE);
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array(), array(), '', FALSE);
+		$categories = '1,3,5';
+		$conjunction = '';
+
+		$this->assertNull(
+			$this->fixture->_call('createCategoryConstraints', $mockQuery, $categories, $conjunction)
+		);
+
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCategoryConstraints
+	 */
+	public function createCategoryConstraintsCreatesConstraintsWithDefaultConjunction() {
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('__wakeup', 'contains', 'logicalAnd'), array(), '', FALSE);
+
+		$categories = '1,3,5';
+		$conjunction = 'and';
+
+		$mockQuery->expects($this->exactly(3))->method('contains')
+			->withConsecutive(
+						array('categories', 1),
+						array('categories', 3),
+						array('categories', 5)
+				)
+			->will($this->onConsecutiveCalls('foo', 'bar', 'baz'));
+
+		$mockQuery->expects($this->once())->method('logicalAnd')
+			->with(array('foo', 'bar', 'baz'));
+
+		$this->fixture->_call('createCategoryConstraints',$mockQuery, $categories, $conjunction);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCategoryConstraints
+	 */
+	public function createCategoryConstraintsCreatesConstraintsWithConjunctionOr() {
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('__wakeup', 'contains', 'logicalOr'), array(), '', FALSE);
+
+		$categories = '1,3,5';
+		$conjunction = 'or';
+
+		$mockQuery->expects($this->exactly(3))->method('contains')
+			->withConsecutive(
+						array('categories', 1),
+						array('categories', 3),
+						array('categories', 5)
+				)
+			->will($this->onConsecutiveCalls('foo', 'bar', 'baz'));
+
+		$mockQuery->expects($this->once())->method('logicalOr')
+			->with(array('foo', 'bar', 'baz'));
+
+		$this->fixture->_call('createCategoryConstraints',$mockQuery, $categories, $conjunction);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCategoryConstraints
+	 */
+	public function createCategoryConstraintsCreatesConstraintsWithConjunctionNotOr() {
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('__wakeup', 'contains', 'logicalOr', 'logicalNot'), array(), '', FALSE);
+		$mockOrConstraint = $this->getMock(
+			'\TYPO3\CMS\Extbase\Persistence\Generic\Qom\LogicalOr',
+			array(), array(), '', FALSE);
+
+		$categories = '1,3,5';
+		$conjunction = 'notor';
+
+		$mockQuery->expects($this->exactly(3))->method('contains')
+			->withConsecutive(
+						array('categories', 1),
+						array('categories', 3),
+						array('categories', 5)
+				)
+			->will($this->onConsecutiveCalls('foo', 'bar', 'baz'));
+
+		$mockQuery->expects($this->once())->method('logicalOr')
+			->with(array('foo', 'bar', 'baz'))
+			->will($this->returnValue($mockOrConstraint));
+		$mockQuery->expects($this->once())->method('logicalNot')
+			->with($mockOrConstraint);
+
+		$this->fixture->_call('createCategoryConstraints',$mockQuery, $categories, $conjunction);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCategoryConstraints
+	 */
+	public function createCategoryConstraintsCreatesConstraintsWithConjunctionNotAnd() {
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('__wakeup', 'contains', 'logicalAnd', 'logicalNot'), array(), '', FALSE);
+		$mockAndConstraint = $this->getMock(
+			'\TYPO3\CMS\Extbase\Persistence\Generic\Qom\LogicalAnd',
+			array(), array(), '', FALSE);
+
+		$categories = '1,3,5';
+		$conjunction = 'notand';
+
+		$mockQuery->expects($this->exactly(3))->method('contains')
+			->withConsecutive(
+						array('categories', 1),
+						array('categories', 3),
+						array('categories', 5)
+				)
+			->will($this->onConsecutiveCalls('foo', 'bar', 'baz'));
+
+		$mockQuery->expects($this->once())->method('logicalAnd')
+			->with(array('foo', 'bar', 'baz'))
+			->will($this->returnValue($mockAndConstraint));
+		$mockQuery->expects($this->once())->method('logicalNot')
+			->with($mockAndConstraint);
+
+		$this->fixture->_call('createCategoryConstraints',$mockQuery, $categories, $conjunction);
 	}
 }
 ?>
