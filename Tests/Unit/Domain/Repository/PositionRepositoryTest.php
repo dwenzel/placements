@@ -337,6 +337,112 @@ class PositionRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$this->fixture->_call('createConstraintsFromDemand',$query, $demand);
 	}
 
+	/**
+	 * @test
+	 * @covers ::createConstraintsFromDemand
+	 */
+	public function createConstraintsFromDemandCreatesLocationConstraintsForBoundsWithConjunctionAnd() {
+		$query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('__wakeup', 'lessThan', 'greaterThan', 'logicalAnd'), array(), '', FALSE);
+
+		$demand = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\PositionDemand',
+			array('getSearch', 'getLocation'), array(), '', FALSE);
+		$mockSearch = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\Search',
+			array('getLocation', 'getBounds', 'getRadius'), array(), '', FALSE);
+		$bounds = array(
+				'N' => array('lat' => 1.5, 'lng' => 2.5),
+				'S' => array('lat' => 3.5, 'lng' => 4.5),
+				'W' => array('lat' => 5.5, 'lng' => 6.5),
+				'E' => array('lat' => 7.5, 'lng' => 8.5)
+		);
+
+		$demand->expects($this->any())->method('getSearch')
+			->will($this->returnValue($mockSearch));
+
+		$mockSearch->expects($this->once())->method('getBounds')
+			->will($this->returnValue($bounds));
+		$mockSearch->expects($this->once())->method('getLocation');
+		$mockSearch->expects($this->once())->method('getRadius');
+
+		$query->expects($this->exactly(2))->method('greaterThan')
+			->withConsecutive(
+					array('latitude', $bounds['S']['lat']),
+					array('longitude', $bounds['W']['lng'])
+				)
+			->will($this->onConsecutiveCalls('S', 'W'));
+		$query->expects($this->exactly(2))->method('lessThan')
+			->withConsecutive(
+					array('latitude', $bounds['N']['lat']),
+					array('longitude', $bounds['E']['lng'])
+				)
+			->will($this->onConsecutiveCalls('N', 'E'));
+
+		$query->expects($this->once())->method('logicalAnd')
+			->with(array('S', 'N', 'W', 'E'));
+
+		$this->fixture->_call('createConstraintsFromDemand',$query, $demand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createConstraintsFromDemand
+	 */
+	public function createConstraintsFromDemandCreatesLocationConstraintsForLocationAndRadiusWithConjunctionAnd() {
+		$query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+			array('__wakeup', 'lessThan', 'greaterThan', 'logicalAnd'), array(), '', FALSE);
+
+		$demand = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\PositionDemand',
+			array('getSearch', 'getLocation'), array(), '', FALSE);
+		$mockSearch = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\Search',
+			array('getLocation', 'getBounds', 'getRadius'), array(), '', FALSE);
+		$mockGeoCoder = $this->getMock(
+			'\Webfox\Placements\Utility\Geocoder',
+			array('getLocation', 'getBoundsByRadius'), array(), '', FALSE);
+		$this->fixture->_set('geoCoder', $mockGeoCoder);
+		$bounds = array(
+				'N' => array('lat' => 1.5, 'lng' => 2.5),
+				'S' => array('lat' => 3.5, 'lng' => 4.5),
+				'W' => array('lat' => 5.5, 'lng' => 6.5),
+				'E' => array('lat' => 7.5, 'lng' => 8.5)
+		);
+		$location = array('lat' => 9.3, 'lng' => 10.5);
+		$radius = 50000;
+
+		$demand->expects($this->any())->method('getSearch')
+			->will($this->returnValue($mockSearch));
+
+		$mockSearch->expects($this->once())->method('getBounds')
+			->will($this->returnValue(NULL));
+		$mockSearch->expects($this->once())->method('getLocation')
+			->will($this->returnValue($location));
+		$mockSearch->expects($this->once())->method('getRadius')
+			->will($this->returnValue($radius));
+
+		$mockGeoCoder->expects($this->once())->method('getBoundsByRadius')
+			->with($location['lat'], $location['lng'], $radius/1000)
+			->will($this->returnValue($bounds));
+		$query->expects($this->exactly(2))->method('greaterThan')
+			->withConsecutive(
+					array('latitude', $bounds['S']['lat']),
+					array('longitude', $bounds['W']['lng'])
+				)
+			->will($this->onConsecutiveCalls('S', 'W'));
+		$query->expects($this->exactly(2))->method('lessThan')
+			->withConsecutive(
+					array('latitude', $bounds['N']['lat']),
+					array('longitude', $bounds['E']['lng'])
+				)
+			->will($this->onConsecutiveCalls('N', 'E'));
+
+		$query->expects($this->once())->method('logicalAnd')
+			->with(array('S', 'N', 'W', 'E'));
+
+		$this->fixture->_call('createConstraintsFromDemand',$query, $demand);
+	}
 
 	/**
 	 * @test
