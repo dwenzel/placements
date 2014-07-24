@@ -51,7 +51,7 @@ class PositionRepository extends AbstractDemandedRepository {
 		if ($categories && !empty($categoryConjunction)) {
 			
 			// @todo get subcategories ($demand->getIncludeSubCategories())
-			$constraints[] = $this->createCategoryConstraint(
+			$constraints[] = $this->createCategoryConstraints(
 				$query,
 				$categories,
 				$categoryConjunction,
@@ -142,21 +142,18 @@ class PositionRepository extends AbstractDemandedRepository {
 			if(!empty($location)
 					AND !empty($radius)
 					AND empty($bounds)) {
-					$geoCoder = new \Webfox\Placements\Utility\Geocoder;
-					$geoLocation = $geoCoder::getLocation($location);
-					if ($geoLocation) {
-						$bounds = $geoCoder::getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius/1000);
-					}
+				$geoLocation = $this->geoCoder->getLocation($location);
+				$bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius/1000);
 			}
 			if($bounds AND
 					!empty($bounds['N']) AND
 					!empty($bounds['S']) AND
 					!empty($bounds['W']) AND
 					!empty($bounds['E'])) {
-						$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
-						$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
-						$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
-						$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
+				$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
+				$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
+				$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
+				$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
 			}
 					
 			if(count($searchConstraints)) {
@@ -195,7 +192,7 @@ class PositionRepository extends AbstractDemandedRepository {
 	 * @param  \boolean $includeSubCategories
 	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint|null
 	 */
-	protected function createCategoryConstraint(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $categories, $conjunction, $includeSubCategories = FALSE) {
+	protected function createCategoryConstraints(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $categories, $conjunction, $includeSubCategories = FALSE) {
 		$constraint = NULL;
 		$categoryConstraints = array();
 
@@ -208,23 +205,8 @@ class PositionRepository extends AbstractDemandedRepository {
 			$categories = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $categories, TRUE);
 		}
 		foreach ($categories as $category) {
-			if ($includeSubCategories) {
-				/*
-				$subCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', Tx_News_Service_CategoryService::getChildrenCategories($category, 0, '', TRUE), TRUE);
-				$subCategoryConstraint = array();
-				$subCategoryConstraint[] = $query->contains('categories', $category);
-				if (count($subCategories) > 0) {
-					foreach ($subCategories as $subCategory) {
-						$subCategoryConstraint[] = $query->contains('categories', $subCategory);
-					}
-				}
-				if ($subCategoryConstraint) {
-					$categoryConstraints[] = $query->logicalOr($subCategoryConstraint);
-				}
-*/
-			} else {
-				$categoryConstraints[] = $query->contains('categories', $category);
-			}
+			//@todo: include subcategories
+			$categoryConstraints[] = $query->contains('categories', $category);
 		}
 		if ($categoryConstraints) {
 			switch (strtolower($conjunction)) {
