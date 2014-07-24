@@ -204,23 +204,8 @@ class PositionRepository extends AbstractDemandedRepository {
 			$categories = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $categories, TRUE);
 		}
 		foreach ($categories as $category) {
-			if ($includeSubCategories) {
-				/*
-				$subCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', Tx_News_Service_CategoryService::getChildrenCategories($category, 0, '', TRUE), TRUE);
-				$subCategoryConstraint = array();
-				$subCategoryConstraint[] = $query->contains('categories', $category);
-				if (count($subCategories) > 0) {
-					foreach ($subCategories as $subCategory) {
-						$subCategoryConstraint[] = $query->contains('categories', $subCategory);
-					}
-				}
-				if ($subCategoryConstraint) {
-					$categoryConstraints[] = $query->logicalOr($subCategoryConstraint);
-				}
-*/
-			} else {
-				$categoryConstraints[] = $query->contains('categories', $category);
-			}
+			//@todo: include subcategories
+			$categoryConstraints[] = $query->contains('categories', $category);
 		}
 		if ($categoryConstraints) {
 			switch (strtolower($conjunction)) {
