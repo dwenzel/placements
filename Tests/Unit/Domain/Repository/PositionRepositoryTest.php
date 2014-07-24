@@ -409,7 +409,8 @@ class PositionRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 				'W' => array('lat' => 5.5, 'lng' => 6.5),
 				'E' => array('lat' => 7.5, 'lng' => 8.5)
 		);
-		$location = array('lat' => 9.3, 'lng' => 10.5);
+		$location = 'foo';
+		$geoLocation = array('lat' => 9.3, 'lng' => 10.5);
 		$radius = 50000;
 
 		$demand->expects($this->any())->method('getSearch')
@@ -422,8 +423,11 @@ class PositionRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$mockSearch->expects($this->once())->method('getRadius')
 			->will($this->returnValue($radius));
 
+		$mockGeoCoder->expects($this->once())->method('getLocation')
+			->with($location)
+			->will($this->returnValue($geoLocation));
 		$mockGeoCoder->expects($this->once())->method('getBoundsByRadius')
-			->with($location['lat'], $location['lng'], $radius/1000)
+			->with($geoLocation['lat'], $geoLocation['lng'], $radius/1000)
 			->will($this->returnValue($bounds));
 		$query->expects($this->exactly(2))->method('greaterThan')
 			->withConsecutive(
