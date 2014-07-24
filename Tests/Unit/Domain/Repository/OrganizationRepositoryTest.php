@@ -81,11 +81,5 @@ class OrganizationRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$this->fixture->_call('createConstraintsFromDemand',$query, $demand);
 
 	}
-	/**
-	 * @test
-	 */
-	public function dummy() {
-		$this->markTestIncomplete();	
-	}
 }
 ?>
