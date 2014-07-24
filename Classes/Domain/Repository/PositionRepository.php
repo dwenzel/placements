@@ -142,17 +142,18 @@ class PositionRepository extends AbstractDemandedRepository {
 			if(!empty($location)
 					AND !empty($radius)
 					AND empty($bounds)) {
-					$bounds = $this->geoCoder->getBoundsByRadius($location['lat'], $location['lng'], $radius/1000);
+				$geoLocation = $this->geoCoder->getLocation($location);
+				$bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius/1000);
 			}
 			if($bounds AND
 					!empty($bounds['N']) AND
 					!empty($bounds['S']) AND
 					!empty($bounds['W']) AND
 					!empty($bounds['E'])) {
-						$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
-						$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
-						$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
-						$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
+				$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
+				$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
+				$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
+				$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
 			}
 					
 			if(count($searchConstraints)) {
