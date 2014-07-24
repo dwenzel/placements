@@ -52,13 +52,5 @@ class UserRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	public function tearDown() {
 		unset($this->fixture);
 	}
-
-	/**
-	 * @test
-	 */
-	public function dummyMethod() {
-		$this->markTestIncomplete();
-	}
-
 }
 ?>
