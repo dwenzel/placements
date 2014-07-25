@@ -581,5 +581,30 @@ class PositionTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		);
 	}
 	
+	/**
+	 * @test
+	 */
+	public function getExportEnabledReturnsInitialValueForBoolean() {
+		$this->assertFalse($this->fixture->getExportEnabled());
+	}
+
+	/**
+	 * @test
+	 */
+	public function setExportEnabledForBooleanSetsExportEnabled() {
+		$this->fixture->setExportEnabled(TRUE);
+
+		$this->assertTrue(
+			$this->fixture->getExportEnabled()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function isExportEnabledReturnsInitialValueForBoolean() {
+		$this->assertFalse($this->fixture->isExportEnabled());
+	}
+	
 }
 ?>
