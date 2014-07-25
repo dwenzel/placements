@@ -6,7 +6,7 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_placements_domain_model_position'] = array(
 	'ctrl' => $TCA['tx_placements_domain_model_position']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, summary, description, entry_date, fixed_term, duration, zip, city, latitude, longitude, payment, contact, link, organization, client, type, categories, working_hours, sectors',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, export_enabled, title, identifier, summary, description, entry_date, fixed_term, duration, zip, city, latitude, longitude, payment, contact, link, organization, client, type, categories, working_hours, sectors',
 	),
 	'types' => array(
 		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.types;types,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.references;references, summary,--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tabs.extended, description,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.location;location,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.conditions;conditions,contact,--palette--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:palettes.contact;contact,--div--;LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tabs.categories, categories, sectors,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
@@ -14,7 +14,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 	'palettes' => array(
 		'1' => array('showitem' => ''),
 		'types' => array('showitem' => 'type,working_hours, entry_date'),
-		'references' => array('showitem' => 'identifier,--linebreak--,organization,client'),
+		'references' => array('showitem' => 'identifier,export_enabled,--linebreak--,organization,client'),
 		'location' => array('showitem' => 'zip,city,latitude,longitude'),
 		'conditions' => array('showitem' => 'payment,fixed_term,duration'),
 		'contact' => array('showitem' => 'link'),
@@ -161,6 +161,14 @@ $TCA['tx_placements_domain_model_position'] = array(
 		'fixed_term' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.fixed_term',
+			'config' => array(
+				'type' => 'check',
+				'default' => 0
+			),
+		),
+		'export_enabled' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.export_enabled',
 			'config' => array(
 				'type' => 'check',
 				'default' => 0

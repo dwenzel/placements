@@ -181,6 +181,13 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $sectors;
 
 	/**
+	 * export enabled
+	 *
+	 * @var boolean
+	 */
+	protected $exportEnabled = FALSE;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return \string $title
@@ -662,6 +669,35 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setSectors(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $sectors) {
 		$this->sectors = $sectors;
 	}
+
+	/**
+	 * Returns the export enabled state
+	 *
+	 * @return boolean $exportEnabled
+	 */
+	public function getExportEnabled() {
+		return $this->exportEnabled;
+	}
+
+	/**
+	 * Sets the exportEnabled
+	 *
+	 * @param boolean $exportEnabled
+	 * @return void
+	 */
+	public function setExportEnabled($exportEnabled) {
+		$this->exportEnabled = $exportEnabled;
+	}
+
+	/**
+	 * Returns the boolean state of exportEnabled
+	 *
+	 * @return boolean
+	 */
+	public function isExportEnabled() {
+		return $this->getExportEnabled();
+	}
+
 
 }
 ?>
