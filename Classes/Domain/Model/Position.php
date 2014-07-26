@@ -33,7 +33,8 @@ namespace Webfox\Placements\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+implements GeocodingInterface {
 
 	/**
 	 * title
@@ -541,7 +542,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the latitude
 	 *
-	 * @return \float $latitude
+	 * @var \float $latitude
 	 * @return void
 	 */
 	public function setLatitude($latitude) {
@@ -560,7 +561,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the longitude
 	 *
-	 * @return \float $longitude
+	 * @var \float $longitude
 	 * @return void
 	 */
 	public function setLongitude($longitude) {
