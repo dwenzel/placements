@@ -37,7 +37,7 @@ namespace Webfox\Placements\Tests;
  * @subpackage Placement Service
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\Placements\Utility\Geocoder
  */
 class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -184,6 +184,127 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$result,
 			$this->fixture->_call('getLocation', 'bogus')
 		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::updateGeoLocation
+	 */
+	public function updateGeoLocationInitiallyReturnsOriginalObject() {
+		$fixture = $this->getMock(
+			'\Webfox\Placements\Utility\Geocoder',
+			array(), array(), '', FALSE);
+		$mockObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\GeocodingInterface',
+			array(
+				'setLatitude',
+				'setLongitude',
+				'getCity',
+				'getZip',
+				'getLatitude',
+				'getLongitude'
+				), array(), '', FALSE);
+
+		$mockObject->expects($this->never())->method('setLatitude');
+		$mockObject->expects($this->never())->method('setLongitude');
+
+		$fixture->updateGeoLocation($mockObject);
+	}
+
+	/**
+	 * @test
+	 * @covers ::updateGeoLocation
+	 */
+	public function updateGeoLocationReturnsOriginalObjectForInvalidCity() {
+		$fixture = $this->getMock(
+			'\Webfox\Placements\Utility\Geocoder',
+			array('dummy'), array(), '', FALSE);
+		$mockObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\GeocodingInterface',
+			array(
+				'setLatitude',
+				'setLongitude',
+				'getCity',
+				'getZip',
+				'getLatitude',
+				'getLongitude'
+				), array(), '', FALSE);
+
+		$mockObject->expects($this->once())->method('getCity');
+		$mockObject->expects($this->never())->method('setLatitude');
+		$mockObject->expects($this->never())->method('setLongitude');
+
+		$fixture->updateGeoLocation($mockObject);
+	}
+
+	/**
+	 * @test
+	 * @covers ::updateGeoLocation
+	 */
+	public function updateGeoLocationSetsLatitudeAndLongitude() {
+		$fixture = $this->getMock(
+			'\Webfox\Placements\Utility\Geocoder',
+			array('dummy', 'getLocation'), array(), '', FALSE);
+		$mockObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\GeocodingInterface',
+			array(
+				'setLatitude',
+				'setLongitude',
+				'getCity',
+				'getZip',
+				'getLatitude',
+				'getLongitude'
+				), array(), '', FALSE);
+		$responseSuccess = array(
+			'lat' => 51.3396955,
+			'lng' => 12.3730747
+		);
+
+		$mockObject->expects($this->once())->method('getCity')
+			->will($this->returnValue('foo'));
+		$mockObject->expects($this->once())->method('getZip')
+			->will($this->returnValue('bar'));
+		$fixture->expects($this->once())->method('getLocation')
+			->with('bar foo')
+			->will($this->returnValue($responseSuccess));
+		$mockObject->expects($this->once())->method('setLatitude')
+			->with($responseSuccess['lat']);
+		$mockObject->expects($this->once())->method('setLongitude')
+			->with($responseSuccess['lng']);
+
+		$fixture->updateGeoLocation($mockObject);
+	}
+
+	/**
+	 * @test
+	 * @covers ::updateGeoLocation
+	 */
+	public function updateGeoLocationDoesNotSetLatitudeAndLongitudeForFailedGetLocation() {
+		$fixture = $this->getMock(
+			'\Webfox\Placements\Utility\Geocoder',
+			array('dummy', 'getLocation'), array(), '', FALSE);
+		$mockObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\GeocodingInterface',
+			array(
+				'setLatitude',
+				'setLongitude',
+				'getCity',
+				'getZip',
+				'getLatitude',
+				'getLongitude'
+				), array(), '', FALSE);
+
+		$mockObject->expects($this->once())->method('getCity')
+			->will($this->returnValue('foo'));
+		$mockObject->expects($this->once())->method('getZip')
+			->will($this->returnValue('bar'));
+		$fixture->expects($this->once())->method('getLocation')
+			->with('bar foo')
+			->will($this->returnValue(FALSE));
+		$mockObject->expects($this->never())->method('setLatitude');
+		$mockObject->expects($this->never())->method('setLongitude');
+
+		$fixture->updateGeoLocation($mockObject);
 	}
 }
 ?>
