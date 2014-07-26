@@ -207,7 +207,8 @@ class GeocoderTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$mockObject->expects($this->never())->method('setLatitude');
 		$mockObject->expects($this->never())->method('setLongitude');
-
+		var_dump(get_class_methods(get_class($fixture)));
+		die;
 		$fixture->updateGeoLocation($mockObject);
 	}
 
