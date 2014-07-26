@@ -37,9 +37,9 @@ namespace Webfox\Placements\Tests;
  * @subpackage Placement Service
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\Placements\Utility\Geocoder
  */
-class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class GeocoderTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var
 	 */
@@ -133,44 +133,53 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getServiceUrlReturnsInitialValueForString() {
-		$this->markTestSkipped();
-		$this->assertSame(
-				'http://maps.google.com/maps/api/geocode/json?sensor=false&address=',
-				$fixture->getServiceUrl()
-		);
+		if (method_exists($this->fixture, 'getServiceUrl')) {
+			$this->assertSame(
+					'http://maps.google.com/maps/api/geocode/json?sensor=false&address=',
+					$this->fixture->getServiceUrl()
+			);
+		} else {
+			$this->markTestSkipped();
+		}
 	}
 
 	/**
 	 * @test
 	 */
 	public function getLocationBuildsCorrectUrl() {
-		$this->markTestSkipped();
-		$expectedUrl = $this->fixture->getServiceUrl() . 'bogus';
-		$this->fixture->expects($this->once())->method('getUrl')
-			->with($expectedUrl);
-		$this->fixture->getLocation('bogus');
+		if (method_exists($this->fixture, 'getServiceUrl')) {
+			$expectedUrl = $this->fixture->getServiceUrl() . 'bogus';
+			$this->fixture->expects($this->once())->method('getUrl')
+				->with($expectedUrl);
+			$this->fixture->getLocation('bogus');
+		} else {
+			$this->markTestSkipped();
+		}
 	}
+
 	/**
 	 * @test
 	 */
 	public function getLocationReturnsFalseForInvalidRequest() {
-		$this->markTestSkipped();
 		$response = $this->getGoogleMapsGeocodeApiResponse('invalid_request');
 		$this->fixture->expects($this->once())->method('getUrl')
 			->will($this->returnValue($response));
 
-		$result = $this->fixture->_call('getLocation', 'bogus');
-		$this->assertSame(
-				FALSE,
-				$result
-		);
+		if (method_exists($this->fixture, 'getLocation')) {
+			$result = $this->fixture->_call('getLocation', 'bogus');
+			$this->assertSame(
+					FALSE,
+					$result
+			);
+		} else {
+			$this->markTestSkipped();
+		}
 	}
 
 	/**
 	 * @test
 	 */
 	public function getLocationReturnsLocationForValidRequest() {
-		$this->markTestSkipped();
 		$response = $this->getGoogleMapsGeocodeApiResponse('success');
 		$result = array(
 			'lat' => 51.3396955,
@@ -179,11 +188,151 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 		$this->fixture->expects($this->once())->method('getUrl')
 			->will($this->returnValue($response));
+		
+		if (method_exists($this->fixture, 'getLocation')) {
+			$this->assertSame(
+				$result,
+				$this->fixture->_call('getLocation', 'bogus')
+			);
+		} else {
+			$this->markTestSkipped();
+		}
+	}
 
-		$this->assertSame(
-			$result,
-			$this->fixture->_call('getLocation', 'bogus')
+	/**
+	 * @test
+	 * @covers ::updateGeoLocation
+	 */
+	public function updateGeoLocationInitiallyReturnsOriginalObject() {
+		$fixture = $this->getMock(
+			'Webfox\Placements\Utility\Geocoder',
+			array('dummy'), array(), '', FALSE);
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\GeocodingInterface',
+			array(
+				'setLatitude',
+				'setLongitude',
+				'getCity',
+				'getZip',
+				'getLatitude',
+				'getLongitude'
+				), array(), '', FALSE);
+
+		$mockObject->expects($this->never())->method('setLatitude');
+		$mockObject->expects($this->never())->method('setLongitude');
+		if (method_exists($fixture, 'updateGeoLocation')) {
+			$fixture->updateGeoLocation($mockObject);
+		} else {
+			$this->markTestSkipped();
+		}
+	}
+
+	/**
+	 * @test
+	 * @covers ::updateGeoLocation
+	 */
+	public function updateGeoLocationReturnsOriginalObjectForInvalidCity() {
+		$fixture = $this->getMock(
+			'\Webfox\Placements\Utility\Geocoder',
+			array('dummy'), array(), '', FALSE);
+		$mockObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\GeocodingInterface',
+			array(
+				'setLatitude',
+				'setLongitude',
+				'getCity',
+				'getZip',
+				'getLatitude',
+				'getLongitude'
+				), array(), '', FALSE);
+
+		$mockObject->expects($this->once())->method('getCity');
+		$mockObject->expects($this->never())->method('setLatitude');
+		$mockObject->expects($this->never())->method('setLongitude');
+
+		if (method_exists($fixture, 'updateGeoLocation')) {
+			$fixture->updateGeoLocation($mockObject);
+		} else {
+			$this->markTestSkipped();
+		}
+	}
+
+	/**
+	 * @test
+	 * @covers ::updateGeoLocation
+	 */
+	public function updateGeoLocationSetsLatitudeAndLongitude() {
+		$fixture = $this->getMock(
+			'\Webfox\Placements\Utility\Geocoder',
+			array('dummy', 'getLocation'), array(), '', FALSE);
+		$mockObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\GeocodingInterface',
+			array(
+				'setLatitude',
+				'setLongitude',
+				'getCity',
+				'getZip',
+				'getLatitude',
+				'getLongitude'
+				), array(), '', FALSE);
+		$responseSuccess = array(
+			'lat' => 51.3396955,
+			'lng' => 12.3730747
 		);
+
+		$mockObject->expects($this->once())->method('getCity')
+			->will($this->returnValue('foo'));
+		$mockObject->expects($this->once())->method('getZip')
+			->will($this->returnValue('bar'));
+		$fixture->expects($this->once())->method('getLocation')
+			->with('bar foo')
+			->will($this->returnValue($responseSuccess));
+		$mockObject->expects($this->once())->method('setLatitude')
+			->with($responseSuccess['lat']);
+		$mockObject->expects($this->once())->method('setLongitude')
+			->with($responseSuccess['lng']);
+
+		if (method_exists($fixture, 'updateGeoLocation')) {
+			$fixture->updateGeoLocation($mockObject);
+		} else {
+			$this->markTestSkipped();
+		}
+	}
+
+	/**
+	 * @test
+	 * @covers ::updateGeoLocation
+	 */
+	public function updateGeoLocationDoesNotSetLatitudeAndLongitudeForFailedGetLocation() {
+		$fixture = $this->getMock(
+			'\Webfox\Placements\Utility\Geocoder',
+			array('dummy', 'getLocation'), array(), '', FALSE);
+		$mockObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\GeocodingInterface',
+			array(
+				'setLatitude',
+				'setLongitude',
+				'getCity',
+				'getZip',
+				'getLatitude',
+				'getLongitude'
+				), array(), '', FALSE);
+
+		$mockObject->expects($this->once())->method('getCity')
+			->will($this->returnValue('foo'));
+		$mockObject->expects($this->once())->method('getZip')
+			->will($this->returnValue('bar'));
+		$fixture->expects($this->once())->method('getLocation')
+			->with('bar foo')
+			->will($this->returnValue(FALSE));
+		$mockObject->expects($this->never())->method('setLatitude');
+		$mockObject->expects($this->never())->method('setLongitude');
+
+		if (method_exists($fixture, 'updateGeoLocation')) {
+			$fixture->updateGeoLocation($mockObject);
+		} else {
+			$this->markTestSkipped();
+		}
 	}
 }
 ?>

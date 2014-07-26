@@ -306,20 +306,7 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
 			$newPosition->setSingleCategory($category);
 		}
-		$lat = $newPosition->getLatitude();
-		$long = $newPosition->getLongitude();
-		if (!is_null($newPosition->getCity()) &&
-				empty($lat) && 
-				empty($long)) {
-			$address = '';
-			$address .= ($newPosition->getZip() !='')? $newPosition->getZip() . ' ': NULL;
-			$address .= $newPosition->getCity();
-			$location = $this->geoCoder->getLocation($address);
-			if($location) {
-					$newPosition->setLatitude($location['lat']);
-					$newPosition->setLongitude($location['lng']);
-			}
-		}
+		$this->geoCoder->updateGeoLocation($newPosition);
 		$this->positionRepository->add($newPosition);
 		$this->addFlashMessage(
 			$this->translate('tx_placements.success.position.createAction')
@@ -373,20 +360,7 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['position']['categories']));
 			$position->setSingleCategory($category);
 		}
-		$lat = $position->getLatitude();
-		$long = $position->getLongitude();
-		if (!is_null($position->getCity()) &&
-				empty($lat) && 
-				empty($long)) {
-			$address = '';
-			$address .= ($position->getZip() !='')? $position->getZip() . ' ': NULL;
-			$address .= $position->getCity();
-			$location = $this->geoCoder->getLocation($address);
-			if($location) {
-					$position->setLatitude($location['lat']);
-					$position->setLongitude($location['lng']);
-			}
-		}
+		$this->geoCoder->updateGeoLocation($position);
 		$this->positionRepository->update($position);
 		$this->addFlashMessage(
 			$this->translate('tx_placements.success.position.updateAction')
