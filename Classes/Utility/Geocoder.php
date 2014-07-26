@@ -23,19 +23,13 @@ namespace Webfox\Placements\Utility;
  * This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
+class Geocoder {
 	/**
 	 * Service Url
 	 *
 	 * @var \string Base Url for geocoding service.
 	 */
 	protected $serviceUrl = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
 
 	/**
 	 * Returns the base url of the geocoding service
