@@ -1,7 +1,7 @@
 <?php
 namespace Webfox\Placements\Utility;
 
-/** *************************************************************
+/***************************************************************
  *
  * Geocoding utility 
  *
@@ -21,7 +21,7 @@ namespace Webfox\Placements\Utility;
  * GNU General Public License for more details.
  *
  * This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ ***************************************************************/
 
 class Geocoder {
 	/**
