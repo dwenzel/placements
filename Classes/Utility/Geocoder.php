@@ -140,6 +140,32 @@ class Geocoder implements \TYPO3\CMS\Core\SingletonInterface{
 		return 2 * $radius * asin(sqrt(pow(sin($rHalfDeltaLat), 2) +
 			cos($rLatA) * cos($rLatB) * pow(sin($rHalfDeltaLon), 2)));
 	}
+
+	/**
+	 * Update Geo Location
+	 *
+	 * Sets latitude and longitude of an object. The object
+	 * must implement the \Webfox\Placements\Domain\Model\GeocodingInterface.
+	 * Will first read city and zip attributes then tries to
+	 * get geo location values and if succeeds update the latitude and
+	 * longitude values of the object.
+	 *
+	 * @var \Webfox\Placements\Domain\Model\GeocodingInterface $object
+	 */
+	public function updateGeoLocation(\Webfox\Placements\Domain\Model\GeocodingInterface &$object) {
+		$city = $object->getCity();
+		if(!empty($city)) {
+			$address = '';
+			$zip = $object->getZip();
+			$address .= (!empty($zip))? $zip . ' ' : NULL;
+			$address .= $city;
+			$geoLocation = $this->getLocation($address);
+			if($geoLocation) {
+				$object->setLatitude($geoLocation['lat']);
+				$object->setLongitude($geoLocation['lng']);
+			}
+		}
+	}
 }
  
 ?>
