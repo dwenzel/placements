@@ -324,9 +324,7 @@ class PositionController extends AbstractController {
 		$this->addFlashMessage(
 			$this->translate('tx_placements.success.position.createAction')
 			);
-		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-		$persistenceManager->persistAll();
-		$this->redirect('show', NULL, NULL, array('position'=>$newPosition), $this->settings['detailPid']);
+		$this->forward('show', NULL, NULL, array('position'=>$newPosition), $this->settings['detailPid']);
 	}
 
 	/**
@@ -393,7 +391,7 @@ class PositionController extends AbstractController {
 		$this->addFlashMessage(
 			$this->translate('tx_placements.success.position.updateAction')
 		);
-		$this->redirect('show', NULL, NULL, array('position' => $position), $this->settings['detailPid']);
+		$this->forward('show', NULL, NULL, array('position' => $position), $this->settings['detailPid']);
 	}
 
 	/**
