@@ -147,10 +147,10 @@ class GeocoderTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getLocationBuildsCorrectUrl() {
-		$expectedUrl = $this->fixture->getServiceUrl() . 'bogus';
-		$this->fixture->expects($this->once())->method('getUrl')
-			->with($expectedUrl);
 		if (method_exists($this->fixture, 'getServiceUrl')) {
+			$expectedUrl = $this->fixture->getServiceUrl() . 'bogus';
+			$this->fixture->expects($this->once())->method('getUrl')
+				->with($expectedUrl);
 			$this->fixture->getLocation('bogus');
 		} else {
 			$this->markTestSkipped();
