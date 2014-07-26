@@ -193,7 +193,7 @@ class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	public function updateGeoLocationInitiallyReturnsOriginalObject() {
 		$fixture = $this->getMock(
 			'\Webfox\Placements\Utility\Geocoder',
-			array(), array(), '', FALSE);
+			array('dummy'), array(), '', FALSE);
 		$mockObject = $this->getMock(
 			'\Webfox\Placements\Domain\Model\GeocodingInterface',
 			array(
