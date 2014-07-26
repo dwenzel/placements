@@ -39,7 +39,7 @@ namespace Webfox\Placements\Tests;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \Webfox\Placements\Utility\Geocoder
  */
-class GeocoderTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class GeocoderTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var
 	 */
