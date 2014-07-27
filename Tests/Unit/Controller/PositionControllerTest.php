@@ -558,6 +558,63 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::createAction
+	 */
+	public function createActionUpdatesAndAddsPosition() {
+		//setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('translate', 'addFlashMessage', 'forward'), array(), '', FALSE);
+		$settings = array('detailPid' => 2);
+		$fixture->_set('settings', $settings);
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('getFrontendUser'), array(), '', FALSE);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+		$mockRequest = $this->getMock(
+				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'),
+				array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$fixture->_set('request', $mockRequest);
+		$mockGeoCoder = $this->getMock(
+			'Webfox\Placements\Utiltiy\Geocoder',
+			array('updateGeoLocation'), array(), '', FALSE);
+		$fixture->_set('geoCoder', $mockGeoCoder);
+		$mockRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('add'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockRepository);
+		$mockUser = $this->getMock(
+			'Webfox\Placements\Domain\Model\User',
+			array('getClient'), array(), '', FALSE);
+		$mockClient = $this->getMock(
+			'Webfox\Placements\Domain\Model\Client');
+		$mockPosition = $this->getMock(
+			'Webfox\Placements\Domain\Model\Position',
+			array('setClient'), array(), '', FALSE);
+
+		// expectations
+		$mockAccessControlService->expects($this->once())->method('getFrontendUser')
+			->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())->method('getClient')
+			->will($this->returnValue($mockClient));
+		$mockRequest->expects($this->once())->method('getArgument')
+			->with('newPosition');
+		$mockGeoCoder->expects($this->once())->method('updateGeoLocation');
+		$mockRepository->expects($this->once())->method('add')
+			->with($mockPosition);
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.success.position.createAction')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+		$fixture->expects($this->once())->method('forward')
+			->with('show', NULL, NULL, array('position' => $mockPosition), $settings['detailPid']);
+		// call
+		$fixture->createAction($mockPosition);
+	}
+
+	/**
+	 * @test
 	 * @covers ::editAction
 	 */
 	public function editActionRedirectsIfUserIsNotAllowedToEditPosition() {
