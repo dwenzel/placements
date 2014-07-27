@@ -301,10 +301,12 @@ class PositionController extends AbstractController {
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Position $newPosition) {
 		$newPosition->setClient($this->accessControlService->getFrontendUser()->getClient());
-		$arguments = $this->request->getArguments();
-		if(is_string($arguments['newPosition']['categories'])) {
-			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
-			$newPosition->setSingleCategory($category);
+		$argument = $this->request->getArgument('newPosition');
+		if(isset($argument['categories'])) {
+			$categories = $this->categoryRepository->findMultipleByUid($argument['categories']);
+			foreach($categories as $category) {
+				$newPosition->addCategory($category);
+			}
 		}
 		$this->geoCoder->updateGeoLocation($newPosition);
 		$this->positionRepository->add($newPosition);
