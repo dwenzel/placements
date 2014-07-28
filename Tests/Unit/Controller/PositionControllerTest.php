@@ -654,7 +654,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		);
 		$mockPosition = $this->getMock(
 			'Webfox\Placements\Domain\Model\Position',
-			array('setClient', 'addCategory'), array(), '', FALSE);
+			array('setSingleCategory'), array(), '', FALSE);
 
 		// expectations
 		$mockAccessControlService->expects($this->once())->method('getFrontendUser')
@@ -666,8 +666,8 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->will($this->returnValue($requestArgument));
 		$mockCategoryRepository->expects($this->once())->method('findByUid')
 			->with('1')
-			->will($this->returnValue(array($mockCategory)));
-		$mockPosition->expects($this->once())->method('addCategory')
+			->will($this->returnValue($mockCategory));
+		$mockPosition->expects($this->once())->method('setSingleCategory')
 			->with($mockCategory);
 		$mockGeoCoder->expects($this->once())->method('updateGeoLocation');
 		$mockPositionRepository->expects($this->once())->method('add');
