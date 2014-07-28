@@ -364,7 +364,11 @@ class PositionController extends AbstractController {
 	public function updateAction(\Webfox\Placements\Domain\Model\Position $position) {
 		$argument = $this->request->getArgument('position');
 		if(isset($argument['categories'])) {
-			$categories = $this->categoryRepository->findMultipleByUid(implode(',', $argument['categories']));
+			if(is_array($argument['categories'])) {
+				$categories = $this->categoryRepository->findMultipleByUid(implode(',', $argument['categories']));
+			} elseif (is_string($argument['categories'])) {
+				$categories = $this->categoryRepository->findByUid(intval($argument['categories']));
+			}
 			$storage = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\ObjectStorage');
 			$position->setCategories($storage);
 			foreach($categories as $category) {
