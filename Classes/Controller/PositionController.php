@@ -366,13 +366,14 @@ class PositionController extends AbstractController {
 		if(isset($argument['categories'])) {
 			if(is_array($argument['categories'])) {
 				$categories = $this->categoryRepository->findMultipleByUid(implode(',', $argument['categories']));
-			} elseif (is_string($argument['categories'])) {
-				$categories = $this->categoryRepository->findByUid(intval($argument['categories']));
-			}
-			$storage = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\ObjectStorage');
-			$position->setCategories($storage);
-			foreach($categories as $category) {
-				$position->addCategory($category);
+				$storage = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\ObjectStorage');
+				$position->setCategories($storage);
+				foreach($categories as $category) {
+					$position->addCategory($category);
+				}
+			} else {
+				$category = $this->categoryRepository->findByUid(intval($argument['categories']));
+				$position->setSingleCategory($category);
 			}
 		}
 		$this->geoCoder->updateGeoLocation($position);
