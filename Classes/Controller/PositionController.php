@@ -305,11 +305,12 @@ class PositionController extends AbstractController {
 		if(isset($argument['categories'])) {
 			if(is_array($argument['categories'])) {
 				$categories = $this->categoryRepository->findMultipleByUid(implode(',', $argument['categories']));
-			} elseif (is_string($argument['categories'])) {
-				$categories = $this->categoryRepository->findByUid(intval($argument['categories']));
-			}
-			foreach($categories as $category) {
-				$newPosition->addCategory($category);
+				foreach($categories as $category) {
+					$newPosition->addCategory($category);
+				}
+			} else {
+				$category = $this->categoryRepository->findByUid(intval($argument['categories']));
+				$newPosition->setSingleCategory($category);
 			}
 		}
 		$this->geoCoder->updateGeoLocation($newPosition);
