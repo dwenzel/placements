@@ -301,10 +301,17 @@ class PositionController extends AbstractController {
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Position $newPosition) {
 		$newPosition->setClient($this->accessControlService->getFrontendUser()->getClient());
-		$arguments = $this->request->getArguments();
-		if(is_string($arguments['newPosition']['categories'])) {
-			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
-			$newPosition->setSingleCategory($category);
+		$argument = $this->request->getArgument('newPosition');
+		if(isset($argument['categories'])) {
+			if(is_array($argument['categories'])) {
+				$categories = $this->categoryRepository->findMultipleByUid(implode(',', $argument['categories']));
+				foreach($categories as $category) {
+					$newPosition->addCategory($category);
+				}
+			} else {
+				$category = $this->categoryRepository->findByUid(intval($argument['categories']));
+				$newPosition->setSingleCategory($category);
+			}
 		}
 		$this->geoCoder->updateGeoLocation($newPosition);
 		$this->positionRepository->add($newPosition);
@@ -332,6 +339,7 @@ class PositionController extends AbstractController {
 			$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
 			$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
 			$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
+			$user = $this->accessControlService->getFrontendUser();
 			if ($user AND $user->getClient()) {
 			    $organizations = $this->organizationRepository->findByClient($user->getClient());
 			} else {
@@ -355,10 +363,19 @@ class PositionController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Position $position) {
-		$arguments = $this->request->getArguments();
-		if(is_string($arguments['position']['categories'])) {
-			$category = $this->categoryRepository->findByUid(intval($arguments['position']['categories']));
-			$position->setSingleCategory($category);
+		$argument = $this->request->getArgument('position');
+		if(isset($argument['categories'])) {
+			if(is_array($argument['categories'])) {
+				$categories = $this->categoryRepository->findMultipleByUid(implode(',', $argument['categories']));
+				$storage = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\ObjectStorage');
+				$position->setCategories($storage);
+				foreach($categories as $category) {
+					$position->addCategory($category);
+				}
+			} else {
+				$category = $this->categoryRepository->findByUid(intval($argument['categories']));
+				$position->setSingleCategory($category);
+			}
 		}
 		$this->geoCoder->updateGeoLocation($position);
 		$this->positionRepository->update($position);
@@ -399,14 +416,13 @@ class PositionController extends AbstractController {
 		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
 		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
-		//$categories = $this->categoryRepository->findAll();
 		$this->view->assignMultiple(
 				array(
 					'positionTypes' => $positionTypes,
-			    	'workingHours' => $workingHours,
-			    	'sectors' => $sectors,
+					'workingHours' => $workingHours,
+					'sectors' => $sectors,
 					'categories' => $categories,
-			    	'overwriteDemand' => $overwriteDemand,
+					'overwriteDemand' => $overwriteDemand,
 					'search' => $search
 				)
 		);
