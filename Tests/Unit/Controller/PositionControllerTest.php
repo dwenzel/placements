@@ -617,7 +617,75 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @test
 	 * @covers ::createAction
 	 */
-	public function createActionAddsCategories() {
+	public function createActionAddsSingleCategory() {
+		//setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('translate', 'addFlashMessage', 'forward'), array(), '', FALSE);
+		$settings = array('detailPid' => 2);
+		$fixture->_set('settings', $settings);
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('getFrontendUser'), array(), '', FALSE);
+		$mockClient = $this->getMock('Webfox\Placements\Domain\Model\Client');
+		$fixture->_set('accessControlService', $mockAccessControlService);
+		$mockRequest = $this->getMock(
+				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'),
+				array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$fixture->_set('request', $mockRequest);
+		$mockGeoCoder = $this->getMock(
+			'Webfox\Placements\Utiltiy\Geocoder',
+			array('updateGeoLocation'), array(), '', FALSE);
+		$fixture->_set('geoCoder', $mockGeoCoder);
+		$mockPositionRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('add'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockCategoryRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\CategoryRepository',
+			array('findByUid'), array(), '', FALSE);
+		$mockCategory = $this->getMock('Webfox\Placements\Domain\Model\Category');
+		$fixture->_set('categoryRepository', $mockCategoryRepository);
+		$mockUser = $this->getMock(
+			'Webfox\Placements\Domain\Model\User',
+			array('getClient'), array(), '', FALSE);
+		$requestArgument = array(
+			'categories' => '1'
+		);
+		$mockPosition = $this->getMock(
+			'Webfox\Placements\Domain\Model\Position',
+			array('setClient', 'addCategory'), array(), '', FALSE);
+
+		// expectations
+		$mockAccessControlService->expects($this->once())->method('getFrontendUser')
+			->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())->method('getClient')
+			->will($this->returnValue($mockClient));
+		$mockRequest->expects($this->once())->method('getArgument')
+			->with('newPosition')
+			->will($this->returnValue($requestArgument));
+		$mockCategoryRepository->expects($this->once())->method('findByUid')
+			->with('1')
+			->will($this->returnValue(array($mockCategory)));
+		$mockPosition->expects($this->once())->method('addCategory')
+			->with($mockCategory);
+		$mockGeoCoder->expects($this->once())->method('updateGeoLocation');
+		$mockPositionRepository->expects($this->once())->method('add');
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.success.position.createAction')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage');
+		$fixture->expects($this->once())->method('forward')
+			->with('show', NULL, NULL, array('position' => $mockPosition), $settings['detailPid']);
+		// call
+		$fixture->createAction($mockPosition);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createAction
+	 */
+	public function createActionAddsMultipleCategories() {
 		//setup
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\PositionController',
