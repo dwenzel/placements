@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-07-28T09:05:48Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-07-28T09:22:27Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -375,7 +375,7 @@
 			<source>Entry Date</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.export_enabled" xml:space="preserve">
-			<source></source>
+			<source>Export enabled</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.fixed_term" xml:space="preserve">
 			<source>Fixed Term</source>
@@ -391,6 +391,9 @@
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.description" xml:space="preserve">
 			<source>Describe the position.</source>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.export_enabled" xml:space="preserve">
+			<source>Allows export of this position to external services.</source>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.link" xml:space="preserve">
 			<source>Add an external link.</source>
