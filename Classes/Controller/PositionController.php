@@ -303,7 +303,11 @@ class PositionController extends AbstractController {
 		$newPosition->setClient($this->accessControlService->getFrontendUser()->getClient());
 		$argument = $this->request->getArgument('newPosition');
 		if(isset($argument['categories'])) {
-			$categories = $this->categoryRepository->findMultipleByUid(implode(',', $argument['categories']));
+			if(is_array($argument['categories'])) {
+				$categories = $this->categoryRepository->findMultipleByUid(implode(',', $argument['categories']));
+			} elseif (is_string($argument['categories'])) {
+				$categories = $this->categoryRepository->findByUid(intval($argument['categories']));
+			}
 			foreach($categories as $category) {
 				$newPosition->addCategory($category);
 			}
