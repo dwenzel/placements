@@ -650,7 +650,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			'Webfox\Placements\Domain\Model\User',
 			array('getClient'), array(), '', FALSE);
 		$requestArgument = array(
-			'categories' => '1,3,5'
+			'categories' => array(1,3,5)
 		);
 		$mockPosition = $this->getMock(
 			'Webfox\Placements\Domain\Model\Position',
@@ -864,6 +864,118 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 		$fixture->editAction($mockPosition);
 	}
+
+	/**
+	 * @test
+	 * @covers ::updateAction
+	 */
+	public function updateActionUpdatesPosition() {
+		//setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('translate', 'addFlashMessage', 'forward'), array(), '', FALSE);
+		$settings = array('detailPid' => 2);
+		$fixture->_set('settings', $settings);
+		$mockRequest = $this->getMock(
+				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'),
+				array('getArgument'), array(), '', FALSE);
+		$fixture->_set('request', $mockRequest);
+		$mockGeoCoder = $this->getMock(
+			'Webfox\Placements\Utiltiy\Geocoder',
+			array('updateGeoLocation'), array(), '', FALSE);
+		$fixture->_set('geoCoder', $mockGeoCoder);
+		$mockRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('update'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockRepository);
+		$mockPosition = $this->getMock(
+			'Webfox\Placements\Domain\Model\Position',
+			array(), array(), '', FALSE);
+
+		// expectations
+		$mockRequest->expects($this->once())->method('getArgument')
+			->with('position');
+		$mockGeoCoder->expects($this->once())->method('updateGeoLocation');
+		$mockRepository->expects($this->once())->method('update')
+			->with($mockPosition);
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.success.position.updateAction')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+		$fixture->expects($this->once())->method('forward')
+			->with('show', NULL, NULL, array('position' => $mockPosition), $settings['detailPid']);
+		// call
+		$fixture->updateAction($mockPosition);
+	}
+
+	/**
+	 * @test
+	 * @covers ::updateAction
+	 */
+	public function updateActionUpdatesCategories() {
+		//setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('translate', 'addFlashMessage', 'forward'), array(), '', FALSE);
+		$settings = array('detailPid' => 2);
+		$fixture->_set('settings', $settings);
+		$mockRequest = $this->getMock(
+				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'),
+				array('hasArgument', 'getArgument'), array(), '', FALSE);
+		$mockObjectManager = $this->getMock(
+			'\TYPO3\CMS\Extbase\Object\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$fixture->_set('objectManager', $mockObjectManager);
+		$fixture->_set('request', $mockRequest);
+		$mockGeoCoder = $this->getMock(
+			'Webfox\Placements\Utiltiy\Geocoder',
+			array('updateGeoLocation'), array(), '', FALSE);
+		$fixture->_set('geoCoder', $mockGeoCoder);
+		$mockPositionRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('update'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockCategoryRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\CategoryRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockCategory = $this->getMock('Webfox\Placements\Domain\Model\Category');
+		$fixture->_set('categoryRepository', $mockCategoryRepository);
+		$requestArgument = array(
+			'categories' => array(1,3,5)
+		);
+		$mockPosition = $this->getMock(
+			'Webfox\Placements\Domain\Model\Position',
+			array('setCategories', 'addCategory'), array(), '', FALSE);
+		$mockStorage = $this->getMock('TYPO3\CMS\Extbase\Persistence\ObjectStorage');
+
+		// expectations
+		$mockRequest->expects($this->once())->method('getArgument')
+			->with('position')
+			->will($this->returnValue($requestArgument));
+		$mockCategoryRepository->expects($this->once())->method('findMultipleByUid')
+			->with('1,3,5')
+			->will($this->returnValue(array($mockCategory, $mockCategory, $mockCategory)));
+		$mockObjectManager->expects($this->once())->method('get')
+			->with('TYPO3\CMS\Extbase\Persistence\ObjectStorage')
+			->will($this->returnValue($mockStorage));
+		$mockPosition->expects($this->once())->method('setCategories')
+			->with($mockStorage);
+		$mockPosition->expects($this->exactly(3))->method('addCategory')
+			->with($mockCategory);
+		$mockGeoCoder->expects($this->once())->method('updateGeoLocation');
+		$mockPositionRepository->expects($this->once())->method('update')
+			->with($mockPosition);
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.success.position.updateAction')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage');
+		$fixture->expects($this->once())->method('forward')
+			->with('show', NULL, NULL, array('position' => $mockPosition), $settings['detailPid']);
+		// call
+		$fixture->updateAction($mockPosition);
+	}
+
 
 	/**
 	 * @test
