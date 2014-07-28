@@ -26,27 +26,28 @@ namespace Webfox\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class Webfox\Placements\Domain\Repository\UserRepository.
+ * Test case for class Webfox\Placements\Domain\Repository\WorkingHoursRepository.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  * @package TYPO3
- * @subpackage Ajax Map
+ * @subpackage Placements
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @coversDefaultClass \Webfox\Placements\Domain\Repository\WorkingHoursRepository
  */
-class UserRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class WorkingHoursRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Webfox\Placements\Domain\Repository\UserRepository
+	 * @var \Webfox\Placements\Domain\Repository\WorkingHoursRepository
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = $this->getMock(
-			'Webfox\\Placements\\Domain\\Repository\\UserRepository', array('dummy'), array(), '', FALSE
-		);
+		$this->fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Domain\Repository\WorkingHoursRepository',
+			array('dummy'), array(), '', FALSE);
 	}
 
 	public function tearDown() {
@@ -55,10 +56,16 @@ class UserRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 	/**
 	 * @test
+	 * @covers ::createConstraintsFromDemand
 	 */
-	public function dummyMethod() {
-		$this->markTestIncomplete();
+	public function createConstraintsFromDemandReturnsInitiallyEmptyConstraint() {
+		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
+				array(), array(), '', FALSE);
+		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\DemandInterface');
+		$this->assertSame(
+			array(),
+			$this->fixture->_call('createConstraintsFromDemand', $mockQuery, $mockDemand)
+		);
 	}
-
 }
 ?>

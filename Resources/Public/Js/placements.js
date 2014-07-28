@@ -174,7 +174,7 @@ function addMarker(position, uid) {
 			'<div class="title">' +
 				title +
 			'</div>' +
-			'<div class="position-type">' + JSON.parse(place.type).title + '</div>' +
+			'<div class="position-type">' + place.type.title + '</div>' +
 			'<div class="location">' + place.zip + ' ' + place.city + '</div>' +
 			//'<div class="summary">' + place.summary + '</div>' +
 		'</div>';

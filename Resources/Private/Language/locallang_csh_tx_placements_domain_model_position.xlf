@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-11-12T19:56:26Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-07-25T09:31:05Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -25,6 +25,9 @@
 		</trans-unit>
 		<trans-unit id="entry_date.description" xml:space="preserve">
 			<source>Entry Date</source>
+		</trans-unit>
+		<trans-unit id="export_enabled.description" xml:space="preserve">
+			<source></source>
 		</trans-unit>
 		<trans-unit id="fixed_term.description" xml:space="preserve">
 			<source>Fixed Term &lt;br /&gt;(If enabled an additional field 'duration' will be shown.)</source>

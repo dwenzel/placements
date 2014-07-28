@@ -26,7 +26,7 @@ namespace Webfox\Placements\Tests;
  ***************************************************************/
 
 /**
- * Test case for class Webfox\Placements\Domain\Repository\OrganizationRepository.
+ * Test case for class Webfox\Placements\Domain\Repository\SectorRepository.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -36,19 +36,18 @@ namespace Webfox\Placements\Tests;
  * @subpackage Placements
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @coversDefaultClass \Webfox\Placements\Domain\Repository\SectorRepository
  */
-class OrganizationRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class SectorRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \Webfox\Placements\Domain\Repository\OrganizationRepository
+	 * @var \Webfox\Placements\Domain\Repository\SectorRepository
 	 */
 	protected $fixture;
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\Placements\\Domain\\Repository\\OrganizationRepository',
+			'\Webfox\Placements\Domain\Repository\SectorRepository',
 			array('dummy'), array(), '', FALSE);
-		$this->fixture->_set('objectManager',
-				$this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface'));
 	}
 
 	public function tearDown() {
@@ -57,29 +56,16 @@ class OrganizationRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
+	 * @covers ::createConstraintsFromDemand
 	 */
-	public function createConstraintsFromDemandReturnsInitiallyEmptyConstraint() {
+	public function createConstraintsFromDemandReturnsInitiallyEmptyArray() {
 		$mockQuery = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query',
 				array(), array(), '', FALSE);
-		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\OrganizationDemand');
+		$mockDemand = $this->getMock('Webfox\Placements\Domain\Model\Dto\AbstractDemand');
 		$this->assertSame(
-			array(null),
+			array(),
 			$this->fixture->_call('createConstraintsFromDemand', $mockQuery, $mockDemand)
 		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function createConstraintsFromDemandCreatesClientsConstraints() {
-		$query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\QueryInterface');
-		$query->expects($this->once())->method('equals')->with('client.uid', 1);
-
-		$demand = new \Webfox\Placements\Domain\Model\Dto\OrganizationDemand();
-		$demand->setClients('1');
-
-		$this->fixture->_call('createConstraintsFromDemand',$query, $demand);
-
 	}
 }
 ?>

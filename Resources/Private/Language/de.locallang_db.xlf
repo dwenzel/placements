@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-12-16T21:27:38Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-07-25T09:44:45Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -157,6 +157,10 @@
 			<source>Entry Date</source>
 			<target>Eintrittsdatum</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.export_enabled" approved="yes" xml:space="preserve">
+			<source>Export enabled</source>
+			<target>Export erlaubt</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.fixed_term" approved="yes" xml:space="preserve">
 			<source>Fixed Term</source>
 			<target>befristet</target>
@@ -184,6 +188,10 @@
 		<trans-unit id="tx_placements_domain_model_position.payment" approved="yes" xml:space="preserve">
 			<source>Payment</source>
 			<target>Bezahlung</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.sectors" approved="yes" xml:space="preserve">
+			<source>Sectors</source>
+			<target>Branchen</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.summary" approved="yes" xml:space="preserve">
 			<source>Summary</source>

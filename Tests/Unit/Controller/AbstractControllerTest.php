@@ -42,21 +42,16 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @var \Webfox\Placements\Controller\AbstractController
 	 */
 	protected $fixture;
+
 	/**
 	* @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
 	*/
 	protected $tsfe = NULL;
 
 	public function setUp() {
-		$this->tsfe = $this->getAccessibleMock('tslib_fe', array('pageNotFoundAndExit'), array(), '', FALSE);
-		$GLOBALS['TSFE'] = $this->tsfe;
-		//$objectManager = new \TYPO3\CMS\Extbase\Object\ObjectManager();
 		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
 			'\Webfox\Placements\Controller\AbstractController', array('dummy'), array(), '', FALSE);
-	/*	$this->abstractRepository = $this->getMock(
-			'\Webfox\Placements\Domain\Repository\AbstractDemandedRepository', array(), array(), '', FALSE
-		);*/
 		$this->fixture->_set('objectManager', $objectManager);
 	}
 
@@ -69,6 +64,13 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 */
 	public function dummy() {
 			$this->markTestIncomplete();
+	}
+
+	/**
+	 * @test
+	 */
+	public function classHasAttributeGeoCoder() {
+			$this->assertClassHasAttribute('geoCoder', '\Webfox\Placements\Controller\AbstractController');
 	}
 
 	/**
@@ -103,6 +105,8 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @test
 	 */
 	public function handleEntityNotFoundErrorConfigurationCallsPageNotFoundHandler() {
+		$this->tsfe = $this->getAccessibleMock('tslib_fe', array('pageNotFoundAndExit'), array(), '', FALSE);
+		$GLOBALS['TSFE'] = $this->tsfe;
 		$this->tsfe->expects($this->once())
 			->method('pageNotFoundAndExit')
 			->with($this->fixture->_get('entityNotFoundMessage'));
@@ -276,7 +280,6 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			'tmp_name' => 'bar',
 			'error' => null
 		);
-
 		$mockObject->expects($this->any())
 			->method('getImage')
 			->will($this->returnValue($fileProperty));
@@ -296,7 +299,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function updateFilePropertyAddsErrorMessageForMaximumServerFileSize() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\AbstractController',
-			array('uploadFile', 'addFlashMessage'));
+			array('uploadFile', 'addFlashMessage', 'translate'));
 		$mockObject = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
 		$fileProperty = array(
@@ -314,18 +317,22 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->method('_memorizeCleanState')
 			->with('image');
 		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.1')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())
 			->method('addFlashMessage')
-			->with('The uploaded file exceeds the servers maximum file size directive.');
+			->with('foo');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
 	}
 
 	/**
 	 * @test
 	 */
-	public function updateFilePropertyAddsErrorMessageForMaximumServerFormFileSize() {
+	public function updateFilePropertyAddsErrorMessageForMaximumFormFileSize() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\AbstractController',
-			array('uploadFile', 'addFlashMessage'));
+			array('uploadFile', 'addFlashMessage', 'translate'));
 		$mockObject = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
 		$fileProperty = array(
@@ -343,8 +350,12 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->method('_memorizeCleanState')
 			->with('image');
 		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.2')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())
 			->method('addFlashMessage')
-			->with('The uploaded file exceeds the maximum file size directive that was specified in the HTML form.');
+			->with('foo');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
 	}
 
@@ -354,7 +365,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function updateFilePropertyAddsErrorMessageForPartialFileUpload() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\AbstractController',
-			array('uploadFile', 'addFlashMessage'));
+			array('uploadFile', 'addFlashMessage', 'translate'));
 		$mockObject = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
 		$fileProperty = array(
@@ -372,8 +383,12 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->method('_memorizeCleanState')
 			->with('image');
 		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.3')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())
 			->method('addFlashMessage')
-			->with('The file was only partially uploaded.');
+			->with('foo');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
 	}
 
@@ -383,7 +398,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function updateFilePropertyAddsErrorMessageForNoFileUploaded() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\AbstractController',
-			array('uploadFile', 'addFlashMessage'));
+			array('uploadFile', 'addFlashMessage', 'translate'));
 		$mockObject = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
 		$fileProperty = array(
@@ -394,8 +409,12 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->method('getImage')
 			->will($this->returnValue($fileProperty));
 		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.4')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())
 			->method('addFlashMessage')
-			->with('No file was uploaded.');
+			->with('foo');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
 	}
 
@@ -405,7 +424,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function updateFilePropertyAddsErrorMessageForMissingTempFolder() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\AbstractController',
-			array('uploadFile', 'addFlashMessage'));
+			array('uploadFile', 'addFlashMessage', 'translate'));
 		$mockObject = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
 		$fileProperty = array(
@@ -416,8 +435,12 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->method('getImage')
 			->will($this->returnValue($fileProperty));
 		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.6')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())
 			->method('addFlashMessage')
-			->with('Missing a temporary folder.');
+			->with('foo');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
 	}
 
@@ -427,7 +450,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function updateFilePropertyAddsErrorMessageForFailedWriteToDisk() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\AbstractController',
-			array('uploadFile', 'addFlashMessage'));
+			array('uploadFile', 'addFlashMessage', 'translate'));
 		$mockObject = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
 		$fileProperty = array(
@@ -438,8 +461,12 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->method('getImage')
 			->will($this->returnValue($fileProperty));
 		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.7')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())
 			->method('addFlashMessage')
-			->with('Failed to write file to disk.');
+			->with('foo');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
 	}
 
@@ -449,7 +476,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function updateFilePropertyAddsErrorMessageForFileUploadStoppedByExtension() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\AbstractController',
-			array('uploadFile', 'addFlashMessage'));
+			array('uploadFile', 'addFlashMessage', 'translate'));
 		$mockObject = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
 		$fileProperty = array(
@@ -460,8 +487,12 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->method('getImage')
 			->will($this->returnValue($fileProperty));
 		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.8')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())
 			->method('addFlashMessage')
-			->with('File upload stopped by extension.');
+			->with('foo');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
 	}
 
@@ -471,7 +502,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	public function updateFilePropertyAddsErrorMessageForUnknownError() {
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\AbstractController',
-			array('uploadFile', 'addFlashMessage'));
+			array('uploadFile', 'addFlashMessage', 'translate'));
 		$mockObject = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
 		$fileProperty = array(
@@ -482,9 +513,95 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->method('getImage')
 			->will($this->returnValue($fileProperty));
 		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.unknown')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())
 			->method('addFlashMessage')
-			->with('Unknown file upload error.');
+			->with('foo');
 		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function updateFilePropertyAddsErrorAddsKeyIfErrorMessageNotTranslated() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\AbstractController',
+			array('uploadFile', 'addFlashMessage', 'translate'));
+		$mockObject = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+		$fileProperty = array(
+			'error' => 99
+		);
+
+		$mockObject->expects($this->any())
+			->method('getImage');
+		$fixture->expects($this->once())
+			->method('translate')
+			->with('tx_placements.error.upload.unknown')
+			->will($this->returnValue(NULL));
+		$fixture->expects($this->once())
+			->method('addFlashMessage')
+			->with('tx_placements.error.upload.unknown');
+		$fixture->_call('updateFileProperty', $mockObject, 'image');
+	}
+
+	/**
+	 * @test
+	 */
+	public function createSearchObjectReturnsInitiallyEmptySearchObject() {
+		$mockSearchObject = $this->getMock('Webfox\Placements\Domain\Model\Dto\Search');
+		$emptySearch = array();
+		$emptySettings = array();
+
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('Webfox\Placements\Domain\Model\Dto\Search')
+			->will($this->returnValue($mockSearchObject));
+
+		$this->assertSame(
+			$mockSearchObject,
+			$this->fixture->createSearchObject($emptySearch, $emptySettings)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createSearchObjectSetsSearchFields() {
+		$mockSearchObject = $this->getMock('Webfox\Placements\Domain\Model\Dto\Search',
+			array());
+		$searchRequest = array(
+			'subject' => 'foo',
+			'location' => 'bar',
+			'radius' => 50000,
+		);
+		$settings = array(
+			'fields' => 'foo,bar'
+		);
+
+		$expectedSearchObject = $this->getAccessibleMock('Webfox\Placements\Domain\Model\Dto\Search');
+		$expectedSearchObject->_set('fields', $settings['fields']);
+		$expectedSearchObject->_set('subject', $searchRequest['subject']);
+
+		$this->fixture->_get('objectManager')->expects($this->once())
+			->method('get')
+			->with('Webfox\Placements\Domain\Model\Dto\Search')
+			->will($this->returnValue($mockSearchObject));
+		$mockSearchObject->expects($this->once())
+			->method('setFields')
+			->with('foo,bar');
+		$mockSearchObject->expects($this->once())
+			->method('setSubject')
+			->with('foo');
+		$mockSearchObject->expects($this->once())
+			->method('setLocation')
+			->with('bar');
+		$mockSearchObject->expects($this->once())
+			->method('setRadius')
+			->with(50000);
+		$result = $this->fixture->createSearchObject($searchRequest, $settings);
 	}
 }
 ?>

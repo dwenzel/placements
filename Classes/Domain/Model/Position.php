@@ -33,7 +33,8 @@ namespace Webfox\Placements\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+implements GeocodingInterface {
 
 	/**
 	 * title
@@ -179,6 +180,13 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @lazy
 	 */
 	protected $sectors;
+
+	/**
+	 * export enabled
+	 *
+	 * @var boolean
+	 */
+	protected $exportEnabled = FALSE;
 
 	/**
 	 * Returns the title
@@ -541,7 +549,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the latitude
 	 *
-	 * @return \float $latitude
+	 * @var \float $latitude
 	 * @return void
 	 */
 	public function setLatitude($latitude) {
@@ -560,7 +568,7 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the longitude
 	 *
-	 * @return \float $longitude
+	 * @var \float $longitude
 	 * @return void
 	 */
 	public function setLongitude($longitude) {
@@ -662,6 +670,35 @@ class Position extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setSectors(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $sectors) {
 		$this->sectors = $sectors;
 	}
+
+	/**
+	 * Returns the export enabled state
+	 *
+	 * @return boolean $exportEnabled
+	 */
+	public function getExportEnabled() {
+		return $this->exportEnabled;
+	}
+
+	/**
+	 * Sets the exportEnabled
+	 *
+	 * @param boolean $exportEnabled
+	 * @return void
+	 */
+	public function setExportEnabled($exportEnabled) {
+		$this->exportEnabled = $exportEnabled;
+	}
+
+	/**
+	 * Returns the boolean state of exportEnabled
+	 *
+	 * @return boolean
+	 */
+	public function isExportEnabled() {
+		return $this->getExportEnabled();
+	}
+
 
 }
 ?>

@@ -138,10 +138,8 @@ class PositionController extends AbstractController {
 		$positions = $this->positionRepository->findDemanded($demand);	
 		if(!$positions->count()) {
 			$this->addFlashMessage(
-					\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-						'tx_placements.list.position.message.noPositionFound', 'placements'
-					)
-				);
+					$this->translate('tx_placements.list.position.message.noPositionFound')
+			);
 		}
 		$this->view->assignMultiple(
 			array(
@@ -163,17 +161,15 @@ class PositionController extends AbstractController {
 		if($overwriteDemand) {
 		    $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		}
-		$positions = $this->positionRepository->findDemanded($demand, TRUE);
+		$positions = $this->positionRepository->findDemanded($demand, TRUE)->toArray();
 		$result = array();
 		foreach($positions as $position) {
 			$type = $position->getType();
 			if ($type) {
-				$typeJson = json_encode(
-						array(
-							'uid' => $type->getUid(),
-							'title' => $type->getTitle(),
-							)
-						);
+				$typeArray = array(
+					'uid' => $type->getUid(),
+					'title' => $type->getTitle(),
+				);
 			}
 			$result[] = array(
 					'uid' => $position->getUid(),
@@ -183,7 +179,7 @@ class PositionController extends AbstractController {
 					'zip' => $position->getZip(),
 					'latitude' => $position->getLatitude(),
 					'longitude' => $position->getLongitude(),
-					'type' => ($typeJson)? $typeJson: NULL,
+					'type' => ($typeArray)? $typeArray: NULL,
 					);
 		}
 		return json_encode($result);
@@ -202,13 +198,11 @@ class PositionController extends AbstractController {
 		}
 
 	
-		if (!empty($overwriteDemand['search']['subject'])) {
+		if (!empty($overwriteDemand['search'])) {
 			//@todo: throw exception if search fields are not set
-			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
-			$searchObj->setFields($this->settings['position']['search']['fields']);
-			$searchObj->setSubject($overwriteDemand['search']['subject']);
+			$searchObject = $this->createSearchObject($overwriteDemand['search'], $this->settings['position']['search']);
+			$demand->setSearch($searchObject);
 		}
-		$demand->setSearch($searchObj);
 		$count = $this->positionRepository->countDemanded($demand);	
 		$this->view->assignMultiple(
 				array(
@@ -230,12 +224,10 @@ class PositionController extends AbstractController {
 		if ($position) {
 				$type = $position->getType();
 				if ($type) {
-					$typeJson = json_encode(
-							array(
-								'uid' => $type->getUid(),
-								'title' => $type->getTitle(),
-								)
-							);
+					$typeArray = array(
+						'uid' => $type->getUid(),
+						'title' => $type->getTitle(),
+					);
 				}
 				$result[] = array(
 						'uid' => $position->getUid(),
@@ -245,7 +237,7 @@ class PositionController extends AbstractController {
 						'zip' => $position->getZip(),
 						'latitude' => $position->getLatitude(),
 						'longitude' => $position->getLongitude(),
-						'type' => ($typeJson)? $typeJson: NULL,
+						'type' => ($typeArray)? $typeArray: NULL,
 						);
 			return json_encode($result);
 		}
@@ -276,9 +268,7 @@ class PositionController extends AbstractController {
 	public function newAction(\Webfox\Placements\Domain\Model\Position $newPosition = NULL) {
 		if(!$this->accessControlService->isAllowedToCreate('position')) {
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-					'tx_placements.error.position.createActionNotAllowed', 'placements'
-				)
+				$this->translate('tx_placements.error.position.createActionNotAllowed')
 			);
 			$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 		} else {
@@ -316,29 +306,12 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['newPosition']['categories']));
 			$newPosition->setSingleCategory($category);
 		}
-		$lat = $newPosition->getLatitude();
-		$long = $newPosition->getLongitude();
-		if (!is_null($newPosition->getCity()) &&
-				empty($lat) && 
-				empty($long)) {
-			$address = '';
-			$address .= ($newPosition->getZip() !='')? $newPosition->getZip() . ' ': NULL;
-			$address .= $newPosition->getCity();
-			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
-			if($location) {
-					$newPosition->setLatitude($location['lat']);
-					$newPosition->setLongitude($location['lng']);
-			}
-		}
+		$this->geoCoder->updateGeoLocation($newPosition);
 		$this->positionRepository->add($newPosition);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.position.createAction', 'placements'
-				)
+			$this->translate('tx_placements.success.position.createAction')
 			);
-		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-		$persistenceManager->persistAll();
-		$this->redirect('show', NULL, NULL, array('position'=>$newPosition), $this->settings['detailPid']);
+		$this->forward('show', NULL, NULL, array('position'=>$newPosition), $this->settings['detailPid']);
 	}
 
 	/**
@@ -351,9 +324,7 @@ class PositionController extends AbstractController {
 	public function editAction(\Webfox\Placements\Domain\Model\Position $position) {
 		if(!$this->accessControlService->isAllowedToEdit('position')) {
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-					'tx_placements.error.position.editActionNotAllowed', 'placements'
-				)
+				$this->translate('tx_placements.error.position.editActionNotAllowed')
 			);
 			$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
 		} else {
@@ -389,27 +360,12 @@ class PositionController extends AbstractController {
 			$category = $this->categoryRepository->findByUid(intval($arguments['position']['categories']));
 			$position->setSingleCategory($category);
 		}
-		$lat = $position->getLatitude();
-		$long = $position->getLongitude();
-		if (!is_null($position->getCity()) &&
-				empty($lat) && 
-				empty($long)) {
-			$address = '';
-			$address .= ($position->getZip() !='')? $position->getZip() . ' ': NULL;
-			$address .= $position->getCity();
-			$location = \Webfox\Placements\Utility\Geocoder::getLocation($address);
-			if($location) {
-					$position->setLatitude($location['lat']);
-					$position->setLongitude($location['lng']);
-			}
-		}
+		$this->geoCoder->updateGeoLocation($position);
 		$this->positionRepository->update($position);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.position.updateAction', 'placements'
-				)
+			$this->translate('tx_placements.success.position.updateAction')
 		);
-		$this->redirect('show', NULL, NULL, array('position' => $position), $this->settings['detailPid']);
+		$this->forward('show', NULL, NULL, array('position' => $position), $this->settings['detailPid']);
 	}
 
 	/**
@@ -422,15 +378,11 @@ class PositionController extends AbstractController {
 		if($this->accessControlService->isAllowedToDelete('position')) {
 			$this->positionRepository->remove($position);
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-					'tx_placements.success.position.deleteAction', 'placements'
-				)
+				$this->translate('tx_placements.success.position.deleteAction')
 			);
 		} else {
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-					'tx_placements.error.position.deleteActionNotAllowed', 'placements'
-				)
+				$this->translate('tx_placements.error.position.deleteActionNotAllowed')
 			);
 		}
 		$this->redirect('list', NULL, NULL, NULL, $this->settings['listPid']);
@@ -519,10 +471,8 @@ class PositionController extends AbstractController {
 		$positions = $this->positionRepository->findDemanded($demand);
 		if(!count($positions)) {
 			$this->addFlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				    'tx_placements.search.position.message.noSearchResult', 'placements'
-				    )
-				);
+				$this->translate('tx_placements.search.position.message.noSearchResult')
+			);
 		}
 		$this->view->assignMultiple(
 			array(
@@ -596,7 +546,7 @@ class PositionController extends AbstractController {
 		}
 			
 		if (!empty($overwriteDemand['search'])) {
-			$searchObj = $this->getSearchObject(
+			$searchObj = $this->createSearchObject(
 				$overwriteDemand['search'], 
 				$this->settings['position']['search']
 			);
@@ -608,7 +558,7 @@ class PositionController extends AbstractController {
 		if ($demand->getSearch() AND 
 				$demand->getSearch()->getRadius() 
 				AND $demand->getSearch()->getLocation()) {
-			$geoLocation = \Webfox\Placements\Utility\Geocoder::getLocation($demand->getSearch()->getLocation());
+			$geoLocation = $this->geoCoder->getLocation($demand->getSearch()->getLocation());
 			if($geoLocation) {
 				$demand->setGeoLocation($geoLocation);
 				$demand->setRadius($searchObj->getRadius());
@@ -622,29 +572,6 @@ class PositionController extends AbstractController {
 		return $demand;
 	}
 
-	/** 
-	 * Returns a search object from an array
-	 *
-	 * @param \array $search An array with search request
-	 * @param \array $settings An array with search settings
-	 * @return \Webfox\Placements\Domain\Model\Dto\Search
-	 */
-	public function getSearchObject($search, $settings) {
-		$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
-	
-		if (!empty($search['subject'])) {
-			//@todo: throw exception if search fields are not set
-			$searchObj->setFields($settings['fields']);
-			$searchObj->setSubject($search['subject']);
-		}
-		if (!empty($search['location'])) {
-			$searchObj->setLocation($search['location']);
-			$searchObj->setRadius($search['radius']);
-			$searchObj->setBounds($search['bounds']);
-		}
-		return $searchObj;
-	}
-
 	/**
 	 * A template method for displaying custom error flash messages, or to
 	 * display no flash message at all on errors.
@@ -653,8 +580,7 @@ class PositionController extends AbstractController {
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
-		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-	 	'tx_placements.error'.'.position.'. $this->actionMethodName, 'placements');
+		return $this->translate('tx_placements.error'.'.position.'. $this->actionMethodName);
 	 }
 
 }
