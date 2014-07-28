@@ -12,6 +12,7 @@ CREATE TABLE tx_placements_domain_model_position (
 	description text NOT NULL,
 	entry_date int(11) DEFAULT '0' NOT NULL,
 	fixed_term tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	export_enabled tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	duration text NOT NULL,
 	zip varchar(255) DEFAULT '' NOT NULL,
 	city varchar(255) DEFAULT '' NOT NULL,
