@@ -1101,9 +1101,235 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$fixture->updateAction($mockPosition);
 	}
 
+	/**
+	 * @test
+	 * @covers ::deleteAction
+	 */
+	public function deleteActionRedirectsToListViewIfUserIsNotAllowedToDeletePosition() {
+		//setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('translate', 'addFlashMessage', 'redirect'), array(), '', FALSE);
+		$settings = array('listPid' => 99);
+		$fixture->_set('settings', $settings);
+		$mockPosition = $this->getMock('Webfox\Placements\Domain\Model\Position');
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('isAllowedToDelete'), array(), '', FALSE);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+
+		//expectations
+		$mockAccessControlService->expects($this->once())->method('isAllowedToDelete')
+			->with('position');
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.position.deleteActionNotAllowed')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+		$fixture->expects($this->once())->method('redirect')
+			->with('list', NULL, NULL, NULL, $settings['listPid']);
+
+		// call
+		$fixture->deleteAction($mockPosition);
+	}
 
 	/**
 	 * @test
+	 * @covers ::deleteAction
+	 */
+	public function deleteActionRemovesPositionAndRedirects() {
+		//setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('translate', 'addFlashMessage', 'redirect'), array(), '', FALSE);
+		$settings = array('listPid' => 99);
+		$fixture->_set('settings', $settings);
+		$mockPosition = $this->getMock('Webfox\Placements\Domain\Model\Position');
+		$mockPositionRepository = $this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('remove'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('isAllowedToDelete'), array(), '', FALSE);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+
+		//expectations
+		$mockAccessControlService->expects($this->once())->method('isAllowedToDelete')
+			->with('position')
+			->will($this->returnValue(TRUE));
+		$mockPositionRepository->expects($this->once())->method('remove')
+			->with($mockPosition);
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.success.position.deleteAction')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+		$fixture->expects($this->once())->method('redirect')
+			->with('list', NULL, NULL, NULL, $settings['listPid']);
+
+		// call
+		$fixture->deleteAction($mockPosition);
+	}
+
+	/**
+	 * @test
+	 * @covers ::quickMenuAction
+	 */
+	public function quickMenuActionAssignsVariables() {
+		// setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('dummy'), array(), '', FALSE);
+		$settings = array(
+				'positionTypes' => '1,2',
+				'workingHours' => '3,4',
+				'categories' => '5,6',
+				'sectors' => '7,8'
+		);
+		$fixture->_set('settings', $settings);
+		$mockPositionTypeRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionTypeRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockWorkingHoursRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\WorkingHoursRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockCategoryRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\CategoryRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockSectorRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\SectorRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockView = $this->getMock(
+			'\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assignMultiple'), array(), '', FALSE);
+		$mockUser = $this->getMock('\Webfox\Placements\Domain\Model\User',
+			array('getClient'), array(), '', FALSE);
+		$fixture->_set('positionTypeRepository',$mockPositionTypeRepository );
+		$fixture->_set('workingHoursRepository',$mockWorkingHoursRepository );
+		$fixture->_set('categoryRepository',$mockCategoryRepository );
+		$fixture->_set('sectorRepository',$mockSectorRepository );
+		$fixture->_set('view', $mockView);
+
+		// expectations
+		$mockPositionTypeRepository->expects($this->once())->method('findMultipleByUid')
+			->with($settings['positionTypes'], 'title')
+			->will($this->returnValue('foo'));
+		$mockWorkingHoursRepository->expects($this->once())->method('findMultipleByUid')
+			->with($settings['workingHours'], 'title')
+			->will($this->returnValue('bar'));
+		$mockCategoryRepository->expects($this->once())->method('findMultipleByUid')
+			->with($settings['categories'], 'title')
+			->will($this->returnValue('baz'));
+		$mockSectorRepository->expects($this->once())->method('findMultipleByUid')
+			->with($settings['sectors'], 'title')
+			->will($this->returnValue('foobar'));
+		$mockView->expects($this->once())->method('assignMultiple')
+			->with(array(
+					'positionTypes' => 'foo',
+					'workingHours' => 'bar',
+					'categories' => 'baz',
+					'sectors' => 'foobar',
+					'overwriteDemand' => NULL,
+					'search' => NULL));
+
+		// call
+		$fixture->quickMenuAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::searchFormAction
+	 */
+	public function searchFormActionAssignsSearch() {
+		// setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('dummy'), array(), '', FALSE);
+		$search = array('foo');
+		$mockView = $this->getMock(
+			'\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assign'), array(), '', FALSE);
+		$fixture->_set('view', $mockView);
+
+		// expectations
+		$mockView->expects($this->once())->method('assign')
+			->with('search', $search);
+
+		// call
+		$fixture->searchFormAction($search);
+	}
+
+	/**
+	 * @test
+	 * @covers ::extendedSearchFormAction
+	 */
+	public function extendedSearchFormActionAssignsVariables() {
+		// setup
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\PositionController',
+			array('dummy'), array(), '', FALSE);
+		$settings = array(
+				'positionTypes' => '1,2',
+				'workingHours' => '3,4',
+				'categories' => '5,6',
+				'sectors' => '7,8'
+		);
+		$search = array('foo');
+		$overwriteDemand = array('bar');
+		$fixture->_set('settings', $settings);
+		$mockPositionTypeRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionTypeRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockWorkingHoursRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\WorkingHoursRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockCategoryRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\CategoryRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockSectorRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\SectorRepository',
+			array('findMultipleByUid'), array(), '', FALSE);
+		$mockView = $this->getMock(
+			'\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assignMultiple'), array(), '', FALSE);
+		$mockUser = $this->getMock('\Webfox\Placements\Domain\Model\User',
+			array('getClient'), array(), '', FALSE);
+		$fixture->_set('positionTypeRepository',$mockPositionTypeRepository );
+		$fixture->_set('workingHoursRepository',$mockWorkingHoursRepository );
+		$fixture->_set('categoryRepository',$mockCategoryRepository );
+		$fixture->_set('sectorRepository',$mockSectorRepository );
+		$fixture->_set('view', $mockView);
+
+		// expectations
+		$mockPositionTypeRepository->expects($this->once())->method('findMultipleByUid')
+			->with($settings['positionTypes'], 'title')
+			->will($this->returnValue('foo'));
+		$mockWorkingHoursRepository->expects($this->once())->method('findMultipleByUid')
+			->with($settings['workingHours'], 'title')
+			->will($this->returnValue('bar'));
+		$mockCategoryRepository->expects($this->once())->method('findMultipleByUid')
+			->with($settings['categories'], 'title')
+			->will($this->returnValue('baz'));
+		$mockSectorRepository->expects($this->once())->method('findMultipleByUid')
+			->with($settings['sectors'], 'title')
+			->will($this->returnValue('foobar'));
+		$mockView->expects($this->once())->method('assignMultiple')
+			->with(array(
+					'positionTypes' => 'foo',
+					'workingHours' => 'bar',
+					'categories' => 'baz',
+					'sectors' => 'foobar',
+					'overwriteDemand' => $overwriteDemand,
+					'search' => $search));
+
+		// call
+		$fixture->extendedSearchFormAction($search, $overwriteDemand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::countAction
 	 */
 	public function countActionCallsFindDemandedAndAssignsVariables() {
 		$fixture = $this->getAccessibleMock('Webfox\\Placements\\Controller\\PositionController',

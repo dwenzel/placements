@@ -416,14 +416,13 @@ class PositionController extends AbstractController {
 		$workingHours = $this->workingHoursRepository->findMultipleByUid($this->settings['workingHours'], 'title');
 		$sectors = $this->sectorRepository->findMultipleByUid($this->settings['sectors'], 'title');
 		$categories = $this->categoryRepository->findMultipleByUid($this->settings['categories'], 'title');
-		//$categories = $this->categoryRepository->findAll();
 		$this->view->assignMultiple(
 				array(
 					'positionTypes' => $positionTypes,
-			    	'workingHours' => $workingHours,
-			    	'sectors' => $sectors,
+					'workingHours' => $workingHours,
+					'sectors' => $sectors,
 					'categories' => $categories,
-			    	'overwriteDemand' => $overwriteDemand,
+					'overwriteDemand' => $overwriteDemand,
 					'search' => $search
 				)
 		);
