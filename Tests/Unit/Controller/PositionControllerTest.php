@@ -1053,10 +1053,6 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$fixture = $this->getAccessibleMock(
 			'Webfox\Placements\Controller\PositionController',
 			array('translate', 'addFlashMessage', 'forward'), array(), '', FALSE);
-		$mockObjectManager = $this->getMock(
-			'\TYPO3\CMS\Extbase\Object\ObjectManager',
-			array('get'), array(), '', FALSE);
-		$fixture->_set('objectManager', $mockObjectManager);
 		$settings = array('detailPid' => 2);
 		$fixture->_set('settings', $settings);
 		$mockRequest = $this->getMock(
@@ -1081,7 +1077,7 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		);
 		$mockPosition = $this->getMock(
 			'Webfox\Placements\Domain\Model\Position',
-			array('setClient', 'addCategory'), array(), '', FALSE);
+			array('setSingleCategory'), array(), '', FALSE);
 		$mockStorage = $this->getMock('TYPO3\CMS\Extbase\Persistence\ObjectStorage');
 
 		// expectations
@@ -1090,11 +1086,8 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->will($this->returnValue($requestArgument));
 		$mockCategoryRepository->expects($this->once())->method('findByUid')
 			->with('1')
-			->will($this->returnValue(array($mockCategory)));
-		$mockObjectManager->expects($this->once())->method('get')
-			->with('TYPO3\CMS\Extbase\Persistence\ObjectStorage')
-			->will($this->returnValue($mockStorage));
-		$mockPosition->expects($this->once())->method('addCategory')
+			->will($this->returnValue($mockCategory));
+		$mockPosition->expects($this->once())->method('setSingleCategory')
 			->with($mockCategory);
 		$mockGeoCoder->expects($this->once())->method('updateGeoLocation');
 		$mockPositionRepository->expects($this->once())->method('update');
