@@ -1,30 +1,17 @@
 <?php
 namespace Webfox\Placements\Controller;
-
-/***************************************************************
- *  Copyright notice
+/**
+ * This file is part of the TYPO3 CMS project.
  *
- *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, AgenturWebfox GmbH
- *  Michael Kasten <kasten@webfox01.de>, AgenturWebfox GmbH
- *  
- *  All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * The TYPO3 project - inspiring people to share!
+ */
 
 /**
  *
@@ -110,9 +97,10 @@ class OrganizationController extends AbstractController {
 			$this->translate('tx_placements.success.organization.createAction')
 		);
 		$redirectParams = array('list');
-	if($this->request->hasArgument('save-reload') OR 
-			$this->request->hasArgument('save-view' )) {
-			$this->persistenceManager->persistAll();
+		if($this->request->hasArgument('save-reload') OR 
+				$this->request->hasArgument('save-view' )) {
+			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\Persistence\\Generic\\PersistenceManager');
+			$persistenceManager->persistAll();
 		}
 		if ($this->request->hasArgument('save-reload')) {
 			$redirectParams = array('edit', NULL, NULL, array('organization' => $newOrganization));
@@ -168,10 +156,18 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(\Webfox\Placements\Domain\Model\Organization $organization) {
-		$this->organizationRepository->remove($organization);
-		$this->addFlashMessage(
-			$this->translate('tx_placements.success.organization.deleteAction')
-		);
+		if($this->accessControlService->isAllowedToDelete('organization')) {
+			$referenceCount = $this->positionRepository->countByOrganization($organization);
+			if(!$referenceCount) {
+				$this->organizationRepository->remove($organization);
+				$messageKey = 'tx_placements.success.organization.deleteAction';
+			} else {
+				$messageKey = 'tx_placements.error.organization.canNotDeleteOrganizationReferencedByPositions';
+			}
+		} else {
+			$messageKey = 'tx_placements.error.organization.deleteActionNotAllowed';
+		}
+		$this->addFlashMessage($this->translate($messageKey));
 		$this->redirect('list');
 	}
 
@@ -221,4 +217,3 @@ class OrganizationController extends AbstractController {
 		return $demand;
 	}
 }
-?>

@@ -1,29 +1,17 @@
 <?php
-
 namespace Webfox\Placements\Tests;
-/***************************************************************
- *  Copyright notice
+/**
+ * This file is part of the TYPO3 CMS project.
  *
- *  (c) 2014 Dirk Wenzel <wenzel@webfox01.de>
- *  			
- *  All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * The TYPO3 project - inspiring people to share!
+ */
 
 /**
  * Test case for class Webfox\Placements\Controller\OrganizationController.
@@ -348,24 +336,102 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
-	 * @expectedException \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
 	 * @covers ::deleteAction
 	 */
 	public function deleteActionRemovesOrganization() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\OrganizationController',
+			array('translate', 'addFlashMessage', 'redirect'), array(), '', FALSE);
 		$mockOrganization = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
-		$mockMessageQueue = $this->getMock(
-			'\TYPO3\CMS\Core\Messaging\FlashMessageQueue', array(), array(), '', FALSE);
-		$this->fixture->_get('organizationRepository')->expects($this->once())
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('isAllowedToDelete'), array(), '', FALSE);
+		$mockPositionRepository =$this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('countByOrganization'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+		$mockOrganizationRepository =$this->getMock(
+			'Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('remove'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+
+		$mockAccessControlService->expects($this->once())->method('isAllowedToDelete')
+			->with('organization')
+			->will($this->returnValue(TRUE));
+		$mockPositionRepository->expects($this->once())->method('countByOrganization')
+			->with($mockOrganization)
+			->will($this->returnValue(FALSE));
+		$mockOrganizationRepository->expects($this->once())
 			->method('remove')
 			->with($mockOrganization);
-		$this->fixture->_get('controllerContext')->expects($this->once())
-			->method('getFlashMessageQueue')
-			->will($this->returnValue($mockMessageQueue));
-		$this->fixture->expects($this->once())->method('translate')
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.success.organization.deleteAction')
 			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
 
-		$this->fixture->deleteAction($mockOrganization);
+		$fixture->deleteAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 * @covers ::deleteAction
+	 */
+	public function deleteActionDoesNotDeleteOrganizationIfNotAllowed() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\OrganizationController',
+			array('translate', 'addFlashMessage', 'redirect'), array(), '', FALSE);
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('isAllowedToDelete'), array(), '', FALSE);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+
+		$mockAccessControlService->expects($this->once())->method('isAllowedToDelete')
+			->with('organization');
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.organization.deleteActionNotAllowed')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+
+		$fixture->deleteAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 * @covers ::deleteAction
+	 */
+	public function deleteActionDoesNotDeleteOrganizationIfReferencedByAnyPosition() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\OrganizationController',
+			array('translate', 'addFlashMessage', 'redirect'), array(), '', FALSE);
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('isAllowedToDelete'), array(), '', FALSE);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+		$mockPositionRepository =$this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('countByOrganization'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+
+		$mockAccessControlService->expects($this->once())->method('isAllowedToDelete')
+			->with('organization')
+			->will($this->returnValue(TRUE));
+		$mockPositionRepository->expects($this->once())->method('countByOrganization')
+			->will($this->returnValue(5));
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.organization.canNotDeleteOrganizationReferencedByPositions')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+
+		$fixture->deleteAction($mockOrganization);
 	}
 
 	/**
@@ -515,15 +581,12 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 		$mockRequest = $this->getMock(
 				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('hasArgument'), array(), '', FALSE);
-		$mockRequest->_set('pluginName', 'Placements');
-		$mockRequest->_set('controllerName', 'OrganisationController');
+	/*	$mockRequest->_set('pluginName', 'Placements');
+		$mockRequest->_set('controllerName', 'OrganizationController');
 		$mockRequest->_set('arguments', array(
 					'newOrganization' => $mockOrganisation,
-					'save-reload' => TRUE));
+					'save-reload' => TRUE));*/
 		$fixture->_set('request', $mockRequest);
-
-		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
-		$fixture->_set('persistenceManager', $mockPersistenceManager);
 
 		$mockAccessControlService = $this->getMock(
 			'Webfox\Placements\Service\AccessControlService',
@@ -580,9 +643,11 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$mockRequest->_set('pluginName', 'Placements');
 		$mockRequest->_set('controllerName', 'OrganisationController');
 		$fixture->_set('request', $mockRequest);
+		$mockObjectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManager',
+				array('get'), array(), '', FALSE);
+		$fixture->_set('objectManager', $mockObjectManager);
 
 		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
-		$fixture->_set('persistenceManager', $mockPersistenceManager);
 
 		$mockAccessControlService = $this->getMock(
 			'Webfox\Placements\Service\AccessControlService',
@@ -608,6 +673,9 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$mockRequest->expects($this->any())->method('hasArgument')
 			->with('save-reload')
 			->will($this->returnValue(TRUE));
+		$mockObjectManager->expects($this->once())->method('get')
+			->with('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')
+			->will($this->returnValue($mockPersistenceManager));
 		$mockPersistenceManager->expects($this->once())->method('persistAll');
 		$fixture->expects($this->once())->method('redirect')
 			->with('edit', NULL, NULL, array('organization' => $mockOrganization));
@@ -635,9 +703,11 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$mockRequest = $this->getMock(
 				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('hasArgument'), array(), '', FALSE);
 		$fixture->_set('request', $mockRequest);
+		$mockObjectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManager',
+				array('get'), array(), '', FALSE);
+		$fixture->_set('objectManager', $mockObjectManager);
 
 		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
-		$fixture->_set('persistenceManager', $mockPersistenceManager);
 
 		$mockAccessControlService = $this->getMock(
 			'Webfox\Placements\Service\AccessControlService',
@@ -662,6 +732,9 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$fixture->expects($this->once())->method('addFlashMessage');
 		$mockRequest->expects($this->any())->method('hasArgument')
 			->will($this->onConsecutiveCalls(FALSE, TRUE, FALSE, TRUE));
+		$mockObjectManager->expects($this->once())->method('get')
+			->with('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')
+			->will($this->returnValue($mockPersistenceManager));
 		$mockPersistenceManager->expects($this->once())->method('persistAll');
 		$fixture->expects($this->once())->method('redirect')
 			->with('show', NULL, NULL, array('organization' => $mockOrganization));
@@ -683,4 +756,3 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$fixture->_call('getErrorFlashMessage');
 	}
 }
-?>
