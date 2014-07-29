@@ -156,10 +156,13 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(\Webfox\Placements\Domain\Model\Organization $organization) {
-		$this->organizationRepository->remove($organization);
-		$this->addFlashMessage(
-			$this->translate('tx_placements.success.organization.deleteAction')
-		);
+		if($this->accessControlService->isAllowedToDelete('organization')) {
+			$this->organizationRepository->remove($organization);
+			$message = $this->translate('tx_placements.success.organization.deleteAction');
+		} else {
+			$message = $this->translate('tx_placements.error.organization.deleteActionNotAllowed');
+		}
+		$this->addFlashMessage($message);
 		$this->redirect('list');
 	}
 
