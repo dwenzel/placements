@@ -515,15 +515,12 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 		$mockRequest = $this->getMock(
 				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('hasArgument'), array(), '', FALSE);
-		$mockRequest->_set('pluginName', 'Placements');
-		$mockRequest->_set('controllerName', 'OrganisationController');
+	/*	$mockRequest->_set('pluginName', 'Placements');
+		$mockRequest->_set('controllerName', 'OrganizationController');
 		$mockRequest->_set('arguments', array(
 					'newOrganization' => $mockOrganisation,
-					'save-reload' => TRUE));
+					'save-reload' => TRUE));*/
 		$fixture->_set('request', $mockRequest);
-
-		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
-		$fixture->_set('persistenceManager', $mockPersistenceManager);
 
 		$mockAccessControlService = $this->getMock(
 			'Webfox\Placements\Service\AccessControlService',
@@ -580,9 +577,11 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$mockRequest->_set('pluginName', 'Placements');
 		$mockRequest->_set('controllerName', 'OrganisationController');
 		$fixture->_set('request', $mockRequest);
+		$mockObjectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManager',
+				array('get'), array(), '', FALSE);
+		$fixture->_set('objectManager', $mockObjectManager);
 
 		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
-		$fixture->_set('persistenceManager', $mockPersistenceManager);
 
 		$mockAccessControlService = $this->getMock(
 			'Webfox\Placements\Service\AccessControlService',
@@ -608,6 +607,9 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$mockRequest->expects($this->any())->method('hasArgument')
 			->with('save-reload')
 			->will($this->returnValue(TRUE));
+		$mockObjectManager->expects($this->once())->method('get')
+			->with('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')
+			->will($this->returnValue($mockPersistenceManager));
 		$mockPersistenceManager->expects($this->once())->method('persistAll');
 		$fixture->expects($this->once())->method('redirect')
 			->with('edit', NULL, NULL, array('organization' => $mockOrganization));
@@ -635,9 +637,11 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$mockRequest = $this->getMock(
 				$this->buildAccessibleProxy('TYPO3\CMS\Extbase\MVC\Request'), array('hasArgument'), array(), '', FALSE);
 		$fixture->_set('request', $mockRequest);
+		$mockObjectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManager',
+				array('get'), array(), '', FALSE);
+		$fixture->_set('objectManager', $mockObjectManager);
 
 		$mockPersistenceManager = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager', array('persistAll'), array(), '', FALSE);
-		$fixture->_set('persistenceManager', $mockPersistenceManager);
 
 		$mockAccessControlService = $this->getMock(
 			'Webfox\Placements\Service\AccessControlService',
@@ -662,6 +666,9 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 		$fixture->expects($this->once())->method('addFlashMessage');
 		$mockRequest->expects($this->any())->method('hasArgument')
 			->will($this->onConsecutiveCalls(FALSE, TRUE, FALSE, TRUE));
+		$mockObjectManager->expects($this->once())->method('get')
+			->with('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')
+			->will($this->returnValue($mockPersistenceManager));
 		$mockPersistenceManager->expects($this->once())->method('persistAll');
 		$fixture->expects($this->once())->method('redirect')
 			->with('show', NULL, NULL, array('organization' => $mockOrganization));
