@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-07-28T09:22:27Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-07-29T13:15:02Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -20,6 +20,10 @@
 		<trans-unit id="tx_placements.error.newPosition.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a job title.</source>
 			<target>Bitte geben Sie ein Stellenbezeichnung an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.canNotDeleteOrganizationReferencedByPositions" approved="yes" xml:space="preserve">
+			<source>Sorry, could not remove this organization. It is referenced by positions.</source>
+			<target>Die Organisation konnte nicht gelöscht werden. Es verweisen Stellenangebote darauf.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.organization.createAction" approved="yes" xml:space="preserve">
 			<source>Sorry! Your organization could not be created.</source>
