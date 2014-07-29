@@ -23,14 +23,6 @@ namespace Webfox\Placements\Controller;
 class PositionController extends AbstractController {
 
 	/**
-	 * Position Repository
-	 *
-	 * @var \Webfox\Placements\Domain\Repository\PositionRepository
-	 * @inject
-	 */
-	protected $positionRepository;
-
-	/**
 	 * Position Type Repository
 	 * 
 	 * @var \Webfox\Placements\Domain\Repository\PositionTypeRepository
