@@ -110,9 +110,10 @@ class OrganizationController extends AbstractController {
 			$this->translate('tx_placements.success.organization.createAction')
 		);
 		$redirectParams = array('list');
-	if($this->request->hasArgument('save-reload') OR 
-			$this->request->hasArgument('save-view' )) {
-			$this->persistenceManager->persistAll();
+		if($this->request->hasArgument('save-reload') OR 
+				$this->request->hasArgument('save-view' )) {
+			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\Persistence\\Generic\\PersistenceManager');
+			$persistenceManager->persistAll();
 		}
 		if ($this->request->hasArgument('save-reload')) {
 			$redirectParams = array('edit', NULL, NULL, array('organization' => $newOrganization));
