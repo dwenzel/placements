@@ -23,6 +23,14 @@ namespace Webfox\Placements\Controller;
 class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
+	 * Position Repository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\PositionRepository
+	 * @inject
+	 */
+	protected $positionRepository;
+
+	/**
 	 * Sector Repository
 	 *
 	 * @var \Webfox\Placements\Domain\Repository\SectorRepository

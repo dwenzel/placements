@@ -64,6 +64,13 @@ class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	/**
 	 * @test
 	 */
+	public function classHasAttributePositionRepository() {
+			$this->assertClassHasAttribute('positionRepository', '\Webfox\Placements\Controller\AbstractController');
+	}
+
+	/**
+	 * @test
+	 */
 	public function emptyHandleEntityNotFoundErrorConfigurationReturnsNull() {
 		$result = $this->fixture->_call('handleEntityNotFoundError', '');
 		$this->assertNull($result);

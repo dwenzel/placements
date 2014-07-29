@@ -336,24 +336,102 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
-	 * @expectedException \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
 	 * @covers ::deleteAction
 	 */
 	public function deleteActionRemovesOrganization() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\OrganizationController',
+			array('translate', 'addFlashMessage', 'redirect'), array(), '', FALSE);
 		$mockOrganization = $this->getMock(
 			'Webfox\Placements\Domain\Model\Organization');
-		$mockMessageQueue = $this->getMock(
-			'\TYPO3\CMS\Core\Messaging\FlashMessageQueue', array(), array(), '', FALSE);
-		$this->fixture->_get('organizationRepository')->expects($this->once())
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('isAllowedToDelete'), array(), '', FALSE);
+		$mockPositionRepository =$this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('countByOrganization'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+		$mockOrganizationRepository =$this->getMock(
+			'Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('remove'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+
+		$mockAccessControlService->expects($this->once())->method('isAllowedToDelete')
+			->with('organization')
+			->will($this->returnValue(TRUE));
+		$mockPositionRepository->expects($this->once())->method('countByOrganization')
+			->with($mockOrganization)
+			->will($this->returnValue(FALSE));
+		$mockOrganizationRepository->expects($this->once())
 			->method('remove')
 			->with($mockOrganization);
-		$this->fixture->_get('controllerContext')->expects($this->once())
-			->method('getFlashMessageQueue')
-			->will($this->returnValue($mockMessageQueue));
-		$this->fixture->expects($this->once())->method('translate')
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.success.organization.deleteAction')
 			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
 
-		$this->fixture->deleteAction($mockOrganization);
+		$fixture->deleteAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 * @covers ::deleteAction
+	 */
+	public function deleteActionDoesNotDeleteOrganizationIfNotAllowed() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\OrganizationController',
+			array('translate', 'addFlashMessage', 'redirect'), array(), '', FALSE);
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('isAllowedToDelete'), array(), '', FALSE);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+
+		$mockAccessControlService->expects($this->once())->method('isAllowedToDelete')
+			->with('organization');
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.organization.deleteActionNotAllowed')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+
+		$fixture->deleteAction($mockOrganization);
+	}
+
+	/**
+	 * @test
+	 * @covers ::deleteAction
+	 */
+	public function deleteActionDoesNotDeleteOrganizationIfReferencedByAnyPosition() {
+		$fixture = $this->getAccessibleMock(
+			'Webfox\Placements\Controller\OrganizationController',
+			array('translate', 'addFlashMessage', 'redirect'), array(), '', FALSE);
+		$mockAccessControlService = $this->getMock(
+			'Webfox\Placements\Service\AccessControlService',
+			array('isAllowedToDelete'), array(), '', FALSE);
+		$fixture->_set('accessControlService', $mockAccessControlService);
+		$mockPositionRepository =$this->getMock(
+			'Webfox\Placements\Domain\Repository\PositionRepository',
+			array('countByOrganization'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockOrganization = $this->getMock(
+			'Webfox\Placements\Domain\Model\Organization');
+
+		$mockAccessControlService->expects($this->once())->method('isAllowedToDelete')
+			->with('organization')
+			->will($this->returnValue(TRUE));
+		$mockPositionRepository->expects($this->once())->method('countByOrganization')
+			->will($this->returnValue(5));
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.organization.canNotDeleteOrganizationReferencedByPositions')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+
+		$fixture->deleteAction($mockOrganization);
 	}
 
 	/**
