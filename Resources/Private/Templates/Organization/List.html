@@ -1,4 +1,3 @@
-{namespace pw=Webfox\Placements\ViewHelpers\Widget}
 {namespace ps=Webfox\Placements\ViewHelpers}
 <f:layout name="Default" />
 
@@ -7,6 +6,7 @@ This Template creates a list of organizations.
 <f:section name="main">
 <f:if condition="{settings.debug}">
 	<f:debug title="settings">{settings}</f:debug>
+	<f:debug title="organizations">{organizations}</f:debug>
 </f:if>
 <f:flashMessages class="message"/>
 
@@ -19,21 +19,18 @@ This Template creates a list of organizations.
 		</f:security.ifHasRole>
 	</div>
 
-	<pw:paginate  
+	<f:widget.paginate  
 		objects="{organizations}" 
 		as="paginatedOrganizations" 
 		configuration="{itemsPerPage: '{settings.organization.list.paginate.itemsPerPage}', 
 				insertAbove: '{settings.organization.list.paginate.insertAbove}',
 				insertBelow: '{settings.organization.list.paginate.insertBelow}',
-				lessPages: '{settings.organization.list.paginate.lessPages}',
-				forcedNumberOfLinks: '{settings.organization.list.paginate.lessPages}',
-				pagesBefore: '{settings.organization.list.paginate.pagesBefore}',
-				pagesAfter: '{settings.organization.list.paginate.pagesAfter}'
+				maximumNumberOfLinks: '{settings.organization.list.paginate.maximumNumberOfLinks}'
 				}" >
 		<f:for each="{paginatedOrganizations}" as="organization">
 			<f:render partial="Organization/List/Item" arguments="{organization: '{organization}', settings: '{settings}'}" /> 
 		</f:for>
-	</pw:paginate>
+	</f:widget.paginate>
 </div>
 
 <ps:security.allow action="create" type="organization">

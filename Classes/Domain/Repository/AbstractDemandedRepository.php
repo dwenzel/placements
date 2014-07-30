@@ -1,30 +1,18 @@
 <?php
 namespace Webfox\Placements\Domain\Repository;
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
 
-/***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Georg Ringer 
-*  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-*
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
 /**
  * Abstract demanded repository
  * 
@@ -43,6 +31,12 @@ abstract class AbstractDemandedRepository
 	protected $storageBackend;
 
 	/**
+	 * @var \Webfox\Placements\Utility\Geocoder
+	 * @inject
+	 */
+	protected $geoCoder;
+
+	/**
 	 * Returns an array of constraints created from a given demand object.
 	 * 
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
@@ -56,10 +50,33 @@ abstract class AbstractDemandedRepository
 	 * Returns an array of orderings created from a given demand object.
 	 *
 	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-	 * @abstract
+	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
-	abstract protected function createOrderingsFromDemand(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand);
+	protected function createOrderingsFromDemand(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
+		$orderings = array();
+
+		//@todo validate order (orderAllowed)
+		if ($demand->getOrder()) {
+			$orderList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $demand->getOrder(), TRUE);
+
+			if (!empty($orderList)) {
+				// go through every order statement
+				foreach ($orderList as $orderItem) {
+					list($orderField, $ascDesc) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('|', $orderItem, TRUE);
+					// count == 1 means that no direction is given
+					if ($ascDesc) {
+						$orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
+							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING :
+							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+					} else {
+						$orderings[$orderField] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+					}
+				}
+			}
+		}
+
+		return $orderings;
+	}
 
 	/**
 	 * Returns the objects of this repository matching the demand.
@@ -74,10 +91,11 @@ abstract class AbstractDemandedRepository
 		if ($objects->count() AND 
 				$demand->getRadius() AND 
 				$demand->getGeoLocation()) {
-			$objects = $this->filterByRadius($objects, 
-					$demand->getGeoLocation(), 
+			$objects = $this->filterByRadius(
+					$objects,
+					$demand->getGeoLocation(),
 					$demand->getRadius()/1000
-				);
+			);
 		}
 		return $objects;
 	}
@@ -88,12 +106,12 @@ abstract class AbstractDemandedRepository
 	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $queryResult A query result containing objects
 	 * @param \array $geoLocation An array describing a geolocation by lat and lng
 	 * @param \integer $distance Distance in meter
-	 * @return \TYPO3\CMS\Extbase\Persitence\Generic\QueryResult $queryResult A query result containing objects
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $queryResult A query result containing objects
 	 */
 	public function filterByRadius($queryResult, $geoLocation, $distance) {
 		$objectUids = array();
-		foreach($queryResult as $object) {
-			$currDist = \Webfox\Placements\Utility\Geocoder::distance(
+		foreach($queryResult->toArray() as $object) {
+			$currDist = $this->geoCoder->distance(
 				$geoLocation['lat'], 
 				$geoLocation['lng'],
 				$object->getLatitude(),
@@ -106,35 +124,10 @@ abstract class AbstractDemandedRepository
 		$orderings = $queryResult->getQuery()->getOrderings();
 		$sortField = array_shift(array_keys($orderings));
 		$sortOrder = array_shift(array_values($orderings));
-		$objects = self::findMultipleByUid(
+		$objects = $this->findMultipleByUid(
 			implode(',', $objectUids), $sortField, $sortOrder
 		);
 		return $objects;
-	}
-
-	/**
-	 * Returns the database query to get the matching result
-	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
-	 * @param boolean $respectEnableFields
-	 * @return string
-	 */
-	public function findDemandedRaw(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand, $respectEnableFields = TRUE) {
-		$query = $this->generateQuery($demand, $respectEnableFields);
-
-		$dbStorage = $this->storageBackend;
-
-		$parameters = array();
-		$statementParts = $dbStorage->parseQuery($query, $parameters);
-		$sql = $dbStorage->buildQuery($statementParts, $parameters);
-		$tableName = 'foo';
-		if (is_array($statementParts && !empty($statementParts['tables'][0]))) {
-			$tableName = $statementParts['tables'][0];
-		}
-
-		$this->replacePlaceholders($sql, $parameters, $tableName);
-
-		return $sql;
 	}
 
 	/**
@@ -208,53 +201,7 @@ abstract class AbstractDemandedRepository
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function countDemanded(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
-		$query = $this->createQuery();
-
-		if ($constraints = $this->createConstraintsFromDemand($query, $demand)) {
-			$query->matching(
-				$query->logicalAnd($constraints)
-			);
-		}
-
-		$result = $query->execute();
+		$result = $this->findDemanded($demand);
 		return $result->count();
 	}
-
-	/**
-	 * Copy of the one from Typo3DbBackend
-	 * Replace query placeholders in a query part by the given
-	 * parameters.
-	 *
-	 * @param string $sqlString The query part with placeholders
-	 * @param array $parameters The parameters
-	 * @param string $tableName
-	 *
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-	 * @return void
-	 */
-	protected function replacePlaceholders(&$sqlString, array $parameters, $tableName = 'foo') {
-		if (substr_count($sqlString, '?') !== count($parameters)) {
-			throw new \TYPO3\CMS\Extbase\Persistence\Generic\Exception('The number of question marks to replace must be equal to the number of parameters.', 1242816074);
-		}
-		$offset = 0;
-		foreach ($parameters as $parameter) {
-			$markPosition = strpos($sqlString, '?', $offset);
-			if ($markPosition !== FALSE) {
-				if ($parameter === NULL) {
-					$parameter = 'NULL';
-				} elseif (is_array($parameter) || $parameter instanceof \ArrayAccess || $parameter instanceof \Traversable) {
-					$items = array();
-					foreach ($parameter as $item) {
-						$items[] = $GLOBALS['TYPO3_DB']->fullQuoteStr($item, $tableName);
-					}
-					$parameter = '(' . implode(',', $items) . ')';
-				} else {
-					$parameter = $GLOBALS['TYPO3_DB']->fullQuoteStr($parameter, $tableName);
-				}
-				$sqlString = substr($sqlString, 0, $markPosition) . $parameter . substr($sqlString, ($markPosition + 1));
-			}
-			$offset = $markPosition + strlen($parameter);
-		}
-	}
 }
-?>

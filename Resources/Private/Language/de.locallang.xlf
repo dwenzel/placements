@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-19T19:12:12Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-07-29T13:15:02Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -20,6 +20,10 @@
 		<trans-unit id="tx_placements.error.newPosition.title.1221560718" approved="yes" xml:space="preserve">
 			<source>Please enter a job title.</source>
 			<target>Bitte geben Sie ein Stellenbezeichnung an.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements.error.organization.canNotDeleteOrganizationReferencedByPositions" approved="yes" xml:space="preserve">
+			<source>Sorry, could not remove this organization. It is referenced by positions.</source>
+			<target>Die Organisation konnte nicht gelöscht werden. Es verweisen Stellenangebote darauf.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements.error.organization.createAction" approved="yes" xml:space="preserve">
 			<source>Sorry! Your organization could not be created.</source>
@@ -497,6 +501,10 @@
 			<source>Entry Date</source>
 			<target>Eintrittsdatum</target>
 		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.export_enabled" approved="yes" xml:space="preserve">
+			<source>Export enabled</source>
+			<target>Export erlaubt</target>
+		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.fixed_term" approved="yes" xml:space="preserve">
 			<source>Fixed Term</source>
 			<target>befristet</target>
@@ -516,6 +524,10 @@
 		<trans-unit id="tx_placements_domain_model_position.legend.description" approved="yes" xml:space="preserve">
 			<source>Describe the position.</source>
 			<target>Beschreiben Sie das Stellenangebot.</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.legend.export_enabled" approved="yes" xml:space="preserve">
+			<source>Allows export of this position to external services.</source>
+			<target>Erlaubt den Export dieses Stellenangebotes zu externen Diensten.</target>
 		</trans-unit>
 		<trans-unit id="tx_placements_domain_model_position.legend.link" approved="yes" xml:space="preserve">
 			<source>Add an external link.</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-10T15:03:05Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-07-25T09:19:43Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -260,6 +260,10 @@
 		<trans-unit id="flexforms_general.workingHours" approved="yes" xml:space="preserve">
 			<source>Working Hours</source>
 			<target>Arbeitszeit</target>
+		</trans-unit>
+		<trans-unit id="tx_placements_domain_model_position.export_enabled" approved="yes" xml:space="preserve">
+			<source></source>
+			<target>Export erlaubt</target>
 		</trans-unit>
 		</body>
 	</file>

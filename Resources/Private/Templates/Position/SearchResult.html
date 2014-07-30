@@ -1,4 +1,3 @@
-{namespace pw=Webfox\Placements\ViewHelpers\Widget}
 {namespace ps=Webfox\Placements\ViewHelpers}
 <f:layout name="Default" />
 <f:section name="main">
@@ -15,26 +14,28 @@
 			<f:if condition="{positions}">
 				<div  class="position-list" >
 					<f:render partial="Position/List/Head" />
-					<pw:paginate  
+					<f:widget.paginate  
 						objects="{positions}" 
 						as="paginatedPositions" 
 						configuration="{itemsPerPage: '{settings.position.list.paginate.itemsPerPage}', 
 							insertAbove: '{settings.position.list.paginate.insertAbove}',
 							insertBelow: '{settings.position.list.paginate.insertBelow}',
 							lessPages: '{settings.position.list.paginate.lessPages}',
-							forcedNumberOfLinks: '{settings.position.list.paginate.lessPages}',
+							maximumNumberOfLinks: '{settings.position.list.paginate.maximumNumberOfLinks}',
 							pagesBefore: '{settings.position.list.paginate.pagesBefore}',
 							pagesAfter: '{settings.position.list.paginate.pagesAfter}'
-						}"
-					>
+							addQueryString: 'TRUE',
+							addQueryStringMethod: 'GET,POST'
+						}" >
 						<f:for each="{paginatedPositions}" as="position">
 							<f:render 
 								partial="Position/List/Item" 
 								arguments="{position: '{position}', 
-											settings: '{settings}',
-											requestArguments: '{requestArguments}'}" /> 
+									settings: '{settings}', 
+									requestArguments: '{requestArguments}'}" 
+							/> 
 						</f:for>
-					</pw:paginate>
+					</f:widget.paginate>
 				</div>
 			</f:if>
 		</f:if>

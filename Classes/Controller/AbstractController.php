@@ -1,30 +1,17 @@
 <?php
 namespace Webfox\Placements\Controller;
-
-/***************************************************************
- *  Copyright notice
+/**
+ * This file is part of the TYPO3 CMS project.
  *
- *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, AgenturWebfox GmbH
- *  Michael Kasten <kasten@webfox01.de>, AgenturWebfox GmbH
- *  
- *  All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * The TYPO3 project - inspiring people to share!
+ */
 
 /**
  *
@@ -34,6 +21,14 @@ namespace Webfox\Placements\Controller;
  *
  */
 class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
+	/**
+	 * Position Repository
+	 *
+	 * @var \Webfox\Placements\Domain\Repository\PositionRepository
+	 * @inject
+	 */
+	protected $positionRepository;
 
 	/**
 	 * Sector Repository
@@ -67,6 +62,15 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	protected $accessControlService;
 
+
+	/**
+	 * Geocoder Utility
+	 *
+	 * @var \Webfox\Placements\Utility\Geocoder
+	 * @inject
+	 */
+	protected $geoCoder;
+
 	/**
 	 * Request Arguments
 	 * @var \array
@@ -77,7 +81,17 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Referrer Arguments
 	 * @var \array
 	 */
-	protected $referrerArguments = NULL;
+	protected $referrerArguments = array();
+
+	/**
+	 * @var string
+	 */
+	protected $entityNotFoundMessage = 'The requested entity could not be found';
+
+	/**
+	 * @var string
+	 */
+	protected $unknownErrorMessage = 'An unknown error occured.';
 
 	/**
 	 * Initialize Action
@@ -99,34 +113,20 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			is_array($this->request->getArgument('referrerArguments'))) {
 		    $this->referrerArguments = $this->request->getArgument('referrerArguments');
 		} else {
-		    $this->referrerArguments = NULL;
-		}
-	}
-
-	/**
-	 * Provides a method addFlashMessage which is not available before
-	 * TYPO3 version 6.2
-	 * This method can be removed if version 6.1 is not supported anymore.
-	 * 
-	 * @param string $name
-	 * @param array $arguments
-	 * @return void
-	 */
-	public function __call($name, array $arguments) {
-		if($name == 'addFlashMessage') {
-			$this->controllerContext->getFlashMessageQueue()->addMessage(new \TYPO3\CMS\Core\Messaging\FlashMessage(current($arguments)));
+		    $this->referrerArguments = array();
 		}
 	}
 
 	/**
 	 * Upload file
 	 */
-	protected function uploadFile(&$fileName, $fileTmpName ) {
-		$basicFileUtility = $this->objectManager->create('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
+	protected function uploadFile($fileName, $fileTmpName ) {
+		$basicFileUtility = $this->objectManager->get('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
 		$absFileName = $basicFileUtility->getUniqueName( $fileName, \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_placements'));
 		$fileInfo = $basicFileUtility->getTotalFileInfo($absFileName);
-		$fileName = $fileInfo['file'];
-		\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($fileTmpName, $absFileName); 
+		$realFileName = $fileInfo['file'];
+		\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($fileTmpName, $absFileName);
+		return $realFileName;
 	}
 
 	/**
@@ -143,41 +143,120 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			
 			if (is_array($file) AND !$file['error'] ) {
 				$fileName = $file['name'];
-				$this->uploadFile($fileName, $file['tmp_name']);
-				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($object, $propertyName, $fileName);
+				$realFileName = $this->uploadFile($fileName, $file['tmp_name']);
+				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($object, $propertyName, $realFileName);
 			} else {
 				$object->_memorizeCleanState($propertyName);
-				if($file['error']) {
-					switch($file['error']) {
-						case 1:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.1', 'placements');
-							break;
-						case 2:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.2', 'placements');
-							break;
-						case 3:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.3', 'placements');
-							break;
-						case 4:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.4', 'placements');
-							break;
-						case 6:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.6', 'placements');
-							break;
-						case 7:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.7', 'placements');
-							break;
-						case 8:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.8', 'placements');
-							break;
-						default:
-							$errMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_placements.error.upload.unknown', 'placements');
-					}
-					$this->flashMessageContainer->add($errMsg);
+				$error = $file['error'];
+				$knownErrorCodes = array(1,2,3,4,6,7,8);
+				$key = 'tx_placements.error.upload.unknown';
+				if(in_array($error, $knownErrorCodes)) {
+							$key = 'tx_placements.error.upload.' . $file['error'];
+				}
+
+				$errorMessage = $this->translate($key);
+				if($errorMessage) {
+					$this->addFlashMessage($errorMessage);
+				} else {
+					$this->addFlashMessage($key);
 				}
 			}
 		}
 	}
-}
-?>
 
+	/**
+	* @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
+	* @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
+	* @return void
+	* @throws \Exception
+	* @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	*/
+	public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response) {
+		try{
+			parent::processRequest($request, $response);
+		}
+		catch(\Exception $exception) {
+			// If the property mapper did throw a \TYPO3\CMS\Extbase\Property\Exception, because it was unable to find the requested entity, call the page-not-found handler.
+			$previousException = $exception->getPrevious();
+			if (($exception instanceof \TYPO3\CMS\Extbase\Property\Exception) && (($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) || ($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException))) {
+				$configuration = isset($this->settings[strtolower($request->getControllerName())]['detail']['errorHandling'])? $this->settings[strtolower($request->getControllerName())]['detail']['errorHandling'] : NULL;
+				if($configuration ) {
+					$this->handleEntityNotFoundError($configuration);
+				}
+			}
+			throw $exception;
+		}
+	}
+
+	/**
+	 * Error handling if requested entity is not found
+	 *
+	 * @param \string $configuration Configuration for handling
+	 */
+	public function handleEntityNotFoundError($configuration) {
+		if(empty($configuration)) {
+			return;
+		}
+		$configuration = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $configuration);
+		switch($configuration[0]) {
+			case 'redirectToListView':
+				$this->redirect('list');
+				break;
+			case 'redirectToPage':
+				if (count($configuration) === 1 || count($configuration) > 3) {
+					$msg = sprintf('If error handling "%s" is used, either 2 or 3 arguments, splitted by "," must be used', $configuration[0]);
+					throw new \InvalidArgumentException($msg);
+				}
+				$this->uriBuilder->reset();
+				$this->uriBuilder->setTargetPageUid($configuration[1]);
+				$this->uriBuilder->setCreateAbsoluteUri(TRUE);
+				if (\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SSL')) {
+					$this->uriBuilder->setAbsoluteUriScheme('https');
+				}
+				$url = $this->uriBuilder->build();
+				if (isset($configuration[2])) {
+					$this->redirectToUri($url, 0, (int)$configuration[2]);
+				} else {
+					$this->redirectToUri($url);
+				}
+				break;
+			case 'pageNotFoundHandler':
+					$GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
+				break;
+			default:
+		}
+	}
+
+	/**
+	 * Creates a search object from given settings
+	 *
+	 * @param \array $searchRequest An array with the search request
+	 * @param \array $settings Settings for search
+	 * @return \Webfox\Placements\Domain\Model\Dto\Search $search
+	 */
+	public function createSearchObject($searchRequest, $settings) {
+		$searchObject = $this->objectManager->get('Webfox\Placements\Domain\Model\Dto\Search');
+
+		if(isset($searchRequest['subject']) AND isset($settings['fields'])) {
+			$searchObject->setFields($settings['fields']);
+			$searchObject->setSubject($searchRequest['subject']);
+		}
+		if (isset($searchRequest['location']) AND isset($searchRequest['radius'])) {
+			$searchObject->setLocation($searchRequest['location']);
+			$searchObject->setRadius($searchRequest['radius']);
+		}
+		return $searchObject;
+	}
+
+	/**
+	 * Translate a given key
+	 *
+	 * @param \string $key
+	 * @param \string $extension
+	 * @param \array $arguments
+	 * @codeCoverageIgnore
+	 */
+	public function translate($key, $extension='placements', $arguments=NULL) {
+		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, $extension, $arguments);
+	}
+}

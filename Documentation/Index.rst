@@ -7,51 +7,51 @@
 .. Includes roles, substitutions, ...
 .. include:: _IncludedDirectives.rst
 
-=================
-Extension Name
-=================
+.. _start:
 
-:Extension name: Placement Service
-:Extension key: placements
-:Version: 0.1.0-dev
-:Description: manuals covering TYPO3 extension "Placement Service"
-:Language: en
-:Author: Dirk Wenzel, Michael Kasten
-:Creation: 2013-11-06
-:Generation: 15:50
-:Licence: Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
+==================
+Placements Service
+==================
 
-The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org
-<http://www.typo3.org/>`_
+.. only:: html
+  :Classification:
+    placements
 
-**Table of Contents**
+  :Extension name: 
+    Placement Service
+
+  :Extension key: 
+    placements
+
+  :Version: 
+    |release|
+  :Description: 
+    manuals covering TYPO3 extension "Placement Service"
+
 
 .. toctree::
-	:maxdepth: 2
+	:maxdepth: 5
 
 	ProjectInformation
 	UserManual
 	AdministratorManual
-	TyposcriptReference
+	Configuration/Index
 	DeveloperCorner
-	RestructuredtextHelp
 
-.. STILL TO ADD IN THIS DOCUMENT
-	@todo: add section about how screenshots can be automated. Pointer to PhantomJS could be added.
-	@todo: explain how documentation can be rendered locally and remotely.
-	@todo: explain what files should be versionned and what not (_build, Makefile, conf.py, ...)
 
-.. include:: ../Readme.rst
+======================================
+Placements Service: Manage job offers.
+======================================
 
 What does it do?
 =================
+Placements Service aims to be a complete and comfortable tool for managing job offers and applications.
+It suitable for small and medium sized companies as well as for bigger organizations or employment service provider.
 
-In this chapter should be given a brief overview of the extension. What does it do? What problem does it solve? Who is interested in this? Basically, this section includes everything people need to know to decide whether they should go on with this extension.
+Jobs offers can be managed through the TYPO3 backend or the frontend. They are displayed in list and single view. Both views can be configured to show a Google map with job offers. 
+A highly configurable menu allows filtering the search results by type, sector, working time or search word. It also features a radius search for a given location.
 
-.. figure:: Images/IntroductionPackage.png
-		:width: 500px
-		:alt: Introduction Package
+Registrated users may add, edit or remove job offers and organizations in frontend. A fine grained access controll service provides multi-client capability too.
 
-		Introduction Package just after installation (caption of the image)
+Future releases of these extension will include messaging about new jobs and application, match making and editable user profiles.
 
-		How the Frontend of the Introduction Package looks like just after installation (legend of the image)

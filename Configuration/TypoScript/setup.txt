@@ -3,11 +3,6 @@ plugin.tx_placements {
 		templateRootPath = {$plugin.tx_placements.view.templateRootPath}
 		partialRootPath = {$plugin.tx_placements.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_placements.view.layoutRootPath}
-		widget {
-			Webfox\Placements\ViewHelpers\Widget\PaginateViewHelper {
-				templateRootPath = {$plugin.tx_placements.view.templateRootPath}
-			}
-		}
 	}
 	persistence {
 		storagePid = {$plugin.tx_placements.persistence.storagePid}
@@ -18,7 +13,7 @@ plugin.tx_placements {
 	}
 
 	settings {
-	    	maxFileSize = 2 MB
+		maxFileSize = 2 MB
 		# @todo: read php upload_max_filesize
 		security {
 			position {
@@ -39,15 +34,10 @@ plugin.tx_placements {
 					itemsPerPage ={$plugin.tx_placements.settings.position.list.paginate.itemsPerPage}
 					insertAbove = {$plugin.tx_placements.settings.position.list.paginate.insertAbove}
 					insertBelow = {$plugin.tx_placements.settings.position.list.paginate.insertBelow}
-					showNumberOfPages = {$plugin.tx_placements.settings.position.list.paginate.showNumberOfPages}
-					lessPages = {$plugin.tx_placements.settings.position.list.paginate.lessPages}
-					forcedNumberOfLinks = {$plugin.tx_placements.settings.position.list.paginate.forcedNumberOfLinks}
-					pagesBefore = {$plugin.tx_placements.settings.position.list.paginate.pagesBefore}
-					pagesAfter = {$plugin.tx_placements.settings.position.list.paginate.pagesAfter}
-					templatePath =
+					maximumNumberOfLinks = {$plugin.tx_placements.settings.position.list.paginate.maximumNumberOfLinks}
 					prevNextHeaderTags = {$plugin.tx_placements.settings.position.list.paginate.prevNextHeaderTags}
 				}
-			}
+			}	
 			detail {
 				organization.image {
 					width = {$plugin.tx_placements.settings.position.detail.organization.image.width}
@@ -63,6 +53,16 @@ plugin.tx_placements {
 			search {
 				pid = {$plugin.tx_placements.settings.search.pid}
 				fields = {$plugin.tx_placements.settings.position.search.fields}
+			}
+		}
+		organization {
+			list {
+				paginate {
+					itemsPerPage ={$plugin.tx_placements.settings.organization.list.paginate.itemsPerPage}
+					insertAbove = {$plugin.tx_placements.settings.organization.list.paginate.insertAbove}
+					insertBelow = {$plugin.tx_placements.settings.organization.list.paginate.insertBelow}
+					maximumNumberOfLinks = {$plugin.tx_placements.settings.organization.list.paginate.maximumNumberOfLinks}
+				}
 			}
 		}
 	}

@@ -1,30 +1,17 @@
 <?php
 namespace Webfox\Placements\Domain\Repository;
-
-/***************************************************************
- *  Copyright notice
+/**
+ * This file is part of the TYPO3 CMS project.
  *
- *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, AgenturWebfox GmbH
- *  Michael Kasten <kasten@webfox01.de>, AgenturWebfox GmbH
- *  
- *  All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * The TYPO3 project - inspiring people to share!
+ */
 
 /**
  *
@@ -51,7 +38,7 @@ class PositionRepository extends AbstractDemandedRepository {
 		if ($categories && !empty($categoryConjunction)) {
 			
 			// @todo get subcategories ($demand->getIncludeSubCategories())
-			$constraints[] = $this->createCategoryConstraint(
+			$constraints[] = $this->createCategoryConstraints(
 				$query,
 				$categories,
 				$categoryConjunction,
@@ -142,21 +129,18 @@ class PositionRepository extends AbstractDemandedRepository {
 			if(!empty($location)
 					AND !empty($radius)
 					AND empty($bounds)) {
-					$geoCoder = new \Webfox\Placements\Utility\Geocoder;
-					$geoLocation = $geoCoder::getLocation($location);
-					if ($geoLocation) {
-						$bounds = $geoCoder::getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius/1000);
-					}
+				$geoLocation = $this->geoCoder->getLocation($location);
+				$bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius/1000);
 			}
 			if($bounds AND
 					!empty($bounds['N']) AND
 					!empty($bounds['S']) AND
 					!empty($bounds['W']) AND
 					!empty($bounds['E'])) {
-						$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
-						$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
-						$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
-						$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
+				$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
+				$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
+				$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
+				$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
 			}
 					
 			if(count($searchConstraints)) {
@@ -184,38 +168,6 @@ class PositionRepository extends AbstractDemandedRepository {
 		return $constraints;
 	}
 
-	/**
-	 * Returns an array of orderings created from a given demand object.
-	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
-	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
-	 */
-	protected function createOrderingsFromDemand(\Webfox\Placements\Domain\Model\Dto\DemandInterface $demand) {
-		$orderings = array();
-
-		//@todo validate order (orderAllowed)
-		if ($demand->getOrder()) {
-			$orderList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $demand->getOrder(), TRUE);
-
-			if (!empty($orderList)) {
-				// go through every order statement
-				foreach ($orderList as $orderItem) {
-					list($orderField, $ascDesc) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('|', $orderItem, TRUE);
-					// count == 1 means that no direction is given
-					if ($ascDesc) {
-						$orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
-							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING :
-							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
-					} else {
-						$orderings[$orderField] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
-					}
-				}
-			}
-		}
-
-		return $orderings;
-	}
-
 
 	/**
 	 * Returns a category constraint created by
@@ -227,7 +179,7 @@ class PositionRepository extends AbstractDemandedRepository {
 	 * @param  \boolean $includeSubCategories
 	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint|null
 	 */
-	protected function createCategoryConstraint(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $categories, $conjunction, $includeSubCategories = FALSE) {
+	protected function createCategoryConstraints(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $categories, $conjunction, $includeSubCategories = FALSE) {
 		$constraint = NULL;
 		$categoryConstraints = array();
 
@@ -240,23 +192,8 @@ class PositionRepository extends AbstractDemandedRepository {
 			$categories = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $categories, TRUE);
 		}
 		foreach ($categories as $category) {
-			if ($includeSubCategories) {
-				/*
-				$subCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', Tx_News_Service_CategoryService::getChildrenCategories($category, 0, '', TRUE), TRUE);
-				$subCategoryConstraint = array();
-				$subCategoryConstraint[] = $query->contains('categories', $category);
-				if (count($subCategories) > 0) {
-					foreach ($subCategories as $subCategory) {
-						$subCategoryConstraint[] = $query->contains('categories', $subCategory);
-					}
-				}
-				if ($subCategoryConstraint) {
-					$categoryConstraints[] = $query->logicalOr($subCategoryConstraint);
-				}
-*/
-			} else {
-				$categoryConstraints[] = $query->contains('categories', $category);
-			}
+			//@todo: include subcategories
+			$categoryConstraints[] = $query->contains('categories', $category);
 		}
 		if ($categoryConstraints) {
 			switch (strtolower($conjunction)) {
@@ -279,4 +216,3 @@ class PositionRepository extends AbstractDemandedRepository {
 	}
 
 }
-?>

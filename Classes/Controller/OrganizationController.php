@@ -1,30 +1,17 @@
 <?php
 namespace Webfox\Placements\Controller;
-
-/***************************************************************
- *  Copyright notice
+/**
+ * This file is part of the TYPO3 CMS project.
  *
- *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, AgenturWebfox GmbH
- *  Michael Kasten <kasten@webfox01.de>, AgenturWebfox GmbH
- *  
- *  All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * The TYPO3 project - inspiring people to share!
+ */
 
 /**
  *
@@ -56,13 +43,12 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		if ($this->settings['clientsOrganizationsOnly'] AND
-			$this->accessControlService->hasLoggedInClient()) {
-			$organizations = $this->organizationRepository->findByClient($this->accessControlService->getFrontendUser()->getClient());
-		} else {
-			$organizations = $this->organizationRepository->findAll();
-		}
-		$this->view->assign('organizations', $organizations);
+		$demand = $this->createDemandFromSettings($this->settings);
+		$variables = array (
+			'organizations' => $this->organizationRepository->findDemanded($demand),
+			'settings' => $this->settings
+		);
+		$this->view->assignMultiple($variables);
 	}
 
 	/**
@@ -72,7 +58,11 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(\Webfox\Placements\Domain\Model\Organization $organization) {
-		$this->view->assign('organization', $organization);
+		$this->view->assignMultiple(
+				array(
+					'organization' => $organization,
+					'settings' => $this->settings
+				));
 	}
 
 	/**
@@ -89,6 +79,7 @@ class OrganizationController extends AbstractController {
 			'newOrganization' => $newOrganization,
 			'sectors' => $sectors,
 			'categories' => $categories,
+			'settings' => $this->settings
 		));
 	}
 
@@ -101,23 +92,22 @@ class OrganizationController extends AbstractController {
 	public function createAction(\Webfox\Placements\Domain\Model\Organization $newOrganization) {
 		$this->updateFileProperty($newOrganization, 'image');
 		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
-	    	$this->organizationRepository->add($newOrganization);
+		$this->organizationRepository->add($newOrganization);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.createAction', 'placements'
-			)
+			$this->translate('tx_placements.success.organization.createAction')
 		);
+		$redirectParams = array('list');
 		if($this->request->hasArgument('save-reload') OR 
-			$this->request->hasArgument('save-view' )) {
-			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+				$this->request->hasArgument('save-view' )) {
+			$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\Persistence\\Generic\\PersistenceManager');
 			$persistenceManager->persistAll();
 		}
 		if ($this->request->hasArgument('save-reload')) {
-			$this->redirect('edit', NULL, NULL, array('organization' => $newOrganization));
+			$redirectParams = array('edit', NULL, NULL, array('organization' => $newOrganization));
 		} elseif ($this->request->hasArgument('save-view')) {
-			$this->redirect('show', NULL, NULL, array('organization' => $newOrganization));
+			$redirectParams = array('show', NULL, NULL, array('organization' => $newOrganization));
 		}
-		$this->redirect('list');
+		call_user_func_array(array($this, 'redirect'), $redirectParams);
 	}
 
 	/**
@@ -134,6 +124,7 @@ class OrganizationController extends AbstractController {
 			'organization'=> $organization,
 			'sectors' => $sectors,
 			'categories' => $categories,
+			'settings' => $this->settings
 		));
 	}
 
@@ -147,16 +138,15 @@ class OrganizationController extends AbstractController {
 		$this->updateFileProperty($organization, 'image');
 		$this->organizationRepository->update($organization);
 		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.updateAction', 'placements'
-			)	
+			$this->translate('tx_placements.success.organization.updateAction')	
 		);
+		$redirectParams = array('list');
 		if($this->request->hasArgument('save-view')) {
-			$this->redirect('show', NULL, NULL, array('organization' => $organization));
+			$redirectParams = array('show', NULL, NULL, array('organization' => $organization));
 		} elseif ($this->request->hasArgument('save-reload')) {
-			$this->redirect('edit', NULL, NULL, array('organization' => $organization));
+			$redirectParams = array('edit', NULL, NULL, array('organization' => $organization));
 		}
-		$this->redirect('list');
+		call_user_func_array(array($this, 'redirect'), $redirectParams);
 	}
 
 	/**
@@ -166,12 +156,18 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(\Webfox\Placements\Domain\Model\Organization $organization) {
-		$this->organizationRepository->remove($organization);
-		$this->addFlashMessage(
-			\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-				'tx_placements.success.organization.deleteAction', 'placements'
-			)
-		);
+		if($this->accessControlService->isAllowedToDelete('organization')) {
+			$referenceCount = $this->positionRepository->countByOrganization($organization);
+			if(!$referenceCount) {
+				$this->organizationRepository->remove($organization);
+				$messageKey = 'tx_placements.success.organization.deleteAction';
+			} else {
+				$messageKey = 'tx_placements.error.organization.canNotDeleteOrganizationReferencedByPositions';
+			}
+		} else {
+			$messageKey = 'tx_placements.error.organization.deleteActionNotAllowed';
+		}
+		$this->addFlashMessage($this->translate($messageKey));
 		$this->redirect('list');
 	}
 
@@ -183,9 +179,41 @@ class OrganizationController extends AbstractController {
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
-		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-	 	'tx_placements.error'.'.organization.'. $this->actionMethodName, 'placements');
+		return $this->translate('tx_placements.error'.'.organization.'. $this->actionMethodName);
 	 }
 
+	 /**
+	 	* Create demand from settings
+	 	*
+	 	* @param \array $settings
+	 	* @return \Webfox\Placements\Domain\Model\Dto\OrganizationDemand
+	 	*/
+	 public function createDemandFromSettings($settings) {
+		$demand = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\OrganizationDemand');
+		$settableProperties = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getSettablePropertyNames($demand);
+		foreach($settableProperties as $property) {
+			if (isset($settings[$property])) {
+				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty(
+					$demand,
+					$property,
+					$settings[$property]);
+			}
+		}
+		if(isset($settings['clientsOrganizationsOnly'])) {
+			// we set clientOrganizationsOnly directly since Reflection ObjectAccess seem to miss boolean values (TRUE is cast to 1?)
+			$demand->setClientsOrganizationsOnly($settings['clientsOrganizationsOnly']);
+			if($this->accessControlService->hasLoggedInClient()) {
+				$clientId = $this->accessControlService->getFrontendUser()
+										->getClient()->getUid();
+				$demand->setClients((string)$clientId);
+			} else {
+				$demand->setClients('');
+			}
+		}
+		// @todo implement OrderDemand to get rid of this string juggling
+		if((isset($settings['orderBy'])) AND (isset($settings['orderDirection']))) {
+			$demand->setOrder($settings['orderBy'] . '|' . $settings['orderDirection']);
+		}
+		return $demand;
+	}
 }
-?>
