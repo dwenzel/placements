@@ -64,7 +64,7 @@ before_script:
     cp typo3conf/ext/placements/.coveralls.yml ./;
     #php composer.phar update satooshi/php-coveralls --dev;
     composer require satooshi/php-coveralls:dev-master --dev
-		#composer update satooshi/php-coveralls --dev; 
+    #composer update satooshi/php-coveralls --dev; 
   fi
 #- git clone --single-branch --branch $TYPO3 --depth 1 git://git.typo3.org/TYPO3CMS/Distributions/Introduction.git build-environment/Introduction
 #- if [[ -d core/t3lib ]]; then mv core/t3lib . ; fi
