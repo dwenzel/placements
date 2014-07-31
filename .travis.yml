@@ -35,7 +35,8 @@ script:
   if [[ "$COVERAGE" == "1" ]]; then
     echo;
     echo "Running coveralls"
-    php vendor/bin/coveralls -v; 
+    #php vendor/bin/coveralls -v; 
+    php bin/coveralls -v; 
   fi
 before_script: 
 - cd ..
@@ -59,9 +60,11 @@ before_script:
     #php composer.phar install --dev --no-interaction
     export COVERALLS_SERVICE_NAME=travis-ci; 
     cp -R placements/.git .;
-    mv placements/.coveralls.yml ./;
+    #mv placements/.coveralls.yml ./;
+    cp typo3conf/ext/placements/.coveralls.yml ./;
     #php composer.phar update satooshi/php-coveralls --dev;
-    composer update satooshi/php-coveralls --dev; 
+    composer require satooshi/php-coveralls:dev-master --dev
+		#composer update satooshi/php-coveralls --dev; 
   fi
 #- git clone --single-branch --branch $TYPO3 --depth 1 git://git.typo3.org/TYPO3CMS/Distributions/Introduction.git build-environment/Introduction
 #- if [[ -d core/t3lib ]]; then mv core/t3lib . ; fi
