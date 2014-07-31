@@ -18,7 +18,7 @@ script:
   if [[ "$COVERAGE" == "0" ]]; then 
     #php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit -c typo3conf/ext/placements/Tests/Build/UnitTests.xml;
     #typo3/cli_dispatch.phpsh phpunit -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
-	  ./bin/phpunit --colors -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
+    ./bin/phpunit --colors -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
   fi
 #- phpCodeSniff
 #- if [[ "$COVERAGE" == "1" ]]; then php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit --process-isolation  --bootstrap typo3/sysext/core/Build/FunctionalTestsBootstrap.php typo3conf/ext/placements/Tests/Functional/; fi
@@ -29,7 +29,7 @@ script:
     #php $PWD/typo3conf/ext/phpunit/Composer/vendor/bin/phpunit -coverage-clover=$PWD/build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml; 
     #$PWD/typo3/cli_dispatch.phpsh phpunit --coverage-clover=build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
     #ls -la $PWD/build/artifacts/coverage
-		./bin/phpunit --coverage-clover=build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
+    ./bin/phpunit --coverage-clover=build/artifacts/coverage/clover.xml -c typo3conf/ext/placements/Tests/Build/UnitTests.xml
   fi
 #- >
 #  if [[ "$COVERAGE" == "1" ]]; then
