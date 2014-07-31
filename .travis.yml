@@ -60,7 +60,7 @@ before_script:
     export COVERALLS_SERVICE_NAME=travis-ci; 
     cp -R placements/.git .;
     mv placements/.coveralls.yml ./;
-		#php composer.phar update satooshi/php-coveralls --dev;
+    #php composer.phar update satooshi/php-coveralls --dev;
     composer update satooshi/php-coveralls --dev; 
   fi
 #- git clone --single-branch --branch $TYPO3 --depth 1 git://git.typo3.org/TYPO3CMS/Distributions/Introduction.git build-environment/Introduction
