@@ -25,7 +25,7 @@ namespace Webfox\Placements\Tests;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  */
-class AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var \Webfox\Placements\Controller\AbstractController
 	 */
