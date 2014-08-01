@@ -67,16 +67,18 @@ after_script:
 - >
   if [[ "$COVERAGE" == "1" ]]; then
     #php composer.phar install --dev --no-interaction
+    rm composer.json;
+		mv build-environment/composer.json ./;
     export COVERALLS_SERVICE_NAME=travis-ci;
     cp -R typo3conf/ext/placements/.git .;
     #mv placements/.coveralls.yml ./;
     cp typo3conf/ext/placements/.coveralls.yml ./;
-    wget http://getcomposer.org/composer.phar
+    wget http://getcomposer.org/composer.phar;
     php composer.phar update satooshi/php-coveralls --dev;
     #composer require satooshi/php-coveralls:dev-master
     #composer update satooshi/php-coveralls --dev;
     echo;
-    echo "Running coveralls"
+    echo "Running coveralls";
     php vendor/bin/coveralls -v;
     #php bin/coveralls -v;
   fi
