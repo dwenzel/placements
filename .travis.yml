@@ -68,7 +68,7 @@ after_script:
   if [[ "$COVERAGE" == "1" ]]; then
     #php composer.phar install --dev --no-interaction
     rm composer.json;
-		mv build-environment/composer.json ./;
+    mv build-environment/composer.json ./;
     export COVERALLS_SERVICE_NAME=travis-ci;
     cp -R typo3conf/ext/placements/.git .;
     #mv placements/.coveralls.yml ./;
