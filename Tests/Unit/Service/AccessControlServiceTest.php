@@ -25,15 +25,23 @@ namespace Webfox\Placements\Tests;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\Placements\Service\AccessControllService
  */
-class AccessControlServiceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var \Webfox\Placements\Service\AccessControlService
 	 */
 	protected $fixture;
 
+	/**
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+	 */
+	protected $tsfe = NULL;
+
 	public function setUp() {
-		$this->fixture = new \Webfox\Placements\Service\AccessControlService();
+		$this->fixture = $this->getAccessibleMock(
+				'\Webfox\Placements\Service\AccessControlService',
+				array('dummy'), array(), '', FALSE);
 	}
 
 	public function tearDown() {
@@ -45,5 +53,90 @@ class AccessControlServiceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCas
 	 */
 	public function dummyMethod() {
 		$this->markTestIncomplete();
+	}
+
+	/**
+	 * @test
+	 * @covers ::getTypoScriptSettings
+	 */
+	public function getTypoScriptSettingsLoadsAndReturnsTyposcriptSettings () {
+		$mockConfigurationManager = $this->getMock(
+			'\TYPO3\CMS\Extbase\Configuration\ConfigurationManager',
+			array('getConfiguration'), array(), '', FALSE);
+		$this->fixture->_set('configurationManager', $mockConfigurationManager);
+		$settings = array('foo' => 'bar');
+
+		$mockConfigurationManager->expects($this->once())->method('getConfiguration')
+			->with(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS)
+			->will($this->returnValue($settings));
+
+		$this->assertSame(
+				$settings,
+				$this->fixture->getTypoScriptSettings()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getTypoScriptSettings
+	 */
+	public function getTypoScriptSettingsReturnsTyposcriptSettingsIfSet () {
+		$settings = array('foo' => 'bar');
+		$this->fixture->_set('typoscriptSettings', $settings);
+
+		$this->assertSame(
+				$settings,
+				$this->fixture->getTypoScriptSettings()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getFrontendUser
+	 */
+	public function getFrontendUserReturnsFrontendUserIfIsSet() {
+		$mockUser = $this->getMock('\Webfox\Placements\Domain\Model\User');
+		$this->fixture->_set('frontendUser', $mockUser);
+
+		$this->assertSame(
+			$mockUser,
+			$this->fixture->getFrontendUser()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getFrontendUser
+	 */
+	public function getFrontendUserFindsAndReturnsFrontendUser() {
+		$fixture = $this->getAccessibleMock(
+				'\Webfox\Placements\Service\AccessControlService',
+				array('hasLoggedInFrontendUser'), array(), '', FALSE);
+
+		$mockUserRepository = $this->getMock(
+				'\Webfox\Placements\Domain\Repository\UserRepository',
+				array('findOneByUid'), array(), '', FALSE);
+		$mockUser = $this->getMock('\Webfox\Placements\Domain\Model\User');
+		$fixture->_set('userRepository', $mockUserRepository);
+		$mockAttributeUser = array('uid' => '5');
+		$mockFe_user = $this->getAccessibleMock('TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication',
+			array('dummy'), array(), '', FALSE);
+		$mockFe_user->_set('user', $mockAttributeUser);
+		$this->tsfe = $this->getAccessibleMock(
+				'\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+				array('dummy'), array(), '', FALSE);
+		$this->tsfe->_set('fe_user', $mockFe_user);
+		$GLOBALS['TSFE'] = $this->tsfe;
+
+		$fixture->expects($this->once())->method('hasLoggedInFrontendUser')
+			->will($this->returnValue(TRUE));
+		$mockUserRepository->expects($this->once())->method('findOneByUid')
+			->with(5)
+			->will($this->returnValue($mockUser));
+
+		$this->assertSame(
+			$mockUser,
+			$fixture->getFrontendUser()
+		);
 	}
 }
