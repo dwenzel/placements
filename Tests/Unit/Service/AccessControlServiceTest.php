@@ -57,7 +57,7 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getTypoScriptSettings
+	 * @covers ::getTyposcriptSettings
 	 */
 	public function getTypoScriptSettingsLoadsAndReturnsTyposcriptSettings () {
 		$mockConfigurationManager = $this->getMock(
@@ -78,7 +78,7 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getTypoScriptSettings
+	 * @covers ::getTyposcriptSettings
 	 */
 	public function getTypoScriptSettingsReturnsTyposcriptSettingsIfSet () {
 		$settings = array('foo' => 'bar');
