@@ -139,4 +139,72 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$fixture->getFrontendUser()
 		);
 	}
+
+	/**
+	 * @test
+	 * @covers ::hasLoggedInFrontendUser
+	 */
+	public function hasLoggedInFrontendReturnsGlobalsLoginUser() {
+		$this->tsfe = $this->getAccessibleMock(
+				'\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+				array('dummy'), array(), '', FALSE);
+		$this->tsfe->_set('loginUser', TRUE);
+		$GLOBALS['TSFE'] = $this->tsfe;
+
+		$this->assertTrue($this->fixture->hasLoggedInFrontendUser());
+	}
+
+	/**
+	 * @test
+	 * @covers ::hasLoggedInClient
+	 */
+	public function hasLoggedInClientReturnsFalseIfFrontendUserIsNull() {
+		$fixture = $this->getAccessibleMock(
+				'\Webfox\Placements\Service\AccessControlService',
+				array('getFrontendUser'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('getFrontendUser')
+			->will($this->returnValue(NULL));
+
+		$this->assertFalse($fixture->hasLoggedInClient());
+	}
+
+	/**
+	 * @test
+	 * @covers ::hasLoggedInClient
+	 */
+	public function hasLoggedInClientReturnsFalseIfFrontendUserHasNoClient() {
+		$fixture = $this->getAccessibleMock(
+				'\Webfox\Placements\Service\AccessControlService',
+				array('getFrontendUser'), array(), '', FALSE);
+		$mockFrontendUser = $this->getMock('\Webfox\Placements\Domain\Model\User',
+			array('getClient'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(2))->method('getFrontendUser')
+			->will($this->returnValue($mockFrontendUser));
+		$mockFrontendUser->expects($this->once())->method('getClient')
+			->will($this->returnValue(NULL));
+
+		$this->assertFalse($fixture->hasLoggedInClient());
+	}
+
+	/**
+	 * @test
+	 * @covers ::hasLoggedInClient
+	 */
+	public function hasLoggedInClientReturnsTrueIfFrontendUserHasClient() {
+		$fixture = $this->getAccessibleMock(
+				'\Webfox\Placements\Service\AccessControlService',
+				array('getFrontendUser'), array(), '', FALSE);
+		$mockFrontendUser = $this->getMock('\Webfox\Placements\Domain\Model\User',
+			array('getClient'), array(), '', FALSE);
+		$mockClient = $this->getMock('\Webfox\Placements\Domain\Model\Client');
+
+		$fixture->expects($this->exactly(2))->method('getFrontendUser')
+			->will($this->returnValue($mockFrontendUser));
+		$mockFrontendUser->expects($this->once())->method('getClient')
+			->will($this->returnValue($mockClient));
+
+		$this->assertTrue($fixture->hasLoggedInClient());
+	}
 }
