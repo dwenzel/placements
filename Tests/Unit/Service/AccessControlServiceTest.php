@@ -25,7 +25,7 @@ namespace Webfox\Placements\Tests;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
- * @coversDefaultClass \Webfox\Placements\Service\AccessControllService
+ * @coversDefaultClass \Webfox\Placements\Service\AccessControlService
  */
 class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
@@ -59,7 +59,7 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getTyposcriptSettings
 	 */
-	public function getTypoScriptSettingsLoadsAndReturnsTyposcriptSettings () {
+	public function getTyposcriptSettingsLoadsAndReturnsTyposcriptSettings () {
 		$mockConfigurationManager = $this->getMock(
 			'\TYPO3\CMS\Extbase\Configuration\ConfigurationManager',
 			array('getConfiguration'), array(), '', FALSE);
@@ -72,7 +72,7 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertSame(
 				$settings,
-				$this->fixture->getTypoScriptSettings()
+				$this->fixture->getTyposcriptSettings()
 		);
 	}
 
@@ -80,13 +80,13 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getTyposcriptSettings
 	 */
-	public function getTypoScriptSettingsReturnsTyposcriptSettingsIfSet () {
+	public function getTyposcriptSettingsReturnsTyposcriptSettingsIfSet () {
 		$settings = array('foo' => 'bar');
 		$this->fixture->_set('typoscriptSettings', $settings);
 
 		$this->assertSame(
 				$settings,
-				$this->fixture->getTypoScriptSettings()
+				$this->fixture->getTyposcriptSettings()
 		);
 	}
 
