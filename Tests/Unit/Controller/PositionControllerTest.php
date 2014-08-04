@@ -1546,4 +1546,21 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->will($this->returnValue(NULL));
 		$this->assertFalse($fixture->_call('getErrorFlashMessage'));
 	}
+
+	/**
+	 * @test
+	 * @covers ::getErrorFlashMessage
+	 */
+	public function getErrorFlashMessageReturnsTranslatedMessageForValidKey() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Controller\PositionController',
+			array('translate'), array(), '', FALSE);
+		$fixture->_set('actionMethodName', 'fooAction');
+
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.position.fooAction')
+			->will($this->returnValue('foo'));
+		$this->assertSame(
+				'foo',
+				$fixture->_call('getErrorFlashMessage'));
+	}
 }
