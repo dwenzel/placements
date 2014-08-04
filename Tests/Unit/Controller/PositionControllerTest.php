@@ -1531,4 +1531,19 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->with($geoLocation);
 		$fixture->_call('overwriteDemandObject', $mockDemand, $overwriteDemand);
 	}
+
+	/**
+	 * @test
+	 * @covers ::getErrorFlashMessage
+	 */
+	public function getErrorFlashMessageReturnsFalseForInvalidKey() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Controller\PositionController',
+			array('translate'), array(), '', FALSE);
+		$fixture->_set('actionMethodName', 'fooAction');
+
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.position.fooAction')
+			->will($this->returnValue(NULL));
+		$this->assertFalse($fixture->_call('getErrorFlashMessage'));
+	}
 }
