@@ -460,8 +460,8 @@ class PositionController extends AbstractController {
 			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
 			$searchObj->setFields($this->settings['position']['search']['fields']);
 			$searchObj->setSubject($search['subject']);
+			$demand->setSearch($searchObj);
 		}
-		$demand->setSearch($searchObj);
 
 		$positions = $this->positionRepository->findDemanded($demand);
 		if(!count($positions)) {
