@@ -350,7 +350,6 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertTrue($fixture->isAllowedToEdit('foo'));
 	}
-	//
 
 	/**
 	 * @test
@@ -398,5 +397,53 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->will($this->onConsecutiveCalls(FALSE, TRUE));
 
 		$this->assertTrue($fixture->isAllowedToCreate('foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToDelete
+	 */
+	public function isAllowedToDeleteReturnsFalseIfDeleteAndAdminNotAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(2))->method('isAllowed')
+			->withConsecutive(
+				array('delete', 'foo'),
+				array('admin', 'foo'))
+			->will($this->onConsecutiveCalls(FALSE, FALSE));
+
+		$this->assertFalse($fixture->isAllowedToDelete('foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToDelete
+	 */
+	public function isAllowedToDeleteReturnsTrueIfDeleteAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('isAllowed')
+			->with('delete', 'foo')
+			->will($this->returnValue(TRUE));
+		$this->assertTrue($fixture->isAllowedToDelete('foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToDelete
+	 */
+	public function isAllowedToDeleteReturnsTrueIfAdminAllowedAndDeleteNotAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(2))->method('isAllowed')
+			->withConsecutive(
+				array('delete', 'foo'),
+				array('admin', 'foo'))
+			->will($this->onConsecutiveCalls(FALSE, TRUE));
+
+		$this->assertTrue($fixture->isAllowedToDelete('foo'));
 	}
 }
