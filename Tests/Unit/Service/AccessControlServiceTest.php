@@ -207,4 +207,99 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertTrue($fixture->hasLoggedInClient());
 	}
+
+	/**
+	 * @test
+	 * @covers ::matchesClient
+	 */
+	public function matchesClientReturnsFalseIfObjectsClientIsNull() {
+		$mockObject = $this->getMock('\Webfox\Placements\Domain\Model\Position',
+			array('getClient'), array(), '', FALSE);
+
+		$this->assertFalse($this->fixture->matchesClient($mockObject));
+	}
+
+	/**
+	 * @test
+	 * @covers ::matchesClient
+	 */
+	public function matchesClientReturnsFalseIfNoClientIsLoggedIn() {
+		$fixture = $this->getMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient'), array(), '', FALSE);
+		$mockObject = $this->getMock('\Webfox\Placements\Domain\Model\Position',
+			array('getClient'), array(), '', FALSE);
+		$mockClient = $this->getMock('\Webfox\Placements\Domain\Model\Client');
+
+		$mockObject->expects($this->once())->method('getClient')
+			->will($this->returnValue($mockClient));
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(FALSE));
+		$this->assertFalse($fixture->matchesClient($mockObject));
+	}
+
+	/**
+	 * @test
+	 * @covers ::matchesClient
+	 */
+	public function matchesClientReturnsFalseIfClientUidsDoNotMatch() {
+		$fixture = $this->getMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient', 'getFrontendUser'), array(), '', FALSE);
+		$mockObject = $this->getMock('\Webfox\Placements\Domain\Model\Position',
+			array('getClient'), array(), '', FALSE);
+		$mockUser = $this->getMock('\Webfox\Placements\Domain\Model\User',
+			array('getClient'), array(), '', FALSE);
+		$mockClientInObject = $this->getMock('\Webfox\Placements\Domain\Model\Client',
+			array('getUid'), array(), '', FALSE);
+		$mockClientOfCurrentUser = $this->getMock('\Webfox\Placements\Domain\Model\Client',
+			array('getUid'), array(), '', FALSE);
+
+		$mockObject->expects($this->any())->method('getClient')
+			->will($this->returnValue($mockClientInObject));
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+		$fixture->expects($this->once())->method('getFrontendUser')
+			->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())->method('getClient')
+			->will($this->returnValue($mockClientOfCurrentUser));
+
+		$mockClientInObject->expects($this->once())->method('getUid')
+			->will($this->returnValue(55));
+		$mockClientOfCurrentUser->expects($this->once())->method('getUid')
+			->will($this->returnValue(1));
+
+		$this->assertFalse($fixture->matchesClient($mockObject));
+	}
+
+	/**
+	 * @test
+	 * @covers ::matchesClient
+	 */
+	public function matchesClientReturnsTrueIfClientUidsDoMatch() {
+		$fixture = $this->getMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient', 'getFrontendUser'), array(), '', FALSE);
+		$mockObject = $this->getMock('\Webfox\Placements\Domain\Model\Position',
+			array('getClient'), array(), '', FALSE);
+		$mockUser = $this->getMock('\Webfox\Placements\Domain\Model\User',
+			array('getClient'), array(), '', FALSE);
+		$mockClientInObject = $this->getMock('\Webfox\Placements\Domain\Model\Client',
+			array('getUid'), array(), '', FALSE);
+		$mockClientOfCurrentUser = $this->getMock('\Webfox\Placements\Domain\Model\Client',
+			array('getUid'), array(), '', FALSE);
+
+		$mockObject->expects($this->any())->method('getClient')
+			->will($this->returnValue($mockClientInObject));
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+		$fixture->expects($this->once())->method('getFrontendUser')
+			->will($this->returnValue($mockUser));
+		$mockUser->expects($this->once())->method('getClient')
+			->will($this->returnValue($mockClientOfCurrentUser));
+
+		$mockClientInObject->expects($this->once())->method('getUid')
+			->will($this->returnValue(55));
+		$mockClientOfCurrentUser->expects($this->once())->method('getUid')
+			->will($this->returnValue(55));
+
+		$this->assertTrue($fixture->matchesClient($mockObject));
+	}
 }
