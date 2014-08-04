@@ -47,13 +47,6 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function tearDown() {
 		unset($this->fixture);
 	}
-	
-	/**
-	 * @test
-	 */
-	public function dummyMethod() {
-		$this->markTestIncomplete();
-	}
 
 	/**
 	 * @test
@@ -445,5 +438,204 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->will($this->onConsecutiveCalls(FALSE, TRUE));
 
 		$this->assertTrue($fixture->isAllowedToDelete('foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowed
+	 */
+	public function isAllowedReturnsFalseIfNoClientLoggedIn() {
+		$fixture = $this->getMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient'), array(), '', FALSE);
+		
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(FALSE));
+
+		$this->assertFalse($fixture->isAllowed('bar', 'foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowed
+	 */
+	public function isAllowedReturnsFalseForUnknownAction() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient'), array(), '', FALSE);
+		$tsSettings = array('foo' => 'bar');
+		$fixture->_set('typoscriptSettings', $tsSettings);
+		
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+
+		$this->assertFalse($fixture->isAllowed('bar', 'foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowed
+	 */
+	public function isAllowedReturnsFalseForEditActionIfEditorGroupIsEmpty() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient'), array(), '', FALSE);
+		$tsSettings = array(
+			'security' => array(
+				'foo' => array(
+					'editorGroup' => ''
+				)
+			)
+		);
+		$fixture->_set('typoscriptSettings', $tsSettings);
+		
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+
+		$this->assertFalse($fixture->isAllowed('edit', 'foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowed
+	 */
+	public function isAllowedReturnsFalseForCreateActionIfCreatorGroupIsEmpty() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient'), array(), '', FALSE);
+		$tsSettings = array(
+			'security' => array(
+				'foo' => array(
+					'creatorGroup' => ''
+				)
+			)
+		);
+		$fixture->_set('typoscriptSettings', $tsSettings);
+		
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+
+		$this->assertFalse($fixture->isAllowed('create', 'foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowed
+	 */
+	public function isAllowedReturnsFalseForDeleteActionIfDeleteGroupIsEmpty() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient'), array(), '', FALSE);
+		$tsSettings = array(
+			'security' => array(
+				'foo' => array(
+					'deleteGroup' => ''
+				)
+			)
+		);
+		$fixture->_set('typoscriptSettings', $tsSettings);
+		
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+
+		$this->assertFalse($fixture->isAllowed('delete', 'foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowed
+	 */
+	public function isAllowedReturnsFalseForAdminActionIfAdminGroupIsEmpty() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient'), array(), '', FALSE);
+		$tsSettings = array(
+			'security' => array(
+				'foo' => array(
+					'adminGroup' => ''
+				)
+			)
+		);
+		$fixture->_set('typoscriptSettings', $tsSettings);
+		
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+
+		$this->assertFalse($fixture->isAllowed('admin', 'foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowed
+	 */
+	public function isAllowedReturnsFalseForInvalidAccessGroup() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient'), array(), '', FALSE);
+		$tsSettings = array(
+			'security' => array(
+				'foo' => array(
+					'adminGroup' => '17'
+				)
+			)
+		);
+		$feUserGroupRepository = $this->getMock(
+			'\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository',
+			array('findByUid'), array(), '', FALSE);
+		$fixture->_set('frontendUserGroupRepository', $feUserGroupRepository);
+		$fixture->_set('typoscriptSettings', $tsSettings);
+		
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+		$feUserGroupRepository->expects($this->once())->method('findByUid')
+			->with(17)
+			->will($this->returnValue(NULL));
+
+		$this->assertFalse($fixture->isAllowed('admin', 'foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowed
+	 */
+	public function isAllowedReturnsTrueForFirstValidAccessGroup() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('hasLoggedInClient', 'getFrontendUser'), array(), '', FALSE);
+		$tsSettings = array(
+			'security' => array(
+				'foo' => array(
+					'adminGroup' => '1,17'
+				)
+			)
+		);
+		$feUserGroupRepository = $this->getMock(
+			'\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository',
+			array('findByUid'), array(), '', FALSE);
+		$fixture->_set('frontendUserGroupRepository', $feUserGroupRepository);
+		$fixture->_set('typoscriptSettings', $tsSettings);
+		$validUserGroup = $this->getMock(
+			'\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup',
+			array('contains'), array(), '', FALSE);
+		$invalidUserGroup = $this->getMock(
+			'\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup',
+			array('contains'), array(), '', FALSE);
+		$objectStorageContainingTwoUserGroups = $this->getMock(
+			'\TYPO3\CMS\Extbase\Persistence\ObjectStorage',
+			array('contains'), array(), '', FALSE);
+
+		$currentUser = $this->getMock('\Webfox\Placements\Domain\Model\User',
+			array('getUsergroup'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('hasLoggedInClient')
+			->will($this->returnValue(TRUE));
+		$feUserGroupRepository->expects($this->exactly(2))->method('findByUid')
+			->withConsecutive(
+					array(1),
+					array(17))
+			->will($this->onConsecutiveCalls($invalidUserGroup, $validUserGroup));
+		$fixture->expects($this->exactly(2))->method('getFrontendUser')
+			->will($this->returnValue($currentUser));
+		$currentUser->expects($this->exactly(2))->method('getUsergroup')
+			->will($this->returnValue($objectStorageContainingTwoUserGroups));
+		$objectStorageContainingTwoUserGroups->expects($this->exactly(2))
+			->method('contains')->withConsecutive(
+					array($invalidUserGroup),
+					array($validUserGroup))
+			->will($this->onConsecutiveCalls(FALSE, TRUE));
+
+		$this->assertTrue($fixture->isAllowed('admin', 'foo'));
 	}
 }
