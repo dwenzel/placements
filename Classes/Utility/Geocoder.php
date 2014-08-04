@@ -25,7 +25,7 @@ class Geocoder {
 	 *
 	 * @var \string Base Url for geocoding service.
 	 */
-	protected $serviceUrl = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=";
+	protected $serviceUrl = 'http://maps.google.com/maps/api/geocode/json?sensor=false&address=';
 
 	/**
 	 * Returns the base url of the geocoding service
