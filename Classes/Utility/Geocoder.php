@@ -76,8 +76,8 @@ class Geocoder {
 	 * @return \array An array with lat and lng values
 	 * @codeCoverageIgnore
 	 */
-	public function destination($lat,$lng, $bearing, $distance, $units="km") {
-    $radius = strcasecmp($units, "km") ? 3963.19 : 6378.137;
+	public function destination($lat,$lng, $bearing, $distance, $units='km') {
+    $radius = strcasecmp($units, 'km') ? 3963.19 : 6378.137;
     $rLat = deg2rad($lat);
     $rLon = deg2rad($lng);
     $rBearing = deg2rad($bearing);
@@ -89,7 +89,7 @@ class Geocoder {
     $rLonB = $rLon + atan2(sin($rBearing) * sin($rAngDist) * cos($rLat), 
                            cos($rAngDist) - sin($rLat) * sin($rLatB));
 
-    return array("lat" => rad2deg($rLatB), "lng" => rad2deg($rLonB));
+    return array('lat' => rad2deg($rLatB), 'lng' => rad2deg($rLonB));
 	}
 	
 	/**
@@ -102,11 +102,11 @@ class Geocoder {
 	 * @return \array An array describing a bounding box
 	 * @codeCoverageIgnore
 	 */
-	public function getBoundsByRadius($lat, $lng, $distance, $units="km") {
-		return array("N" => $this->destination($lat,$lng,   0, $distance,$units),
-			"E" => $this->destination($lat,$lng,  90, $distance,$units),
-			"S" => $this->destination($lat,$lng, 180, $distance,$units),
-			"W" => $this->destination($lat,$lng, 270, $distance,$units));
+	public function getBoundsByRadius($lat, $lng, $distance, $units='km') {
+		return array('N' => $this->destination($lat,$lng,   0, $distance,$units),
+			'E' => $this->destination($lat,$lng,  90, $distance,$units),
+			'S' => $this->destination($lat,$lng, 180, $distance,$units),
+			'W' => $this->destination($lat,$lng, 270, $distance,$units));
 	}
 
 	/**
@@ -120,15 +120,15 @@ class Geocoder {
 	 * @return \float
 	 * @codeCoverageIgnore
 	 */
-	public function distance($latA,$lonA, $latB,$lonB, $units="km") {
-		$radius = strcasecmp($units, "km") ? 3963.19 : 6378.137;
+	public function distance($latA,$lonA, $latB,$lonB, $units='km') {
+		$radius = strcasecmp($units, 'km') ? 3963.19 : 6378.137;
 		$rLatA = deg2rad($latA);
 		$rLatB = deg2rad($latB);
 		$rHalfDeltaLat = deg2rad(($latB - $latA) / 2);
 		$rHalfDeltaLon = deg2rad(($lonB - $lonA) / 2);
-		
+
 		return 2 * $radius * asin(sqrt(pow(sin($rHalfDeltaLat), 2) +
-			cos($rLatA) * cos($rLatB) * pow(sin($rHalfDeltaLon), 2)));
+					cos($rLatA) * cos($rLatB) * pow(sin($rHalfDeltaLon), 2)));
 	}
 
 	/**
