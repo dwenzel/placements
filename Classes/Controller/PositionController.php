@@ -575,7 +575,12 @@ class PositionController extends AbstractController {
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
-		return $this->translate('tx_placements.error'.'.position.'. $this->actionMethodName);
+	 	 $message = $this->translate('tx_placements.error'.'.position.'. $this->actionMethodName);
+		if($message == NULL) {
+			return FALSE ;
+		} else {
+			return $message;
+		}
 	 }
 
 }
