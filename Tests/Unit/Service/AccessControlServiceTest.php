@@ -302,4 +302,52 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertTrue($fixture->matchesClient($mockObject));
 	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToEdit
+	 */
+	public function isAllowedToEditReturnsFalseIfEditAndAdminNotAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(2))->method('isAllowed')
+			->withConsecutive(
+				array('edit', 'foo'),
+				array('admin', 'foo'))
+			->will($this->onConsecutiveCalls(FALSE, FALSE));
+
+		$this->assertFalse($fixture->isAllowedToEdit('foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToEdit
+	 */
+	public function isAllowedToEditReturnsTrueIfEditAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('isAllowed')
+			->with('edit', 'foo')
+			->will($this->returnValue(TRUE));
+		$this->assertTrue($fixture->isAllowedToEdit('foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToEdit
+	 */
+	public function isAllowedToEditReturnsTrueIfAdminAllowedAndEditNotAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(2))->method('isAllowed')
+			->withConsecutive(
+				array('edit', 'foo'),
+				array('admin', 'foo'))
+			->will($this->onConsecutiveCalls(FALSE, TRUE));
+
+		$this->assertTrue($fixture->isAllowedToEdit('foo'));
+	}
 }
