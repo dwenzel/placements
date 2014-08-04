@@ -13,11 +13,12 @@ namespace Webfox\Placements\Utility;
  * The TYPO3 project - inspiring people to share!
  */
 
-/***************************************************************
- *
+/**
  * Geocoding utility 
  *
- ***************************************************************/
+ * @package placements
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ */
 class Geocoder {
 	/**
 	 * Service Url
