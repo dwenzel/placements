@@ -350,4 +350,53 @@ class AccessControlServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertTrue($fixture->isAllowedToEdit('foo'));
 	}
+	//
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToCreate
+	 */
+	public function isAllowedToCreateReturnsFalseIfCreateAndAdminNotAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(2))->method('isAllowed')
+			->withConsecutive(
+				array('create', 'foo'),
+				array('admin', 'foo'))
+			->will($this->onConsecutiveCalls(FALSE, FALSE));
+
+		$this->assertFalse($fixture->isAllowedToCreate('foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToCreate
+	 */
+	public function isAllowedToCreateReturnsTrueIfCreateAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('isAllowed')
+			->with('create', 'foo')
+			->will($this->returnValue(TRUE));
+		$this->assertTrue($fixture->isAllowedToCreate('foo'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::isAllowedToCreate
+	 */
+	public function isAllowedToCreateReturnsTrueIfAdminAllowedAndCreateNotAllowed() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Service\AccessControlService',
+			array('isAllowed'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(2))->method('isAllowed')
+			->withConsecutive(
+				array('create', 'foo'),
+				array('admin', 'foo'))
+			->will($this->onConsecutiveCalls(FALSE, TRUE));
+
+		$this->assertTrue($fixture->isAllowedToCreate('foo'));
+	}
 }
