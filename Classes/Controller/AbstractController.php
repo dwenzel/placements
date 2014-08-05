@@ -97,6 +97,16 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Initialize Action
 	 */
 	public function initializeAction() {
+		$this->setRequestArguments();
+		$this->setReferrerArguments();
+	}
+
+	/**
+	 * Set request arguments
+	 *
+	 * @return void
+	 */
+	protected function setRequestArguments() {
 		$originalRequestArguments = $this->request->getArguments();
 		$action = $originalRequestArguments['action'];
 		unset($originalRequestArguments['action']);
@@ -109,6 +119,14 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			'extensionName' => $this->request->getControllerExtensionName(),
 			'arguments' => $originalRequestArguments,
 		);
+	}
+
+	/**
+	 * Set referrer arguments
+	 *
+	 * @return void
+	 */
+	protected function setReferrerArguments() {
 		if($this->request->hasArgument('referrerArguments') AND
 			is_array($this->request->getArgument('referrerArguments'))) {
 		    $this->referrerArguments = $this->request->getArgument('referrerArguments');
