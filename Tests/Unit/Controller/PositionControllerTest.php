@@ -259,6 +259,25 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	/**
 	 * @test
 	 */
+	public function ajaxShowActionReturnsEmptyArrayIfPositionNotFound() {
+		$position = $this->getMock('\Webfox\Placements\Domain\Model\Position');
+
+		$this->fixture->_get('positionRepository')->expects($this->once())
+			->method('findByUid')
+			->with(99);
+
+		$expectedResult = json_encode(array());
+
+		$this->assertSame(
+			$expectedResult,
+			$this->fixture->ajaxShowAction(99)
+		);
+	}
+
+
+	/**
+	 * @test
+	 */
 	public function ajaxShowActionReturnsCorrectResult() {
 		$position = $this->getMock('\Webfox\Placements\Domain\Model\Position');
 		$mockType = $this->getMock('\Webfox\Placements\Domain\Model\PositionType');
@@ -1439,6 +1458,35 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 					'demand' => $mockDemand,
 					'requestArguments' => $requestArguments
 				));
+					
+		$fixture->searchResultAction($search);
+	}
+
+	/**
+	 * @test
+	 * @covers ::searchResultAction
+	 */
+	public function searchResultActionAddsFlashMessage() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('createDemandFromSettings', 'translate', 'addFlashMessage'),
+			array(), '', FALSE);
+		$mockPositionRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository',
+			array('findDemanded'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockView = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assignMultiple'), array(), '', FALSE);
+		$fixture->_set('view', $mockView);
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->will($this->returnValue($mockDemand));
+		$mockPositionRepository->expects($this->once())->method('findDemanded');
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.search.position.message.noSearchResult')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
 					
 		$fixture->searchResultAction($search);
 	}
