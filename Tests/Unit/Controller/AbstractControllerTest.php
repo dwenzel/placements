@@ -24,6 +24,7 @@ namespace Webfox\Placements\Tests;
  * @subpackage Ajax Map
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @coversDefaultClass \Webfox\Placements\Controller\AbstractController
  */
 class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
