@@ -237,6 +237,68 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::getMappingConfigurationForProperty
+	 */
+	public function getMappingConfigurationForPropertyReturnsInitiallyNull() {
+		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
+				array('hasArgument'));
+		$this->fixture->_set('arguments', $mockArguments);
+
+		$mockArguments->expects($this->once())->method('hasArgument');
+		$this->assertNull(
+				$this->fixture->_call('getMappingConfigurationForProperty', 'foo', 'bar.baz')
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getMappingConfigurationForProperty
+	 */
+	public function getMappingConfigurationForPropertyReturnsNullIfArgumentNotFound() {
+		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
+				array('hasArgument'));
+		$this->fixture->_set('arguments', $mockArguments);
+
+		$mockArguments->expects($this->once())->method('hasArgument')
+			->with('foo')
+			->will($this->returnValue(FALSE));
+
+		$this->assertNull(
+				$this->fixture->_call('getMappingConfigurationForProperty', 'foo', 'bar.baz')
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getMappingConfigurationForProperty
+	 */
+	public function getMappingConfigurationForPropertyReturnsConfiguration() {
+		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
+				array('hasArgument', 'getArgument'));
+		$this->fixture->_set('arguments', $mockArguments);
+		$mockPropertyMappingConfiguration = $this->getMock(
+				'\TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration',
+				array('forProperty'), array(), '', FALSE);
+		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration');
+
+		$mockArguments->expects($this->once())->method('hasArgument')
+			->with('foo')
+			->will($this->returnValue(TRUE));
+		$mockArguments->expects($this->once())->method('getArgument')
+			->with('foo')
+			->will($this->returnValue($mockPropertyMappingConfiguration));
+		$mockPropertyMappingConfiguration->expects($this->once())->method('forProperty')
+			->with('bar.baz')
+			->will($this->returnValue($mockConfiguration));
+
+		$this->assertSame(
+				$mockConfiguration,
+				$this->fixture->_call('getMappingConfigurationForProperty', 'foo', 'bar.baz')
+		);
+	}
+
+	/**
+	 * @test
 	 */
 	public function uploadFileHandlesUpload() {
 		$fileName = 'foo.bar';
