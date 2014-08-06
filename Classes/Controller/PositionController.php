@@ -43,64 +43,30 @@ class PositionController extends AbstractController {
 	 *
 	 */
 	 public function initializeAction() {
-		parent::initializeAction();
+		$this->setRequestArguments();
+		$this->setReferrerArguments();
 		$this->organizationRepository->setDefaultOrderings(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
-		if ($this->arguments->hasArgument('position')) {
-			$this->arguments->getArgument('position')
-			->getPropertyMappingConfiguration()
-			->forProperty('entryDate')
-			->setTypeConverterOption(
+		if($positionEntryDateConf = $this->getMappingConfigurationForProperty('position', 'entryDate')) {
+			$positionEntryDateConf->setTypeConverterOption(
 				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
 				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
 				$this->settings['position']['edit']['entryDate']['format']
 			);
-			$this->arguments->getArgument('position')
-			->getPropertyMappingConfiguration()
-			->forProperty('sectors')
-			->allowProperties('__identity');
-			$this->arguments->getArgument('position')
-			->getPropertyMappingConfiguration()
-			->forProperty('categories')
-			->allowProperties('__identity');
 		}
-		if ($this->arguments->hasArgument('newPosition')) {
-			$this->arguments->getArgument('newPosition')
-			->getPropertyMappingConfiguration()
-			->forProperty('entryDate')
-			->setTypeConverterOption(
+		if($positionSectorsConf = $this->getMappingConfigurationForProperty('position', 'sectors')) {
+			$positionSectorsConf->allowProperties('__identity');
+		}
+		if($positionCategoriesConf = $this->getMappingConfigurationForProperty('position', 'categories')) {
+			$positionCategoriesConf->allowProperties('__identity');
+		}
+		if($positionEntryDateConf = $this->getMappingConfigurationForProperty('newPosition', 'entryDate')) {
+			$positionEntryDateConf->setTypeConverterOption(
 				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
 				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
 				$this->settings['position']['create']['entryDate']['format']
 			);
 		}
 	}
-
-	/**
-	 * Initialize ajax list action
-	 */
-	 public function initializeAjaxListAction() {
-	 	if($this->arguments->hasArgument('overwriteDemand')) {
-	 		$this->arguments->getArgument('overwriteDemand')
-	 		->getPropertyMappingConfiguration()
-	 		//->forProperty('overwriteDemand')
-	 		->setTypeConverter(
-	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\ArrayConverter')
-	 			);
-	 	}
-	 }
-
-	/**
-	 * Initialize ajax show action
-	 */
-	 public function initializeAjaxShowAction() {
-	 	if($this->arguments->hasArgument('uid')) {
-	 		$this->arguments->getArgument('uid')
-	 		->getPropertyMappingConfiguration()
-	 		->setTypeConverter(
-	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter')
-	 			);
-	 	}
-	 }
 
 	/**
 	 * action list
