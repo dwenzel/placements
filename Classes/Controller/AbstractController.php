@@ -136,6 +136,26 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
+	 * Get mapping configuration for property
+	 *
+	 * Returns the property mapping configuration for a given
+	 * argument / property combination 
+	 * or false if arguments does not have such an argument
+	 *
+	 * @param \string $argumentName Name of argument
+	 * @param \string $propertyName Name of the property e.g. 'foo.bar'
+	 * @return \TYPO3\CMS\Extbase\Propery\PropertyMappingConfiguration|NULL
+	 */
+	protected function getMappingConfigurationForProperty($argumentName, $propertyName) {
+		if($this->arguments->hasArgument($argumentName)) {
+			$mappingConfiguration = $this->arguments
+				->getArgument($argumentName)
+				->forProperty($propertyName);
+		}
+		return $mappingConfiguration;
+	}
+
+	/**
 	 * Upload file
 	 */
 	protected function uploadFile($fileName, $fileTmpName ) {
