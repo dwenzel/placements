@@ -289,65 +289,6 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$fixture->initializeAction();
 	}
 
-
-
-	/**
-	 * @test
-	 */
-	public function initializeAjaxShowActionSetsTypConverterForUid() {
-		$mockArgument = $this->getMock(
-			'TYPO3\CMS\Extbase\Mvc\Controller\Argument', array(), array(), '', FALSE);
-		$mockMappingConfiguration = $this->getMock(
-			'TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration');
-		$this->fixture->_get('objectManager')->expects($this->once())
-			->method('get')
-			->will($this->returnValue($this->getMock('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter')));
-		$this->fixture->_get('arguments')->expects($this->once())
-			->method('hasArgument')
-			->with('uid')
-			->will($this->returnValue(TRUE));
-		$this->fixture->_get(arguments)->expects($this->once())
-			->method('getArgument')
-			->with('uid')
-			->will($this->returnValue($mockArgument));
-		$mockArgument->expects($this->once())
-			->method('getPropertyMappingConfiguration')
-			->will($this->returnValue($mockMappingConfiguration));
-		$mockMappingConfiguration->expects($this->once())
-			->method('setTypeConverter');
-		$this->fixture->initializeAjaxShowAction();
-	}
-
-	/**
-	 * @test
-	 */
-	public function initializeAjaxListActionSetsTypConverterForOverwriteDemand() {
-		$mockArgument = $this->getMock(
-			'TYPO3\CMS\Extbase\Mvc\Controller\Argument', array(), array(), '', FALSE);
-		$mockMappingConfiguration = $this->getMock(
-			'TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration');
-		$mockConverter = $this->getMock('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\ArrayConverter');
-		$this->fixture->_get('objectManager')->expects($this->once())
-			->method('get')
-			->will($this->returnValue($mockConverter));
-		$this->fixture->_get('arguments')->expects($this->once())
-			->method('hasArgument')
-			->with('overwriteDemand')
-			->will($this->returnValue(TRUE));
-		$this->fixture->_get(arguments)->expects($this->once())
-			->method('getArgument')
-			->with('overwriteDemand')
-			->will($this->returnValue($mockArgument));
-		$mockArgument->expects($this->once())
-			->method('getPropertyMappingConfiguration')
-			->will($this->returnValue($mockMappingConfiguration));
-		$mockMappingConfiguration->expects($this->once())
-			->method('setTypeConverter')
-			->with($mockConverter);
-		$this->fixture->initializeAjaxListAction();
-	}
-
-
 	/**
 	 * @test
 	 */

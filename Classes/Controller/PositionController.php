@@ -69,33 +69,6 @@ class PositionController extends AbstractController {
 	}
 
 	/**
-	 * Initialize ajax list action
-	 */
-	 public function initializeAjaxListAction() {
-	 	if($this->arguments->hasArgument('overwriteDemand')) {
-	 		$this->arguments->getArgument('overwriteDemand')
-	 		->getPropertyMappingConfiguration()
-	 		//->forProperty('overwriteDemand')
-	 		->setTypeConverter(
-	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\ArrayConverter')
-	 			);
-	 	}
-	 }
-
-	/**
-	 * Initialize ajax show action
-	 */
-	 public function initializeAjaxShowAction() {
-	 	if($this->arguments->hasArgument('uid')) {
-	 		$this->arguments->getArgument('uid')
-	 		->getPropertyMappingConfiguration()
-	 		->setTypeConverter(
-	 			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter')
-	 			);
-	 	}
-	 }
-
-	/**
 	 * action list
 	 *
 	 * @param \array $overwriteDemand Demand overwriting the current settings. Optional.
