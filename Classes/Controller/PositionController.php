@@ -43,7 +43,8 @@ class PositionController extends AbstractController {
 	 *
 	 */
 	 public function initializeAction() {
-		parent::initializeAction();
+		$this->setRequestArguments();
+		$this->setReferrerArguments();
 		$this->organizationRepository->setDefaultOrderings(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
 		if ($this->arguments->hasArgument('position')) {
 			$this->arguments->getArgument('position')
