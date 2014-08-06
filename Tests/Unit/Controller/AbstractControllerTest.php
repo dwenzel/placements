@@ -277,6 +277,8 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
 				array('hasArgument', 'getArgument'));
 		$this->fixture->_set('arguments', $mockArguments);
+		$mockArgument = $this->getMock('\TYPO3\CMS\Extbase\Mvc\Controller\Argument',
+				array('getPropertyMappingConfiguration'), array(), '', FALSE);
 		$mockPropertyMappingConfiguration = $this->getMock(
 				'\TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration',
 				array('forProperty'), array(), '', FALSE);
@@ -287,6 +289,8 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->will($this->returnValue(TRUE));
 		$mockArguments->expects($this->once())->method('getArgument')
 			->with('foo')
+			->will($this->returnValue($mockArgument));
+		$mockArgument->expects($this->once())->method('getPropertyMappingConfiguration')
 			->will($this->returnValue($mockPropertyMappingConfiguration));
 		$mockPropertyMappingConfiguration->expects($this->once())->method('forProperty')
 			->with('bar.baz')
