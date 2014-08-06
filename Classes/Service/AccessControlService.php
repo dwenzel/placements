@@ -177,9 +177,9 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 					default:
 						return false;
 				}
-				$tsAccessGroups = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(
+				$tsAccessGroups = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(
 					',',
-					$settings['security'][$objectType][$accessGroup]);
+					$settings['security'][$objectType][$accessGroup], TRUE);
 				foreach($tsAccessGroups as $tsAccessGroup) {
 						$accessGroup = $this->frontendUserGroupRepository->findByUid($tsAccessGroup);
 						if ($accessGroup != NULL && 

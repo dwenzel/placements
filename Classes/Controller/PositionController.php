@@ -200,26 +200,27 @@ class PositionController extends AbstractController {
 	 */
 	public function ajaxShowAction($uid) {
 		$position = $this->positionRepository->findByUid($uid);
+		$result = array();
 		if ($position) {
-				$type = $position->getType();
-				if ($type) {
-					$typeArray = array(
+			$type = $position->getType();
+			if ($type) {
+				$typeArray = array(
 						'uid' => $type->getUid(),
 						'title' => $type->getTitle(),
-					);
-				}
-				$result[] = array(
-						'uid' => $position->getUid(),
-						'title' => $position->getTitle(),
-						'summary' => $position->getSummary(),
-						'city' => $position->getCity(),
-						'zip' => $position->getZip(),
-						'latitude' => $position->getLatitude(),
-						'longitude' => $position->getLongitude(),
-						'type' => ($typeArray)? $typeArray: NULL,
-						);
-			return json_encode($result);
+				);
+			}
+			$result[] = array(
+					'uid' => $position->getUid(),
+					'title' => $position->getTitle(),
+					'summary' => $position->getSummary(),
+					'city' => $position->getCity(),
+					'zip' => $position->getZip(),
+					'latitude' => $position->getLatitude(),
+					'longitude' => $position->getLongitude(),
+					'type' => ($typeArray)? $typeArray: NULL,
+			);
 		}
+		return json_encode($result);
 	}
 
 	/**
@@ -460,8 +461,8 @@ class PositionController extends AbstractController {
 			$searchObj = $this->objectManager->get('Webfox\\Placements\\Domain\\Model\\Dto\\Search');
 			$searchObj->setFields($this->settings['position']['search']['fields']);
 			$searchObj->setSubject($search['subject']);
+			$demand->setSearch($searchObj);
 		}
-		$demand->setSearch($searchObj);
 
 		$positions = $this->positionRepository->findDemanded($demand);
 		if(!count($positions)) {
@@ -575,7 +576,12 @@ class PositionController extends AbstractController {
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	 protected function getErrorFlashMessage() {
-		return $this->translate('tx_placements.error'.'.position.'. $this->actionMethodName);
+	 	 $message = $this->translate('tx_placements.error'.'.position.'. $this->actionMethodName);
+		if($message == NULL) {
+			return FALSE ;
+		} else {
+			return $message;
+		}
 	 }
 
 }
