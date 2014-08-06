@@ -144,12 +144,13 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 *
 	 * @param \string $argumentName Name of argument
 	 * @param \string $propertyName Name of the property e.g. 'foo.bar'
-	 * @return \TYPO3\CMS\Extbase\Propery\PropertyMappingConfiguration|NULL
+	 * @return \TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration|NULL
 	 */
 	protected function getMappingConfigurationForProperty($argumentName, $propertyName) {
 		if($this->arguments->hasArgument($argumentName)) {
 			$mappingConfiguration = $this->arguments
 				->getArgument($argumentName)
+				->getPropertyMappingConfiguration()
 				->forProperty($propertyName);
 		}
 		return $mappingConfiguration;
