@@ -106,6 +106,48 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionSetsRequestArguments() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments'), array(), '', FALSE);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
+				array('hasArgument'));
+		$fixture->_set('arguments', $mockArguments);
+
+		$fixture->expects($this->once())->method('setRequestArguments');
+
+		$fixture->initializeAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionSetsReferrerArguments() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments'), array(), '', FALSE);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
+				array('hasArgument'));
+		$fixture->_set('arguments', $mockArguments);
+
+		$fixture->expects($this->once())->method('setReferrerArguments');
+
+		$fixture->initializeAction();
+	}
+
+	/**
+	 * @test
 	 */
 	public function initializeAjaxShowActionSetsTypConverterForUid() {
 		$mockArgument = $this->getMock(
