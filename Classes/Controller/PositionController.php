@@ -46,29 +46,21 @@ class PositionController extends AbstractController {
 		$this->setRequestArguments();
 		$this->setReferrerArguments();
 		$this->organizationRepository->setDefaultOrderings(array('title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
-		if ($this->arguments->hasArgument('position')) {
-			$this->arguments->getArgument('position')
-			->getPropertyMappingConfiguration()
-			->forProperty('entryDate')
-			->setTypeConverterOption(
+		if($positionEntryDateConf = $this->getMappingConfigurationForProperty('position', 'entryDate')) {
+			$positionEntryDateConf->setTypeConverterOption(
 				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
 				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
 				$this->settings['position']['edit']['entryDate']['format']
 			);
-			$this->arguments->getArgument('position')
-			->getPropertyMappingConfiguration()
-			->forProperty('sectors')
-			->allowProperties('__identity');
-			$this->arguments->getArgument('position')
-			->getPropertyMappingConfiguration()
-			->forProperty('categories')
-			->allowProperties('__identity');
 		}
-		if ($this->arguments->hasArgument('newPosition')) {
-			$this->arguments->getArgument('newPosition')
-			->getPropertyMappingConfiguration()
-			->forProperty('entryDate')
-			->setTypeConverterOption(
+		if($positionSectorsConf = $this->getMappingConfigurationForProperty('position', 'sectors')) {
+			$positionSectorsConf->allowProperties('__identity');
+		}
+		if($positionCategoriesConf = $this->getMappingConfigurationForProperty('position', 'categories')) {
+			$positionCategoriesConf->allowProperties('__identity');
+		}
+		if($positionEntryDateConf = $this->getMappingConfigurationForProperty('newPosition', 'entryDate')) {
+			$positionEntryDateConf->setTypeConverterOption(
 				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
 				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
 				$this->settings['position']['create']['entryDate']['format']

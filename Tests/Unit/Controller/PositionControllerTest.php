@@ -150,53 +150,68 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @test
 	 * @covers ::initializeAction
 	 */
-	public function initializeActionSetsPropertyMappingConfigurationForPosition() {
+	public function initializeActionSetsTypeConverterOptionForEntryDateOfPosition() {
 		$fixture = $this->getAccessibleMock(
 			'\Webfox\Placements\Controller\PositionController',
-			array('setRequestArguments', 'setReferrerArguments'), array(), '', FALSE);
+			array('setRequestArguments', 'setReferrerArguments', 'getMappingConfigurationForProperty'), array(), '', FALSE);
 		$settings = array('position' => array('edit' => array('entryDate' => array('format' => 'fooFormat'))));
 		$fixture->_set('settings', $settings);
 		$mockOrganizationRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
 			array('setDefaultOrderings'), array(), '', FALSE);
 		$fixture->_set('organizationRepository', $mockOrganizationRepository);
-		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
-				array('hasArgument', 'getArgument'));
-		$fixture->_set('arguments', $mockArguments);
-		$mockArgument = $this->getMock('\TYPO3\CMS\Extbase\Mvc\Controller\Argument',
-				array('getPropertyMappingConfiguration'), array(), '', FALSE);
-		$mockPropertyMappingConfiguration = $this->getMock(
-				'\TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration',
-				array('forProperty'), array(), '', FALSE);
 		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration',
-				array('setTypeConverterOption', 'allowProperties'), array(), '', FALSE);
+				array('setTypeConverterOption'), array(), '', FALSE);
 
-		$mockArguments->expects($this->exactly(2))->method('hasArgument')
+		$fixture->expects($this->exactly(4))->method('getMappingConfigurationForProperty')
 			->withConsecutive(
-					array('position'), array('newPosition'))
-			->will($this->onConsecutiveCalls(TRUE, FALSE));
-		$mockArguments->expects($this->any())->method('getArgument')
-			->withConsecutive(
-				array('position'),
-				array('position'),
-				array('position'))
-			->will($this->returnValue($mockArgument));
-		$mockArgument->expects($this->exactly(3))->method('getPropertyMappingConfiguration')
-			->will($this->returnValue($mockPropertyMappingConfiguration));
-
-		$mockPropertyMappingConfiguration->expects($this->exactly(3))->method('forProperty')
-			->withConsecutive(
-					array('entryDate'),
-					array('sectors'),
-					array('categories'))
-			->will($this->returnValue($mockConfiguration));
+					array('position', 'entryDate'),
+					array('position', 'sectors'),
+					array('position', 'categories'),
+					array('newPosition', 'entryDate'))
+			->will($this->onConsecutiveCalls(
+					$mockConfiguration,
+					NULL,
+					NULL,
+					NULL));
 		$mockConfiguration->expects($this->once())->method('setTypeConverterOption')
 			->with(
 				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
 				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
 				'fooFormat'
 				);
-		$mockConfiguration->expects($this->exactly(2))->method('allowProperties')
+		$fixture->initializeAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionAllowsIdentityPropertyForSectorsOfPosition() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments', 'getMappingConfigurationForProperty'), array(), '', FALSE);
+		$settings = array('position' => array('edit' => array('entryDate' => array('format' => 'fooFormat'))));
+		$fixture->_set('settings', $settings);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration',
+				array('allowProperties'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(4))->method('getMappingConfigurationForProperty')
+			->withConsecutive(
+					array('position', 'entryDate'),
+					array('position', 'sectors'),
+					array('position', 'categories'),
+					array('newPosition', 'entryDate'))
+			->will($this->onConsecutiveCalls(
+					NULL,
+					$mockConfiguration,
+					NULL,
+					NULL));
+		$mockConfiguration->expects($this->once())->method('allowProperties')
 			->with('__identity');
 
 		$fixture->initializeAction();
@@ -206,49 +221,75 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @test
 	 * @covers ::initializeAction
 	 */
-	public function initializeActionSetsPropertyMappingConfigurationForNewPosition() {
+	public function initializeActionAllowsIdentityPropertyForCategoriesOfPosition() {
 		$fixture = $this->getAccessibleMock(
 			'\Webfox\Placements\Controller\PositionController',
-			array('setRequestArguments', 'setReferrerArguments'), array(), '', FALSE);
-		$settings = array('position' => array('create' => array('entryDate' => array('format' => 'barFormat'))));
+			array('setRequestArguments', 'setReferrerArguments', 'getMappingConfigurationForProperty'), array(), '', FALSE);
+		$settings = array('position' => array('edit' => array('entryDate' => array('format' => 'fooFormat'))));
 		$fixture->_set('settings', $settings);
 		$mockOrganizationRepository = $this->getMock(
 			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
 			array('setDefaultOrderings'), array(), '', FALSE);
 		$fixture->_set('organizationRepository', $mockOrganizationRepository);
-		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
-				array('hasArgument', 'getArgument'));
-		$fixture->_set('arguments', $mockArguments);
-		$mockArgument = $this->getMock('\TYPO3\CMS\Extbase\Mvc\Controller\Argument',
-				array('getPropertyMappingConfiguration'), array(), '', FALSE);
-		$mockPropertyMappingConfiguration = $this->getMock(
-				'\TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration',
-				array('forProperty'), array(), '', FALSE);
 		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration',
-				array('setTypeConverterOption', 'allowProperties'), array(), '', FALSE);
+				array('allowProperties'), array(), '', FALSE);
 
-		$mockArguments->expects($this->exactly(2))->method('hasArgument')
+		$fixture->expects($this->exactly(4))->method('getMappingConfigurationForProperty')
 			->withConsecutive(
-					array('position'), array('newPosition'))
-			->will($this->onConsecutiveCalls(FALSE, TRUE));
-		$mockArguments->expects($this->once())->method('getArgument')
-			->with('newPosition')
-			->will($this->returnValue($mockArgument));
-		$mockArgument->expects($this->once())->method('getPropertyMappingConfiguration')
-			->will($this->returnValue($mockPropertyMappingConfiguration));
+					array('position', 'entryDate'),
+					array('position', 'sectors'),
+					array('position', 'categories'),
+					array('newPosition', 'entryDate'))
+			->will($this->onConsecutiveCalls(
+					NULL,
+					NULL,
+					$mockConfiguration,
+					NULL));
+		$mockConfiguration->expects($this->once())->method('allowProperties')
+			->with('__identity');
 
-		$mockPropertyMappingConfiguration->expects($this->once())->method('forProperty')
-			->with('entryDate')
-			->will($this->returnValue($mockConfiguration));
+		$fixture->initializeAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionSetsTypeConverterOptionForEntryDateOfNewPosition() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments', 'getMappingConfigurationForProperty'), array(), '', FALSE);
+		$settings = array('position' => array('create' => array('entryDate' => array('format' => 'fooFormat'))));
+		$fixture->_set('settings', $settings);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration',
+				array('setTypeConverterOption'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(4))->method('getMappingConfigurationForProperty')
+			->withConsecutive(
+					array('position', 'entryDate'),
+					array('position', 'sectors'),
+					array('position', 'categories'),
+					array('newPosition', 'entryDate'))
+			->will($this->onConsecutiveCalls(
+					NULL,
+					NULL,
+					NULL,
+					$mockConfiguration
+				));
 		$mockConfiguration->expects($this->once())->method('setTypeConverterOption')
 			->with(
 				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
 				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
-				'barFormat'
+				'fooFormat'
 				);
-
 		$fixture->initializeAction();
 	}
+
+
 
 	/**
 	 * @test
