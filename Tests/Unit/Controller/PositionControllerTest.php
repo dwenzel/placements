@@ -106,60 +106,188 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::initializeAction
 	 */
-	public function initializeAjaxShowActionSetsTypConverterForUid() {
-		$mockArgument = $this->getMock(
-			'TYPO3\CMS\Extbase\Mvc\Controller\Argument', array(), array(), '', FALSE);
-		$mockMappingConfiguration = $this->getMock(
-			'TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration');
-		$this->fixture->_get('objectManager')->expects($this->once())
-			->method('get')
-			->will($this->returnValue($this->getMock('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter')));
-		$this->fixture->_get('arguments')->expects($this->once())
-			->method('hasArgument')
-			->with('uid')
-			->will($this->returnValue(TRUE));
-		$this->fixture->_get(arguments)->expects($this->once())
-			->method('getArgument')
-			->with('uid')
-			->will($this->returnValue($mockArgument));
-		$mockArgument->expects($this->once())
-			->method('getPropertyMappingConfiguration')
-			->will($this->returnValue($mockMappingConfiguration));
-		$mockMappingConfiguration->expects($this->once())
-			->method('setTypeConverter');
-		$this->fixture->initializeAjaxShowAction();
+	public function initializeActionSetsRequestArguments() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments'), array(), '', FALSE);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
+				array('hasArgument'));
+		$fixture->_set('arguments', $mockArguments);
+
+		$fixture->expects($this->once())->method('setRequestArguments');
+
+		$fixture->initializeAction();
 	}
 
 	/**
 	 * @test
+	 * @covers ::initializeAction
 	 */
-	public function initializeAjaxListActionSetsTypConverterForOverwriteDemand() {
-		$mockArgument = $this->getMock(
-			'TYPO3\CMS\Extbase\Mvc\Controller\Argument', array(), array(), '', FALSE);
-		$mockMappingConfiguration = $this->getMock(
-			'TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration');
-		$mockConverter = $this->getMock('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\ArrayConverter');
-		$this->fixture->_get('objectManager')->expects($this->once())
-			->method('get')
-			->will($this->returnValue($mockConverter));
-		$this->fixture->_get('arguments')->expects($this->once())
-			->method('hasArgument')
-			->with('overwriteDemand')
-			->will($this->returnValue(TRUE));
-		$this->fixture->_get(arguments)->expects($this->once())
-			->method('getArgument')
-			->with('overwriteDemand')
-			->will($this->returnValue($mockArgument));
-		$mockArgument->expects($this->once())
-			->method('getPropertyMappingConfiguration')
-			->will($this->returnValue($mockMappingConfiguration));
-		$mockMappingConfiguration->expects($this->once())
-			->method('setTypeConverter')
-			->with($mockConverter);
-		$this->fixture->initializeAjaxListAction();
+	public function initializeActionSetsReferrerArguments() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments'), array(), '', FALSE);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockArguments = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
+				array('hasArgument'));
+		$fixture->_set('arguments', $mockArguments);
+
+		$fixture->expects($this->once())->method('setReferrerArguments');
+
+		$fixture->initializeAction();
 	}
 
+	/**
+	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionSetsTypeConverterOptionForEntryDateOfPosition() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments', 'getMappingConfigurationForProperty'), array(), '', FALSE);
+		$settings = array('position' => array('edit' => array('entryDate' => array('format' => 'fooFormat'))));
+		$fixture->_set('settings', $settings);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration',
+				array('setTypeConverterOption'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(4))->method('getMappingConfigurationForProperty')
+			->withConsecutive(
+					array('position', 'entryDate'),
+					array('position', 'sectors'),
+					array('position', 'categories'),
+					array('newPosition', 'entryDate'))
+			->will($this->onConsecutiveCalls(
+					$mockConfiguration,
+					NULL,
+					NULL,
+					NULL));
+		$mockConfiguration->expects($this->once())->method('setTypeConverterOption')
+			->with(
+				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
+				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
+				'fooFormat'
+				);
+		$fixture->initializeAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionAllowsIdentityPropertyForSectorsOfPosition() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments', 'getMappingConfigurationForProperty'), array(), '', FALSE);
+		$settings = array('position' => array('edit' => array('entryDate' => array('format' => 'fooFormat'))));
+		$fixture->_set('settings', $settings);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration',
+				array('allowProperties'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(4))->method('getMappingConfigurationForProperty')
+			->withConsecutive(
+					array('position', 'entryDate'),
+					array('position', 'sectors'),
+					array('position', 'categories'),
+					array('newPosition', 'entryDate'))
+			->will($this->onConsecutiveCalls(
+					NULL,
+					$mockConfiguration,
+					NULL,
+					NULL));
+		$mockConfiguration->expects($this->once())->method('allowProperties')
+			->with('__identity');
+
+		$fixture->initializeAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionAllowsIdentityPropertyForCategoriesOfPosition() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments', 'getMappingConfigurationForProperty'), array(), '', FALSE);
+		$settings = array('position' => array('edit' => array('entryDate' => array('format' => 'fooFormat'))));
+		$fixture->_set('settings', $settings);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration',
+				array('allowProperties'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(4))->method('getMappingConfigurationForProperty')
+			->withConsecutive(
+					array('position', 'entryDate'),
+					array('position', 'sectors'),
+					array('position', 'categories'),
+					array('newPosition', 'entryDate'))
+			->will($this->onConsecutiveCalls(
+					NULL,
+					NULL,
+					$mockConfiguration,
+					NULL));
+		$mockConfiguration->expects($this->once())->method('allowProperties')
+			->with('__identity');
+
+		$fixture->initializeAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::initializeAction
+	 */
+	public function initializeActionSetsTypeConverterOptionForEntryDateOfNewPosition() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('setRequestArguments', 'setReferrerArguments', 'getMappingConfigurationForProperty'), array(), '', FALSE);
+		$settings = array('position' => array('create' => array('entryDate' => array('format' => 'fooFormat'))));
+		$fixture->_set('settings', $settings);
+		$mockOrganizationRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\OrganizationRepository',
+			array('setDefaultOrderings'), array(), '', FALSE);
+		$fixture->_set('organizationRepository', $mockOrganizationRepository);
+		$mockConfiguration = $this->getMock('\TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration',
+				array('setTypeConverterOption'), array(), '', FALSE);
+
+		$fixture->expects($this->exactly(4))->method('getMappingConfigurationForProperty')
+			->withConsecutive(
+					array('position', 'entryDate'),
+					array('position', 'sectors'),
+					array('position', 'categories'),
+					array('newPosition', 'entryDate'))
+			->will($this->onConsecutiveCalls(
+					NULL,
+					NULL,
+					NULL,
+					$mockConfiguration
+				));
+		$mockConfiguration->expects($this->once())->method('setTypeConverterOption')
+			->with(
+				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
+				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 
+				'fooFormat'
+				);
+		$fixture->initializeAction();
+	}
 
 	/**
 	 * @test
@@ -294,6 +422,25 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		);
 
 	}
+
+	/**
+	 * @test
+	 */
+	public function ajaxShowActionReturnsEmptyArrayIfPositionNotFound() {
+		$position = $this->getMock('\Webfox\Placements\Domain\Model\Position');
+
+		$this->fixture->_get('positionRepository')->expects($this->once())
+			->method('findByUid')
+			->with(99);
+
+		$expectedResult = json_encode(array());
+
+		$this->assertSame(
+			$expectedResult,
+			$this->fixture->ajaxShowAction(99)
+		);
+	}
+
 
 	/**
 	 * @test
@@ -1317,6 +1464,202 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 
 	/**
 	 * @test
+	 * @covers ::searchResultAction
+	 */
+	public function searchResultActionCreatesDemandObjectAndCallsFindDemanded() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('createDemandFromSettings'), array(), '', FALSE);
+		$settings = array('foo' => 'bar');
+		$fixture->_set('settings', $settings);
+		$mockPositionRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository',
+			array('findDemanded'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockView = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assignMultiple'), array(), '', FALSE);
+		$fixture->_set('view', $mockView);
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
+
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->with($settings)
+			->will($this->returnValue($mockDemand));
+		$mockPositionRepository->expects($this->once())->method('findDemanded')
+			->with($mockDemand)
+			->will($this->returnValue('foo', 'bar'));
+
+		$fixture->searchResultAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::searchResultAction
+	 */
+	public function searchResultActionOverwritesDemandObject() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('createDemandFromSettings', 'overwriteDemandObject'), array(), '', FALSE);
+		$settings = array('foo' => 'bar');
+		$overwriteDemand = array ('bar' => 'baz');
+		$fixture->_set('settings', $settings);
+		$mockPositionRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository',
+			array('findDemanded'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockView = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assignMultiple'), array(), '', FALSE);
+		$fixture->_set('view', $mockView);
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
+
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->will($this->returnValue($mockDemand));
+		$fixture->expects($this->once())->method('overwriteDemandObject')
+			->with($mockDemand, $overwriteDemand)
+			->will($this->returnValue($mockDemand));
+		$mockPositionRepository->expects($this->once())->method('findDemanded')
+			->will($this->returnValue('foo', 'bar'));
+
+		$fixture->searchResultAction(NULL, $overwriteDemand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::searchResultAction
+	 */
+	public function searchResultActionCreatesAndSetsSearchObject() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('createDemandFromSettings'), array(), '', FALSE);
+		$settings = array(
+				'position' => array(
+					'search' => array(
+						'fields' => 'foo,bar'
+					)
+				)
+			);
+		$fixture->_set('settings', $settings);
+		$mockPositionRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository',
+			array('findDemanded'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockView = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assignMultiple'), array(), '', FALSE);
+		$fixture->_set('view', $mockView);
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
+		$mockObjectManager = $this->getMock(
+			'\TYPO3\CMS\Extbase\Object\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$fixture->_set('objectManager', $mockObjectManager);
+		$search = array('subject' => 'boo');
+
+		$mockSearchObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\Search',
+			array('setFields', 'setSubject'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->will($this->returnValue($mockDemand));
+		$mockObjectManager->expects($this->once())->method('get')
+			->with('Webfox\\Placements\\Domain\\Model\\Dto\\Search')
+			->will($this->returnValue($mockSearchObject));
+		$mockSearchObject->expects($this->once())->method('setFields')
+			->with('foo,bar');
+		$mockSearchObject->expects($this->once())->method('setSubject')
+			->with('boo');
+		$mockDemand->expects($this->once())->method('setSearch')
+			->with($mockSearchObject);
+		$mockPositionRepository->expects($this->once())->method('findDemanded')
+			->will($this->returnValue('foo', 'bar'));
+
+		$fixture->searchResultAction($search, $overwriteDemand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::searchResultAction
+	 */
+	public function searchResultActionAssignsVariablesToView() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('createDemandFromSettings'), array(), '', FALSE);
+		$settings = array(
+				'position' => array(
+					'search' => array(
+						'fields' => 'foo,bar'
+					)
+				)
+			);
+		$fixture->_set('settings', $settings);
+		$mockPositionRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository',
+			array('findDemanded'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockView = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assignMultiple'), array(), '', FALSE);
+		$fixture->_set('view', $mockView);
+		$requestArguments = array('mock' => 'request');
+		$fixture->_set('requestArguments', $requestArguments);
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
+		$mockObjectManager = $this->getMock(
+			'\TYPO3\CMS\Extbase\Object\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$fixture->_set('objectManager', $mockObjectManager);
+		$search = array('subject' => 'boo');
+
+		$mockSearchObject = $this->getMock(
+			'\Webfox\Placements\Domain\Model\Dto\Search',
+			array('setFields', 'setSubject'), array(), '', FALSE);
+
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->will($this->returnValue($mockDemand));
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockSearchObject));
+		$mockSearchObject->expects($this->once())->method('setFields');
+		$mockSearchObject->expects($this->once())->method('setSubject');
+		$mockDemand->expects($this->once())->method('setSearch');
+		$mockPositionRepository->expects($this->once())->method('findDemanded')
+			->will($this->returnValue('foo, bar'));
+		$mockView->expects($this->once())->method('assignMultiple')
+			->with(array(
+					'positions' => 'foo, bar',
+					'search' => $search,
+					'demand' => $mockDemand,
+					'requestArguments' => $requestArguments
+				));
+					
+		$fixture->searchResultAction($search);
+	}
+
+	/**
+	 * @test
+	 * @covers ::searchResultAction
+	 */
+	public function searchResultActionAddsFlashMessage() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\PositionController',
+			array('createDemandFromSettings', 'translate', 'addFlashMessage'),
+			array(), '', FALSE);
+		$mockPositionRepository = $this->getMock(
+			'\Webfox\Placements\Domain\Repository\PositionRepository',
+			array('findDemanded'), array(), '', FALSE);
+		$fixture->_set('positionRepository', $mockPositionRepository);
+		$mockView = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView',
+			array('assignMultiple'), array(), '', FALSE);
+		$fixture->_set('view', $mockView);
+		$mockDemand = $this->getMock('\Webfox\Placements\Domain\Model\Dto\PositionDemand');
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->will($this->returnValue($mockDemand));
+		$mockPositionRepository->expects($this->once())->method('findDemanded');
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.search.position.message.noSearchResult')
+			->will($this->returnValue('foo'));
+		$fixture->expects($this->once())->method('addFlashMessage')
+			->with('foo');
+					
+		$fixture->searchResultAction($search);
+	}
+
+	/**
+	 * @test
 	 * @covers ::countAction
 	 */
 	public function countActionCallsFindDemandedAndAssignsVariables() {
@@ -1530,5 +1873,37 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$mockDemand->expects($this->once())->method('setGeoLocation')
 			->with($geoLocation);
 		$fixture->_call('overwriteDemandObject', $mockDemand, $overwriteDemand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getErrorFlashMessage
+	 */
+	public function getErrorFlashMessageReturnsFalseForInvalidKey() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Controller\PositionController',
+			array('translate'), array(), '', FALSE);
+		$fixture->_set('actionMethodName', 'fooAction');
+
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.position.fooAction')
+			->will($this->returnValue(NULL));
+		$this->assertFalse($fixture->_call('getErrorFlashMessage'));
+	}
+
+	/**
+	 * @test
+	 * @covers ::getErrorFlashMessage
+	 */
+	public function getErrorFlashMessageReturnsTranslatedMessageForValidKey() {
+		$fixture = $this->getAccessibleMock('\Webfox\Placements\Controller\PositionController',
+			array('translate'), array(), '', FALSE);
+		$fixture->_set('actionMethodName', 'fooAction');
+
+		$fixture->expects($this->once())->method('translate')
+			->with('tx_placements.error.position.fooAction')
+			->will($this->returnValue('foo'));
+		$this->assertSame(
+				'foo',
+				$fixture->_call('getErrorFlashMessage'));
 	}
 }

@@ -28,7 +28,7 @@ namespace Webfox\Placements\Tests;
  */
 class GeocoderTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
-	 * @var
+	 * @var \Webfox\Placements\Utility\Geocoder
 	 */
 	protected $fixture;
 
@@ -47,7 +47,7 @@ class GeocoderTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @param \string $response Which result should be returned
 	 * @return \string Mocked response json
 	 */
-	private function getGoogleMapsGeocodeApiResponse($response) {
+	public function getGoogleMapsGeocodeApiResponse($response) {
 		if($response == 'success') {
 			$result = '{
    			"results" : [

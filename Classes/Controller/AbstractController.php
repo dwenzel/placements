@@ -97,6 +97,16 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * Initialize Action
 	 */
 	public function initializeAction() {
+		$this->setRequestArguments();
+		$this->setReferrerArguments();
+	}
+
+	/**
+	 * Set request arguments
+	 *
+	 * @return void
+	 */
+	protected function setRequestArguments() {
 		$originalRequestArguments = $this->request->getArguments();
 		$action = $originalRequestArguments['action'];
 		unset($originalRequestArguments['action']);
@@ -109,12 +119,41 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			'extensionName' => $this->request->getControllerExtensionName(),
 			'arguments' => $originalRequestArguments,
 		);
+	}
+
+	/**
+	 * Set referrer arguments
+	 *
+	 * @return void
+	 */
+	protected function setReferrerArguments() {
 		if($this->request->hasArgument('referrerArguments') AND
 			is_array($this->request->getArgument('referrerArguments'))) {
 		    $this->referrerArguments = $this->request->getArgument('referrerArguments');
 		} else {
 		    $this->referrerArguments = array();
 		}
+	}
+
+	/**
+	 * Get mapping configuration for property
+	 *
+	 * Returns the property mapping configuration for a given
+	 * argument / property combination 
+	 * or false if arguments does not have such an argument
+	 *
+	 * @param \string $argumentName Name of argument
+	 * @param \string $propertyName Name of the property e.g. 'foo.bar'
+	 * @return \TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration|NULL
+	 */
+	protected function getMappingConfigurationForProperty($argumentName, $propertyName) {
+		if($this->arguments->hasArgument($argumentName)) {
+			$mappingConfiguration = $this->arguments
+				->getArgument($argumentName)
+				->getPropertyMappingConfiguration()
+				->forProperty($propertyName);
+		}
+		return $mappingConfiguration;
 	}
 
 	/**
