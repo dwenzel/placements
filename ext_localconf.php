@@ -20,7 +20,7 @@ if (!empty($settings['includeJavaScript'])) {
 	'Webfox.' . $_EXTKEY,
 	'Placements',
 	array(
-		'Position' => 'list, show, new, create, edit, update, delete, quickMenu,ajaxList,count',
+		'Position' => 'list, show, new, create, edit, update, delete, quickMenu,count',
 		'User' => 'list, show, new, create, edit, update, delete',
 		'Application' => 'list, show, new, create, edit, update, delete',
 		'Organization' => 'list, show, new, create, edit, update, delete',
