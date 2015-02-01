@@ -31,6 +31,7 @@
 		};]]>
 		<![CDATA[demandFromSettings = {
 			constraintsConjunction: ']]>{settings.constraintsConjunction}<![CDATA[',
+			ajaxPageType: ']]>{settings.ajaxPageType}<![CDATA[',
 			sectors: ']]>{settings.sectors}<![CDATA[',
 			categories: ']]>{settings.categories}<![CDATA[',
 			positionTypes: ']]>{settings.positionTypes}<![CDATA[',
@@ -58,41 +59,6 @@
 	</div>
 </f:if>
 <div id="map-view" style="{f:if(condition: '{0: settings.mapDisplayType} == {0: \'switchView\'}', then: 'display: none')}">
-	<f:if condition="{settings.mapDisplayType} != 'singleView'">
-		<f:comment><f:render section="map-filter" /></f:comment>
-	</f:if>
 	<div id="map_canvas" style="width:{settings.mapWidth};height:{settings.mapHeight}"></div>
 </div>
 
-<f:section name="map-filter">
-	<div class="map-filter">
-		<div class="row-fluid">
-			<div class="btn-group span8">
-				<label for="tx-placements-search-location">{f:translate(key:'tx_placements.proximity-search')}</label>
-				<f:form.textfield 
-					id="tx-placements-search-location"
-					name="location" 
-					value="{overwriteDemand.search.location}" 
-					class="span3"
-					placeholder="{f:translate(key: 'tx_placements.mapFilter.placeholder.location')}" 
-				/>
-				<f:form.select 
-					id="tx-placements-search-radius" 
-					name="radius"
-					value="{overwriteDemand.search.radius}"
-					class="span2"
-					options="{50000: '50 km', 100000: '100 km', 250000: '250 km', 500000: '500 km', 1000000: '1000 km'}" 
-				/>
-				<f:form.button 
-					id="radius-search-submit"
-					type="submit"
-					class="btn"
-					title="{f:translate(key: 'tx_placements.general.filter')}"
-				>
-					<i class="fa fa-filter"></i>
-				</f:form.button>
-			</div>
-		</div>
-	</div>
-
-</f:section>
