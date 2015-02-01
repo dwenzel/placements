@@ -20,7 +20,7 @@ if (!empty($settings['includeJavaScript'])) {
 	'Webfox.' . $_EXTKEY,
 	'Placements',
 	array(
-		'Position' => 'list, show, new, create, edit, update, delete, quickMenu,count',
+		'Position' => 'list, show, new, create, edit, update, delete, quickMenu,count,ajaxList,ajaxShow',
 		'User' => 'list, show, new, create, edit, update, delete',
 		'Application' => 'list, show, new, create, edit, update, delete',
 		'Organization' => 'list, show, new, create, edit, update, delete',
@@ -28,7 +28,7 @@ if (!empty($settings['includeJavaScript'])) {
 	),
 	// non-cacheable actions
 	array(
-		'Position' => 'create, update, delete, quickMenu',
+		'Position' => 'create, update, delete, quickMenu, ajaxList, ajaxShow',
 		'User' => 'create, update, delete',
 		'Application' => 'create, update, delete',
 		'Organization' => 'create, update, delete',

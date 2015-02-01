@@ -24,7 +24,8 @@ plugin.tx_placements {
 				editorGroup = {$plugin.tx_placements.settings.security.organization.editorGroup}
 				adminGroup = {$plugin.tx_placements.settings.security.organization.adminGroup}
 			}
-		}			
+		}
+			ajaxPageType = {$plugin.tx_placements.settings.ajaxPageType}
 		position {
 			list {
 				summary.crop = 35
@@ -79,3 +80,22 @@ plugin.tx_placements._CSS_DEFAULT_STYLE (
 		border: 1px #FF0000 solid;
 	}
 )
+
+placementsAjaxPage = PAGE
+placementsAjaxPage {
+	typeNum = {$plugin.tx_placements.settings.ajaxPageType}
+	config {
+		disableAllHeaderCode = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		debug = 0
+		additionalHeaders = Content-type:application/json
+		metaCharset = utf-8
+		no_cache = 1
+		noCache = 1
+	}
+	10 = COA
+	10 < tt_content.list.20.placements_placements
+	#20 = TEXT
+	#20.value = test
+}

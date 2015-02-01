@@ -164,6 +164,9 @@
 		<trans-unit id="flexforms_general.showMap" xml:space="preserve">
 			<source>Show Map View</source>
 		</trans-unit>
+		<trans-unit id="flexforms_general.showRadiusSearch" approved="yes" xml:space="preserve">
+			<target>Show Proximity Search</target>
+		</trans-unit>
 		<trans-unit id="flexforms_general.showPositionTypes" xml:space="preserve">
 			<source>Show Position Type Selector</source>
 		</trans-unit>

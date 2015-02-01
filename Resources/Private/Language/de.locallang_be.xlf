@@ -217,6 +217,10 @@
 			<source>Show Map View</source>
 			<target>Zeige Kartenansicht</target>
 		</trans-unit>
+		<trans-unit id="flexforms_general.showRadiusSearch" approved="yes" xml:space="preserve">
+			<source>Show Proximity Search</source>
+			<target>Zeige Umkreissuche</target>
+		</trans-unit>
 		<trans-unit id="flexforms_general.showPositionTypes" approved="yes" xml:space="preserve">
 			<source>Show Position Type Selector</source>
 			<target>Zeige Auswahl für Art der Stelle</target>

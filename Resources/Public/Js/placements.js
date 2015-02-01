@@ -93,28 +93,31 @@ function initMap() {
 function loadMapData(){
 	var 
 		action = 'ajaxList',
+		tx_placements_placements = {
+				pluginName:  'Placements',
+				controller:  'Position',
+				action:      action,
+		},
 		demand = overwriteDemandObject(demandFromSettings, overwriteDemand);
 	if(settings.mapDisplayType == 'syncWithPagination' && typeof(pagination) != 'undefined' && pagination.firstPageItem && pagination.lastPageItem) {
 		demand.offset = parseInt(pagination.firstPageItem) - 1;
 		demand.limit = pagination.lastPageItem - pagination.firstPageItem +1;
 	}
-	arguments = {'overwriteDemand': demand};
+	if(typeof(demand) != 'undefined') {
+		tx_placements_placements.overwriteDemand = demand;
+	}
+	var overwriteDemand =  demand;
 	if(settings.mapDisplayType == 'singleView') {
 		action = 'ajaxShow';
-		arguments = {'uid': singleUid};
+		tx_placements_placements.uid = singleUid;
 	}
 	$.ajax({
 		async: 'true',
 		url: 'index.php',     
 		type: 'POST',
 		data: {
-			eID: "placementsAjax",  
-			request: {
-				pluginName:  'Placements',
-				controller:  'Position',
-				action:      action,
-				arguments: arguments
-			}
+			type: demandFromSettings.ajaxPageType,
+			tx_placements_placements
 		},
 		dataType: "json",      
 		success: function(result) {

@@ -16,7 +16,7 @@
 								<items>
 									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.positions</numIndex>
-										<numIndex index="1">Position->list;Position->show;Position->new;Position->create;Position->edit;Position->update;Position->delete</numIndex>
+										<numIndex index="1">Position->list;Position->show;Position->new;Position->create;Position->edit;Position->update;Position->delete;Position->ajaxList;Position->ajaxShow</numIndex>
 									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.organizations</numIndex>
@@ -610,6 +610,15 @@
 							</config>
 						</TCEforms>
 					</settings.fitMapBounds>
+					<settings.showRadiusSearch>
+						<TCEforms>
+							<label>LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.showRadiusSearch</label>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.showRadiusSearch>
 				</el>
 			</ROOT>
 		</map>

@@ -22,6 +22,8 @@ plugin.tx_placements {
 			adminGroup =
 		    }
 		}
+		# cat=plugin.tx_placements//a; type=integer; label=Page type for Ajax actions
+		ajaxPageType = 1422726855
 		position {
 			list {
 				# Paginate configuration.
