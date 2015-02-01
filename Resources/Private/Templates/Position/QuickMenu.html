@@ -4,8 +4,8 @@ This Template creates a quick menu.
 
 <f:section name="main">
 <f:if condition="{settings.debug}">
-	<f:debug title="categories">{categories}</f:debug>
 	<f:debug title="settings">{settings}</f:debug>
+	<f:debug title="categories">{categories}</f:debug>
 	<f:debug title="overwrite demand">{overwriteDemand}</f:debug>
 	<f:debug title="workingHours">{workingHours}</f:debug>
 	<f:debug title="positionTypes">{positionTypes}</f:debug>
@@ -15,9 +15,7 @@ This Template creates a quick menu.
 
 	<div class="quick-menu">
 		<b><f:translate key="tx_placements.quickMenu.hint" /></b>
-		<br><br>
-		<f:form name="overwriteDemand" action="list"
-				pageUid="{settings.listPid}">
+		<f:form method="post" action="list" name="overwriteDemand" noCacheHash="1" noCache="1" pageUid="{settings.listPid}">
 			<f:if condition="{settings.showRadiusSearch}">
 				<div class="row-fluid">
 						<div class="btn-group span6">
@@ -174,7 +172,7 @@ This Template creates a quick menu.
 						name="submit" 
 						class="btn"
 						title="{f:translate(key: 'tx_placements.general.update')}"
-					><i class="fa fa-refresh"></i>{f:translate(key: 'tx_placements.general.update_')}</f:form.button>
+					><i class="fa fa-refresh"></i>{f:translate(key: 'tx_placements.general.update')}</f:form.button>
 				</div>
 			</div>
 		</f:form>
