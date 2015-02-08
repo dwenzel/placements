@@ -47,7 +47,7 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Image
 	 *
-	 * @var \string
+	 * @var \Webfox\Placements\Domain\Model\FileReference
 	 */ 
 	protected $image;
 
@@ -135,7 +135,7 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Get the image
 	 *
-	 * @return \string
+	 * @return \Webfox\Placements\Domain\Model\FileReference
 	 */
 	public function getImage() {
 	    return $this->image;
@@ -144,7 +144,7 @@ class Organization extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the image
 	 *
-	 * @param \string $image
+	 * @param \Webfox\Placements\Domain\Model\FileReference $image
 	 */
 	public function setImage($image) {
 		$this->image = $image;

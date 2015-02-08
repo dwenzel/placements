@@ -68,6 +68,12 @@ plugin.tx_placements {
 					prevNextHeaderTags = 1
 				}
 			}
+			detail {
+				image {
+					width = 290
+					height = 290
+				}
+			}
 		}
 	}
 }

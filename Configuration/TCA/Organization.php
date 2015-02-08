@@ -145,17 +145,51 @@ $TCA['tx_placements_domain_model_organization'] = array(
 		'image' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xml:tx_placement_domain_model_organization.image',
-			'config' => array(
-				'type' => 'group',
-				'internal_type' => 'file',
-				'uploadfolder' => 'uploads/tx_placements',
-				'show_thumbs' => 1,
-				'size' => 1,
+			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image', array(
+				'appearance' => array(
+					'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
+				),
 				'maxitems' => 1,
-				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-				'disallowed' => '',
-				'disable_controls' => 'list',
-			),
+				// custom configuration for displaying fields in the overlay/reference table
+				// to use the imageoverlayPalette instead of the basicoverlayPalette
+				'foreign_match_fields' => array(
+					'fieldname' => 'image',
+					'tablenames' => 'tx_placements_domain_model_organization',
+					'table_local' => 'sys_file',
+				),
+				'foreign_types' => array(
+					'0' => array(
+						'showitem' => '
+							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+							--palette--;;filePalette'
+					),
+					\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => array(
+						'showitem' => '
+							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+							--palette--;;filePalette'
+					),
+					\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => array(
+						'showitem' => '
+							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+							--palette--;;filePalette'
+					),
+					\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => array(
+						'showitem' => '
+							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+							--palette--;;filePalette'
+					),
+					\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => array(
+						'showitem' => '
+							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+							--palette--;;filePalette'
+					),
+					\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => array(
+						'showitem' => '
+							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+							--palette--;;filePalette'
+					)
+				)
+			), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
 		),
 		'sectors' => array(
 			'exclude' => 1,

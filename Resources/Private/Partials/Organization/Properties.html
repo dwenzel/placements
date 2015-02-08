@@ -1,4 +1,4 @@
-
+<f:debug title="settings">{settings}</f:debug>
 <h2>{organization.title}</h2>
 <div class="long-info">
 	<table>
@@ -23,7 +23,7 @@
 				<th class="label">{f:translate(key: 'tx_placements_domain_model_organization.image')}</th>
 					<td class="image">
 						<f:image 
-							src="uploads/tx_placements/{organization.image}" 
+							image="{organization.image}" 
 							alt="{organization.title}"
 							width="{settings.organization.detail.image.width}"
 						/>

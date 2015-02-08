@@ -20,23 +20,26 @@ namespace Webfox\Placements\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
+use Webfox\Placements\Property\TypeConverter\ResourceConverter;
+use TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration;
+
 class OrganizationController extends AbstractController {
 
 	/**
-	 * Initialize all actions
+	 * Set TypeConverter option for image upload
 	 */
-	public function initializeAction() {
-		if($this->arguments->hasArgument('newOrganization')) {
-			$this->arguments->getArgument('newOrganization')
-			->getPropertyMappingConfiguration()
-			->setTargetTypeForSubProperty('image', 'array');
-		}
-		if($this->arguments->hasArgument('organization')) {
-			$this->arguments->getArgument('organization')
-			->getPropertyMappingConfiguration()
-			->setTargetTypeForSubProperty('image', 'array');
-		}
+	public function initializeCreateAction() {
+		$this->setTypeConverterConfigurationForImageUpload('newOrganization');
 	}
+
+	/**
+	 * Set TypeConverter option for image upload
+	 */
+	public function initializeUpdateAction() {
+		$this->setTypeConverterConfigurationForImageUpload('organization');
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->arguments);
+	}
+
 	/**
 	 * action list
 	 *
@@ -90,7 +93,6 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function createAction(\Webfox\Placements\Domain\Model\Organization $newOrganization) {
-		$this->updateFileProperty($newOrganization, 'image');
 		$newOrganization->setClient($this->accessControlService->getFrontendUser()->getClient());
 		$this->organizationRepository->add($newOrganization);
 		$this->addFlashMessage(
@@ -135,7 +137,6 @@ class OrganizationController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(\Webfox\Placements\Domain\Model\Organization $organization) {
-		$this->updateFileProperty($organization, 'image');
 		$this->organizationRepository->update($organization);
 		$this->addFlashMessage(
 			$this->translate('tx_placements.success.organization.updateAction')	
@@ -216,4 +217,27 @@ class OrganizationController extends AbstractController {
 		}
 		return $demand;
 	}
+
+	/**
+	 * Sets the type converter configuration for an uploaded image for a given argument
+	 */
+	protected function setTypeConverterConfigurationForImageUpload($argumentName) {
+		$uploadConfiguration = array(
+			ResourceConverter::CONFIGURATION_ALLOWED_FILE_EXTENSIONS => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+			ResourceConverter::CONFIGURATION_UPLOAD_FOLDER => '1:/content/',
+		);
+		/** @var PropertyMappingConfiguration $mappingConfiguration */
+		$mappingConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
+		/**
+		 * @FIXME mapping fails with Invalid Argument Exception 
+		 * (code: 1300098528, incorrect reference to original file given for FileReference) in sysext/core/Classes/Resource/FileReference.php
+		 */  
+		$mappingConfiguration->forProperty('image')
+			->setTypeConverterOptions(
+				'Webfox\\Placements\\Property\\TypeConverter\\ResourceConverter',
+				$uploadConfiguration
+			)
+			->skipProperties('name', 'type', 'tmp_name', 'error', 'size');
+	}
 }
+

@@ -106,7 +106,7 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getImageReturnsInitialValueForString() {
+	public function getImageReturnsInitialValueForFileReference() {
 		$this->assertNull(
 			$this->fixture->getImage()
 		);
@@ -115,11 +115,14 @@ class OrganizationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function setImageForStringSetsImage() { 
-		$this->fixture->setImage('Conceived at T3CON10');
+	public function setImageForFileReferenceSetsImage() {
+		$newImage = $this->getMock(
+				'Webfox\\Placements\\Domain\\Model\\FileReference',
+				array(), array(), '', FALSE);
+		$this->fixture->setImage($newImage);
 
 		$this->assertSame(
-			'Conceived at T3CON10',
+			$newImage,
 			$this->fixture->getImage()
 		);
 	}
