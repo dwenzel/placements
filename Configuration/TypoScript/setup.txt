@@ -64,6 +64,12 @@ plugin.tx_placements {
 					maximumNumberOfLinks = {$plugin.tx_placements.settings.organization.list.paginate.maximumNumberOfLinks}
 				}
 			}
+			detail {
+				image {
+					width = {$plugin.tx_placements.settings.organization.detail.image.width}
+					height = {$plugin.tx_placements.settings.organization.detail.image.height}
+				}
+			}
 		}
 	}
 }

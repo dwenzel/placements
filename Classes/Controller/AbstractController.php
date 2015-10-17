@@ -157,53 +157,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
-	 * Upload file
-	 */
-	protected function uploadFile($fileName, $fileTmpName ) {
-		$basicFileUtility = $this->objectManager->get('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
-		$absFileName = $basicFileUtility->getUniqueName( $fileName, \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_placements'));
-		$fileInfo = $basicFileUtility->getTotalFileInfo($absFileName);
-		$realFileName = $fileInfo['file'];
-		\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($fileTmpName, $absFileName);
-		return $realFileName;
-	}
-
-	/**
- 	 * update file property
- 	 *
- 	 * @param \TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object The object whose proptery should be updated
- 	 * @param \string $propertyName The property which should be updated
- 	 * @return void
- 	 */
-	protected function updateFileProperty($object, $propertyName) {
-		if (\TYPO3\CMS\Extbase\Reflection\ObjectAccess::isPropertyGettable($object, $propertyName) AND
-			\TYPO3\CMS\Extbase\Reflection\ObjectAccess::isPropertySettable($object, $propertyName)) {
-			$file = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getProperty($object, $propertyName);
-			
-			if (is_array($file) AND !$file['error'] ) {
-				$fileName = $file['name'];
-				$realFileName = $this->uploadFile($fileName, $file['tmp_name']);
-				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($object, $propertyName, $realFileName);
-			} else {
-				$object->_memorizeCleanState($propertyName);
-				$error = $file['error'];
-				$knownErrorCodes = array(1,2,3,4,6,7,8);
-				$key = 'tx_placements.error.upload.unknown';
-				if(in_array($error, $knownErrorCodes)) {
-							$key = 'tx_placements.error.upload.' . $file['error'];
-				}
-
-				$errorMessage = $this->translate($key);
-				if($errorMessage) {
-					$this->addFlashMessage($errorMessage);
-				} else {
-					$this->addFlashMessage($key);
-				}
-			}
-		}
-	}
-
-	/**
 	* @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
 	* @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
 	* @return void

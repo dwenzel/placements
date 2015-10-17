@@ -3,13 +3,35 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_placements_domain_model_client'] = array(
-	'ctrl' => $TCA['tx_placements_domain_model_client']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_positiontype',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+		'sortby' => 'sorting',
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'title,description,',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('placements') . 'Resources/Public/Icons/tx_placements_domain_model_positiontype.gif'
+	),
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, identifier, description',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, description',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, name, identifier, description,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, description,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -34,11 +56,12 @@ $TCA['tx_placements_domain_model_client'] = array(
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
 			'config' => array(
 				'type' => 'select',
+				'noIconsBelowSelect' => TRUE,
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_placements_domain_model_client',
-				'foreign_table_where' => 'AND tx_placements_domain_model_client.pid=###CURRENT_PID### AND tx_placements_domain_model_client.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_placements_domain_model_positiontype',
+				'foreign_table_where' => 'AND tx_placements_domain_model_positiontype.pid=###CURRENT_PID### AND tx_placements_domain_model_positiontype.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -93,47 +116,25 @@ $TCA['tx_placements_domain_model_client'] = array(
 				),
 			),
 		),
-		'name' => array(
+		'title' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_client.name',
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_positiontype.title',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim,required'
 			),
 		),
-		'identifier' => array(
-			'exclude' => 1,
-			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_client.identifier',
-			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
-			),
-		),
 		'description' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_client.description',
+			'exclude' => 1,
+			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_positiontype.description',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
 				'rows' => 15,
-				'eval' => 'trim',
-				'wizards' => array(
-					'RTE' => array(
-						'icon' => 'wizard_rte2.gif',
-						'notNewRecords'=> 1,
-						'RTEonly' => 1,
-						'script' => 'wizard_rte.php',
-						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
-						'type' => 'script'
-					)
-				)
+				'eval' => 'trim'
 			),
-			'defaultExtras' => 'richtext:rte_transform[flag=rte_enabled|mode=ts]',
 		),
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-?>

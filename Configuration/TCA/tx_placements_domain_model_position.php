@@ -3,8 +3,31 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_placements_domain_model_position'] = array(
-	'ctrl' => $TCA['tx_placements_domain_model_position']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'requestUpdate' => 'fixed_term',
+		'searchFields' => 'title,identifier,summary,description,entry_date,fixed_term,duration,zip,city,payment,contact,link,organization,client,type,categories,working_hours,sectors,',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('placements') . 'Resources/Public/Icons/tx_placements_domain_model_position.gif'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, export_enabled, title, identifier, summary, description, entry_date, fixed_term, duration, zip, city, latitude, longitude, payment, contact, link, organization, client, type, categories, working_hours, sectors',
 	),
@@ -39,6 +62,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
 			'config' => array(
 				'type' => 'select',
+				'noIconsBelowSelect' => TRUE,
 				'items' => array(
 					array('', 0),
 				),
@@ -139,7 +163,9 @@ $TCA['tx_placements_domain_model_position'] = array(
 						'icon' => 'wizard_rte2.gif',
 						'notNewRecords'=> 1,
 						'RTEonly' => 0,
-						'script' => 'wizard_rte.php',
+						'module' => array(
+							'name' => 'wizard_rte'
+							),
 						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
 						'type' => 'script'
 					)
@@ -252,7 +278,9 @@ $TCA['tx_placements_domain_model_position'] = array(
 						'icon' => 'wizard_rte2.gif',
 						'notNewRecords'=> 1,
 						'RTEonly' => 0,
-						'script' => 'wizard_rte.php',
+						'module' => array(
+							'name' => 'wizard_rte'
+							),
 						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
 						'type' => 'script'
 					)
@@ -274,6 +302,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.organization',
 			'config' => array(
 				'type' => 'select',
+				'noIconsBelowSelect' => TRUE,
 				'foreign_table' => 'tx_placements_domain_model_organization',
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -284,6 +313,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.client',
 			'config' => array(
 				'type' => 'select',
+				'noIconsBelowSelect' => TRUE,
 				'foreign_table' => 'tx_placements_domain_model_client',
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -294,6 +324,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.type',
 			'config' => array(
 				'type' => 'select',
+				'noIconsBelowSelect' => TRUE,
 				'foreign_table' => 'tx_placements_domain_model_positiontype',
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -321,6 +352,7 @@ $TCA['tx_placements_domain_model_position'] = array(
 			'label' => 'LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:tx_placements_domain_model_position.working_hours',
 			'config' => array(
 				'type' => 'select',
+				'noIconsBelowSelect' => TRUE,
 				'foreign_table' => 'tx_placements_domain_model_workinghours',
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -343,7 +375,9 @@ $TCA['tx_placements_domain_model_position'] = array(
 					'edit' => array(
 						'type' => 'popup',
 						'title' => 'Edit',
-						'script' => 'wizard_edit.php',
+						'module' => array(
+							'name' => 'wizard_edit'
+							),
 						'icon' => 'edit2.gif',
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
@@ -357,13 +391,13 @@ $TCA['tx_placements_domain_model_position'] = array(
 							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
 							),
-						'script' => 'wizard_add.php',
+						'module' => array(
+							'name' => 'wizard_add'
+							)
 					),
 				),
 			),
 		),
 	),
 );
-
-?>
 

@@ -29,13 +29,15 @@
 
 <div class="row-fluid">
 	<div class="span12">
-		
-		<f:comment>
 		<label for="image">
 			<f:translate key="tx_placements_domain_model_organization.image" />
 		</label>
-			<f:form.upload property="image" />
-		</f:comment>
+			<f:form.textfield property="image.title" /><br />
+			<ps:form.upload property="image">
+				<f:if condition="{resource}">
+					<f:image image="{resource}" alt="" width="50"/>
+				</f:if>
+			</ps:form.upload>
 		
 		<f:if condition="{sectors}">
 			<div class="clearfix">
