@@ -240,7 +240,7 @@ $tmp_placements_columns = array(
 	),
 );
 
-t3lib_extMgm::addTCAcolumns('fe_users',$tmp_placements_columns);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users',$tmp_placements_columns);
 
 $TCA['fe_users']['columns'][$TCA['fe_users']['ctrl']['type']]['config']['items'][] = array('LLL:EXT:placements/Resources/Private/Language/locallang_db.xlf:fe_users.tx_extbase_type.Tx_Placements_User','Tx_Placements_User');
 
