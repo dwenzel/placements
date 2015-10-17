@@ -74,33 +74,32 @@ class OrganizationControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestC
 
 	/**
 	 * @test
-	 * @covers ::initializeAction
+	 * @covers ::initializeCreateAction
 	 */
-	public function initializeActionSetsTargetTypeForSubPropertyImage() {
+	public function initializeCreateActionSetsTargetTypeForSubPropertyImage() {
 		$fixture = $this->getAccessibleMock(
 			'\Webfox\Placements\Controller\OrganizationController',
-			array('dummy'), array(), '', FALSE);
-		$mockArguments = $this->getMock(
-			'\TYPO3\CMS\Extbase\Mvc\Controller\Arguments',
-			array(), array(), '', FALSE);
-		$fixture->_set('arguments', $mockArguments);
-		$mockArgument = $this->getMock(
-			'\TYPO3\CMS\Extbase\Mvc\Controller\Argument',
-			array('getPropertyMappingConfiguration'), array(), '', FALSE);
-		$mockMappingConfiguration = $this->getMock(
-			'\TYPO3\CMS\Extbase\Property\MappingConfiguration',
-			array('setTargetTypeForSubProperty'), array(), '', FALSE);
-		$mockArguments->expects($this->exactly(2))->method('hasArgument')
-			->will($this->returnValue(TRUE));
-		$mockArguments->expects($this->exactly(2))->method('getArgument')
-			->will($this->returnValue($mockArgument));
-		$mockArgument->expects($this->exactly(2))->method('getPropertyMappingConfiguration')
-			->will($this->returnValue($mockMappingConfiguration));
-		$mockMappingConfiguration->expects($this->exactly(2))->method('setTargetTypeForSubProperty')
-			->with('image', 'array');
+			array('setTypeConverterConfigurationForImageUpload'), array(), '', FALSE);
 
-		$fixture->initializeAction();
+		$fixture->expects($this->once())
+			->method('setTypeConverterConfigurationForImageUpload')
+			->with('newOrganization');
+		$fixture->initializeCreateAction();
+	}
 
+	/**
+	 * @test
+	 * @covers ::initializeUpdateAction
+	 */
+	public function initializeUpdateActionSetsTargetTypeForSubPropertyImage() {
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\Placements\Controller\OrganizationController',
+			array('setTypeConverterConfigurationForImageUpload'), array(), '', FALSE);
+
+		$fixture->expects($this->once())
+			->method('setTypeConverterConfigurationForImageUpload')
+			->with('organization');
+		$fixture->initializeUpdateAction();
 	}
 
 	/**

@@ -37,7 +37,6 @@ class OrganizationController extends AbstractController {
 	 */
 	public function initializeUpdateAction() {
 		$this->setTypeConverterConfigurationForImageUpload('organization');
-		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->arguments);
 	}
 
 	/**
