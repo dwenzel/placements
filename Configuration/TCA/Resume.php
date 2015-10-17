@@ -115,7 +115,9 @@ $TCA['tx_placements_domain_model_resume'] = array(
 						'icon' => 'wizard_rte2.gif',
 						'notNewRecords'=> 1,
 						'RTEonly' => 1,
-						'script' => 'wizard_rte.php',
+						'module' => array(
+							'name' => 'wizard_rte'
+							),
 						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
 						'type' => 'script'
 					)
@@ -153,5 +155,3 @@ $TCA['tx_placements_domain_model_resume'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-?>

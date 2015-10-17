@@ -134,8 +134,10 @@ $TCA['tx_placements_domain_model_organization'] = array(
 						'icon' => 'wizard_rte2.gif',
 						'notNewRecords'=> 1,
 						'RTEonly' => 1,
-						'script' => 'wizard_rte.php',
 						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
+						'module' => array(
+							'name' => 'wizard_rte'
+							),
 						'type' => 'script'
 					)
 				)
@@ -208,7 +210,9 @@ $TCA['tx_placements_domain_model_organization'] = array(
 					'edit' => array(
 						'type' => 'popup',
 						'title' => 'Edit',
-						'script' => 'wizard_edit.php',
+						'module' => array(
+							'name' => 'wizard_edit'
+						),
 						'icon' => 'edit2.gif',
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
@@ -222,7 +226,9 @@ $TCA['tx_placements_domain_model_organization'] = array(
 							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
 							),
-						'script' => 'wizard_add.php',
+						'module' => array(
+							'name' => 'wizard_add'
+							),
 					),
 				),
 			),
@@ -230,5 +236,3 @@ $TCA['tx_placements_domain_model_organization'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-?>
