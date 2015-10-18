@@ -357,8 +357,6 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			->with(NULL)->will($this->returnValue($mockDemand));
 		$fixture->_get('positionRepository')->expects($this->once())->method('findDemanded')->with($mockDemand, TRUE)
 			->will($this->returnValue($mockResult));
-		$mockResult->expects($this->once())->method('toArray')
-			->will($this->returnValue(array()));
 		$this->assertSame(
 				'[]',
 				$fixture->ajaxListAction()
@@ -386,8 +384,6 @@ class PositionControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 		$fixture->expects($this->once())->method('overwriteDemandObject')
 			->with($mockDemand, $overwriteDemand)->will($this->returnValue($mockDemand));
 		$fixture->_get('positionRepository')->expects($this->once())->method('findDemanded')->with($mockDemand, TRUE)
-			->will($this->returnValue($mockQueryResult));
-		$mockQueryResult->expects($this->once())->method('toArray')
 			->will($this->returnValue(array($mockPosition)));
 		$mockPosition->expects($this->once())->method('getType')->will($this->returnValue($mockType));
 		$mockType->expects($this->once())->method('getUid')->will($this->returnValue(99));
