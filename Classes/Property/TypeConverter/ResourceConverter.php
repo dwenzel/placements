@@ -27,6 +27,7 @@ namespace Webfox\Placements\Property\TypeConverter;
 
 use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException;
 use TYPO3\CMS\Core\Resource\File as FalFile;
+use TYPO3\CMS\Core\Resource\FileReference as FalFileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Error\Error;
@@ -77,7 +78,7 @@ class ResourceConverter extends AbstractTypeConverter {
 	/**
 	 * @var string
 	 */
-	protected $targetType = 'TYPO3\\CMS\\Core\\Resource\\FileReference';
+	protected $targetType = 'TYPO3\\CMS\\Extbase\\Domain\\Model\\FileReference';
 
 	/**
 	 * Needs to take precedence over the available FileReferenceConverter
@@ -128,7 +129,7 @@ class ResourceConverter extends AbstractTypeConverter {
 					$resourcePointer = $this->hashService->validateAndStripHmac($source['submittedFile']['resourcePointer']);
 					if (strpos($resourcePointer, 'file:') === 0) {
 						$fileUid = substr($resourcePointer, 5);
-						return $this->createFileRefrenceFromFalFileObject($this->resourceFactory->getFileObject($fileUid));
+						return $this->createFileReferenceFromFalFileObject($this->resourceFactory->getFileObject($fileUid));
 					} else {
 						return $this->resourceFactory->getFileReferenceObject($resourcePointer);
 					}
@@ -193,20 +194,37 @@ class ResourceConverter extends AbstractTypeConverter {
 		$uploadFolder = $this->resourceFactory->retrieveFileOrFolderObject($uploadFolderId);
 		$uploadedFile =  $uploadFolder->addUploadedFile($uploadInfo, $conflictMode);
 
-		return $this->createFileRefrenceFromFalFileObject($uploadedFile);
+		return $this->createFileReferenceFromFalFileObject($uploadedFile);
 	}
 
 	/**
 	 * @param FalFile $file
+	 * @param int $resourcePointer
 	 * @return \Webfox\Placements\Domain\Model\FileReference
 	 */
-	protected function createFileRefrenceFromFalFileObject(FalFile $file) {
-		return $this->resourceFactory->createFileReferenceObject(
+	protected function createFileReferenceFromFalFileObject(FalFile $file, $resourcePointer = NULL) {
+		$fileReference =  $this->resourceFactory->createFileReferenceObject(
 			array(
 				'uid_local' => $file->getUid(),
 				'uid_foreign' => uniqid('NEW_'),
 				'uid' => uniqid('NEW_'),
 			)
 		);
+		return $this->createFileReferenceFromFalFileReferenceObject($fileReference, $resourcePointer);
 	}
-}
+	/**
+	 * @param FalFileReference $falFileReference
+	 * @param int $resourcePointer
+	 * @return \Webfox\Placements\Domain\Model\FileReference
+	 */
+	protected function createFileReferenceFromFalFileReferenceObject(FalFileReference $falFileReference, $resourcePointer = NULL) {
+		if ($resourcePointer === NULL) {
+			/** @var $fileReference \Webfox\Placements\Domain\Model\FileReference */
+			$fileReference = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Domain\\Model\\FileReference');
+		} else {
+			$fileReference = $this->persistenceManager->getObjectByIdentifier($resourcePointer, 'TYPO3\\CMS\\Extbase\\Domain\\Model\\FileReference', FALSE);
+		}
+		$fileReference->setOriginalResource($falFileReference);
+
+		return $fileReference;
+	}}

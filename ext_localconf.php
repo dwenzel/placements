@@ -42,4 +42,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFl
 
 # include eid dispatcher
 $TYPO3_CONF_VARS['FE']['eID_include']['placementsAjax'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'Classes/Utility/EidDispatcher.php';
-?>
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerTypeConverter('Webfox\\Placements\\Property\\TypeConverter\\ResourceConverter');
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerTypeConverter('Webfox\\Placements\\Property\\TypeConverter\\ObjectStorageConverter');

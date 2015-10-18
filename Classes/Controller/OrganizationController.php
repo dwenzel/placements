@@ -227,7 +227,7 @@ class OrganizationController extends AbstractController {
 	protected function setTypeConverterConfigurationForImageUpload($argumentName) {
 		$uploadConfiguration = array(
 			ResourceConverter::CONFIGURATION_ALLOWED_FILE_EXTENSIONS => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-			ResourceConverter::CONFIGURATION_UPLOAD_FOLDER => '1:/content/',
+			ResourceConverter::CONFIGURATION_UPLOAD_FOLDER => '1:/user_upload/',
 		);
 		/** @var PropertyMappingConfiguration $mappingConfiguration */
 		$mappingConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
@@ -239,8 +239,7 @@ class OrganizationController extends AbstractController {
 			->setTypeConverterOptions(
 				'Webfox\\Placements\\Property\\TypeConverter\\ResourceConverter',
 				$uploadConfiguration
-			)
-			->skipProperties('name', 'type', 'tmp_name', 'error', 'size');
+			);
 	}
 }
 

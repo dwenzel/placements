@@ -1,17 +1,17 @@
 config.tx_extbase{
 	persistence{
 		classes{
-    	TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
-      	subclasses {
-        	Tx_Placements_User = Webfox\Placements\Domain\Model\User
-        }
-      }
-      Webfox\Placements\Domain\Model\User {
+    		TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+      			subclasses {
+        			Tx_Placements_User = Webfox\Placements\Domain\Model\User
+        		}
+      		}
+      		Webfox\Placements\Domain\Model\User {
 				mapping {
-        	tableName = fe_users
-     			#recordType = Tx_Placements_User
+        			tableName = fe_users
+     				#recordType = Tx_Placements_User
+    			}
     		}
-    	}
 			Webfox\Placements\Domain\Model\Category {
 				mapping {
 					tableName = sys_category
@@ -25,7 +25,7 @@ config.tx_extbase{
 					}
 				}
 			}
-  	}
+  		}
 	}
 	objects {
 		TYPO3\CMS\Extbase\Domain\Model\FileReference.className = Webfox\Placements\Domain\Model\FileReference
