@@ -211,7 +211,11 @@ class OrganizationController extends AbstractController {
 			}
 		}
 		// @todo implement OrderDemand to get rid of this string juggling
-		if((isset($settings['orderBy'])) AND (isset($settings['orderDirection']))) {
+		if((isset($settings['orderBy'])
+			AND !empty($settings['orderBy']))
+			AND (isset($settings['orderDirection'])
+			AND !empty($settings['orderDirection']))
+		) {
 			$demand->setOrder($settings['orderBy'] . '|' . $settings['orderDirection']);
 		}
 		return $demand;

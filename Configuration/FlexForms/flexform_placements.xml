@@ -71,35 +71,31 @@
 							<config>
 								<type>select</type>
 								<items>
-									<numIndex index="0" type="array">
-										<numIndex index="0"></numIndex>
-										<numIndex index="1"></numIndex>
-									</numIndex>
-									<numIndex index="1">
+									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.title</numIndex>
 										<numIndex index="1">title</numIndex>
 									</numIndex>
-									<numIndex index="2">
+									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.identifier</numIndex>
 										<numIndex index="1">identifier</numIndex>
 									</numIndex>
-									<numIndex index="3">
+									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.type</numIndex>
 										<numIndex index="1">type</numIndex>
 									</numIndex>
-									<numIndex index="4">
+									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.entryDate</numIndex>
 										<numIndex index="1">entryDate</numIndex>
 									</numIndex>
-									<numIndex index="5">
+									<numIndex index="4">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.uid</numIndex>
 										<numIndex index="1">uid</numIndex>
 									</numIndex>
-									<numIndex index="6">
+									<numIndex index="5">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.tstamp</numIndex>
 										<numIndex index="1">tstamp</numIndex>
 									</numIndex>
-									<numIndex index="7">
+									<numIndex index="6">
 										<numIndex index="0">LLL:EXT:placements/Resources/Private/Language/locallang_be.xlf:flexforms_general.zip</numIndex>
 										<numIndex index="1">zip</numIndex>
 									</numIndex>
