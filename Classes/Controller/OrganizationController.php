@@ -40,6 +40,13 @@ class OrganizationController extends AbstractController {
 	}
 
 	/**
+	 * Set TypeConverter option for image upload
+	 */
+	public function initializeEditAction() {
+		$this->setTypeConverterConfigurationForImageUpload('organization');
+	}
+
+	/**
 	 * action list
 	 *
 	 * @return void
